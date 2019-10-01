@@ -1,4 +1,4 @@
-package tagline.logic.parser;
+package tagline.logic.parser.contact;
 
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -6,15 +6,15 @@ import static tagline.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import tagline.logic.commands.AddCommand;
-import tagline.logic.commands.ClearCommand;
 import tagline.logic.commands.Command;
-import tagline.logic.commands.DeleteCommand;
-import tagline.logic.commands.EditCommand;
 import tagline.logic.commands.ExitCommand;
-import tagline.logic.commands.FindCommand;
 import tagline.logic.commands.HelpCommand;
-import tagline.logic.commands.ListCommand;
+import tagline.logic.commands.contact.AddContactCommand;
+import tagline.logic.commands.contact.ClearContactCommand;
+import tagline.logic.commands.contact.DeleteContactCommand;
+import tagline.logic.commands.contact.EditContactCommand;
+import tagline.logic.commands.contact.FindContactCommand;
+import tagline.logic.commands.contact.ListContactCommand;
 import tagline.logic.parser.exceptions.ParseException;
 
 /**
@@ -44,23 +44,23 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case AddContactCommand.COMMAND_WORD:
+            return new AddContactParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
+        case EditContactCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+        case DeleteContactCommand.COMMAND_WORD:
+            return new DeleteContactParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        case ClearContactCommand.COMMAND_WORD:
+            return new ClearContactCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+        case FindContactCommand.COMMAND_WORD:
+            return new FindContactParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case ListContactCommand.COMMAND_WORD:
+            return new ListContactCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

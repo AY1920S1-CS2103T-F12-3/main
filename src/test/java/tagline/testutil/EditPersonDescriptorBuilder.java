@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import tagline.logic.commands.EditCommand.EditPersonDescriptor;
+import tagline.logic.commands.contact.EditContactCommand.EditPersonDescriptor;
 import tagline.model.person.Address;
 import tagline.model.person.Email;
 import tagline.model.person.Name;

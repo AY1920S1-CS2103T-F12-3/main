@@ -1,15 +1,15 @@
 package tagline.testutil;
 
-import static tagline.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static tagline.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static tagline.logic.parser.CliSyntax.PREFIX_NAME;
-import static tagline.logic.parser.CliSyntax.PREFIX_PHONE;
-import static tagline.logic.parser.CliSyntax.PREFIX_TAG;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_ADDRESS;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_EMAIL;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_NAME;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_PHONE;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import tagline.logic.commands.AddCommand;
-import tagline.logic.commands.EditCommand.EditPersonDescriptor;
+import tagline.logic.commands.contact.AddContactCommand;
+import tagline.logic.commands.contact.EditContactCommand.EditPersonDescriptor;
 import tagline.model.person.Person;
 import tagline.model.tag.Tag;
 
@@ -22,7 +22,7 @@ public class PersonUtil {
      * Returns an add command string for adding the {@code person}.
      */
     public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+        return AddContactCommand.COMMAND_WORD + " " + getPersonDetails(person);
     }
 
     /**

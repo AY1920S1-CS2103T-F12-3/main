@@ -10,7 +10,7 @@ import tagline.commons.core.LogsCenter;
 import tagline.logic.commands.Command;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
-import tagline.logic.parser.AddressBookParser;
+import tagline.logic.parser.contact.AddressBookParser;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.Model;
 import tagline.model.ReadOnlyAddressBook;

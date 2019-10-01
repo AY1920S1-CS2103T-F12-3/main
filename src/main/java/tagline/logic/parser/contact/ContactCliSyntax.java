@@ -1,9 +1,11 @@
-package tagline.logic.parser;
+package tagline.logic.parser.contact;
+
+import tagline.logic.parser.Prefix;
 
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */
-public class CliSyntax {
+public class ContactCliSyntax {
 
     /* Prefix definitions */
     public static final Prefix PREFIX_NAME = new Prefix("n/");

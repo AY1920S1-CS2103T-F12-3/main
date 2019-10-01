@@ -1,12 +1,13 @@
-package tagline.logic.commands;
+package tagline.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
-import static tagline.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static tagline.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static tagline.logic.parser.CliSyntax.PREFIX_NAME;
-import static tagline.logic.parser.CliSyntax.PREFIX_PHONE;
-import static tagline.logic.parser.CliSyntax.PREFIX_TAG;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_ADDRESS;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_EMAIL;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_NAME;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_PHONE;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_TAG;
 
+import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.person.Person;
@@ -14,7 +15,7 @@ import tagline.model.person.Person;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddContactCommand extends ContactCommand {
 
     public static final String COMMAND_WORD = "add";
 
@@ -39,9 +40,9 @@ public class AddCommand extends Command {
     private final Person toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddContactCommand to add the specified {@code Person}
      */
-    public AddCommand(Person person) {
+    public AddContactCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
     }
@@ -61,7 +62,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof AddContactCommand // instanceof handles nulls
+                && toAdd.equals(((AddContactCommand) other).toAdd));
     }
 }

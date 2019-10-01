@@ -2,11 +2,11 @@ package tagline.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tagline.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static tagline.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static tagline.logic.parser.CliSyntax.PREFIX_NAME;
-import static tagline.logic.parser.CliSyntax.PREFIX_PHONE;
-import static tagline.logic.parser.CliSyntax.PREFIX_TAG;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_ADDRESS;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_EMAIL;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_NAME;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_PHONE;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_TAG;
 import static tagline.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import tagline.commons.core.index.Index;
+import tagline.logic.commands.contact.EditContactCommand;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.AddressBook;
 import tagline.model.Model;
@@ -57,8 +58,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditContactCommand.EditPersonDescriptor DESC_AMY;
+    public static final EditContactCommand.EditPersonDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
