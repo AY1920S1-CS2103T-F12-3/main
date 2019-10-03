@@ -1,4 +1,4 @@
-= Tagline - Developer Guide
+= TagLine - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:

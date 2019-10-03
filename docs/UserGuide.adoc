@@ -1,4 +1,4 @@
-= Tagline - User Guide
+= TagLine - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
