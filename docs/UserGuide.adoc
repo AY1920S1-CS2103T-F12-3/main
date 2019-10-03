@@ -18,7 +18,7 @@ By: `CS2103T-F12-03`      Since: `Oct 2019`      Licence: `MIT`
 
 == Introduction
 
-TagLine is for those who *prefer to use a desktop app for managing notes*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+TagLine is for those who *prefer to use a desktop app for managing notes*. More importantly, TagLine is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Tagline can streamline your note management much faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -71,9 +71,9 @@ Format:
 `bye`
 
 
-== Managing your contacts: `contact`
+== Managing contacts: `contact`
 
-=== Create a person: `create`
+=== Create a contact: `create`
 
 Create a contact.
 
@@ -97,9 +97,9 @@ Format:
 
 `list`
 
-=== Display the profile of a person: `show` `[coming in v2.0]`
+=== Display the profile of a contact: `show` `[coming in v2.0]`
 
-List all contacts in application.
+Display the profile page of a contact which shows the contact details and notes tagged with the contact.
 
 Format:
 
@@ -109,7 +109,7 @@ Examples:
 
 * `contact show 00343`
 
-=== Editing a person: `edit`
+=== Editing a contact: `edit`
 
 Edits contact information.
 
@@ -123,7 +123,7 @@ Examples:
 
 Disclaimer: partial edit will be supported in v2.0
 
-=== Deleting a person: `delete`
+=== Deleting a contact: `delete`
 
 Deletes a contact with the following id.
 
@@ -135,8 +135,7 @@ Examples:
 
 * `contact delete 00343`
 
-
-=== Locating persons by keyword: `find`
+=== Locating contacts by keyword: `find`
 
 Lists all contacts whose name matches the given keyword.
 
@@ -148,9 +147,9 @@ Examples:
 
 * `contact find wai fong`
 
-=== Pin a person: `pin` `[coming in v2.0]`
+=== Pin a contact: `pin` `[coming in v2.0]`
 
-Edits contact information.
+Pins a contact to the top of the contact list.
 
 Format:
 
@@ -160,7 +159,7 @@ Examples:
 
 * `contact pin 00343`
 
-=== Clearing all entries : `clear`
+=== Clearing all contact : `clear`
 
 Clears all data that you have in your contact list. Before executing this command, the application will also ask for confirmation through the chatbot because you won’t be able to undo this operation.
 
@@ -171,11 +170,78 @@ Format:
 Examples:
 
 * `contact clear`
-  Executing this command will trigger a confirmation in the chatbot: +
-  `Are you sure that you want to clear all data in your contact list? (Y/N)`
++
+Executing this command will trigger a confirmation in the chatbot:
 
+ `Are you sure that you want to clear all data in your contact list? (Y/N)`
++
+Then, if you answer "Y", the chatbot will clear all data in your contact list.
 
-  Then, if you answer "Y", the chatbot will clear all data in your contact list.
+== Managing groups: `group`
 
+=== Create a contact group: `create`
+Creates a new group. If any contacts are mentioned, the new group will contain all of the mentioned contacts.
 
+Format:
 
+`group create GROUP_NAME [--i CONTACT_ID]*`
+
+Example:
+
+* `group create CS2103-F12-3`
++
+Creates a group with name '_CS2103-F12-3_'.
+
+* `group create CS2103-F12-3 --i 12345 --i 23451 --i 34512 --i 45123 --i 51234`
++
+Creates a group with name '_CS2103-F12-3_' that contains contacts with ID '_12345_', '_23451_', '_34512_', '_45123_', and '_51234_' as group members.
+
+=== Delete a group: `delete`
+Deletes a contact group.
+
+Format:
+
+`group delete GROUP_NAME​`
+
+Example:
+
+* `group delete CS2103-F12-3`
++
+Deletes a group with name '_CS2103-F12-3_'.
+
+=== Add member to a group: `add`
+Adds members to a group.
+
+Format:
+
+`group add GROUP_NAME [--i CONTACT_ID]+`
+
+Example:
+
+* `group add CS2103-F12-3 --i 12345 --i 23451 --i 34512 --i 45123 --i 51234`
++
+Adds contacts with ID '_12345_', '_23451_', '_34512_', '_45123_', and '_51234_' to the group with name '_CS2103-F12-3_' as group members.
+
+=== Remove member from a group: remove
+Removes member from a group.
+
+Format:
+
+`group remove GROUP_NAME [--i CONTACT_ID]+`
+
+Examples:
+
+* `group remove CS2103-F12-3 --i 12345 --i 12347`
++
+Removes group members with contact ID '_12345_' and '_12347_' from '_CS2103-F12-3_' group.
+
+=== Display profile of a group: `show` `[coming in v2.0]`
+Display the profile page of a contact group which shows the members of the group and notes tagged with the group.
+
+Format:
+
+`group show GROUP_NAME`
+
+Example:
+
+* `group show CS2103-F12-3`
