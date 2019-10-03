@@ -40,8 +40,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
-[[Features]]
-== Features
+[[Glossary]]
+== Glossary
 
 ====
 *Command Format*
@@ -52,30 +52,147 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-
 == Basic Commands
 
-=== Viewing help: `help`
+=== View help: `help`
 
-Shows the list of commands and their usages.
+Displays the list of commands and their usages.
 
 Format:
 
 `help`
 
-=== Exiting the app: `help`
+=== Exit the app: `bye`
 
 Exits the application.
 
 Format:
 `bye`
 
+== Manage notes: `note`
 
-== Managing contacts: `contact`
+=== Create a note: `create`
+
+Creates a new note.
+
+Format:
+
+`note create --c CONTENT`
+
+Example:
+
+* `note create --c Today I don’t feel like doing anything`
++
+Adds a note with content “Today I don’t feel like doing anything”.
+
+NOTE: Upload of image will be supported in v2.0
+
+=== Delete a note: `delete`
+
+Deletes a note.
+
+Format:
+
+`note delete NOTE_ID`
+
+Example:
+
+* `note delete 00002`
++
+Deletes note with id '_00002_'.
+
+=== Edit a note: `edit`
+
+Edits a saved note.
+
+Format:
+
+`note edit NOTE_ID --c NEW_CONTENT`
+
+Example:
+
+* `note edit 00002 --c Today I don’t feel like doing anything`
++
+Replaces the content of the note which id is '_00002_' with “_Today I don’t feel like doing anything._”
+
+NOTE: Upload of image will be supported in v2.0 +
+Partial editing will be supported in v2.0
+
+=== Tag a note: tag
+
+Tags a note with one or more tags.
+
+Format:
+
+`note tag NOTE_ID [--t TAG]+`
+
+Example:
+
+* `note tag 00002 --t #CS2103T --t #Duke --t @12300 --t %cs2103T`
++
+Tags note with id '_00002_' with tag '_#CS2103T_', '_#Duke_' and user with id '_@12300_' and group '_%cs2103T_'.
+
+=== Untag a note: untag
+
+Untags a note from one or more tags.
+
+Format:
+
+`note untag NOTE_ID [--t TAG]+`
+
+Example:
+
+* `note untag 00002 --t #CS2103T --t #Duke --t @12300 --t %cs2103T`
++
+Untags '_#CS2103T_', '_#Duke_' and user with id '_@12300_' and group '_%cs2103T_' from note with id '_00002_'.
+
+=== Filter notes: list
+
+Lists all notes in the application. Filters can be applied to show only notes related to certain keywords, hashtags, users or groups.
+
+Format:
+
+`note list [# / @ / %][FILTER]`
+
+Example:
+
+[cols=3*,options=header]
+|===
+|Format
+|Example
+|Outcome
+
+|`note list`
+|`note list`
+|Lists all notes.
+
+|`note list KEYWORD`
+|`note list meeting`
+|Lists all notes which contain the phrase “_meeting_”.
+
+|`note list #HASHTAG`
+|`note list #cs2100`
+|Lists all notes with the hashtag '_#cs2100_'.
+
+|`note list @CONTACTID`
+|`note list @12345`
+|Lists all notes tagged with the contact of ID '_12345_'.
+
+|`note list %GROUPNAME`
+|`note list %cs2103 team`
+|Lists all notes tagged with the group '_cs2103 team_'.
+|===
+
+NOTE: Filtering by multi tag will be supported in v2.0
+
+=== Sorts notes: `sort` `[coming in v2.0]`
+Sort notes in different orders (i.e last updated date, alphabetically).
+
+== Manage contacts: `contact`
 
 === Create a contact: `create`
 
-Create a contact.
+Creates a contact.
 
 Format:
 
@@ -89,9 +206,9 @@ Examples:
 * `contact create John --p 81234567 --a 21 Kent Ridge Rd`
 * `contact create Dwayne Johnson --p 81234567 --e d.johnson@gmail.com --d Friend from CS2100`
 
-=== Listing all contacts: `list`
+=== List all contacts: `list`
 
-List all contacts in application.
+Lists all contacts in application.
 
 Format:
 
@@ -109,7 +226,7 @@ Examples:
 
 * `contact show 00343`
 
-=== Editing a contact: `edit`
+=== Edit a contact: `edit`
 
 Edits contact information.
 
@@ -123,7 +240,7 @@ Examples:
 
 Disclaimer: partial edit will be supported in v2.0
 
-=== Deleting a contact: `delete`
+=== Delete a contact: `delete`
 
 Deletes a contact with the following id.
 
@@ -135,7 +252,7 @@ Examples:
 
 * `contact delete 00343`
 
-=== Locating contacts by keyword: `find`
+=== Locate contacts by keyword: `find`
 
 Lists all contacts whose name matches the given keyword.
 
@@ -159,7 +276,7 @@ Examples:
 
 * `contact pin 00343`
 
-=== Clearing all contact : `clear`
+=== Clear all contact : `clear`
 
 Clears all data that you have in your contact list. Before executing this command, the application will also ask for confirmation through the chatbot because you won’t be able to undo this operation.
 
@@ -177,7 +294,7 @@ Executing this command will trigger a confirmation in the chatbot:
 +
 Then, if you answer "Y", the chatbot will clear all data in your contact list.
 
-== Managing groups: `group`
+== Manage groups: `group`
 
 === Create a contact group: `create`
 Creates a new group. If any contacts are mentioned, the new group will contain all of the mentioned contacts.
@@ -245,3 +362,4 @@ Format:
 Example:
 
 * `group show CS2103-F12-3`
+
