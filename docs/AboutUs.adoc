@@ -24,7 +24,7 @@ image::yehezkiel.png[width="150", align="left"]
 Role: Team Member
 
 === Ng Shi Wei
-image::shiwei.png[width="150", align="left"]
+image::shiweing.png[width="150", align="left"]
 {empty}[https://github.com/shiweing[github]] [<<shiwei#, portfolio>>]
 
 Role: Team Member
@@ -40,3 +40,4 @@ image::placeholder_image.png[width="150", align="left"]
 {empty}[https://github.com/tanlk99[github]] [<<tanlikai#, portfolio>>]
 
 Role: Team Member
+=======
