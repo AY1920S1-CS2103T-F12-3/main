@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import tagline.ui.CommandBox.CommandExecutor;
@@ -11,7 +12,7 @@ import tagline.ui.CommandBox.CommandExecutor;
 /**
  * The UI component that stores the chat window.
  */
-public class ChatPane extends UiPart<VBox> {
+public class ChatPane extends UiPart<GridPane> {
 
     private static final String FXML = "ChatPane.fxml";
 
@@ -38,6 +39,7 @@ public class ChatPane extends UiPart<VBox> {
      */
     void fillInnerParts(CommandExecutor commandExecutor) {
         commandBox = new CommandBox(commandExecutor);
+        commandBox.getRoot().prefWidthProperty().bind(getRoot().widthProperty());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -47,6 +49,12 @@ public class ChatPane extends UiPart<VBox> {
      */
     public void setCommandFromUser(String commandFromUser) {
         requireNonNull(commandFromUser);
+
+        //Don't display empty messages
+        if (commandFromUser.isEmpty()) {
+            return;
+        }
+
         dialogContainer.getChildren().add(DialogBox.getCommandDialog(commandFromUser).getRoot());
     }
 
