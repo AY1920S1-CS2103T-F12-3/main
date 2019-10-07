@@ -1,4 +1,7 @@
-= AddressBook Level 3 - User Guide
+= TagLine - User Guide
+:toclevels: 3
+:sectnums:
+:sectnumlevels: 3
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,166 +15,385 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-F12-03`      Since: `Oct 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+TagLine is for those who prefer to use a desktop app for managing notes.
+More importantly, TagLine is optimized for those who prefer to work with a Command Line Interface (CLI)
+while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TagLine can
+streamline your note management much faster than traditional GUI apps. Interested? Jump to the Quick Start
+to get started. Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure that you have Java 11 or above installed.
+.  Download the latest TagLine.jar here.
+.  Move the file to the folder you want to use as the home folder for TagLine. You are recommended to create a new folder for TagLine as it will create files to store your data.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  The panel on the left is the Chatbot Interface. Type a command in the message box and press Enter to execute it.
+.  Some commands you can try:
+- `contact list`: Lists all contacts
+- `note list`: Lists all notes
+.  Your output will be displayed on the panel on the right. For more features on each command, refer to the Command List.
+.  Refer to <<Command List>> for details of each command.
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
-
-[[Features]]
-== Features
+== Command List
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `contact create NAME`, `NAME` is a parameter which can be used as `contact create John Doe`.
+* Items in square brackets are optional e.g `[--n NAME]` and `[--e EMAIL]` can be used as `--n John Doe --e j.doe@gmail.com` or only `--n John Doe`.
+* Items with `\*` after them can be used multiple times including zero times e.g. `[--t TAG]*`​ can be used as `<empty>` (i.e. 0 times), `--t friend`, `--t friend --t family`, etc.
+* Items with `+`​ after them can be used one or multiple times e.g. `[--t TAG]+`​ can be used as `--t friend` and `--t friend --t family` but cannot be used as `<empty>` (i.e. 0 times),
+* Parameters can be in any order e.g. `--n NAME --p PHONE_NUMBER` and `--p PHONE_NUMBER --n NAME` are considered the same.
 ====
 
-=== Viewing help : `help`
+=== Basic Commands
 
-Format: `help`
+==== Views help: `help`
 
-=== Adding a person: `add`
+Displays the list of commands and their usages.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format:
 
-[TIP]
-A person can have any number of tags (including 0)
+`help`
 
-Examples:
+==== Exits the app: `bye`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Exits the application.
 
-=== Listing all persons : `list`
+Format:
+`bye`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+=== Manage contacts: `contact`
 
-=== Editing a person : `edit`
+==== Create a contact: `create`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Creates a contact.
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Format:
+
+`contact create NAME [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `contact create Dwayne Johnson`
+* `contact create Dwayne --d Friend from CS2100`
+* `contact create John --e johnson@gmail.com --d Friend from CS2100`
+* `contact create John --p 81234567 --a 21 Kent Ridge Rd`
+* `contact create Dwayne Johnson --p 81234567 --e d.johnson@gmail.com --d Friend from CS2100`
 
-=== Locating persons by name: `find`
+==== List all contacts: `list`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Lists all contacts in the application.
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Format:
 
-Examples:
+`list`
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+==== Display the profile of a person: `show` `[coming in v2.0]`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+Display the profile page of a contact which shows the contact details and notes tagged with the contact.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Format:
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+`contact show CONTACT_ID`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `contact show 00343`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+==== Edit a person: `edit`
 
-Clears all entries from the address book. +
-Format: `clear`
+Edits contact information.
 
-=== Exiting the program : `exit`
+Format:
 
-Exits the program. +
-Format: `exit`
+`contact edit CONTACT_ID [--n NAME] [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
 
-=== Saving the data
+Examples:
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+* `contact edit 00343 --n Holland --e nightmonkey@starkindustries.com`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+NOTE: Partial edit will be supported in v2.0
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+==== Delete a person: `delete`
 
-== FAQ
+Deletes a contact with the following id.
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+Format:
 
-== Command Summary
+`contact delete CONTACTID`
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+Examples:
+
+* `contact delete 00343`
+
+==== Locate persons by keyword: `find`
+
+Lists all contacts whose name matches the given keyword.
+
+Format:
+
+`contact find KEYWORD`
+
+Examples:
+
+* `contact find wai fong`
+
+==== Pin a person: `pin` `[coming in v2.0]`
+
+Pins a contact to the top of the contact list.
+
+Format:
+
+`contact pin CONTACT_ID`
+
+Examples:
+
+* `contact pin 00343`
+
+==== Clear all entries : `clear`
+
+Clears all data that you have in your contact list. Before executing this command, the application will also ask for confirmation through the chatbot because you won’t be able to undo this operation.
+
+Format:
+
+`contact clear`
+
+Examples:
+
+* `contact clear`
++
+Executing this command will trigger a confirmation in the chatbot:
++
+  `Are you sure that you want to clear all data in your contact list? (Y/N)`
++
+Then, if you answer "Y", the chatbot will clear all data in your contact list.
+
+=== Manage groups: `group`
+
+==== Create a contact group: `create`
+Creates a new group. If any contacts are mentioned, the new group will contain all of the mentioned contacts.
+
+Format:
+
+`group create GROUP_NAME [--i CONTACT_ID]*`
+
+Example:
+
+* `group create CS2103-F12-3`
++
+Creates a group with name '_CS2103-F12-3_'.
+
+* `group create CS2103-F12-3 --i 12345 --i 23451 --i 34512 --i 45123 --i 51234`
++
+Creates a group with name '_CS2103-F12-3_' that contains contacts with ID '_12345_', '_23451_', '_34512_', '_45123_', and '_51234_' as group members.
+
+==== Add member to a group: `add`
+Adds members to a group.
+
+Format:
+
+`group add GROUP_NAME [--i CONTACT_ID]+`
+
+Example:
+
+* `group add CS2103-F12-3 --i 12345 --i 23451 --i 34512 --i 45123 --i 51234`
++
+Adds contacts with ID '_12345_', '_23451_', '_34512_', '_45123_', and '_51234_' to the group with name '_CS2103-F12-3_' as group members.
+
+==== Remove member from a group: `remove`
+Removes member from a group.
+
+Format:
+
+`group remove GROUP_NAME [--i CONTACT_ID]+`
+
+Examples:
+
+* `group remove CS2103-F12-3 --i 12345 --i 12347`
++
+Removes group members with contact ID '_12345_' and '_12347_' from '_CS2103-F12-3_' group.
+
+==== Display profile of a group: `show` `[coming in v2.0]`
+Display the profile page of a contact group which shows the members of the group and notes tagged with the group.
+
+Format:
+
+`group show GROUP_NAME`
+
+Example:
+
+* `group show CS2103-F12-3`
+
+==== Delete a group: `delete`
+Deletes a contact group.
+
+Format:
+
+`group delete GROUP_NAME​`
+
+Example:
+
+* `group delete CS2103-F12-3`
++
+Deletes a group with name '_CS2103-F12-3_'.
+
+=== Manage your notes: `note`
+
+==== Creates a note: `create`
+
+Creates a new note.
+
+Format:
+
+`note create --c CONTENT`
+
+Example:
+
+* `note create --c Today I don’t feel like doing anything`
+Adds a note with content “Today I don’t feel like doing anything”.
++
+Executing this command will trigger a confirmation in the chatbot:
+ `Are you sure that you want to clear all data in your contact list? (Y/N)`
++
+Then, if you answer "Y", the chatbot will clear all data in your contact list.
+
+NOTE: Upload of image will be supported in v2.0
+
+==== Delete a note: `delete`
+
+Deletes a note.
+
+Format:
+
+`note delete NOTE_ID`
+
+Example:
+
+* `note delete 00002`
++
+Deletes note with id '_00002_'.
+
+==== Edit a note: `edit`
+
+Edits a saved note.
+
+Format:
+
+`note edit NOTE_ID --c NEW_CONTENT`
+
+Example:
+
+* `note edit 00002 --c Today I don’t feel like doing anything`
++
+Replaces the content of the note which id is '_00002_' with “_Today I don’t feel like doing anything._”
+
+NOTE: Upload of image will be supported in v2.0 +
+Partial editing will be supported in v2.0
+
+==== Tag a note: `tag`
+
+Tags a note with one or more tags.
+
+Format:
+
+`note tag NOTE_ID [--t TAG]+`
+
+Example:
+
+* `note tag 00002 --t #CS2103T --t #Duke --t @12300 --t %cs2103T`
++
+Tags note with id '_00002_' with tag '_#CS2103T_', '_#Duke_' and user with id '_@12300_' and group '_%cs2103T_'.
+
+==== Untag a note: `untag`
+
+Untags a note from one or more tags.
+
+Format:
+
+`note untag NOTE_ID [--t TAG]+`
+
+Example:
+
+* `note untag 00002 --t #CS2103T --t #Duke --t @12300 --t %cs2103T`
++
+Untags '_#CS2103T_', '_#Duke_' and user with id '_@12300_' and group '_%cs2103T_' from note with id '_00002_'.
+
+==== Filter notes: `list`
+
+Lists all notes in the application. Filters can be applied to show only notes related to certain keywords, hashtags, users or groups.
+
+Format:
+
+`note list [# / @ / %][FILTER]`
+
+Example:
+
+[cols=3*,options=header]
+|===
+|Format
+|Example
+|Outcome
+
+|`note list`
+|`note list`
+|Lists all notes.
+
+|`note list KEYWORD`
+|`note list meeting`
+|Lists all notes which contain the phrase “_meeting_”.
+
+|`note list #HASHTAG`
+|`note list #cs2100`
+|Lists all notes with the hashtag '_#cs2100_'.
+
+|`note list @CONTACTID`
+|`note list @12345`
+|Lists all notes tagged with the contact of ID '_12345_'.
+
+|`note list %GROUPNAME`
+|`note list %cs2103 team`
+|Lists all notes tagged with the group '_cs2103 team_'.
+|===
+
+NOTE: Filtering by multiple tags will be supported in v2.0
+
+==== Sort your notes: `sort` `[coming in v2.0]`
+Sort notes in different orders (i.e last updated date, alphabetically).
+
+=== Manage your tags: `tag`
+
+==== Filter tags: `list`
+
+Lists all tags that are currently associated with your notes. You can also choose to filter them by name or type.
+
+Format:
+
+`tag list [FILTER]`
+
+Example:
+
+[cols=3*,options=header]
+|===
+|Format
+|Example
+|Outcome
+
+|`tag list`
+|`tag list`
+|Lists all hashtags.
+
+|`tag list FILTER`
+|`tag list cs`
+|Lists all hashtags matching the filter “cs”, which may include “cs2100” or “cs2103” but not “trip”.
+|===
