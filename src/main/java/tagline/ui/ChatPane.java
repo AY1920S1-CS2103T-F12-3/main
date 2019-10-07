@@ -36,7 +36,6 @@ public class ChatPane extends UiPart<GridPane> {
 
         //setting vvalue to 1.0 doesn't work
         dialogScrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogScrollPane.prefViewportHeightProperty().bind(dialogContainer.heightProperty());
     }
 
     public void setCommandFromUser(String commandFromUser) {

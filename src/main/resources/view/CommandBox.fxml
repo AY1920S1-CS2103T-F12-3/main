@@ -9,7 +9,7 @@
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS" halignment="LEFT"/>
         <ColumnConstraints hgrow="NEVER" prefWidth="5.0" minWidth="5.0"/>
-        <ColumnConstraints hgrow="NEVER" prefWidth="60.0" minWidth="60.0"/>
+        <ColumnConstraints hgrow="NEVER" minWidth="60.0"/>
     </columnConstraints>
     <children>
         <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..."
