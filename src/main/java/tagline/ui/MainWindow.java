@@ -8,8 +8,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tagline.commons.core.GuiSettings;
 import tagline.commons.core.LogsCenter;
@@ -33,20 +33,23 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ChatPane chatPane;
-    private PersonListPanel personListPanel;
+    private ContactResultPane contactResultPane;
     private HelpWindow helpWindow;
 
     @FXML
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private VBox chatPanePlaceholder;
+    private StackPane chatPanePlaceholder;
+
+    @FXML
+    private StackPane resultPanePlaceholder;
+
+    @FXML
+    private HBox mainPanel;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -101,16 +104,31 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Swaps the current view in the result pane.
+     *
+     * @param resultPane Next view to display
+     */
+    void setResultPaneView(ResultPane resultPane) {
+        resultPanePlaceholder.getChildren().removeAll();
+        resultPanePlaceholder.getChildren().add(resultPane.getRoot());
+    }
+
+    /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        chatPane = new ChatPane(this::executeCommand);
+        contactResultPane = new ContactResultPane();
+        contactResultPane.fillInnerParts(logic.getFilteredPersonList());
+
+        //set to contact result pane by default
+        setResultPaneView(contactResultPane);
+
+        chatPane = new ChatPane();
+        chatPane.fillInnerParts(this::executeCommand);
+
         chatPanePlaceholder.getChildren().add(chatPane.getRoot());
     }
 
@@ -152,10 +170,6 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     /**

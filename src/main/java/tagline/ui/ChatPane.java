@@ -26,21 +26,34 @@ public class ChatPane extends UiPart<VBox> {
     @FXML
     private VBox dialogContainer;
 
-    public ChatPane(CommandExecutor commandExecutor) {
+    public ChatPane() {
         super(FXML);
-
-        commandBox = new CommandBox(commandExecutor);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         //setting vvalue to 1.0 doesn't work
         dialogScrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    void fillInnerParts(CommandExecutor commandExecutor) {
+        commandBox = new CommandBox(commandExecutor);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Displays a new command from the user in the chat window.
+     * @param commandFromUser Command entered by user
+     */
     public void setCommandFromUser(String commandFromUser) {
         requireNonNull(commandFromUser);
         dialogContainer.getChildren().add(DialogBox.getCommandDialog(commandFromUser).getRoot());
     }
 
+    /**
+     * Displays the feedback returned by TagLine in the chat window.
+     * @param feedbackToUser Feedback to user
+     */
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
         dialogContainer.getChildren().add(DialogBox.getResponseDialog(feedbackToUser).getRoot());
