@@ -34,10 +34,10 @@
           </Menu>
         </MenuBar>
 
-        <HBox minWidth="-Infinity" VBox.vgrow="ALWAYS">
-          <VBox fx:id="chatPanePlaceholder" styleClass="pane-with-border" prefWidth="350" HBox.hgrow="NEVER" />
+        <HBox fx:id="mainPane" minWidth="-Infinity" VBox.vgrow="ALWAYS">
+          <StackPane fx:id="chatPanePlaceholder" minWidth="350" prefWidth="350" HBox.hgrow="NEVER" />
 
-          <VBox fx:id="personList" styleClass="pane-with-border" minWidth="350" HBox.hgrow="ALWAYS" >
+          <VBox fx:id="personList" styleClass="pane-with-border" minWidth="350" prefWidth="350" HBox.hgrow="ALWAYS" >
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>

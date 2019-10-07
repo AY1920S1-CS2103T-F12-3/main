@@ -8,8 +8,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tagline.commons.core.GuiSettings;
 import tagline.commons.core.LogsCenter;
@@ -46,7 +46,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private VBox chatPanePlaceholder;
+    private StackPane chatPanePlaceholder;
+
+    @FXML
+    private HBox mainPane;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -111,6 +114,7 @@ public class MainWindow extends UiPart<Stage> {
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         chatPane = new ChatPane(this::executeCommand);
+        chatPane.getRoot().prefHeightProperty().bind(mainPane.heightProperty());
         chatPanePlaceholder.getChildren().add(chatPane.getRoot());
     }
 
