@@ -4,7 +4,10 @@ import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 /**
@@ -24,6 +27,9 @@ class DialogBox extends UiPart<HBox> {
     @FXML
     private Label dialog;
 
+    @FXML
+    private ImageView displayPicture;
+
     private FadeTransition fadeTransition;
 
     /**
@@ -36,6 +42,9 @@ class DialogBox extends UiPart<HBox> {
 
         dialog.setText(text);
         prepareAnimation();
+
+        double radius = displayPicture.getFitHeight() / 2;
+        displayPicture.setClip(new Circle(radius, radius, radius));
     }
 
     /**
@@ -77,12 +86,14 @@ class DialogBox extends UiPart<HBox> {
      * The text box is aligned to the left.
      *
      * @param text  Text to place in the dialog box
+     * @param image Image to place as the icon
      * @return      A DialogBox object for the message
      */
-    public static DialogBox getResponseDialog(String text) {
+    public static DialogBox getResponseDialog(String text, Image image) {
         DialogBox db = new DialogBox(text);
         db.flip();
 
+        db.displayPicture.setImage(image);
         db.dialog.getStyleClass().add(RESPONSE_DIALOG);
         db.fadeTransition.play();
         return db;

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -15,6 +16,7 @@ import tagline.ui.CommandBox.CommandExecutor;
 public class ChatPane extends UiPart<GridPane> {
 
     private static final String FXML = "ChatPane.fxml";
+    private static final String TAGLINE_RESPONSE_IMAGE = "/images/tagline_icon.png";
 
     private CommandBox commandBox;
 
@@ -26,6 +28,8 @@ public class ChatPane extends UiPart<GridPane> {
 
     @FXML
     private VBox dialogContainer;
+
+    private Image image = new Image(getClass().getResourceAsStream(TAGLINE_RESPONSE_IMAGE));
 
     public ChatPane() {
         super(FXML);
@@ -64,6 +68,6 @@ public class ChatPane extends UiPart<GridPane> {
      */
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
-        dialogContainer.getChildren().add(DialogBox.getResponseDialog(feedbackToUser).getRoot());
+        dialogContainer.getChildren().add(DialogBox.getResponseDialog(feedbackToUser, image).getRoot());
     }
 }

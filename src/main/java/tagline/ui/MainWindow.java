@@ -124,7 +124,6 @@ public class MainWindow extends UiPart<Stage> {
 
         chatPane = new ChatPane();
         chatPane.fillInnerParts(this::executeCommand);
-
         chatPanePlaceholder.getChildren().add(chatPane.getRoot());
     }
 
