@@ -10,6 +10,7 @@ import tagline.commons.core.index.Index;
 import tagline.commons.util.StringUtil;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.person.Address;
+import tagline.model.person.Description;
 import tagline.model.person.Email;
 import tagline.model.person.Name;
 import tagline.model.person.Phone;
@@ -93,6 +94,21 @@ public class ContactParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String description} into an {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code email} is invalid.
+     */
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Email.isValidEmail(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Description(trimmedDescription);
     }
 
     /**
