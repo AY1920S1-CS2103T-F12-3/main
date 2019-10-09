@@ -19,6 +19,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.contact.AddContactCommand;
+import tagline.logic.commands.contact.ContactCommand;
 import tagline.logic.commands.contact.ListContactCommand;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.logic.parser.exceptions.ParseException;
@@ -58,13 +59,13 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "contact delete 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListContactCommand.COMMAND_WORD;
+        String listCommand = ContactCommand.COMMAND_KEY + " " + ListContactCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListContactCommand.MESSAGE_SUCCESS, model);
     }
 
@@ -79,8 +80,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddContactCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
+        String addCommand = ContactCommand.COMMAND_KEY + " " + AddContactCommand.COMMAND_WORD + NAME_DESC_AMY
+                + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);

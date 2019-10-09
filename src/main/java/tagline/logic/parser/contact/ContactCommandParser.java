@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import tagline.logic.commands.Command;
-import tagline.logic.commands.ExitCommand;
 import tagline.logic.commands.HelpCommand;
 import tagline.logic.commands.contact.AddContactCommand;
 import tagline.logic.commands.contact.ClearContactCommand;
@@ -20,7 +19,7 @@ import tagline.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class ContactCommandParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -61,12 +60,6 @@ public class AddressBookParser {
 
         case ListContactCommand.COMMAND_WORD:
             return new ListContactCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import tagline.logic.commands.ExitCommand;
 import tagline.logic.commands.HelpCommand;
 import tagline.logic.commands.contact.AddContactCommand;
 import tagline.logic.commands.contact.ClearContactCommand;
@@ -22,7 +21,7 @@ import tagline.logic.commands.contact.EditContactCommand;
 import tagline.logic.commands.contact.EditContactCommand.EditPersonDescriptor;
 import tagline.logic.commands.contact.FindContactCommand;
 import tagline.logic.commands.contact.ListContactCommand;
-import tagline.logic.parser.contact.AddressBookParser;
+import tagline.logic.parser.contact.ContactCommandParser;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.person.NameContainsKeywordsPredicate;
 import tagline.model.person.Person;
@@ -30,9 +29,9 @@ import tagline.testutil.EditPersonDescriptorBuilder;
 import tagline.testutil.PersonBuilder;
 import tagline.testutil.PersonUtil;
 
-public class AddressBookParserTest {
+public class ContactCommandParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final ContactCommandParser parser = new ContactCommandParser();
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -64,23 +63,11 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_exit() throws Exception {
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
-    }
-
-    @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindContactCommand command = (FindContactCommand) parser.parseCommand(
                 FindContactCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindContactCommand(new NameContainsKeywordsPredicate(keywords)), command);
-    }
-
-    @Test
-    public void parseCommand_help() throws Exception {
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
     }
 
     @Test

@@ -31,6 +31,7 @@ public class AddContactParser implements Parser<AddContactCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddContactCommand
      * and returns an AddContactCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddContactCommand parse(String args) throws ParseException {
