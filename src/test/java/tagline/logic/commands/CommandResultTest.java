@@ -55,6 +55,7 @@ public class CommandResultTest {
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
 
         // different view type -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", CommandResult.ViewType.CONTACT).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
+                CommandResult.ViewType.CONTACT).hashCode());
     }
 }
