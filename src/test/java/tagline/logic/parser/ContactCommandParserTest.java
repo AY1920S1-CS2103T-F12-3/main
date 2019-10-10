@@ -2,7 +2,6 @@ package tagline.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static tagline.testutil.Assert.assertThrows;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -13,7 +12,6 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import tagline.logic.commands.HelpCommand;
 import tagline.logic.commands.contact.AddContactCommand;
 import tagline.logic.commands.contact.ClearContactCommand;
 import tagline.logic.commands.contact.DeleteContactCommand;
@@ -74,12 +72,6 @@ public class ContactCommandParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListContactCommand.COMMAND_WORD) instanceof ListContactCommand);
         assertTrue(parser.parseCommand(ListContactCommand.COMMAND_WORD + " 3") instanceof ListContactCommand);
-    }
-
-    @Test
-    public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                HelpCommand.MESSAGE_USAGE), () -> parser.parseCommand(""));
     }
 
     @Test

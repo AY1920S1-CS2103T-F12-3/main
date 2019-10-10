@@ -5,7 +5,6 @@ import static tagline.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static tagline.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static tagline.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static tagline.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static tagline.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static tagline.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static tagline.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static tagline.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
@@ -19,8 +18,6 @@ import static tagline.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static tagline.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static tagline.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static tagline.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static tagline.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static tagline.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -33,7 +30,6 @@ import tagline.commons.core.index.Index;
 import tagline.logic.commands.contact.EditContactCommand;
 import tagline.logic.commands.contact.EditContactCommand.EditPersonDescriptor;
 import tagline.logic.parser.contact.EditCommandParser;
-import tagline.model.person.Address;
 import tagline.model.person.Email;
 import tagline.model.person.Name;
 import tagline.model.person.Phone;
@@ -78,7 +74,6 @@ public class EditContactCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
 
         // invalid phone followed by valid email
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
@@ -100,7 +95,7 @@ public class EditContactCommandParserTest {
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .build();
         EditContactCommand expectedCommand = new EditContactCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -154,7 +149,7 @@ public class EditContactCommandParserTest {
                 + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .build();
         EditContactCommand expectedCommand = new EditContactCommand(targetIndex, descriptor);
 

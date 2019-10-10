@@ -1,6 +1,5 @@
 package tagline.logic.parser.contact;
 
-import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_ADDRESS;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_DESCRIPTION;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_EMAIL;
@@ -38,16 +37,41 @@ public class AddContactParser implements Parser<AddContactCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                         PREFIX_ADDRESS, PREFIX_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddContactCommand.MESSAGE_USAGE));
+        Name name;
+        Phone phone;
+        Email email;
+        Address address;
+        Description description;
+
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            name = ContactParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        } else {
+            name = ContactParserUtil.parseName("");
         }
 
-        Name name = ContactParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ContactParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ContactParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ContactParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Description description = ContactParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            phone = ContactParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        } else {
+            phone = ContactParserUtil.parsePhone("");
+        }
+
+        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+            email = ContactParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        } else {
+            email = ContactParserUtil.parseEmail("");
+        }
+
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            address = ContactParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        } else {
+            address = ContactParserUtil.parseAddress("");
+        }
+
+        if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
+            description = ContactParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        } else {
+            description = ContactParserUtil.parseDescription("");
+        }
 
         Person person = new Person(name, phone, email, address, description);
 

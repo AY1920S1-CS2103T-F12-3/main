@@ -1,16 +1,11 @@
 package tagline.testutil;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import tagline.logic.commands.contact.EditContactCommand.EditPersonDescriptor;
 import tagline.model.person.Address;
 import tagline.model.person.Email;
 import tagline.model.person.Name;
 import tagline.model.person.Person;
 import tagline.model.person.Phone;
-import tagline.model.tag.Tag;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.

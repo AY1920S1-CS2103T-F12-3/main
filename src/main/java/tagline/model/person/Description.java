@@ -25,6 +25,7 @@ public class Description {
      */
     public Description(String description) {
         requireNonNull(description);
+        description = description.trim();
         checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         value = description;
     }

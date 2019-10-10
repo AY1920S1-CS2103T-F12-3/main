@@ -36,6 +36,7 @@ public class Email {
      */
     public Email(String email) {
         requireNonNull(email);
+        email = email.trim();
         checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
         value = email;
     }

@@ -5,6 +5,7 @@ import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_ADDRESS;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_DESCRIPTION;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_EMAIL;
+import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_NAME;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_PHONE;
 
 import java.util.Collection;
@@ -35,7 +36,8 @@ public class EditCommandParser implements Parser<EditContactCommand> {
     public EditContactCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+                        PREFIX_ADDRESS, PREFIX_DESCRIPTION);
 
         Index index;
 
@@ -47,17 +49,25 @@ public class EditCommandParser implements Parser<EditContactCommand> {
         }
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            editPersonDescriptor.setName(ContactParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
+
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             editPersonDescriptor.setPhone(ContactParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
+
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             editPersonDescriptor.setEmail(ContactParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
+
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ContactParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
+
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            editPersonDescriptor.setAddress(ContactParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+            editPersonDescriptor.setDescription(ContactParserUtil
+                    .parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
