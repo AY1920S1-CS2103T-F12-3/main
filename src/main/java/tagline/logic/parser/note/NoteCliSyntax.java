@@ -8,6 +8,7 @@ import tagline.logic.parser.Prefix;
 public class NoteCliSyntax {
 
     /* Prefix definitions */
+    public static final Prefix PREFIX_TITLE = new Prefix("--T ");
     public static final Prefix PREFIX_CONTENT = new Prefix("--c ");
     public static final Prefix PREFIX_TAG = new Prefix("--t ");
 

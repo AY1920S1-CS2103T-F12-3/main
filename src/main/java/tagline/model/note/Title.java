@@ -9,16 +9,6 @@ import static tagline.commons.util.AppUtil.checkArgument;
  */
 public class Title {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
-
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    //may want to change this bit to another regex
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
-
     public final String titleDescription;
 
     /**
@@ -28,17 +18,8 @@ public class Title {
      */
     public Title(String title) {
         requireNonNull(title);
-        checkArgument(isValidTitle(title), MESSAGE_CONSTRAINTS);
         titleDescription = title;
     }
-
-    /**
-     * Returns true if a given string is a valid name.
-     */
-    public static boolean isValidTitle(String test) {
-        return test.matches(VALIDATION_REGEX);
-    }
-
 
     @Override
     public String toString() {

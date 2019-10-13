@@ -57,6 +57,7 @@ public class TypicalNotes {
     public static final String TIMECREATED_ULTRON = "29-Apr-2015 07:19:05";
     public static final String TIMELASTUPDATED_ULTRON = "06-May-2015 22:18:11";
 
+    // Manually added
     public static final Note TIMEHEIST = new NoteBuilder().withNoteId(NOTEID_TIMEHEIST)
             .withTitle(TITLE_TIMEHEIST)
             .withContent(CONTENT_TIMEHEIST).withTimeCreated(TIMECREATED_TIMEHEIST)
