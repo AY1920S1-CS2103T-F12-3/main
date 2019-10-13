@@ -43,14 +43,6 @@ public class CreateNoteCommand extends NoteCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, "toAdd"));
     }
 
-    public boolean equalsIgnoreDate(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof CreateNoteCommand // instanceof handles nulls
-                && toCreate.getNoteId().equals(((CreateNoteCommand) other).toCreate.getNoteId())
-                && toCreate.getContent().equals(((CreateNoteCommand) other).toCreate.getContent())
-                && toCreate.getTags().equals(((CreateNoteCommand) other).toCreate.getTags()));
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
