@@ -21,7 +21,7 @@ public class NoteParserUtil {
         if (!isNonZeroUnsignedLong(trimmedId)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
-        return new NoteId(Long.parseLong(noteId));
+        return new NoteId(Long.parseLong(trimmedId));
     }
 
     /**
