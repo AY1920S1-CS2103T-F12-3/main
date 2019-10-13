@@ -14,8 +14,8 @@ public class DeleteNoteCommand extends NoteCommand {
 
     public static final String COMMAND_WORD = "delete";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new note. "
-            + ": Deletes the note identified by the index number.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + ": Deletes the note identified by the note index number.\n"
+            + "Parameters: NOTE_ID (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Delete note: %1$s";

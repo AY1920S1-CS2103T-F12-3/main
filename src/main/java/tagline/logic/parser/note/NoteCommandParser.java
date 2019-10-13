@@ -10,6 +10,7 @@ import tagline.logic.commands.Command;
 import tagline.logic.commands.HelpCommand;
 import tagline.logic.commands.note.CreateNoteCommand;
 import tagline.logic.commands.note.DeleteNoteCommand;
+import tagline.logic.commands.note.EditNoteCommand;
 import tagline.logic.parser.exceptions.ParseException;
 
 /**
@@ -43,6 +44,9 @@ public class NoteCommandParser {
 
         case DeleteNoteCommand.COMMAND_WORD:
             return new DeleteNoteParser().parse(arguments);
+
+        case EditNoteCommand.COMMAND_WORD:
+            return new EditNoteParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
