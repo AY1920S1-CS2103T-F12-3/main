@@ -1,7 +1,10 @@
 package tagline.ui;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -10,10 +13,12 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import tagline.commons.core.GuiSettings;
 import tagline.commons.core.LogsCenter;
 import tagline.logic.Logic;
 import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.logic.parser.exceptions.ParseException;
 
@@ -24,31 +29,36 @@ import tagline.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final double RESULT_PANE_FADE_TRANSITION_DURATION = 0.5;
+    private static final double RESULT_PANE_FADE_TRANSITION_OPACITY_FROM = 0.3;
+    private static final double RESULT_PANE_FADE_TRANSITION_OPACITY_TO = 1.0;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
 
-    // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
-    private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
+    private ChatPane chatPane;
 
-    @FXML
-    private StackPane commandBoxPlaceholder;
+    /** The current view displayed in the result pane. */
+    private ViewType currentViewType;
+
+    /** Stores all result pane views using the ViewType as the key. */
+    private Map<ViewType, ResultView> resultViewMap;
+
+    private HelpWindow helpWindow;
 
     @FXML
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
-    private StackPane resultDisplayPlaceholder;
-
-    @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane chatPanePlaceholder;
+
+    @FXML
+    private StackPane resultPanePlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -86,14 +96,13 @@ public class MainWindow extends UiPart<Stage> {
          * is fixed in later version of SDK.
          *
          * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
+         * consume function-key events. Because CommandBox contains a TextField, thus
+         * some accelerators (e.g F1) will not work when the focus is in them because
+         * the key event is consumed by the TextInputControl(s).
          *
          * For now, we add following event filter to capture such key events and open
          * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
+         * in CommandBox.
          */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
@@ -104,20 +113,92 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Changes the view in the result pane according to ViewType.
+     *
+     * @param viewType the ViewType to switch to
+     */
+    void setCurrentViewType(ViewType viewType) {
+        //no preferred view, don't switch
+        if (viewType == ViewType.NONE) {
+            return;
+        }
+
+        //already correct view, no need to switch
+        if (currentViewType == viewType) {
+            return;
+        }
+
+        setResultPaneView(resultViewMap.get(viewType));
+        currentViewType = viewType;
+    }
+
+    /**
+     * Adds a fade in transition to a result view.
+     *
+     * @param resultView the ResultView to animate
+     */
+    void animateFadeIn(ResultView resultView) {
+        FadeTransition fadeTransition = new FadeTransition();
+        fadeTransition.setDuration(Duration.seconds(RESULT_PANE_FADE_TRANSITION_DURATION));
+        fadeTransition.setFromValue(RESULT_PANE_FADE_TRANSITION_OPACITY_FROM);
+        fadeTransition.setToValue(RESULT_PANE_FADE_TRANSITION_OPACITY_TO);
+
+        fadeTransition.setNode(resultView.getRoot());
+        fadeTransition.play();
+    }
+
+    /**
+     * Changes the view in the result pane.
+     *
+     * @param resultView Next view to display
+     */
+    void setResultPaneView(ResultView resultView) {
+        resultPanePlaceholder.getChildren().clear();
+
+        animateFadeIn(resultView);
+        resultPanePlaceholder.getChildren().add(resultView.getRoot());
+    }
+
+    /**
+     * Initializes the chat pane.
+     */
+    void initChatPane() {
+        chatPane = new ChatPane();
+        chatPane.fillInnerParts(this::executeCommand);
+        chatPanePlaceholder.getChildren().add(chatPane.getRoot());
+    }
+
+    /**
+     * Initializes the result pane and all its views.
+     */
+    void initResultPane() {
+        resultViewMap = new HashMap<>();
+
+        ContactResultView contactResultView = new ContactResultView();
+        contactResultView.fillInnerParts(logic.getFilteredContactList());
+        resultViewMap.put(ViewType.CONTACT, contactResultView);
+
+        DummyResultView dummyResultView = new DummyResultView();
+        resultViewMap.put(ViewType.DUMMY, dummyResultView);
+
+        //set to contact result pane by default
+        setCurrentViewType(ViewType.CONTACT);
+    }
+
+    /**
+     * Initializes the status bar.
+     */
+    void initStatusBar() {
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+    }
+    /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        initStatusBar();
+        initChatPane();
+        initResultPane();
     }
 
     /**
@@ -160,20 +241,20 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
      * @see tagline.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        chatPane.setCommandFromUser(commandText);
+
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            chatPane.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            setCurrentViewType(commandResult.getViewType());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -186,7 +267,7 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            chatPane.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }

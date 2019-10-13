@@ -2,6 +2,7 @@ package tagline.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
+import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 
 import tagline.logic.commands.CommandResult;
@@ -16,13 +17,16 @@ public class CreateNoteCommand extends NoteCommand {
 
     public static final String COMMAND_WORD = "create";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new note. "
+    public static final String MESSAGE_USAGE = COMMAND_KEY + " " + COMMAND_WORD + ": Creates a new note.\n"
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
-            + PREFIX_CONTENT + "CONTENT\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TITLE + "CS2103T TP"
-            + PREFIX_CONTENT + "CS2103T meeting on Wednesday";
+            + PREFIX_CONTENT + "CONTENT "
+            + "[" + PREFIX_TAG + "TAG...]\n"
+            + "Example: " + COMMAND_KEY + " " + COMMAND_WORD + " "
+            + PREFIX_TITLE + "CS2103T TP "
+            + PREFIX_CONTENT + "CS2103T meeting on Wednesday "
+            + PREFIX_TAG + "cs2103t "
+            + PREFIX_TAG + "meeting";
 
     public static final String MESSAGE_SUCCESS = "New note added: %1$s";
 
