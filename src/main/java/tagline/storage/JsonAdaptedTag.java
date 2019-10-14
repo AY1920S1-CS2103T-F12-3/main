@@ -12,13 +12,15 @@ import tagline.model.tag.Tag;
 class JsonAdaptedTag {
 
     private final String tagName;
+    private final int tagId;
 
     /**
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonAdaptedTag(String tagName) {
+    public JsonAdaptedTag(String tagName, int tagId) {
         this.tagName = tagName;
+        this.tagId = tagId;
     }
 
     /**
@@ -26,11 +28,17 @@ class JsonAdaptedTag {
      */
     public JsonAdaptedTag(Tag source) {
         tagName = source.tagName;
+        tagId = source.tagId;
     }
 
     @JsonValue
     public String getTagName() {
         return tagName;
+    }
+
+    @JsonValue
+    public int getTagId() {
+        return tagId;
     }
 
     /**
