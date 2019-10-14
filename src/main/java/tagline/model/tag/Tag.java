@@ -12,7 +12,7 @@ public class Tag {
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
-    private static int nextId = 1;
+    private static int nextId = 1; //temporary implementation of an incrementing tag ID
 
     public final String tagName;
     public final int tagId;
@@ -26,7 +26,7 @@ public class Tag {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
-        this.tagId = nextId; //temporarily set Id to 0
+        this.tagId = nextId;
         nextId++;
     }
 
