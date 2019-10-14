@@ -1,8 +1,8 @@
 package tagline.model.note;
 
 //import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static tagline.testutil.Assert.assertThrows;
 //import static tagline.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -13,6 +13,47 @@ public class NoteIdCounterTest {
     //public void constructor_null_throwsNullPointerException() {
     //    assertThrows(NullPointerException.class, () -> new Name(null));
     //}
+
+    @Test
+    public void isValidNote() {
+        // null phone number
+        assertThrows(NullPointerException.class, () -> NoteIdCounter.isValidNoteIdCount(null));
+
+        // invalid noteId numbers
+        assertFalse(NoteIdCounter.isValidNoteIdCount("")); // empty string
+        assertFalse(NoteIdCounter.isValidNoteIdCount(" ")); // spaces only
+        //assertFalse(NoteIdCounter.isValidNoteIdCount("91")); // less than 3 numbers
+        assertFalse(NoteIdCounter.isValidNoteIdCount("phone")); // non-numeric
+        assertFalse(NoteIdCounter.isValidNoteIdCount("9011p041")); // alphabets within digits
+        assertFalse(NoteIdCounter.isValidNoteIdCount("9312 1534")); // spaces within digits
+
+        // valid noteId numbers
+        assertTrue(NoteIdCounter.isValidNoteIdCount("911")); // exactly 3 numbers
+        assertTrue(NoteIdCounter.isValidNoteIdCount("93121534"));
+        assertTrue(NoteIdCounter.isValidNoteIdCount("124293842033123")); // long phone numbers
+    }
+
+
+    @Test
+    public void setCountFromStorage_throwsIllegalArgumentException() {
+        //doesnt work now, create a separate class
+        long currCount = NoteIdCounter.getCount();
+        NoteIdCounter.setZero();
+
+        String invalidNoteIdCounter1 = "";
+        assertThrows(IllegalArgumentException.class, () -> NoteIdCounter.setCountFromStorage(invalidNoteIdCounter1));
+
+        String invalidNoteIdCounter2 = "12asd";
+        assertThrows(IllegalArgumentException.class, () -> NoteIdCounter.setCountFromStorage(invalidNoteIdCounter2));
+        //assertThrows(IllegalArgumentException.class, () -> new NoteId(invalidNoteIdCounter2));
+
+        String invalidNoteIdCounter3 = "one";
+        assertThrows(IllegalArgumentException.class, () -> NoteIdCounter.setCountFromStorage(invalidNoteIdCounter3));
+        //assertThrows(IllegalArgumentException.class, () -> new NoteId(invalidNoteIdCounter3));
+
+        // Reset Counter to original value to prevent disruption of other test cases
+        NoteIdCounter.setCount(currCount);
+    }
 
     @Test
     public void setZero_test() {
@@ -32,6 +73,7 @@ public class NoteIdCounterTest {
         NoteIdCounter.setZero();
         assertEquals(0, NoteIdCounter.getCount());
 
+        // Reset Counter to original value to prevent disruption of other test cases
         NoteIdCounter.setCount(currCount);
     }
 
@@ -52,7 +94,7 @@ public class NoteIdCounterTest {
         assertEquals(3, NoteIdCounter.incrementThenGetValue());
         assertEquals(3, NoteIdCounter.getCount());
 
-
+        // Reset Counter to original value to prevent disruption of other test cases
         NoteIdCounter.setCount(currCount);
     }
 

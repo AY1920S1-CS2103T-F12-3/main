@@ -41,19 +41,6 @@ public class Note {
         this.tags.addAll(tags);
     }
 
-    public Note(NoteId noteid, Content content, TimeCreated timeCreated,
-        TimeLastEdited timeLastEdited, Set<Tag> tags) {
-
-        requireAllNonNull(noteid, content, timeCreated, timeLastEdited, tags);
-
-        this.noteid = noteid;
-        this.title = new Title("this field will be removed");
-        this.content = content;
-        this.timeCreated = timeCreated;
-        this.timeLastEdited = timeLastEdited;
-        this.tags.addAll(tags);
-    }
-
     public NoteId getNoteId() {
         return noteid;
     }
