@@ -1,18 +1,22 @@
 package tagline.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import tagline.commons.core.GuiSettings;
+import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.ReadOnlyAddressBook;
 import tagline.model.ReadOnlyUserPrefs;
@@ -31,8 +35,15 @@ class CreateNoteCommandTest {
     }
 
     @Test
-    public void execute_noteAcceptedByModel_addSuccessful() {
+    public void execute_noteAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingContactAdded modelStub = new ModelStubAcceptingContactAdded();
+        Note validNote = new NoteBuilder().build();
 
+        CommandResult commandResult = new CreateNoteCommand(validNote).execute(modelStub);
+
+        assertEquals(String.format(CreateNoteCommand.MESSAGE_SUCCESS, validNote),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validNote), modelStub.noteAdded);
     }
 
     @Test
@@ -258,10 +269,27 @@ class CreateNoteCommandTest {
     }
 
     /**
-     * A Model stub that always accept the contact being added.
+     * A Model stub that contains note model which contains a single note.
+     */
+    private class ModelStubWithNote extends ModelStub {
+        final NoteModelStubWithNote noteModel;
+
+        ModelStubWithNote(Note note) {
+            noteModel = new NoteModelStubWithNote(note);
+        }
+
+        @Override
+        public boolean hasNote(Note note) {
+            return noteModel.hasNote(note);
+        }
+    }
+
+    /**
+     * A Model stub that always accept the note being added.
      */
     private class ModelStubAcceptingContactAdded extends ModelStub {
-        private final NoteModel noteModel = new NoteModelStubAcceptingNoteAdded();
+        final NoteModelStubAcceptingNoteAdded noteModel = new NoteModelStubAcceptingNoteAdded();
+        final ArrayList<Note> noteAdded = noteModel.noteAdded;
 
         @Override
         public boolean hasNote(Note note) {
