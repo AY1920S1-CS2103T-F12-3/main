@@ -1,9 +1,9 @@
 package tagline.model.note;
 
-//import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-//import static tagline.testutil.Assert.assertThrows;
+import static tagline.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +13,37 @@ public class NoteIdTest {
     //public void constructor_null_throwsNullPointerException() {
     //    assertThrows(NullPointerException.class, () -> new Name(null));
     //}
+
+    @Test
+    public void constructor_invalidNoteId_throwsIllegalArgumentException() {
+        String invalidNoteId1 = "";
+        assertThrows(IllegalArgumentException.class, () -> new NoteId(invalidNoteId1));
+
+        String invalidNoteId2 = "12asd";
+        assertThrows(IllegalArgumentException.class, () -> new NoteId(invalidNoteId2));
+
+        String invalidNoteId3 = "one";
+        assertThrows(IllegalArgumentException.class, () -> new NoteId(invalidNoteId3));
+    }
+
+    @Test
+    public void isValidNote() {
+        // null phone number
+        assertThrows(NullPointerException.class, () -> NoteId.isValidNoteId(null));
+
+        // invalid noteId numbers
+        assertFalse(NoteId.isValidNoteId("")); // empty string
+        assertFalse(NoteId.isValidNoteId(" ")); // spaces only
+        //assertFalse(NoteId.isValidNoteId("91")); // less than 3 numbers
+        assertFalse(NoteId.isValidNoteId("phone")); // non-numeric
+        assertFalse(NoteId.isValidNoteId("9011p041")); // alphabets within digits
+        assertFalse(NoteId.isValidNoteId("9312 1534")); // spaces within digits
+
+        // valid noteId numbers
+        assertTrue(NoteId.isValidNoteId("911")); // exactly 3 numbers
+        assertTrue(NoteId.isValidNoteId("93121534"));
+        assertTrue(NoteId.isValidNoteId("124293842033123")); // long phone numbers
+    }
 
     @Test
     public void constructor_sequentialId() {

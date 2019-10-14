@@ -10,10 +10,6 @@ import tagline.model.note.NoteId;
 import tagline.model.note.TimeCreated;
 import tagline.model.note.TimeLastEdited;
 import tagline.model.note.Title;
-import tagline.model.person.Address;
-import tagline.model.person.Email;
-import tagline.model.person.Name;
-import tagline.model.person.Phone;
 import tagline.model.tag.Tag;
 import tagline.model.util.SampleDataUtil;
 
@@ -23,13 +19,6 @@ import tagline.model.util.SampleDataUtil;
  */
 public class NoteBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-
-
-
     public static final long DEFAULT_NOTEID = 99999;
     public static final String DEFAULT_TITLE = "The Protector Initiative";
     public static final String DEFAULT_CONTENT = "Phase 1:\n A response team comprised "
@@ -38,14 +27,6 @@ public class NoteBuilder {
         + "capability of conventional military forces.";
     public static final String DEFAULT_TIMECREATED = "13-May-1995 15:35:08";
     public static final String DEFAULT_TIMELASTUPDATED = "13-May-1995 15:35:08";
-    //public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    //public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-
-
-    private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
 
     private NoteId noteId;
     private Title title;
@@ -58,9 +39,6 @@ public class NoteBuilder {
         noteId = new NoteId(DEFAULT_NOTEID);
         title = new Title(DEFAULT_TITLE);
         content = new Content(DEFAULT_CONTENT);
-        //refactor These two classes to return with the same Instant instance
-        //timeCreated = new TimeCreated();
-        //timeLastEdited = new TimeLastEdited();
         timeCreated = new TimeCreated(new Date(DEFAULT_TIMECREATED));
         timeLastEdited = new TimeLastEdited(new Date(DEFAULT_TIMELASTUPDATED));
 

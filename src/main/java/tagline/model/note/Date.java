@@ -51,6 +51,10 @@ public class Date {
         //did not use this(LocalDateTime...toInstant()) since then i cannot use requireNonNull
     }
 
+    public String getStorageString() {
+        return date.atZone(timezone).format(INPUT_TEST_FORMATTER);
+    }
+
     @Override
     public String toString() {
         return date.atZone(timezone).format(HUMAN_READABLE_FORMATTER);

@@ -11,23 +11,12 @@ import static tagline.logic.commands.NoteCommandTestUtil.VALID_TIMELASTUPDATED_P
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TITLE_INCIDENT;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TITLE_PROTECTOR;
 
-//import static tagline.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-//import static tagline.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-//import static tagline.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-//import static tagline.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-//import static tagline.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-//import static tagline.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-//import static tagline.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-//import static tagline.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-//import static tagline.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-//import static tagline.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import tagline.model.NoteBook;
 import tagline.model.note.Note;
+import tagline.model.note.NoteBook;
 
 /**
  * A utility class containing a list of {@code Note} objects to be used in tests.
@@ -68,16 +57,41 @@ public class TypicalNotes {
             .withContent(CONTENT_ULTRON).withTimeCreated(TIMECREATED_ULTRON)
             .withTimeLastUpdated(TIMELASTUPDATED_ULTRON).build();
 
-    ////public static final Note ALICE = new NoteBuilder().withName("Alice Pauline")
-    ////        .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-    ////        .withPhone("94351253")
-    ////        .withTags("friends").build();
-    ////public static final Note BENSON = new NoteBuilder().withName("Benson Meier")
-    ////        .withAddress("311, Clementi Ave 2, #02-25")
-    ////        .withEmail("johnd@example.com").withPhone("98765432")
-    ////        .withTags("owesMoney", "friends").build();
 
     // Manually added
+    public static final long NOTEID_TOKYO = 45;
+    public static final String TITLE_TOKYO = "Massacre in Tokyo";
+    public static final String CONTENT_TOKYO = "\"Killing all these people isn't going to "
+            + "bring your family back. We found something. A chance. Maybe...\"\n"
+            + "    \"Don't.\"\n"
+            + "    \"Don't what?\"\n"
+            + "    \"Don't give me hope.\"\n"
+            + "    \"I'm sorry I couldn't give it to you sooner.\" \n"
+            + "    ―Natasha Romanoff and Clint Barton";
+    public static final String TIMECREATED_TOKYO = "01-Oct-2023 01:09:01";
+    public static final String TIMELASTUPDATED_TOKYO = "31-Oct-2023 23:59:58";
+
+    public static final Note TOKYO = new NoteBuilder().withNoteId(NOTEID_TOKYO)
+            .withTitle(TITLE_TOKYO)
+            .withContent(CONTENT_TOKYO).withTimeCreated(TIMECREATED_TOKYO)
+            .withTimeLastUpdated(TIMELASTUPDATED_TOKYO).build();
+
+    public static final long NOTEID_EARTH = 49;
+    public static final String TITLE_EARTH = "Battle Of Earth";
+    public static final String CONTENT_EARTH = "The Battle of Earth was the culminating "
+            + "battle for the fate of the planet and the entire universe, fought among "
+            + "the Avengers and their allies united against the alternate timeline "
+            + "versions of Thanos, the Black Order, and their full compliments of "
+            + "Outriders, Chitauri, and Sakaaran armies. The monumental scale of the "
+            + "battle makes it one of the largest extraterrestrial conflicts in Earth's "
+            + "history.";
+    public static final String TIMECREATED_EARTH = "17-Oct-2023 04:13:21";
+    public static final String TIMELASTUPDATED_EARTH = "17-Oct-2023 17:29:14";
+
+    public static final Note EARTH = new NoteBuilder().withNoteId(NOTEID_EARTH)
+            .withTitle(TITLE_EARTH)
+            .withContent(CONTENT_EARTH).withTimeCreated(TIMECREATED_EARTH)
+            .withTimeLastUpdated(TIMELASTUPDATED_EARTH).build();
     //public static final Note HOON = new NoteBuilder().withName("Hoon Meier").withPhone("8482424")
     //        .withEmail("stefan@example.com").withAddress("little india").build();
     //public static final Note IDA = new NoteBuilder().withName("Ida Mueller").withPhone("8482131")
@@ -111,6 +125,5 @@ public class TypicalNotes {
 
     public static List<Note> getTypicalNotes() {
         return new ArrayList<>(Arrays.asList(PROTECTOR, INCIDENT, TIMEHEIST, ULTRON));
-        //return new ArrayList<>(Arrays.asList(PROTECTOR, INCIDENT ));
     }
 }

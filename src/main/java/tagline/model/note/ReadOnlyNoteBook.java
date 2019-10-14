@@ -1,7 +1,6 @@
-package tagline.model;
+package tagline.model.note;
 
 import javafx.collections.ObservableList;
-import tagline.model.note.Note;
 
 /**
  * Unmodifiable view of an address book
