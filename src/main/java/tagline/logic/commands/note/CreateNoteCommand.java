@@ -29,6 +29,7 @@ public class CreateNoteCommand extends NoteCommand {
             + PREFIX_TAG + "meeting";
 
     public static final String MESSAGE_SUCCESS = "New note added: %1$s";
+    public static final String MESSAGE_DUPLICATE_NOTE = "This note already exists.";
 
     private final Note toCreate;
 
@@ -42,9 +43,14 @@ public class CreateNoteCommand extends NoteCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        /* TO ADD EXECUTE LOGIC */
+        requireNonNull(model);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, "toAdd"));
+        if (model.hasNote(toCreate)) {
+            throw new CommandException(MESSAGE_DUPLICATE_NOTE);
+        }
+
+        model.addNote(toCreate);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toCreate));
     }
 
     @Override
