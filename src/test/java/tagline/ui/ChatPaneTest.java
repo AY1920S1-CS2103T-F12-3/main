@@ -7,6 +7,7 @@ import static org.testfx.util.NodeQueryUtils.hasText;
 import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.logging.Logger;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -45,14 +46,20 @@ public class ChatPaneTest {
     private LogicStub logic;
     private MainWindow mainWindow;
 
+    private Logger logger;
+
     @Start
     void setup(Stage stage) throws TimeoutException {
         logic = new LogicStub(testFolder);
         logic.setCommandResult(DEFAULT_COMMAND_RESULT);
+        logger=  Logger.getLogger("ChatPaneTest");
 
         FxToolkit.setupStage(s -> {
             mainWindow = new MainWindow(s, logic);
             mainWindow.show();
+            WaitForAsyncUtils.waitForFxEvents();
+            logger.info("MainWindow height: " + mainWindow.getRoot().getHeight());
+            logger.info("MainWindow width: " + mainWindow.getRoot().getWidth());
             mainWindow.fillInnerParts();
         });
         WaitForAsyncUtils.waitForFxEvents();

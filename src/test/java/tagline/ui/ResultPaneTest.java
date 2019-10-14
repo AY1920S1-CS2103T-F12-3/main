@@ -53,6 +53,7 @@ public class ResultPaneTest {
         FxToolkit.setupStage(s -> {
             mainWindow = new MainWindow(s, logic);
             mainWindow.show();
+            WaitForAsyncUtils.waitForFxEvents();
             mainWindow.fillInnerParts();
         });
         WaitForAsyncUtils.waitForFxEvents();
