@@ -11,13 +11,12 @@ import static tagline.logic.commands.NoteCommandTestUtil.VALID_TIMELASTUPDATED_P
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TITLE_INCIDENT;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TITLE_PROTECTOR;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import tagline.model.note.NoteBook;
 import tagline.model.note.Note;
+import tagline.model.note.NoteBook;
 
 /**
  * A utility class containing a list of {@code Note} objects to be used in tests.

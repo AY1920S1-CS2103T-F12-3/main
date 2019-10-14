@@ -18,14 +18,17 @@ public class ContentContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        ContentContainsKeywordsPredicate firstPredicate = new ContentContainsKeywordsPredicate(firstPredicateKeywordList);
-        ContentContainsKeywordsPredicate secondPredicate = new ContentContainsKeywordsPredicate(secondPredicateKeywordList);
+        ContentContainsKeywordsPredicate firstPredicate =
+                new ContentContainsKeywordsPredicate(firstPredicateKeywordList);
+        ContentContainsKeywordsPredicate secondPredicate =
+                new ContentContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        ContentContainsKeywordsPredicate firstPredicateCopy = new ContentContainsKeywordsPredicate(firstPredicateKeywordList);
+        ContentContainsKeywordsPredicate firstPredicateCopy =
+                new ContentContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -41,7 +44,8 @@ public class ContentContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        ContentContainsKeywordsPredicate predicate = new ContentContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        ContentContainsKeywordsPredicate predicate =
+                new ContentContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new NoteBuilder().withContent("Alice Bob").build()));
 
         // Multiple keywords
@@ -71,6 +75,6 @@ public class ContentContainsKeywordsPredicateTest {
         predicate = new ContentContainsKeywordsPredicate(Arrays.asList("12345"));
         //, "alice@email.com", "Main", "Street"));
         assertFalse(predicate.test(new NoteBuilder().withContent("Alice").withTitle("12345").build()));
-                //.withEmail("alice@email.com").withAddress("Main Street").build()));
+        //.withEmail("alice@email.com").withAddress("Main Street").build()));
     }
 }

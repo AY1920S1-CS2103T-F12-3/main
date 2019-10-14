@@ -1,7 +1,7 @@
 package tagline.testutil;
 
-import tagline.model.note.NoteBook;
 import tagline.model.note.Note;
+import tagline.model.note.NoteBook;
 
 /**
  * A utility class to help with building Notebook objects.

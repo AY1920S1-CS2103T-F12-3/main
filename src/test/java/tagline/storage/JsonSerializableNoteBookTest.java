@@ -33,8 +33,8 @@ public class JsonSerializableNoteBookTest {
 
     // impure test to check if NoteIDCounter can be retrieved from JSON
     @Test
-    public void toModelTypeNoteIDCounter_typicalNotesFile_success() throws Exception {
-        final String VALID_NOTEIDCOUNT = "329"; //its the one in the testcase file
+    public void toModelTypeNoteIdCounter_typicalNotesFile_success() throws Exception {
+        final String validNoteIdCount = "329"; //its the one in the testcase file
         // save the previous count
         long currCount = NoteIdCounter.getCount();
         NoteIdCounter.setZero();
@@ -51,7 +51,7 @@ public class JsonSerializableNoteBookTest {
         assertEquals(addressBookFromFile, typicalNotesNoteBook);
 
         // check if NoteIdCounter can be restored from Saved Json File
-        assertEquals(VALID_NOTEIDCOUNT, NoteIdCounter.getCount().toString());
+        assertEquals(validNoteIdCount, NoteIdCounter.getCount().toString());
         // Reset Counter to original value to prevent disruption of other test cases
         NoteIdCounter.setCount(currCount);
     }

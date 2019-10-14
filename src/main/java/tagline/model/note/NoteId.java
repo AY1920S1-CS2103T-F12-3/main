@@ -14,7 +14,7 @@ public class NoteId {
 
     // from https://stackoverflow.com/questions/15111420/how-to-check-if-a-string-contains-only-digits-in-java
     public static final String VALIDATION_REGEX = "\\d+";
-  
+
     public final Long value;
     //public final String value;
 
@@ -40,7 +40,7 @@ public class NoteId {
     public NoteId() {
         value = NoteIdCounter.incrementThenGetValue();
     }
-  
+
     // This part is to convert the Long to String for Storage
     public String getStorageString() {
         return value.toString();

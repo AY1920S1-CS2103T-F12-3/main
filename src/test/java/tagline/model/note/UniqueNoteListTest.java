@@ -3,18 +3,14 @@ package tagline.model.note;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-//import static tagline.logic.commands.NoteCommandTestUtil.VALID_ADDRESS_BOB;
 
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_NOTEID_INCIDENT;
-import static tagline.logic.commands.NoteCommandTestUtil.VALID_TAG_HUSBAND;
+import static tagline.logic.commands.NoteCommandTestUtil.VALID_TAG_AVENGERS;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TIMELASTUPDATED_INCIDENT;
 
-//import static tagline.logic.commands.NoteCommandTestUtil.*;
 import static tagline.testutil.Assert.assertThrows;
 import static tagline.testutil.TypicalNotes.INCIDENT;
 import static tagline.testutil.TypicalNotes.PROTECTOR;
-//import static tagline.testutil.TypicalPersons.ALICE;
-//import static tagline.testutil.TypicalPersons.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import tagline.model.note.exceptions.DuplicateNoteException;
 import tagline.model.note.exceptions.NoteNotFoundException;
 import tagline.testutil.NoteBuilder;
-//import tagline.testutil.NoteBuilder;
 
 public class UniqueNoteListTest {
 
@@ -51,7 +46,7 @@ public class UniqueNoteListTest {
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueNoteList.add(PROTECTOR);
         Note editedProtector = new NoteBuilder(PROTECTOR).withTimeLastUpdated(VALID_TIMELASTUPDATED_INCIDENT)
-                .withTags(VALID_TAG_HUSBAND)
+                .withTags(VALID_TAG_AVENGERS)
                 .build();
         assertTrue(uniqueNoteList.contains(editedProtector));
     }
@@ -95,7 +90,7 @@ public class UniqueNoteListTest {
     public void setNote_editedNoteHasSameIdentity_success() {
         uniqueNoteList.add(PROTECTOR);
         Note editedProtector = new NoteBuilder(PROTECTOR).withNoteId(VALID_NOTEID_INCIDENT)
-                .withTags(VALID_TAG_HUSBAND)
+                .withTags(VALID_TAG_AVENGERS)
                 .build();
         uniqueNoteList.setNote(PROTECTOR, editedProtector);
         UniqueNoteList expectedUniqueNoteList = new UniqueNoteList();
