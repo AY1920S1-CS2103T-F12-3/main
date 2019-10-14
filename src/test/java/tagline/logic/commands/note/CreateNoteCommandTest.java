@@ -47,6 +47,16 @@ class CreateNoteCommandTest {
     }
 
     @Test
+    public void execute_duplicateNote_throwsCommandException() {
+        Note validNote = new NoteBuilder().build();
+        CreateNoteCommand createNoteCommand = new CreateNoteCommand(validNote);
+        ModelStub modelStub = new ModelStubWithNote(validNote);
+
+        assertThrows(CommandException.class,
+                CreateNoteCommand.MESSAGE_DUPLICATE_NOTE, () -> createNoteCommand.execute(modelStub));
+    }
+
+    @Test
     public void equals() {
         Note note41 = new NoteBuilder().withNoteId(41).build();
         Note note42 = new NoteBuilder().withNoteId(42).build();
