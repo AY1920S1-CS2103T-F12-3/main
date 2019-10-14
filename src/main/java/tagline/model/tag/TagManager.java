@@ -4,6 +4,9 @@ import java.util.List;
 
 import tagline.model.ReadOnlyTagList;
 
+/**
+ * Represents the in-memory model of all tag data.
+ */
 public class TagManager implements TagModel {
     private final TagList tagList;
 
