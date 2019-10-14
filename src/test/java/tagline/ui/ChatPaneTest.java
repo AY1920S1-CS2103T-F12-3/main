@@ -52,7 +52,7 @@ public class ChatPaneTest {
     void setup(Stage stage) throws TimeoutException {
         logic = new LogicStub(testFolder);
         logic.setCommandResult(DEFAULT_COMMAND_RESULT);
-        logger=  Logger.getLogger("ChatPaneTest");
+        logger = Logger.getLogger("ChatPaneTest");
 
         FxToolkit.setupStage(s -> {
             mainWindow = new MainWindow(s, logic);
