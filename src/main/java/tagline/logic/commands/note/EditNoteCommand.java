@@ -42,6 +42,7 @@ public class EditNoteCommand extends NoteCommand {
 
     public static final String MESSAGE_EDIT_NOTE_SUCCESS = "Edited Note: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_DUPLICATE_NOTE = "This note already exists.";
 
     private final NoteId noteId;
     private final EditNoteDescriptor editNoteDescriptor;
@@ -74,8 +75,9 @@ public class EditNoteCommand extends NoteCommand {
         Note noteToEdit = filteredList.get(0);
         Note editedNote = createEditedNote(noteToEdit, editNoteDescriptor);
 
-        // Note editedNote = createEditedNote(noteToEdit, editNoteDescriptor);
-        /* Edit note */
+        if (!noteToEdit.isSameNote(editedNote) && model.hasNote(editedNote)) {
+            throw new CommandException(MESSAGE_DUPLICATE_NOTE);
+        }
 
         return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, "edited Person"));
     }

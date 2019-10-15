@@ -139,7 +139,6 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasNote(Note note) {
-        requireNonNull(note);
         return noteModel.hasNote(note);
     }
 
@@ -151,6 +150,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteNote(Note target) {
         noteModel.deleteNote(target);
+    }
+
+    @Override
+    public void setNote(Note target, Note editedNote) {
+        noteModel.setNote(target, editedNote);
     }
 
     //=========== Filtered Note List Accessors =============================================================

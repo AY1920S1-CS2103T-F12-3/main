@@ -111,6 +111,13 @@ public interface Model {
      */
     void deleteNote(Note target);
 
+    /**
+     * Replaces the given note {@code target} with {@code editedNote}.
+     * {@code target} must exist in the address book.
+     * The note identity of {@code editedNote} must not be the same as another existing note in the address book.
+     */
+    void setNote(Note target, Note editedNote);
+
     /** Returns an unmodifiable view of the filtered note list */
     ObservableList<Note> getFilteredNoteList();
 
