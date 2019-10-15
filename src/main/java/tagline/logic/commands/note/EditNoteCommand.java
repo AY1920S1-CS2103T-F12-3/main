@@ -6,15 +6,19 @@ import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import tagline.commons.core.Messages;
 import tagline.commons.util.CollectionUtil;
 import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.note.Content;
 import tagline.model.note.Note;
 import tagline.model.note.NoteId;
+import tagline.model.note.NoteIdEqualsTargetIdPredicate;
 import tagline.model.note.TimeCreated;
 import tagline.model.note.TimeLastEdited;
 import tagline.model.note.Title;
@@ -55,10 +59,17 @@ public class EditNoteCommand extends NoteCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        /* CHECK FOR INVALID NOTE */
+        // Check for invalid note id
+        NoteIdEqualsTargetIdPredicate predicate = new NoteIdEqualsTargetIdPredicate(noteId);
+        model.updateFilteredNoteList(predicate);
+        List<Note> filteredList = model.getFilteredNoteList();
+
+        if (filteredList.size() < 1) {
+            throw new CommandException(Messages.MESSAGE_INVALID_NOTE_INDEX);
+        }
 
         // NoteToEdit
         // Note editedNote = createEditedNote(noteToEdit, editNoteDescriptor);
