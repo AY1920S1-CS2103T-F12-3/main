@@ -104,4 +104,13 @@ public interface Model {
      * {@code note} must not already exist in the address book.
      */
     void addNote(Note note);
+
+    /** Returns an unmodifiable view of the filtered note list */
+    ObservableList<Note> getFilteredNoteList();
+
+    /**
+     * Updates the filter of the filtered note list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredNoteList(Predicate<Note> predicate);
 }

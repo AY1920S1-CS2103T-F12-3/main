@@ -6,6 +6,7 @@ import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.note.NoteId;
+import tagline.model.note.NoteIdEqualsTargetIdPredicate;
 
 /**
  * Deletes a note identified using it's index.
@@ -30,7 +31,10 @@ public class DeleteNoteCommand extends NoteCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        /* TO ADD EXECUTE LOGIC */
+        requireNonNull(model);
+        NoteIdEqualsTargetIdPredicate predicate = new NoteIdEqualsTargetIdPredicate(targetId);
+        model.updateFilteredNoteList(predicate);
+
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, "noteToDelete"));
     }

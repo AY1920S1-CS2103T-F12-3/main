@@ -118,19 +118,6 @@ public class ModelManager implements Model {
         addressBook.setContact(target, editedContact);
     }
 
-    //=========== NoteBook ================================================================================
-
-    @Override
-    public boolean hasNote(Note note) {
-        requireNonNull(note);
-        return noteModel.hasNote(note);
-    }
-
-    @Override
-    public void addNote(Note note) {
-        noteModel.addNote(note);
-    }
-
     //=========== Filtered Contact List Accessors =============================================================
 
     /**
@@ -146,6 +133,36 @@ public class ModelManager implements Model {
     public void updateFilteredContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
+    }
+
+    //=========== NoteBook ================================================================================
+
+    @Override
+    public boolean hasNote(Note note) {
+        requireNonNull(note);
+        return noteModel.hasNote(note);
+    }
+
+    @Override
+    public void addNote(Note note) {
+        noteModel.addNote(note);
+    }
+
+    //=========== Filtered Note List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Note} backed by the internal list of
+     * {@code versionedNoteBook}
+     */
+    @Override
+    public ObservableList<Note> getFilteredNoteList() {
+        return noteModel.getFilteredNoteList();
+    }
+
+    @Override
+    public void updateFilteredNoteList(Predicate<Note> predicate) {
+        requireNonNull(predicate);
+        noteModel.updateFilteredNoteList(predicate);
     }
 
     @Override
