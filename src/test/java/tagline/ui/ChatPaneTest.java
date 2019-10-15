@@ -18,6 +18,7 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.framework.junit5.Stop;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -105,7 +106,8 @@ public class ChatPaneTest {
      */
     void buttonCommand(FxRobot robot, String command) {
         typeCommand(robot, command);
-        robot.clickOn(".commandSendButton");
+        Button button = robot.lookup(".commandSendButton").queryButton();
+        robot.clickOn(button);
     }
 
     @Test
