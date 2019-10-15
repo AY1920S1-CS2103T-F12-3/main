@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.testfx.util.NodeQueryUtils.hasText;
 
 import java.nio.file.Path;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import org.junit.jupiter.api.AfterEach;
@@ -18,7 +17,6 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.framework.junit5.Stop;
-import org.testfx.util.WaitForAsyncUtils;
 
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -97,7 +95,7 @@ public class ChatPaneTest {
     /**
      * Enters a command into the command text field and sends it with the Enter key.
      */
-    void enterCommand(FxRobot robot, String command) throws TimeoutException {
+    void enterCommand(FxRobot robot, String command) {
         typeCommand(robot, command);
         robot.type(KeyCode.ENTER);
     }
@@ -105,16 +103,13 @@ public class ChatPaneTest {
     /**
      * Enters a command into the command text field and sends it by pressing the button.
      */
-    void buttonCommand(FxRobot robot, String command) throws TimeoutException {
+    void buttonCommand(FxRobot robot, String command) {
         typeCommand(robot, command);
         robot.clickOn(".commandSendButton");
     }
 
     @Test
-    void sendEmptyCommand_successful(FxRobot robot) throws TimeoutException {
-        WaitForAsyncUtils.waitFor(10, TimeUnit.SECONDS, ()
-            -> robot.lookup(".commandTextField").query().isVisible());
-
+    void sendEmptyCommand_successful(FxRobot robot) {
         TextField textField = robot.lookup(".commandTextField").queryAs(TextField.class);
         robot.clickOn(textField);
         robot.press(KeyCode.ENTER);
@@ -125,7 +120,7 @@ public class ChatPaneTest {
     }
 
     @Test
-    void sendNonEmptyCommand_successful(FxRobot robot) throws TimeoutException {
+    void sendNonEmptyCommand_successful(FxRobot robot) {
         enterCommand(robot, COMMAND_TEST_STRING);
 
         FxAssert.verifyThat(".command-dialog", hasText(COMMAND_TEST_STRING));
@@ -134,7 +129,7 @@ public class ChatPaneTest {
     }
 
     @Test
-    void sendCommandWithButton_successful(FxRobot robot) throws TimeoutException {
+    void sendCommandWithButton_successful(FxRobot robot) {
         buttonCommand(robot, COMMAND_TEST_STRING);
 
         FxAssert.verifyThat(".command-dialog", hasText(COMMAND_TEST_STRING));
@@ -143,7 +138,7 @@ public class ChatPaneTest {
     }
 
     @Test
-    void sendNonEmptyCommand_exceptionThrown(FxRobot robot) throws TimeoutException {
+    void sendNonEmptyCommand_exceptionThrown(FxRobot robot) {
         logic.setThrowException(EXCEPTION_STRING);
 
         enterCommand(robot, COMMAND_TEST_STRING);
@@ -154,7 +149,7 @@ public class ChatPaneTest {
     }
 
     @Test
-    void sendLongCommand_successful(FxRobot robot) throws TimeoutException {
+    void sendLongCommand_successful(FxRobot robot) {
         enterCommand(robot, COMMAND_TEST_STRING_LONG);
 
         FxAssert.verifyThat(".command-dialog", hasText(COMMAND_TEST_STRING_LONG));
@@ -162,7 +157,7 @@ public class ChatPaneTest {
     }
 
     @Test
-    void sendMultipleCommands_successful(FxRobot robot) throws TimeoutException {
+    void sendMultipleCommands_successful(FxRobot robot) {
         for (int i = 1; i <= 5; i++) {
             enterCommand(robot, COMMAND_TEST_STRING);
         }
