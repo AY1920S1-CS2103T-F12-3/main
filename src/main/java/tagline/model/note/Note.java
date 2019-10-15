@@ -41,19 +41,6 @@ public class Note {
         this.tags.addAll(tags);
     }
 
-    public Note(NoteId noteid, Content content, TimeCreated timeCreated,
-        TimeLastEdited timeLastEdited, Set<Tag> tags) {
-
-        requireAllNonNull(noteid, content, timeCreated, timeLastEdited, tags);
-
-        this.noteid = noteid;
-        this.title = new Title("this field will be removed");
-        this.content = content;
-        this.timeCreated = timeCreated;
-        this.timeLastEdited = timeLastEdited;
-        this.tags.addAll(tags);
-    }
-
     public NoteId getNoteId() {
         return noteid;
     }
@@ -92,11 +79,10 @@ public class Note {
         }
 
         return otherNote != null
-             //this part should be .equals(getId()), title will be optional i guess
-             && otherNote.getNoteId().equals(getNoteId());
-             //&& otherNote.getContent().equals(getContent())
-             //&& otherNote.getTimeCreated().equals(getTimeCreated());
-        //&& (otherNote.getPhone().equals(getPhone()) || otherNote.getEmail().equals(getEmail()));
+                && otherNote.getNoteId().equals(getNoteId())
+                && otherNote.getTitle().equals(getTitle())
+                && otherNote.getContent().equals(getContent())
+                && otherNote.getTags().equals(getTags());
     }
 
     /**

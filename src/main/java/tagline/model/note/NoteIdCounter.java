@@ -3,41 +3,41 @@ package tagline.model.note;
 //import static java.util.Objects.requireNonNull;
 //import static tagline.commons.util.AppUtil.checkArgument;
 
+import static tagline.commons.util.AppUtil.checkArgument;
+
+// yes a Singleton is better but I will refactor this one day
 /**
  * Represents a Note's content in the note book.
- * Guarantees:
+ * Guarantees: a Static Class,
  */
 public class NoteIdCounter {
 
-    public static final String MESSAGE_CONSTRAINTS = "NoteIdCounter can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "NoteIdCounter can take any number, and it should not be blank";
 
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    //public static final String VALIDATION_REGEX = "[^\\s].*";
+    // from https://stackoverflow.com/questions/15111420/how-to-check-if-a-string-contains-only-digits-in-java
+    public static final String VALIDATION_REGEX = "\\d+";
 
     //public final String value;
     private static long counter;
-
-    ///**
-    // * Constructs an {@code NoteIdCounter}.
-    // *
-    // * @param preset A valid content.
-    // */
-    //public NoteIdCounter(long preset) {
-    //    requireNonNull(preset);
-    //    //checkArgument(isValidNoteIdCounter(content), MESSAGE_CONSTRAINTS);
-    //    counter = Long.valueOf(preset);
-    //}
 
     //this is a static class only
     private NoteIdCounter() {
         //counter = Long.valueOf(0);
     }
 
+    // for testing purposes
     public static void setCount(long newCount) {
         counter = newCount; //Long.valueOf(0);
+    }
+
+    // for storage purposes
+    public static void setCountFromStorage(String newCount) {
+        checkArgument(isValidNoteIdCount(newCount), MESSAGE_CONSTRAINTS);
+        counter = Long.valueOf(newCount); //Long.valueOf(0);
+    }
+
+    public static String getStorageString() {
+        return String.valueOf(counter);
     }
 
     public static void setZero() {
@@ -57,8 +57,16 @@ public class NoteIdCounter {
         return counter;
     }
 
-    public static long getCount() {
-        return counter;
+    public static Long getCount() {
+        return Long.valueOf(counter);
+    }
+
+    /**
+     * Returns true if a given string is a valid noteID number count.
+     */
+    public static boolean isValidNoteIdCount(String test) {
+        return test.matches(VALIDATION_REGEX);
+
     }
 
     //@Override

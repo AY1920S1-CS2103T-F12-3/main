@@ -3,18 +3,23 @@ package tagline.logic.commands.note;
 import static java.util.Objects.requireNonNull;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
+import static tagline.model.note.NoteModel.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import tagline.commons.core.Messages;
 import tagline.commons.util.CollectionUtil;
 import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.note.Content;
 import tagline.model.note.Note;
 import tagline.model.note.NoteId;
+import tagline.model.note.NoteIdEqualsTargetIdPredicate;
 import tagline.model.note.TimeCreated;
 import tagline.model.note.TimeLastEdited;
 import tagline.model.note.Title;
@@ -38,6 +43,7 @@ public class EditNoteCommand extends NoteCommand {
 
     public static final String MESSAGE_EDIT_NOTE_SUCCESS = "Edited Note: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_DUPLICATE_NOTE = "This note already exists.";
 
     private final NoteId noteId;
     private final EditNoteDescriptor editNoteDescriptor;
@@ -55,16 +61,28 @@ public class EditNoteCommand extends NoteCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        /* CHECK FOR INVALID NOTE */
+        // Check for invalid note id
+        NoteIdEqualsTargetIdPredicate predicate = new NoteIdEqualsTargetIdPredicate(noteId);
+        model.updateFilteredNoteList(predicate);
+        List<Note> filteredList = model.getFilteredNoteList();
 
-        // NoteToEdit
-        // Note editedNote = createEditedNote(noteToEdit, editNoteDescriptor);
-        /* Edit note */
+        if (filteredList.size() == 0) {
+            throw new CommandException(Messages.MESSAGE_INVALID_NOTE_INDEX);
+        }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, "edited Person"));
+        Note noteToEdit = filteredList.get(0);
+        Note editedNote = createEditedNote(noteToEdit, editNoteDescriptor);
+
+        if (!noteToEdit.isSameNote(editedNote) && model.hasNote(editedNote)) {
+            throw new CommandException(MESSAGE_DUPLICATE_NOTE);
+        }
+
+        model.setNote(noteToEdit, editedNote);
+        model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+        return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, editedNote));
     }
 
     /**

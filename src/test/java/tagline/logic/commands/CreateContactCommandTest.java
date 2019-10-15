@@ -23,6 +23,7 @@ import tagline.model.Model;
 import tagline.model.ReadOnlyAddressBook;
 import tagline.model.ReadOnlyUserPrefs;
 import tagline.model.contact.Contact;
+import tagline.model.note.Note;
 import tagline.testutil.ContactBuilder;
 
 public class CreateContactCommandTest {
@@ -149,6 +150,36 @@ public class CreateContactCommandTest {
 
         @Override
         public void updateFilteredContactList(Predicate<Contact> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasNote(Note note) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addNote(Note note) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteNote(Note target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setNote(Note target, Note editedNote) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Note> getFilteredNoteList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredNoteList(Predicate<Note> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
