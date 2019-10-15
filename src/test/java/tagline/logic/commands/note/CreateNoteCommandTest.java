@@ -276,6 +276,21 @@ class CreateNoteCommandTest {
         public void addNote(Note note) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void deleteNote(Note target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Note> getFilteredNoteList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredNoteList(Predicate<Note> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
