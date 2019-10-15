@@ -2,6 +2,8 @@ package tagline.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import tagline.commons.core.Messages;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
@@ -9,8 +11,6 @@ import tagline.model.Model;
 import tagline.model.note.Note;
 import tagline.model.note.NoteId;
 import tagline.model.note.NoteIdEqualsTargetIdPredicate;
-
-import java.util.List;
 
 /**
  * Deletes a note identified using it's index.
@@ -45,8 +45,8 @@ public class DeleteNoteCommand extends NoteCommand {
         }
 
         Note noteToDelete = filteredList.get(0);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, "noteToDelete"));
+        model.deleteNote(noteToDelete);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, noteToDelete));
     }
 
     @Override

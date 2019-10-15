@@ -20,7 +20,7 @@ public class NoteIdEqualsTargetIdPredicate implements Predicate<Note> {
     @Override
     public boolean equals (Object other) {
         return other == this // short circuit if same object
-                || (other instanceof  NoteIdEqualsTargetIdPredicate // instanceof handles null
-        )       && noteId.equals(((NoteIdEqualsTargetIdPredicate) other).noteId); //state check
+                || (other instanceof NoteIdEqualsTargetIdPredicate // instanceof handles null
+                && noteId.equals(((NoteIdEqualsTargetIdPredicate) other).noteId)); //state check
     }
 }
