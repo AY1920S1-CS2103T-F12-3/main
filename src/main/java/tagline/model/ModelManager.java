@@ -148,6 +148,11 @@ public class ModelManager implements Model {
         noteModel.addNote(note);
     }
 
+    @Override
+    public void deleteNote(Note target) {
+        noteModel.deleteNote(target);
+    }
+
     //=========== Filtered Note List Accessors =============================================================
 
     /**

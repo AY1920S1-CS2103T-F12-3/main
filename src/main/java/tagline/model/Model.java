@@ -105,6 +105,12 @@ public interface Model {
      */
     void addNote(Note note);
 
+    /**
+     * Deletes the given note.
+     * The note must exist in the address book.
+     */
+    void deleteNote(Note target);
+
     /** Returns an unmodifiable view of the filtered note list */
     ObservableList<Note> getFilteredNoteList();
 
