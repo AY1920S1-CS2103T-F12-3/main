@@ -1,6 +1,7 @@
 package tagline.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
+import static tagline.model.note.NoteModel.PREDICATE_SHOW_ALL_NOTES;
 
 import tagline.logic.commands.CommandResult;
 import tagline.model.Model;
@@ -26,8 +27,9 @@ public class ListNoteCommand extends NoteCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        if (filter == null) {
-            /* TO ADD LOGIC WHEN MODEL MANAGER DONE */
+
+        if (filter == null) { // No filter, list all notes
+            model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
             return new CommandResult(MESSAGE_SUCCESS);
         } else {
             return new CommandResult("Listed notes for keyword: " + filter.getFilterValue());
