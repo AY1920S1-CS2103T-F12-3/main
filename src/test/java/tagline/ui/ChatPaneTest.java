@@ -107,7 +107,7 @@ public class ChatPaneTest {
     void buttonCommand(FxRobot robot, String command) {
         typeCommand(robot, command);
         Button button = robot.lookup(".commandSendButton").queryButton();
-        robot.clickOn(button);
+        robot.interact(() -> button.fire());
     }
 
     @Test
