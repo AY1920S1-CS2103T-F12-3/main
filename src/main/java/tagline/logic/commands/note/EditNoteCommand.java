@@ -67,11 +67,13 @@ public class EditNoteCommand extends NoteCommand {
         model.updateFilteredNoteList(predicate);
         List<Note> filteredList = model.getFilteredNoteList();
 
-        if (filteredList.size() < 1) {
+        if (filteredList.size() == 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_NOTE_INDEX);
         }
 
-        // NoteToEdit
+        Note noteToEdit = filteredList.get(0);
+        Note editedNote = createEditedNote(noteToEdit, editNoteDescriptor);
+
         // Note editedNote = createEditedNote(noteToEdit, editNoteDescriptor);
         /* Edit note */
 

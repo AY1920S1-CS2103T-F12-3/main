@@ -79,11 +79,10 @@ public class Note {
         }
 
         return otherNote != null
-             //this part should be .equals(getId()), title will be optional i guess
-             && otherNote.getNoteId().equals(getNoteId());
-             //&& otherNote.getContent().equals(getContent())
-             //&& otherNote.getTimeCreated().equals(getTimeCreated());
-        //&& (otherNote.getPhone().equals(getPhone()) || otherNote.getEmail().equals(getEmail()));
+                && otherNote.getNoteId().equals(getNoteId())
+                && otherNote.getTitle().equals(getTitle())
+                && otherNote.getContent().equals(getContent())
+                && otherNote.getTags().equals(getTags());
     }
 
     /**
