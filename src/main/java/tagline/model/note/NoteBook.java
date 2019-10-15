@@ -1,12 +1,12 @@
-package tagline.model;
+package tagline.model.note;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import tagline.model.note.Note;
-import tagline.model.note.UniqueNoteList;
+//import tagline.model.note.Note;
+//import tagline.model.note.UniqueNoteList;
 
 /**
  * Wraps all data at the address-book level

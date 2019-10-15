@@ -2,10 +2,15 @@ package tagline.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
+import tagline.commons.core.Messages;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
+import tagline.model.note.Note;
 import tagline.model.note.NoteId;
+import tagline.model.note.NoteIdEqualsTargetIdPredicate;
 
 /**
  * Deletes a note identified using it's index.
@@ -30,9 +35,18 @@ public class DeleteNoteCommand extends NoteCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        /* TO ADD EXECUTE LOGIC */
+        requireNonNull(model);
+        NoteIdEqualsTargetIdPredicate predicate = new NoteIdEqualsTargetIdPredicate(targetId);
+        model.updateFilteredNoteList(predicate);
+        List<Note> filteredList = model.getFilteredNoteList();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, "noteToDelete"));
+        if (filteredList.size() < 1) {
+            throw new CommandException(Messages.MESSAGE_INVALID_NOTE_INDEX);
+        }
+
+        Note noteToDelete = filteredList.get(0);
+        model.deleteNote(noteToDelete);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, noteToDelete));
     }
 
     @Override

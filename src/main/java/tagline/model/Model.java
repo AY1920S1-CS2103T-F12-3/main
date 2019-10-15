@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import tagline.commons.core.GuiSettings;
 import tagline.model.contact.Contact;
+import tagline.model.note.Note;
 
 /**
  * The API of the Model component.
@@ -92,4 +93,30 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredContactList(Predicate<Contact> predicate);
+
+    /**
+     * Returns true if a contact with the same identity as {@code note} exists in the note book.
+     */
+    boolean hasNote(Note note);
+
+    /**
+     * Adds the given note.
+     * {@code note} must not already exist in the address book.
+     */
+    void addNote(Note note);
+
+    /**
+     * Deletes the given note.
+     * The note must exist in the address book.
+     */
+    void deleteNote(Note target);
+
+    /** Returns an unmodifiable view of the filtered note list */
+    ObservableList<Note> getFilteredNoteList();
+
+    /**
+     * Updates the filter of the filtered note list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredNoteList(Predicate<Note> predicate);
 }

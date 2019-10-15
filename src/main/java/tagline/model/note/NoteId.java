@@ -1,7 +1,7 @@
 package tagline.model.note;
 
 import static java.util.Objects.requireNonNull;
-//import static tagline.commons.util.AppUtil.checkArgument;
+import static tagline.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's phone number in the address book.
@@ -10,10 +10,11 @@ import static java.util.Objects.requireNonNull;
 public class NoteId {
 
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "NoteId numbers should only contain numbers, and it should be at least 3 digits long";
+    public static final String MESSAGE_CONSTRAINTS = "NoteId numbers should only contain numbers";
 
-    //public static final String VALIDATION_REGEX = "\\d{1,}";
+    // from https://stackoverflow.com/questions/15111420/how-to-check-if-a-string-contains-only-digits-in-java
+    public static final String VALIDATION_REGEX = "\\d+";
+
     public final Long value;
     //public final String value;
 
@@ -28,15 +29,28 @@ public class NoteId {
         value = Long.valueOf(idNumber);
     }
 
+    // this constructor supports storage
+    // is this a point of failure? should i be using a factory method?
+    public NoteId(String idNumber) {
+        requireNonNull(idNumber);
+        checkArgument(isValidNoteId(idNumber), MESSAGE_CONSTRAINTS);
+        value = Long.valueOf(idNumber);
+    }
+
     public NoteId() {
         value = NoteIdCounter.incrementThenGetValue();
     }
 
+    // This part is to convert the Long to String for Storage
+    public String getStorageString() {
+        return value.toString();
+    }
+
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid noteID number.
      */
     public static boolean isValidNoteId(String test) {
-        return true; //test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
