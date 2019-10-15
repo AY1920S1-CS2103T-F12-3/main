@@ -7,7 +7,6 @@ import static org.testfx.util.NodeQueryUtils.hasText;
 import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.logging.Logger;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -24,6 +23,8 @@ import org.testfx.util.WaitForAsyncUtils;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import tagline.logic.Logic;
 import tagline.logic.commands.CommandResult;
 import tagline.testutil.CommandResultBuilder;
 import tagline.testutil.LogicStub;
@@ -46,24 +47,27 @@ public class ChatPaneTest {
     private LogicStub logic;
     private MainWindow mainWindow;
 
-    private Logger logger;
+    /**
+     * Set up the main window.
+     */
+    private void initMainWindow(Stage stage, Logic logic) throws TimeoutException {
+        if (stage.getStyle() != StageStyle.DECORATED) {
+            stage.initStyle(StageStyle.DECORATED);
+        }
+
+        FxToolkit.setupStage(s -> {
+            mainWindow = new MainWindow(s, logic);
+            mainWindow.show();
+            mainWindow.fillInnerParts();
+        });
+        FxToolkit.showStage();
+    }
 
     @Start
     void setup(Stage stage) throws TimeoutException {
         logic = new LogicStub(testFolder);
         logic.setCommandResult(DEFAULT_COMMAND_RESULT);
-        logger = Logger.getLogger("ChatPaneTest");
-
-        FxToolkit.setupStage(s -> {
-            mainWindow = new MainWindow(s, logic);
-            mainWindow.show();
-            WaitForAsyncUtils.waitForFxEvents();
-            logger.info("MainWindow height: " + mainWindow.getRoot().getHeight());
-            logger.info("MainWindow width: " + mainWindow.getRoot().getWidth());
-            mainWindow.fillInnerParts();
-        });
-        WaitForAsyncUtils.waitForFxEvents();
-        FxToolkit.showStage();
+        initMainWindow(stage, logic);
     }
 
     @Stop
@@ -84,7 +88,7 @@ public class ChatPaneTest {
     /**
      * Types a command in the command text field.
      */
-    void typeCommand(FxRobot robot, String command) throws TimeoutException {
+    void typeCommand(FxRobot robot, String command) {
         TextField textField = robot.lookup(".commandTextField").queryAs(TextField.class);
         robot.clickOn(textField);
         robot.interact(() -> textField.setText(command));
