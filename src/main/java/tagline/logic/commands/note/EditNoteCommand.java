@@ -3,6 +3,7 @@ package tagline.logic.commands.note;
 import static java.util.Objects.requireNonNull;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
+import static tagline.model.note.NoteModel.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -79,7 +80,9 @@ public class EditNoteCommand extends NoteCommand {
             throw new CommandException(MESSAGE_DUPLICATE_NOTE);
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, "edited Person"));
+        model.setNote(noteToEdit, editedNote);
+        model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+        return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, editedNote));
     }
 
     /**
