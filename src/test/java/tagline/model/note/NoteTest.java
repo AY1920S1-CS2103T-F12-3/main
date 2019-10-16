@@ -2,27 +2,15 @@ package tagline.model.note;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-//import static tagline.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-//import static tagline.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-//import static tagline.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-//import static tagline.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static tagline.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-//import static tagline.logic.commands.NoteCommandTestUtil.*;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_CONTENT_INCIDENT;
-//import static tagline.logic.commands.NoteCommandTestUtil.VALID_CONTENT_PROTECTOR;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_NOTEID_INCIDENT;
-//import static tagline.logic.commands.NoteCommandTestUtil.VALID_NOTEID_PROTECTOR;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TAG_AVENGERS;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TIMECREATED_INCIDENT;
-//import static tagline.logic.commands.NoteCommandTestUtil.VALID_TIMECREATED_PROTECTOR;
-import static tagline.logic.commands.NoteCommandTestUtil.VALID_TIMECREATED_PROTECTOR;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TIMELASTUPDATED_INCIDENT;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TITLE_INCIDENT;
 import static tagline.testutil.Assert.assertThrows;
 import static tagline.testutil.TypicalNotes.INCIDENT;
 import static tagline.testutil.TypicalNotes.PROTECTOR;
-//import static tagline.testutil.TypicalPersons.ALICE;
-//import static tagline.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -141,7 +129,7 @@ public class NoteTest {
         assertFalse(PROTECTOR.equals(editedProtector));
 
         // different tags -> returns false
-        editedProtector = new NoteBuilder(PROTECTOR).withTags(VALID_TAG_HUSBAND).build();
+        editedProtector = new NoteBuilder(PROTECTOR).withTags(VALID_TAG_AVENGERS).build();
         assertFalse(PROTECTOR.equals(editedProtector));
     }
 }
