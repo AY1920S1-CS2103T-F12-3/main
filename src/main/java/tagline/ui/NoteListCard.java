@@ -29,7 +29,13 @@ public class NoteListCard extends UiPart<Region> {
         super(FXML);
         this.note = note;
         id.setText("#" + note.getNoteId().value);
-        title.setText(note.getTitle().titleDescription);
+
+        if (note.getTitle().titleDescription.isEmpty()) {
+            title.setText("Untitled Note");
+        } else {
+            title.setText(note.getTitle().titleDescription);
+        }
+
         time.setText(note.getTimeCreated().getTime().toString());
         content.setText(note.getContent().value);
     }
