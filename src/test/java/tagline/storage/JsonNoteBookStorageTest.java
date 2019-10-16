@@ -21,10 +21,6 @@ import tagline.model.note.NoteIdCounter;
 import tagline.model.note.ReadOnlyNoteBook;
 import tagline.testutil.TypicalNotes;
 
-//import static tagline.testutil.TypicalNotes.ALICE;
-//import static tagline.testutil.TypicalNotes.HOON;
-//import static tagline.testutil.TypicalNotes.IDA;
-
 public class JsonNoteBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonNoteBookStorageTest");
 
@@ -88,7 +84,6 @@ public class JsonNoteBookStorageTest {
         NoteIdCounter.setZero(); //simulates reset of counter after closing app
         ReadOnlyNoteBook readBack = jsonNoteBookStorage.readNoteBook(filePath).get();
         assertEquals(original, new NoteBook(readBack));
-
         //noteIdCounter restores after bringing back a Note
         assertEquals(validNoteIdCount, NoteIdCounter.getCount().toString());
 
@@ -99,7 +94,6 @@ public class JsonNoteBookStorageTest {
         NoteIdCounter.setZero(); //simulates reset of counter after closing app
         readBack = jsonNoteBookStorage.readNoteBook(filePath).get();
         assertEquals(original, new NoteBook(readBack));
-
         //noteIdCounter restores after bringing back a Note
         assertEquals(validNoteIdCount, NoteIdCounter.getCount().toString());
 
@@ -109,7 +103,6 @@ public class JsonNoteBookStorageTest {
         NoteIdCounter.setZero(); //simulates reset of counter after closing app
         readBack = jsonNoteBookStorage.readNoteBook().get(); // file path not specified
         assertEquals(original, new NoteBook(readBack));
-
         //noteIdCounter restores after bringing back a Note
         assertEquals(validNoteIdCount, NoteIdCounter.getCount().toString());
 

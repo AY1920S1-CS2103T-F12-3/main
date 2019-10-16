@@ -15,12 +15,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-//import static tagline.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-//import static tagline.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-//import java.util.Arrays;
-//import java.util.List;
-//import tagline.testutil.NoteBuilder;
-
 public class NoteBookTest {
 
     private final NoteBook addressBook = new NoteBook();

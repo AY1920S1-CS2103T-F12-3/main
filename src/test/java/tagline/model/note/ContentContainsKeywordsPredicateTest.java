@@ -46,7 +46,6 @@ public class ContentContainsKeywordsPredicateTest {
         // One keyword
         ContentContainsKeywordsPredicate predicate =
                 new ContentContainsKeywordsPredicate(Collections.singletonList("Alice"));
-
         assertTrue(predicate.test(new NoteBuilder().withContent("Alice Bob").build()));
 
         // Multiple keywords

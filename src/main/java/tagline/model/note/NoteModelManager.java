@@ -31,7 +31,7 @@ public class NoteModelManager implements NoteModel {
         super();
         requireAllNonNull(noteBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + noteBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with note book: " + noteBook + " and user prefs " + userPrefs);
 
         this.noteBook = new NoteBook(noteBook);
         this.userPrefs = new UserPrefs(userPrefs);
