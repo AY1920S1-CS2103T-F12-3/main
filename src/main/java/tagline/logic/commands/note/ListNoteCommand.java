@@ -31,7 +31,8 @@ public class ListNoteCommand extends NoteCommand {
         if (filter == null) { // No filter, list all notes
             model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
             return new CommandResult(MESSAGE_SUCCESS);
-        } else {
+        } else { // list if note contains keyword
+
             return new CommandResult("Listed notes for keyword: " + filter.getFilterValue());
         }
     }

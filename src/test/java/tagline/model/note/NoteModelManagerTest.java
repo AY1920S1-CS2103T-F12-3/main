@@ -123,7 +123,7 @@ public class NoteModelManagerTest {
         noteModelManager = new NoteModelManager(addressBook, userPrefs);
         // using these strings as they are unique to INCIDENT but not found in ULTRON
         String[] keywords = {"Manhattan", "York", "Loki", "Chitauri"};
-        noteModelManager.updateFilteredNoteList(new ContentContainsKeywordsPredicate(Arrays.asList(keywords)));
+        noteModelManager.updateFilteredNoteList(new NoteContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(noteModelManager.equals(new NoteModelManager(addressBook, userPrefs)));
 
         // resets noteModelManager to initial state for upcoming tests
