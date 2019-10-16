@@ -178,9 +178,6 @@ public class MainWindow extends UiPart<Stage> {
         contactResultView.fillInnerParts(logic.getFilteredContactList());
         resultViewMap.put(ViewType.CONTACT, contactResultView);
 
-        DummyResultView dummyResultView = new DummyResultView();
-        resultViewMap.put(ViewType.DUMMY, dummyResultView);
-
         NoteResultView noteResultView = new NoteResultView();
         noteResultView.fillInnerParts(logic.getFilteredNoteList());
         resultViewMap.put(ViewType.NOTE, noteResultView);
