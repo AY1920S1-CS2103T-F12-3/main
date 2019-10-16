@@ -31,6 +31,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
+        assertEquals(new NoteBook(), modelManager.getNoteBook());
         assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
     }
 
@@ -78,6 +79,18 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setNoteBookFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setNoteBookFilePath(null));
+    }
+
+    @Test
+    public void setNoteBookFilePath_validPath_setsNoteBookFilePath() {
+        Path path = Paths.get("note/book/file/path");
+        modelManager.setNoteBookFilePath(path);
+        assertEquals(path, modelManager.getNoteBookFilePath());
+    }
+
+    @Test
     public void hasContact_nullContact_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasContact(null));
     }
@@ -96,6 +109,22 @@ public class ModelManagerTest {
     @Test
     public void getFilteredContactList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredContactList().remove(0));
+    }
+
+    @Test
+    public void hasNote_noteNotInNoteBook_returnsFalse() {
+        assertFalse(modelManager.hasNote(TOKYO));
+    }
+
+    @Test
+    public void hasNote_noteInNoteBook_returnsTrue() {
+        modelManager.addNote(TOKYO);
+        assertTrue(modelManager.hasNote(TOKYO));
+    }
+
+    @Test
+    public void getFilteredNoteList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredNoteList().remove(0));
     }
 
     @Test
