@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.note.NoteContainsKeywordsPredicate;
@@ -37,7 +38,7 @@ public class ListNoteCommand extends NoteCommand {
 
         if (filter == null) { // No filter, list all notes
             model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
-            return new CommandResult(MESSAGE_SUCCESS);
+            return new CommandResult(MESSAGE_SUCCESS, ViewType.NOTE);
         } else { // list if note contains keyword (filter.filterType.equals(KEYWORD))
             return filterAndListByKeyword(model);
         }
@@ -58,7 +59,7 @@ public class ListNoteCommand extends NoteCommand {
             throw new CommandException(String.format(MESSAGE_KEYWORD_EMPTYLIST, filter.filterValue));
         }
 
-        return new CommandResult(String.format(MESSAGE_KEYWORD_SUCCESS, filter.filterValue));
+        return new CommandResult(String.format(MESSAGE_KEYWORD_SUCCESS, filter.filterValue), ViewType.NOTE);
     }
 
     /**
