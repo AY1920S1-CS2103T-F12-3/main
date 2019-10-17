@@ -49,15 +49,15 @@ public class UniqueContactList implements Iterable<Contact> {
         var it = iterator();
         while (it.hasNext()) {
             Contact currentContact = it.next();
-            if (currentContact.getId().equals(id)) {
+            if (currentContact.getContactId().equals(id)) {
                 return Optional.of(currentContact);
             }
         }
         return Optional.empty();
     }
 
-    public Optional<Contact> findContact(Id id) {
-        return findContact(id.toInteger());
+    public Optional<Contact> findContact(ContactId contactId) {
+        return findContact(contactId.toInteger());
     }
 
     public int size() {

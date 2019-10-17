@@ -14,7 +14,7 @@ public class Contact {
     private final Name name;
     private final Phone phone;
     private final Email email;
-    private Id id;
+    private ContactId contactId;
 
     // Data fields
     private final Address address;
@@ -37,14 +37,14 @@ public class Contact {
      * Ensure that the id is unique among all other contact.
      * Warning: This constructor should only be used by storage.
      */
-    public Contact(Name name, Phone phone, Email email, Address address, Description description, Id id) {
+    public Contact(Name name, Phone phone, Email email, Address address, Description description, ContactId contactId) {
         requireAllNonNull(name, phone, email, address, description);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.description = description;
-        this.id = id;
+        this.contactId = contactId;
     }
 
     public Name getName() {
@@ -67,12 +67,12 @@ public class Contact {
         return description;
     }
 
-    public Id getId() {
-        return id;
+    public ContactId getContactId() {
+        return contactId;
     }
 
-    void setId(Id id) {
-        this.id = id;
+    void setContactId(ContactId contactId) {
+        this.contactId = contactId;
     }
 
     /**

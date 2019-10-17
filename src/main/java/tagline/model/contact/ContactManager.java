@@ -9,7 +9,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import tagline.model.ReadOnlyAddressBook;
 
 /**
  * Represents the in-memory contact model of the address book data.
@@ -49,7 +48,7 @@ public class ContactManager implements ContactModel {
 
     @Override
     public void addContact(Contact contact) {
-        contact.setId(generateUniqueId());
+        contact.setContactId(generateUniqueId());
         addressBook.addContact(contact);
         updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
     }
@@ -66,23 +65,23 @@ public class ContactManager implements ContactModel {
     }
 
     /**
-     * Generate a random unique Id.
+     * Generates a random unique contact Id.
      *
-     * @return a random unique Id.
+     * @return a random unique contact Id.
      */
-    private Id generateUniqueId() {
+    private ContactId generateUniqueId() {
         // If the number of contacts has started to fill up the current digit.
-        if (addressBook.size() >= Math.pow(10, Id.getDigit()) / 2) {
-            Id.incrementDigit();
+        if (addressBook.size() >= Math.pow(10, ContactId.getDigit()) / 2) {
+            ContactId.incrementDigit();
         }
 
-        int limit = (int) Math.pow(10, Id.getDigit());
+        int limit = (int) Math.pow(10, ContactId.getDigit());
         int randomId = ThreadLocalRandom.current().nextInt(limit);
         while (findContact(randomId).isPresent()) {
             randomId = ThreadLocalRandom.current().nextInt(limit);
         }
 
-        return new Id(randomId);
+        return new ContactId(randomId);
     }
 
     //=========== Filtered Contact List Accessors =============================================================

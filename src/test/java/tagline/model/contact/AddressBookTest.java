@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import tagline.model.ReadOnlyAddressBook;
 import tagline.model.contact.exceptions.DuplicateContactException;
 
 public class AddressBookTest {

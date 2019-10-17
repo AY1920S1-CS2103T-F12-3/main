@@ -6,9 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import tagline.commons.exceptions.IllegalValueException;
 import tagline.model.contact.Address;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ContactId;
 import tagline.model.contact.Description;
 import tagline.model.contact.Email;
-import tagline.model.contact.Id;
 import tagline.model.contact.Name;
 import tagline.model.contact.Phone;
 
@@ -33,7 +33,6 @@ class JsonAdaptedContact {
     public JsonAdaptedContact(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                              @JsonProperty("email") String email, @JsonProperty("address") String address,
                              @JsonProperty("description") String description, @JsonProperty("id") String id) {
-
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -51,7 +50,7 @@ class JsonAdaptedContact {
         email = source.getEmail().value;
         address = source.getAddress().value;
         description = source.getDescription().value;
-        id = source.getId().toString();
+        id = source.getContactId().toString();
     }
 
     /**
@@ -103,13 +102,13 @@ class JsonAdaptedContact {
 
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Id.class.getSimpleName()));
+                    ContactId.class.getSimpleName()));
         }
-        if (!Id.isValidId(id)) {
-            throw new IllegalValueException(Id.MESSAGE_CONSTRAINTS);
+        if (!ContactId.isValidId(id)) {
+            throw new IllegalValueException(ContactId.MESSAGE_CONSTRAINTS);
         }
-        final Id modelId = new Id(id);
+        final ContactId modelContactId = new ContactId(id);
 
-        return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelDescription, modelId);
+        return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelDescription, modelContactId);
     }
 }

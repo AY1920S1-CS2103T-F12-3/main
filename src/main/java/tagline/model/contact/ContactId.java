@@ -3,37 +3,36 @@ package tagline.model.contact;
 import tagline.model.contact.exceptions.InvalidIdException;
 
 /**
- * Represent a Contact unique Id.
+ * Represents a Contact unique Id.
  */
-public class Id {
+public class ContactId {
 
-    public static final String MESSAGE_CONSTRAINTS = "id should be a positive integer up to 5 digit";
+    public static final String MESSAGE_CONSTRAINTS = "Id should be a positive integer.";
 
-    private static int digit = 5;
+    private static int contactIdDigits = 5;
 
     private final int id;
 
     /**
-     * Construct an Id from String.
+     * Constructs a contact Id from a String.
      * Warning: This constructor should only be used by storage.
-     * @param id
      */
-    public Id(String id) {
+    public ContactId(String id) {
         this.id = Integer.valueOf(id);
     }
 
     /**
-     * Construct Id from integer.
+     * Constructs a contact Id from an integer.
      */
-    Id(int id) {
-        if (id >= Math.pow(10, digit)) {
+    ContactId(int id) {
+        if (id >= Math.pow(10, contactIdDigits)) {
             throw new InvalidIdException("Id too large");
         }
         this.id = id;
     }
 
     /**
-     * Returns true if id is valid.
+     * Returns true if {@code id} is valid.
      */
     public static boolean isValidId(String id) {
         int value;
@@ -44,21 +43,21 @@ public class Id {
             return false;
         }
 
-        if (0 <= value && value < (int) Math.pow(10, digit)) {
+        if (0 <= value && value < (int) Math.pow(10, contactIdDigits)) {
             return true;
         }
         return false;
     }
 
     /**
-     * Increase the number of digit in Id.
+     * Increases the number of digits in Id.
      */
     static void incrementDigit() {
-        digit++;
+        contactIdDigits++;
     }
 
     static int getDigit() {
-        return digit;
+        return contactIdDigits;
     }
 
     public Integer toInteger() {
@@ -68,7 +67,7 @@ public class Id {
     @Override
     public String toString() {
         String idString = ((Integer) id).toString();
-        while (idString.length() < digit) {
+        while (idString.length() < contactIdDigits) {
             idString = "0" + idString;
         }
         return idString;
@@ -83,8 +82,8 @@ public class Id {
         int other;
         if (obj instanceof Integer) {
             other = (Integer) obj;
-        } else if (obj instanceof Id) {
-            other = ((Id) obj).id;
+        } else if (obj instanceof ContactId) {
+            other = ((ContactId) obj).id;
         } else {
             return false;
         }

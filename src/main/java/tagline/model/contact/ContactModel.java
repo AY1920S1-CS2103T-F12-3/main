@@ -4,14 +4,13 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import tagline.model.ReadOnlyAddressBook;
 
 /**
  * The API of the ContactModel component.
  */
 public interface ContactModel {
     /**
-     * {@code Predicate} that always evaluate to true
+     * {@code Predicate} that always evaluates to true
      */
     Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
 

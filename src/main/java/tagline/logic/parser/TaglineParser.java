@@ -10,8 +10,10 @@ import tagline.logic.commands.Command;
 import tagline.logic.commands.ExitCommand;
 import tagline.logic.commands.HelpCommand;
 import tagline.logic.commands.contact.ContactCommand;
+import tagline.logic.commands.note.NoteCommand;
 import tagline.logic.parser.contact.ContactCommandParser;
 import tagline.logic.parser.exceptions.ParseException;
+import tagline.logic.parser.note.NoteCommandParser;
 
 /**
  * Parses user input.
@@ -21,7 +23,7 @@ public class TaglineParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandKey>\\S+)(?<commandStr>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?s)(?<commandKey>\\S+)(?<commandStr>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -42,6 +44,9 @@ public class TaglineParser {
 
         case ContactCommand.COMMAND_KEY:
             return new ContactCommandParser().parseCommand(commandStr);
+
+        case NoteCommand.COMMAND_KEY:
+            return new NoteCommandParser().parseCommand(commandStr);
 
         case ExitCommand.COMMAND_KEY:
             return new ExitCommand();

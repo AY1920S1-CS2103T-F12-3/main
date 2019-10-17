@@ -25,7 +25,7 @@ public class JsonAdaptedContactTest {
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
     private static final String VALID_DESCRIPTION = BENSON.getDescription().toString();
-    private static final String VALID_ID = BENSON.getId().toString();
+    private static final String VALID_ID = BENSON.getContactId().toString();
 
     @Test
     public void toModelType_validContactDetails_returnsContact() throws Exception {

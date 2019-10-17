@@ -41,7 +41,8 @@ public class Tag {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Tag // instanceof handles nulls
-                && tagName.equals(((Tag) other).tagName)); // state check
+                && tagName.equals(((Tag) other).tagName) // state check
+                && tagId == ((Tag) other).tagId);
     }
 
     @Override
