@@ -70,8 +70,8 @@ public class Note {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both both note have same note id.
+     * This checks if there are any notes with duplicate note id.
      */
     public boolean isSameNote(Note otherNote) {
         if (otherNote == this) {
@@ -83,10 +83,10 @@ public class Note {
     }
 
     /**
-     * Returns true if both notes of the same id have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both notes have same note id, title, content and tags.
+     * This defines a weaker notion of equality between two notes.
      */
-    public boolean isUniqueNote(Note otherNote) {
+    public boolean isIdenticalNote(Note otherNote) {
         if (otherNote == this) {
             return true;
         }

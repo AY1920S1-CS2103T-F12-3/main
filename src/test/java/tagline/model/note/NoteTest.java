@@ -60,34 +60,34 @@ public class NoteTest {
     @Test
     public void isUniqueNote() {
         // same object -> returns true
-        assertTrue(PROTECTOR.isUniqueNote(PROTECTOR));
+        assertTrue(PROTECTOR.isIdenticalNote(PROTECTOR));
 
         // null -> returns false
-        assertFalse(PROTECTOR.isUniqueNote(null));
+        assertFalse(PROTECTOR.isIdenticalNote(null));
 
         // different id -> returns false
         Note editedProtector = new NoteBuilder(PROTECTOR).withNoteId(VALID_NOTEID_INCIDENT).build();
-        assertFalse(PROTECTOR.isUniqueNote(editedProtector));
+        assertFalse(PROTECTOR.isIdenticalNote(editedProtector));
 
         // different title -> returns false
         editedProtector = new NoteBuilder(PROTECTOR).withTitle(VALID_TITLE_INCIDENT).build();
-        assertFalse(PROTECTOR.isUniqueNote(editedProtector));
+        assertFalse(PROTECTOR.isIdenticalNote(editedProtector));
 
         // different content -> returns false
         editedProtector = new NoteBuilder(PROTECTOR).withContent(VALID_CONTENT_INCIDENT).build();
-        assertFalse(PROTECTOR.isUniqueNote(editedProtector));
+        assertFalse(PROTECTOR.isIdenticalNote(editedProtector));
 
         // different tag -> returns false
         editedProtector = new NoteBuilder(PROTECTOR).withTags(VALID_TAG_AVENGERS).build();
-        assertFalse(PROTECTOR.isUniqueNote(editedProtector));
+        assertFalse(PROTECTOR.isIdenticalNote(editedProtector));
 
         // different timecreated -> returns true
         editedProtector = new NoteBuilder(PROTECTOR).withTimeCreated(VALID_TIMECREATED_INCIDENT).build();
-        assertTrue(PROTECTOR.isUniqueNote(editedProtector));
+        assertTrue(PROTECTOR.isIdenticalNote(editedProtector));
 
         // different timeLastEdited -> returns true
         editedProtector = new NoteBuilder(PROTECTOR).withTimeLastUpdated(VALID_TIMELASTUPDATED_INCIDENT).build();
-        assertTrue(PROTECTOR.isUniqueNote(editedProtector));
+        assertTrue(PROTECTOR.isIdenticalNote(editedProtector));
     }
 
     @Test
