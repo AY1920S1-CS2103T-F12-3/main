@@ -77,7 +77,8 @@ public class EditNoteCommand extends NoteCommand {
         Note noteToEdit = filteredList.get(0);
         Note editedNote = createEditedNote(noteToEdit, editNoteDescriptor);
 
-        if (!noteToEdit.isUniqueNote(editedNote) && model.hasNote(editedNote)) {
+        assert noteToEdit.getNoteId().equals(editedNote.getNoteId());
+        if (noteToEdit.isUniqueNote(editedNote)) {
             throw new CommandException(MESSAGE_DUPLICATE_NOTE);
         }
 
