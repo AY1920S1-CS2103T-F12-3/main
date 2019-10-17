@@ -1,7 +1,7 @@
 package tagline.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static tagline.storage.JsonAdaptedNote.MISSING_FIELD_MESSAGE_FORMAT;
+import static tagline.storage.JsonAdaptedContact.MISSING_FIELD_MESSAGE_FORMAT;
 import static tagline.testutil.Assert.assertThrows;
 import static tagline.testutil.TypicalContacts.BENSON;
 
