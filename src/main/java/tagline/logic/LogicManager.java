@@ -14,8 +14,8 @@ import tagline.logic.commands.exceptions.CommandException;
 import tagline.logic.parser.TaglineParser;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.Model;
-import tagline.model.ReadOnlyAddressBook;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.storage.Storage;
 
 /**

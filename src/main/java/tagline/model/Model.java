@@ -1,22 +1,19 @@
 package tagline.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import tagline.commons.core.GuiSettings;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.note.Note;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /**
-     * {@code Predicate} that always evaluate to true
-     */
-    Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
-
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -81,6 +78,8 @@ public interface Model {
      * book.
      */
     void setContact(Contact target, Contact editedContact);
+
+    Optional<Contact> findContact(int id);
 
     /**
      * Returns an unmodifiable view of the filtered contact list

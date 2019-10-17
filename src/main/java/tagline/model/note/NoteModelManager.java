@@ -31,11 +31,19 @@ public class NoteModelManager implements NoteModel {
         super();
         requireAllNonNull(noteBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + noteBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with note book: " + noteBook + " and user prefs " + userPrefs);
 
         this.noteBook = new NoteBook(noteBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredNotes = new FilteredList<>(this.noteBook.getNoteList());
+    }
+
+    public NoteModelManager(ReadOnlyNoteBook noteBook) {
+        this(noteBook, new UserPrefs());
+    }
+
+    public NoteModelManager(ReadOnlyUserPrefs userPrefs) {
+        this(new NoteBook(), userPrefs);
     }
 
     public NoteModelManager() {

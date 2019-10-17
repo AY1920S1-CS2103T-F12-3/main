@@ -4,17 +4,22 @@ import static java.util.Objects.requireNonNull;
 import static tagline.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import tagline.commons.core.GuiSettings;
 import tagline.commons.core.LogsCenter;
+import tagline.model.contact.AddressBook;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ContactManager;
+import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.note.Note;
+import tagline.model.note.NoteBook;
 import tagline.model.note.NoteModel;
 import tagline.model.note.NoteModelManager;
+import tagline.model.note.ReadOnlyNoteBook;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,29 +27,35 @@ import tagline.model.note.NoteModelManager;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
-    private final UserPrefs userPrefs;
-    private final FilteredList<Contact> filteredContacts;
+    private final ContactManager contactManager;
     private final NoteModel noteModel;
+    private final UserPrefs userPrefs;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyNoteBook noteBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + addressBook
+                + ", note book: " + noteBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        contactManager = new ContactManager(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredContacts = new FilteredList<>(this.addressBook.getContactList());
+        noteModel = new NoteModelManager(noteBook);
+    }
 
-        noteModel = new NoteModelManager();
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+        this(addressBook, new NoteBook(), userPrefs);
+    }
+
+    public ModelManager(ReadOnlyNoteBook noteBook, ReadOnlyUserPrefs userPrefs) {
+        this(new AddressBook(), noteBook, userPrefs);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new NoteBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -86,36 +97,37 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+        contactManager.setAddressBook(addressBook);
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+        return contactManager.getAddressBook();
     }
 
     @Override
     public boolean hasContact(Contact contact) {
-        requireNonNull(contact);
-        return addressBook.hasContact(contact);
+        return contactManager.hasContact(contact);
     }
 
     @Override
     public void deleteContact(Contact target) {
-        addressBook.removeContact(target);
+        contactManager.deleteContact(target);
     }
 
     @Override
     public void addContact(Contact contact) {
-        addressBook.addContact(contact);
-        updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+        contactManager.addContact(contact);
     }
 
     @Override
     public void setContact(Contact target, Contact editedContact) {
-        requireAllNonNull(target, editedContact);
+        contactManager.setContact(target, editedContact);
+    }
 
-        addressBook.setContact(target, editedContact);
+    @Override
+    public Optional<Contact> findContact(int id) {
+        return contactManager.findContact(id);
     }
 
     //=========== Filtered Contact List Accessors =============================================================
@@ -126,13 +138,12 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Contact> getFilteredContactList() {
-        return filteredContacts;
+        return contactManager.getFilteredContactList();
     }
 
     @Override
     public void updateFilteredContactList(Predicate<Contact> predicate) {
-        requireNonNull(predicate);
-        filteredContacts.setPredicate(predicate);
+        contactManager.updateFilteredContactList(predicate);
     }
 
     //=========== NoteBook ================================================================================
@@ -184,9 +195,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredContacts.equals(other.filteredContacts);
+        return contactManager.equals(other.contactManager)
+                && noteModel.equals(other.noteModel)
+                && userPrefs.equals(other.userPrefs);
     }
 
 }

@@ -13,8 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import tagline.model.AddressBook;
+import tagline.model.contact.AddressBook;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ContactBuilder;
 
 /**
  * A utility class containing a list of {@code Contact} objects to be used in tests.
