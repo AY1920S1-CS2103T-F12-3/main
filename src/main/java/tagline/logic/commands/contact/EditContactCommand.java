@@ -15,6 +15,7 @@ import tagline.commons.core.Messages;
 import tagline.commons.core.index.Index;
 import tagline.commons.util.CollectionUtil;
 import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.contact.Address;
@@ -53,11 +54,7 @@ public class EditContactCommand extends ContactCommand {
     private final EditContactDescriptor editContactDescriptor;
 
     /**
-<<<<<<< HEAD
-     * @param index                of the contact in the filtered contact list to edit
-=======
      * @param index                 of the contact in the filtered contact list to edit
->>>>>>> 9efdc3b6f1d85a240eba3eb4e7fae45d82706631
      * @param editContactDescriptor details to edit the contact with
      */
     public EditContactCommand(Index index, EditContactDescriptor editContactDescriptor) {
@@ -102,7 +99,7 @@ public class EditContactCommand extends ContactCommand {
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
-        return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact));
+        return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact), ViewType.CONTACT);
     }
 
     @Override

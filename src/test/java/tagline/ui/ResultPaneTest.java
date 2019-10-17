@@ -35,9 +35,9 @@ public class ResultPaneTest {
             .putName(RESPONSE_STRING)
             .putViewType(ViewType.CONTACT)
             .build();
-    private static final CommandResult DUMMY_COMMAND_RESULT = new CommandResultBuilder()
+    private static final CommandResult NOTE_COMMAND_RESULT = new CommandResultBuilder()
             .putName(RESPONSE_STRING)
-            .putViewType(ViewType.DUMMY)
+            .putViewType(ViewType.NOTE)
             .build();
     private static final CommandResult NONE_COMMAND_RESULT = new CommandResultBuilder()
             .putName(RESPONSE_STRING)
@@ -66,13 +66,13 @@ public class ResultPaneTest {
     }
 
     @Start
-    void setup(Stage stage) throws TimeoutException {
-        logic = new LogicStub(testFolder);
+    void setUp(Stage stage) throws TimeoutException {
+        logic = new LogicStub(testFolder.resolve("addressbook.json"), testFolder.resolve("notebook.json"));
         initMainWindow(stage, logic);
     }
 
     @Stop
-    void teardown() throws TimeoutException {
+    void tearDown() throws TimeoutException {
         FxToolkit.cleanupStages();
     }
 
@@ -105,25 +105,25 @@ public class ResultPaneTest {
     }
 
     @Test
-    void switchViewToDummyFromContact(FxRobot robot) throws TimeoutException {
-        sendCommandWithResult(robot, DUMMY_COMMAND_RESULT);
+    void switchViewToNoteFromContact(FxRobot robot) throws TimeoutException {
+        sendCommandWithResult(robot, NOTE_COMMAND_RESULT);
 
         assertSingleResultView(robot);
-        assertResultViewId(robot, "#dummyResultView");
+        assertResultViewId(robot, "#noteResultView");
     }
 
     @Test
-    void switchViewToDummyFromDummy(FxRobot robot) throws TimeoutException {
-        sendCommandWithResult(robot, DUMMY_COMMAND_RESULT);
-        sendCommandWithResult(robot, DUMMY_COMMAND_RESULT);
+    void switchViewToNoteFromNote(FxRobot robot) throws TimeoutException {
+        sendCommandWithResult(robot, NOTE_COMMAND_RESULT);
+        sendCommandWithResult(robot, NOTE_COMMAND_RESULT);
 
         assertSingleResultView(robot);
-        assertResultViewId(robot, "#dummyResultView");
+        assertResultViewId(robot, "#noteResultView");
     }
 
     @Test
-    void switchViewToContactFromDummy(FxRobot robot) throws TimeoutException {
-        sendCommandWithResult(robot, DUMMY_COMMAND_RESULT);
+    void switchViewToContactFromNote(FxRobot robot) throws TimeoutException {
+        sendCommandWithResult(robot, NOTE_COMMAND_RESULT);
         sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
 
         assertSingleResultView(robot);
@@ -147,11 +147,11 @@ public class ResultPaneTest {
     }
 
     @Test
-    void switchViewToNoneFromDummy(FxRobot robot) throws TimeoutException {
-        sendCommandWithResult(robot, DUMMY_COMMAND_RESULT);
+    void switchViewToNoneFromNote(FxRobot robot) throws TimeoutException {
+        sendCommandWithResult(robot, NOTE_COMMAND_RESULT);
         sendCommandWithResult(robot, NONE_COMMAND_RESULT);
 
         assertSingleResultView(robot);
-        assertResultViewId(robot, "#dummyResultView");
+        assertResultViewId(robot, "#noteResultView");
     }
 }
