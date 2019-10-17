@@ -43,19 +43,6 @@ public class ContactListCard extends UiPart<Region> {
     @FXML
     private Label description;
 
-    /**
-     * Sets the content in a {@code label} to {@code text}.
-     * If {@code text} is empty, hides the {@code label}.
-     */
-    private void setLabelText(Label label, String text) {
-        if (text.isEmpty()) {
-            label.setVisible(false);
-            contactListInternalPane.getChildren().remove(label);
-        } else {
-            label.setText(text);
-        }
-    }
-
     public ContactListCard(Contact contact, int displayedIndex) {
         super(FXML);
         this.contact = contact;
@@ -67,6 +54,19 @@ public class ContactListCard extends UiPart<Region> {
         setLabelText(address, contact.getAddress().value);
         setLabelText(email, contact.getEmail().value);
         setLabelText(description, contact.getDescription().value);
+    }
+
+    /**
+     * Sets the content in a {@code label} to {@code text}.
+     * If {@code text} is empty, hides the {@code label}.
+     */
+    private void setLabelText(Label label, String text) {
+        if (text.isEmpty()) {
+            label.setVisible(false);
+            contactListInternalPane.getChildren().remove(label);
+        } else {
+            label.setText(text);
+        }
     }
 
     @Override
