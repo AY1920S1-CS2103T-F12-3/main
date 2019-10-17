@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import tagline.commons.core.GuiSettings;
 import tagline.model.ReadOnlyUserPrefs;
-//import tagline.model.note.Note;
 
 /**
  * The API of the NoteModel component.
@@ -36,17 +35,17 @@ public interface NoteModel {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' note book file path.
      */
     Path getNoteBookFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' note book file path.
      */
     void setNoteBookFilePath(Path noteBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code noteBook}.
+     * Replaces note book data with the data in {@code noteBook}.
      */
     void setNoteBook(ReadOnlyNoteBook noteBook);
 
@@ -54,26 +53,26 @@ public interface NoteModel {
     ReadOnlyNoteBook getNoteBook();
 
     /**
-     * Returns true if a note with the same identity as {@code note} exists in the address book.
+     * Returns true if a note with the same identity as {@code note} exists in the note book.
      */
     boolean hasNote(Note note);
 
     /**
      * Deletes the given note.
-     * The note must exist in the address book.
+     * The note must exist in the note book.
      */
     void deleteNote(Note target);
 
     /**
      * Adds the given note.
-     * {@code note} must not already exist in the address book.
+     * {@code note} must not already exist in the note book.
      */
     void addNote(Note note);
 
     /**
      * Replaces the given note {@code target} with {@code editedNote}.
-     * {@code target} must exist in the address book.
-     * The note identity of {@code editedNote} must not be the same as another existing note in the address book.
+     * {@code target} must exist in the note book.
+     * The note identity of {@code editedNote} must not be the same as another existing note in the note book.
      */
     void setNote(Note target, Note editedNote);
 
