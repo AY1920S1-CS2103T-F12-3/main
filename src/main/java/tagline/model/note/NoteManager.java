@@ -68,15 +68,13 @@ public class NoteManager implements NoteModel {
 
     @Override
     public Path getNoteBookFilePath() {
-        // TODO change userPrefs
-        return null; //userPrefs.getNoteBookFilePath();
+        return userPrefs.getNoteBookFilePath();
     }
 
     @Override
     public void setNoteBookFilePath(Path noteBookFilePath) {
         requireNonNull(noteBookFilePath);
-        // TODO change userPrefs
-        //userPrefs.setNoteBookFilePath(noteBookFilePath);
+        userPrefs.setNoteBookFilePath(noteBookFilePath);
     }
 
     //=========== NoteBook ================================================================================
