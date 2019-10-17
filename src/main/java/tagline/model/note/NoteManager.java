@@ -17,28 +17,36 @@ import tagline.model.UserPrefs;
 /**
  * Represents the in-memory model of the address book data.
  */
-public class NoteModelManager implements NoteModel {
-    private static final Logger logger = LogsCenter.getLogger(NoteModelManager.class);
+public class NoteManager implements NoteModel {
+    private static final Logger logger = LogsCenter.getLogger(NoteManager.class);
 
     private final NoteBook noteBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Note> filteredNotes;
 
     /**
-     * Initializes a NoteModelManager with the given noteBook and userPrefs.
+     * Initializes a NoteManager with the given noteBook and userPrefs.
      */
-    public NoteModelManager(ReadOnlyNoteBook noteBook, ReadOnlyUserPrefs userPrefs) {
+    public NoteManager(ReadOnlyNoteBook noteBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(noteBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + noteBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with note book: " + noteBook + " and user prefs " + userPrefs);
 
         this.noteBook = new NoteBook(noteBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredNotes = new FilteredList<>(this.noteBook.getNoteList());
     }
 
-    public NoteModelManager() {
+    public NoteManager(ReadOnlyNoteBook noteBook) {
+        this(noteBook, new UserPrefs());
+    }
+
+    public NoteManager(ReadOnlyUserPrefs userPrefs) {
+        this(new NoteBook(), userPrefs);
+    }
+
+    public NoteManager() {
         this(new NoteBook(), new UserPrefs());
     }
 
@@ -68,15 +76,13 @@ public class NoteModelManager implements NoteModel {
 
     @Override
     public Path getNoteBookFilePath() {
-        // TODO change userPrefs
-        return null; //userPrefs.getNoteBookFilePath();
+        return userPrefs.getNoteBookFilePath();
     }
 
     @Override
     public void setNoteBookFilePath(Path noteBookFilePath) {
         requireNonNull(noteBookFilePath);
-        // TODO change userPrefs
-        //userPrefs.setNoteBookFilePath(noteBookFilePath);
+        userPrefs.setNoteBookFilePath(noteBookFilePath);
     }
 
     //=========== NoteBook ================================================================================
@@ -140,12 +146,12 @@ public class NoteModelManager implements NoteModel {
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof NoteModelManager)) {
+        if (!(obj instanceof NoteManager)) {
             return false;
         }
 
         // state check
-        NoteModelManager other = (NoteModelManager) obj;
+        NoteManager other = (NoteManager) obj;
         return noteBook.equals(other.noteBook)
                 //&& userPrefs.equals(other.userPrefs)
                 && filteredNotes.equals(other.filteredNotes);

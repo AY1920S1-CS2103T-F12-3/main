@@ -14,6 +14,7 @@ import java.util.Set;
 import tagline.commons.core.Messages;
 import tagline.commons.util.CollectionUtil;
 import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.note.Content;
@@ -82,7 +83,7 @@ public class EditNoteCommand extends NoteCommand {
 
         model.setNote(noteToEdit, editedNote);
         model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
-        return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, editedNote));
+        return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, editedNote), ViewType.NOTE);
     }
 
     /**

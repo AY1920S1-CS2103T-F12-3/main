@@ -177,7 +177,7 @@ public class JsonAdaptedNoteTest {
     public void toModelType_invalidTags_throwsIllegalValueException() {
 
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
-        invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
+        invalidTags.add(new JsonAdaptedTag(INVALID_TAG, 1));
         JsonAdaptedNote note =
                 new JsonAdaptedNote(VALID_NOTEID, VALID_TITLE, VALID_CONTENT, VALID_TIMECREATED,
                         VALID_TIMELASTUPDATED, VALID_NOTEIDCOUNT, invalidTags);
@@ -196,7 +196,7 @@ public class JsonAdaptedNoteTest {
 
     //    JsonAdaptedNote note =
     //            new JsonAdaptedNote(null, VALID_TITLE, VALID_CONTENT, VALID_TIMECREATED,
-    //                    VALID_TIMELASTUPDATED, VALID_NOTEIDCOUNT,VALID_TAGS);
+    //                    VALID_TIMELASTUPDATED, VALID_NOTEIDCOUNT, VALID_TAGS);
     //    NoteIdCounter.setZero(); //simulates reset of counter after closing app
     //    String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, NoteId.class.getSimpleName());
     //    assertThrows(IllegalValueException.class, expectedMessage, note::toModelType);

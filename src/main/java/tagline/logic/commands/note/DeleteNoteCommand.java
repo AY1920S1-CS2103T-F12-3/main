@@ -49,7 +49,7 @@ public class DeleteNoteCommand extends NoteCommand {
 
         model.deleteNote(noteToDelete);
         model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, noteToDelete));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, noteToDelete), CommandResult.ViewType.NOTE);
     }
 
     @Override

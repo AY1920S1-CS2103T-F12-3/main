@@ -1,9 +1,10 @@
 package tagline.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
-import static tagline.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
+import static tagline.model.contact.ContactModel.PREDICATE_SHOW_ALL_CONTACTS;
 
 import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.model.Model;
 
 /**
@@ -20,6 +21,6 @@ public class ListContactCommand extends ContactCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, ViewType.CONTACT);
     }
 }
