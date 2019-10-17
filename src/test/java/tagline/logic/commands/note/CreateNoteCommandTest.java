@@ -355,5 +355,9 @@ class CreateNoteCommandTest {
         public void addNote(Note note) {
             noteModel.addNote(note);
         }
+
+        @Override
+        public void updateFilteredNoteList(Predicate<Note> predicate) {
+        }
     }
 }
