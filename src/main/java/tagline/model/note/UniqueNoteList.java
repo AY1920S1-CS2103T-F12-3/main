@@ -9,7 +9,6 @@ import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import tagline.model.contact.Contact;
 import tagline.model.note.exceptions.DuplicateNoteException;
 import tagline.model.note.exceptions.NoteNotFoundException;
 
