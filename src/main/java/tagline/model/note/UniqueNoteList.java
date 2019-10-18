@@ -5,9 +5,11 @@ import static tagline.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import tagline.model.contact.Contact;
 import tagline.model.note.exceptions.DuplicateNoteException;
 import tagline.model.note.exceptions.NoteNotFoundException;
 
@@ -46,6 +48,23 @@ public class UniqueNoteList implements Iterable<Note> {
             throw new DuplicateNoteException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Find a note by id.
+     *
+     * @param id of the note
+     * @return an optional object which implies whether the corresponding note is found or not.
+     */
+    public Optional<Note> findNote(NoteId id) {
+        var it = iterator();
+        while (it.hasNext()) {
+            Note currentNote = it.next();
+            if (currentNote.getNoteId().equals(id)) {
+                return Optional.of(currentNote);
+            }
+        }
+        return Optional.empty();
     }
 
     /**
