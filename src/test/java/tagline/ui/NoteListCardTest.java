@@ -1,6 +1,7 @@
 package tagline.ui;
 
 import static org.testfx.util.NodeQueryUtils.hasText;
+import static tagline.ui.NoteListCard.UNTITLED_NOTE_STRING;
 
 import java.util.concurrent.TimeoutException;
 
@@ -67,7 +68,7 @@ public class NoteListCardTest {
     void checkFieldsDisplayedCorrectly_titleAbsent(FxRobot robot) throws TimeoutException {
         setNoteDisplayed(TypicalNotes.EARTH_NO_TITLE);
 
-        FxAssert.verifyThat(getChildNode(robot, "#title"), hasText("Untitled Note"));
+        FxAssert.verifyThat(getChildNode(robot, "#title"), hasText(UNTITLED_NOTE_STRING));
         FxAssert.verifyThat(getChildNode(robot, "#time"),
                 hasText(TypicalNotes.EARTH_NO_TITLE.getTimeCreated().toString()));
         FxAssert.verifyThat(getChildNode(robot, "#content"),
