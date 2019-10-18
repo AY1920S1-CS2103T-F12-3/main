@@ -51,7 +51,7 @@ public class NoteCommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public  static final NoteId NON_EXISTING_NOTE_ID = new NoteId(99999);
+    public static final NoteId NON_EXISTING_NOTE_ID = new NoteId(99999);
 
     /**
      * Executes the given {@code command}, confirms that <br>

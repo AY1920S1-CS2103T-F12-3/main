@@ -1,9 +1,7 @@
 package tagline.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
-import static tagline.model.note.NoteModel.PREDICATE_SHOW_ALL_NOTES;
 
-import java.util.List;
 import java.util.Optional;
 
 import tagline.commons.core.Messages;
@@ -12,7 +10,6 @@ import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.note.Note;
 import tagline.model.note.NoteId;
-import tagline.model.note.NoteIdEqualsTargetIdPredicate;
 
 /**
  * Deletes a note identified using it's index.
