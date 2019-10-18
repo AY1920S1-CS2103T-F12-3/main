@@ -13,7 +13,7 @@ import tagline.model.contact.Contact;
 import tagline.model.note.Note;
 
 /**
- * Abstract class for a UI component that displays a command result.
+ * The UI component that displays the command result.
  */
 public class ResultPane extends UiPart<StackPane> {
 
@@ -82,6 +82,9 @@ public class ResultPane extends UiPart<StackPane> {
         resultViewPlaceholder.getChildren().add(resultView.getRoot());
     }
 
+    /**
+     * Fills up all the placeholders of this window.
+     */
     public void fillInnerParts(ObservableList<Contact> filteredContactList, ObservableList<Note> filteredNoteList) {
         resultViewMap = new HashMap<>();
 
