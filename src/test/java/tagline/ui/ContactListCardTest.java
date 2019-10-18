@@ -48,7 +48,7 @@ public class ContactListCardTest {
             return;
         }
 
-        robot.sleep(2000);
+        robot.sleep(500);
     }
 
     private boolean hasChildNode(FxRobot robot, String id) {
