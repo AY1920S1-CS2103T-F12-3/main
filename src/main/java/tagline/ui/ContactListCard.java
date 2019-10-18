@@ -39,16 +39,13 @@ public class ContactListCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private Label contactId;
-    @FXML
     private Label description;
 
-    public ContactListCard(Contact contact, int displayedIndex) {
+    public ContactListCard(Contact contact) {
         super(FXML);
         this.contact = contact;
-        id.setText(displayedIndex + ". ");
         name.setText(contact.getName().fullName);
-        contactId.setText("ID: " + contact.getContactId());
+        id.setText("ID: " + contact.getContactId());
 
         setLabelText(phone, contact.getPhone().value);
         setLabelText(address, contact.getAddress().value);
