@@ -16,21 +16,27 @@ import org.testfx.framework.junit5.Stop;
 
 import javafx.scene.Node;
 import javafx.stage.Stage;
+import tagline.model.note.Note;
 import tagline.testutil.TypicalNotes;
 
 @ExtendWith(ApplicationExtension.class)
 public class NoteListCardTest {
+    private NoteListCard noteListCard;
 
     @Start
-    void setUp(Stage stage) throws TimeoutException {
+    void setUp(Stage stage) {
         stage.setWidth(500); //for human-viewable results
-        FxToolkit.setupSceneRoot(() -> new NoteListCard(TypicalNotes.EARTH).getRoot());
-        FxToolkit.showStage();
     }
 
     @Stop
     void tearDown() throws TimeoutException {
         FxToolkit.cleanupStages();
+    }
+
+    private void setNoteDisplayed(Note note) throws TimeoutException {
+        noteListCard = new NoteListCard(note);
+        FxToolkit.setupSceneRoot(() -> noteListCard.getRoot());
+        FxToolkit.showStage();
     }
 
     @AfterEach
@@ -48,10 +54,25 @@ public class NoteListCardTest {
     }
 
     @Test
-    void checkFieldsDisplayedCorrectly(FxRobot robot) {
+    void checkFieldsDisplayedCorrectly_titlePresent(FxRobot robot) throws TimeoutException {
+        setNoteDisplayed(TypicalNotes.EARTH);
+
         FxAssert.verifyThat(getChildNode(robot, "#title"), hasText(TypicalNotes.EARTH.getTitle().titleDescription));
         FxAssert.verifyThat(getChildNode(robot, "#time"), hasText(TypicalNotes.EARTH.getTimeCreated().toString()));
         FxAssert.verifyThat(getChildNode(robot, "#content"), hasText(TypicalNotes.EARTH.getContent().value));
         FxAssert.verifyThat(getChildNode(robot, "#id"), hasText("#" + TypicalNotes.EARTH.getNoteId().value));
+    }
+
+    @Test
+    void checkFieldsDisplayedCorrectly_titleAbsent(FxRobot robot) throws TimeoutException {
+        setNoteDisplayed(TypicalNotes.EARTH_NO_TITLE);
+
+        FxAssert.verifyThat(getChildNode(robot, "#title"), hasText("Untitled Note"));
+        FxAssert.verifyThat(getChildNode(robot, "#time"),
+                hasText(TypicalNotes.EARTH_NO_TITLE.getTimeCreated().toString()));
+        FxAssert.verifyThat(getChildNode(robot, "#content"),
+                hasText(TypicalNotes.EARTH_NO_TITLE.getContent().value));
+        FxAssert.verifyThat(getChildNode(robot, "#id"),
+                hasText("#" + TypicalNotes.EARTH_NO_TITLE.getNoteId().value));
     }
 }
