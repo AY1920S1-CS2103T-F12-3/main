@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static tagline.model.note.NoteModel.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.List;
+import java.util.Optional;
 
 import tagline.commons.core.Messages;
 import tagline.logic.commands.CommandResult;
@@ -37,15 +38,14 @@ public class DeleteNoteCommand extends NoteCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        NoteIdEqualsTargetIdPredicate predicate = new NoteIdEqualsTargetIdPredicate(targetId);
-        model.updateFilteredNoteList(predicate);
-        List<Note> filteredList = model.getFilteredNoteList();
 
-        if (filteredList.size() < 1) {
+        Optional<Note> noteFound = model.findNote(targetId);
+
+        if (noteFound.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_INVALID_NOTE_INDEX);
         }
 
-        Note noteToDelete = filteredList.get(0);
+        Note noteToDelete = noteFound.get();
 
         model.deleteNote(noteToDelete);
         return new CommandResult(String.format(MESSAGE_SUCCESS, noteToDelete), CommandResult.ViewType.NOTE);

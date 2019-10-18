@@ -10,9 +10,7 @@ import static tagline.testutil.TypicalNotes.getTypicalNoteBook;
 
 import org.junit.jupiter.api.Test;
 import tagline.commons.core.Messages;
-import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.NoteCommandTestUtil;
-import tagline.logic.parser.note.NoteParserUtil;
 import tagline.model.Model;
 import tagline.model.ModelManager;
 import tagline.model.UserPrefs;

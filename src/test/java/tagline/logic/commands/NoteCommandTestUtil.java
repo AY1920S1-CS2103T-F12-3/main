@@ -93,6 +93,6 @@ public class NoteCommandTestUtil {
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedNoteBook, actualModel.getNoteBook());
-        // assertEquals(expectedFilteredList, actualModel.getFilteredNoteList());
+        assertEquals(expectedFilteredList, actualModel.getFilteredNoteList());
     }
 }
