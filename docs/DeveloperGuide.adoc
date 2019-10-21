@@ -309,17 +309,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |view all notes according to tags |view only notes related to an issue
 |`* * *` |user |view all notes related to a contact |discuss these notes with them when I meet them
 |`* * *` |user |view all notes related to a group |
-|`* *` |user who works with the same person in multiple groups |view all notes related to these groups as well when querying for the person |
+|`* *` |user |view all notes related to groups as well when querying for a person |view all information associated with that person at a glance
 |`* *` |user with many friends with the same name |be able to differentiate them easily |locate a specific person
 |`* *` |user |archive old notes |keep them while not cluttering my app page
-|`* *` |clumsy user |export all my data and create a backup |keep my data somewhere safe
-|`* *` |forgetful user |get suggestions when typing commands |do not need to memorize commands
+|`* *` |user |export all my data and create a backup |keep my data somewhere safe
+|`* *` |new user |get suggestions when typing commands |do not need to memorize commands
 |`*` |user |embed links in my notes |directly access relevant webpages
-|`*` |user |associate photos with notes |organize my photos better
+|`*` |user |associate photos with notes |store and view related photos and notes together
 |`*` |user |add text styles |personalize my entries
 |`*` |user |colour entries with the same tag |organize my notes better
-|`*` |clumsy user |prompted for correction when I make typos |fix my command without re-typing it entirely
-|`*` |clumsy user |prompted for confirmation when I delete or edit notes or contacts |avoid making irreversible mistakes
+|`*` |user |prompted for correction when I make typos |fix my command without re-typing it entirely
+|`*` |user |prompted for confirmation when I delete or edit notes or contacts |avoid making irreversible mistakes
 |`*` |user |lock notes with authentication |keep my notes secure
 |=======================================================================
 
@@ -327,6 +327,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 == Use Cases
 
 (For each of the use cases below, the *System* is `TagLine` and the *Actor* is the `user`, unless specified otherwise)
+
+The use cases are divided into categories using the following naming convention:
+
+*   UCC for contact-related use cases
+*   UCN for note-related use cases
+*   UCE for error handling use cases.
 
 [discrete]
 === UCC01 Add person
@@ -347,7 +353,7 @@ Use case ends.
 * 1b. [underline]#UCE02 Missing compulsory fields#
 
 [discrete]
-=== UCC02 Add person
+=== UCC02 Add group
 
 *MSS*
 
@@ -365,10 +371,10 @@ Use case ends.
 * 1b. [underline]#UCE02 Command with missing compulsory fields#
 +
 [none]
-* 1c. User inputs a group that already exists.
+* 1c. User inputs a group with the same members as one that already exists.
 +
 [none]
-** 1c1. TagLine adds the alternate name to the group.
+** 1c1. TagLine adds the new group name as an alias to the currently existing group.
 +
 [none]
 Use case ends.
@@ -495,8 +501,9 @@ Use case ends.
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
-.  Should be able to display and navigate large text files without decrease in performance
+.  Should be able to display large amounts of text quickly, i.e. up to 10MB of text data within 2 seconds
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Command syntax should not exceed 10 distinct terms, in order to avoid user confusion.
 
 [appendix]
 == Glossary
