@@ -3,11 +3,12 @@ package tagline.model.note;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the note book level
  * Duplicates are not allowed (by .isSameNote comparison)
  */
 public class NoteBook implements ReadOnlyNoteBook {
@@ -61,7 +62,7 @@ public class NoteBook implements ReadOnlyNoteBook {
      */
     public boolean hasNote(Note note) {
         requireNonNull(note);
-        return notes.contains(note);
+        return notes.containsNote(note);
     }
 
     /**
@@ -69,7 +70,15 @@ public class NoteBook implements ReadOnlyNoteBook {
      * The note must not already exist in the address book.
      */
     public void addNote(Note p) {
-        notes.add(p);
+        notes.addNote(p);
+    }
+
+    /**
+     * Finds a {@code Note} based on the {@code noteId}.
+     * @return Optional object if corresponding note is found, empty otherwise
+     */
+    public Optional<Note> findNote(NoteId noteId) {
+        return notes.findNote(noteId);
     }
 
     /**
@@ -88,7 +97,7 @@ public class NoteBook implements ReadOnlyNoteBook {
      * {@code key} must exist in the address book.
      */
     public void removeNote(Note key) {
-        notes.remove(key);
+        notes.removeNote(key);
     }
 
     //// util methods
