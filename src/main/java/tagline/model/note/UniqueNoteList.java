@@ -5,6 +5,7 @@ import static tagline.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,7 +32,7 @@ public class UniqueNoteList implements Iterable<Note> {
     /**
      * Returns true if the list contains an equivalent note as the given argument.
      */
-    public boolean contains(Note toCheck) {
+    public boolean containsNote(Note toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameNote);
     }
@@ -40,12 +41,29 @@ public class UniqueNoteList implements Iterable<Note> {
      * Adds a note to the list.
      * The note must not already exist in the list.
      */
-    public void add(Note toAdd) {
+    public void addNote(Note toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
+        if (containsNote(toAdd)) {
             throw new DuplicateNoteException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Find a note by id.
+     *
+     * @param id of the note
+     * @return an optional object which implies whether the corresponding note is found or not.
+     */
+    public Optional<Note> findNote(NoteId id) {
+        var it = iterator();
+        while (it.hasNext()) {
+            Note currentNote = it.next();
+            if (currentNote.getNoteId().equals(id)) {
+                return Optional.of(currentNote);
+            }
+        }
+        return Optional.empty();
     }
 
     /**
@@ -61,7 +79,7 @@ public class UniqueNoteList implements Iterable<Note> {
             throw new NoteNotFoundException();
         }
 
-        if (!target.isSameNote(editedNote) && contains(editedNote)) {
+        if (!target.isSameNote(editedNote) && containsNote(editedNote)) {
             throw new DuplicateNoteException();
         }
 
@@ -72,7 +90,7 @@ public class UniqueNoteList implements Iterable<Note> {
      * Removes the equivalent note from the list.
      * The note must exist in the list.
      */
-    public void remove(Note toRemove) {
+    public void removeNote(Note toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new NoteNotFoundException();
