@@ -85,7 +85,7 @@ The UI consists of a `MainWindow` which is made up of four parts, i.e. `StatusBa
 
 *  The `ResultPane` displays a relevant `ResultView` based on the command entered.
 
-All these classes and interfaces, including the `MainWindow` itself, inherit from the abstract `UiPart` class.
+All these classes, including the `MainWindow` itself, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/tagline/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
