@@ -79,13 +79,20 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` which is made up of four parts, i.e. `StatusBarFooter`, `HelpWindow`, `ChatPane` and `ResultPane`. In particular,
+
+*  The `ChatPane` manages text interaction with the user. It uses `CommandBox` to read commands and `DialogBox` to display commands and feedback.
+
+*  The `ResultPane` displays a relevant `ResultView` based on the command entered.
+
+All these classes and interfaces, including the `MainWindow` itself, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
+* Displays feedback and updates the `ResultPane` using `CommandResult` in the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
