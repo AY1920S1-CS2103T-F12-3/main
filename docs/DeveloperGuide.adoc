@@ -337,9 +337,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 The use cases are divided into categories using the following naming convention:
 
-*   UCC for contact-related use cases
-*   UCN for note-related use cases
-*   UCE for error handling use cases.
+*   *UCC* for contact-related use cases
+*   *UCN* for note-related use cases
+*   *UCE* for error handling use cases.
 
 [discrete]
 === UCC01 Add person
