@@ -1,4 +1,7 @@
 = TagLine - Developer Guide
+:toclevels: 3
+:sectnums:
+:sectnumlevels: 3
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -111,18 +114,29 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/tagline/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `TaglineParser` class to parse the user command.
+.  The user command is passed to different command parser based on the command type. E.g. __"note delete 1"__ will be passed to `NoteCommandParser`
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a note).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+==== Note Logic component
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+[[fig-NoteLogicClassDiagram]]
+.Structure of the Note Logic Component
+image::NoteLogicClassDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+.  `Note Logic` is a sub-component of `Logic`
+.  It obtains the user command parsed by `TaglineParser` through the `NoteCommandParser` class.
+.  The user command is passed to the respective command parser. E.g. __"note delete 1"__ will be passed to `DeleteNoteParser`
+.  This results in a `NoteCommand` object which is returned to the `LogicManager`.
+.  The command execution can affect the `NoteModel` (e.g. adding a note).
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("note delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `note delete 1` Command
+image::NoteDeleteSequenceDiagram.png[]
 
 [[Design-Model]]
 === Model component
@@ -144,18 +158,48 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
  +
 image:BetterModelClassDiagram.png[]
 
+[[Design-NoteModel]]
+==== Note Model component
+
+.Structure of the Note Model Component
+image::NoteModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/tagline/model/note/NoteModel.java[`NoteModel.java`]
+
+The `NoteModel`,
+
+* stores the Note Book data.
+* exposes an unmodifiable `ObservableList<Note>` which can be accessed from `Model` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
+
+[NOTE]
+As an additional feature to be implemented in the future, we can store a `Tag` list in `Note`. This would allow `Note` to be able to be better categorized.
+
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageArchitectureDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/tagline/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+
+[[Design-NoteStorage]]
+==== Note Storage component
+
+.Structure of the Note Storage Component
+image::NoteStorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/tagline/storage/note/NoteBookStorage.java[`NoteBookStorage.java`]
+
+The `NoteStorage` component,
+
+* can save `Note` objects in json format and read it back.
+* can save `NoteIdCounter` state in json format and read it back.
+* can save the Note Book data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
