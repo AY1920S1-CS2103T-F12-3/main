@@ -83,7 +83,13 @@ The UI consists of a `MainWindow` which is made up of four parts, i.e. `StatusBa
 
 *  The `ChatPane` manages text interaction with the user. It uses `CommandBox` to read commands and `DialogBox` to display commands and feedback.
 
+.Structure of the Chat Pane sub-component
+image::UiChatPaneClassDiagram.png[]
+
 *  The `ResultPane` displays a relevant `ResultView` based on the command entered.
+
+.Structure of the Result Pane sub-component
+image::UiResultPaneClassDiagram.png[]
 
 All these classes, including the `MainWindow` itself, inherit from the abstract `UiPart` class.
 
