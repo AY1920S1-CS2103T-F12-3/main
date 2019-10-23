@@ -287,7 +287,7 @@ The user can also abort the command by entering a special string. In this case, 
 === [Proposed] Group Contacts feature
 ==== Proposed Implementation
 
-The grouping feature is facilitated by `GroupBook` in addition to the current `AddressBook`.
+The grouping feature is facilitated by `GroupBook` an additional Model component in addition to the current `AddressBook`.
 It extends the functionality of `AddressBook` by providing a way to group contacts together into unique `Group` classes
 identified by their `GroupName`. This allows users to form more natural associations of
 contacts such as "BTS-members". Identifying which contacts are group members of a `Group` is done by
