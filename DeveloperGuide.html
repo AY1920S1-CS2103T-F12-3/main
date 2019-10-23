@@ -14,7 +14,11 @@
 <ul class="sectlevel2">
 <li><a href="#Design-Architecture">2.1. Architecture</a></li>
 <li><a href="#Design-Ui">2.2. UI component</a></li>
-<li><a href="#Design-Logic">2.3. Logic component</a></li>
+<li><a href="#Design-Logic">2.3. Logic component</a>
+<ul class="sectlevel3">
+<li><a href="#note-logic-component">2.3.1. Note Logic component</a></li>
+</ul>
+</li>
 <li><a href="#Design-Model">2.4. Model component</a>
 <ul class="sectlevel3">
 <li><a href="#Design-NoteModel">2.4.1. Note Model component</a></li>
@@ -259,13 +263,16 @@ The following class plays an important role at the architecture level:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><code>Logic</code> uses the <code>AddressBookParser</code> class to parse the user command.</p>
+<p><code>Logic</code> uses the <code>TaglineParser</code> class to parse the user command.</p>
+</li>
+<li>
+<p>The user command is passed to different command parser based on the command type. E.g. <em>"note delete 1"</em> will be passed to <code>NoteCommandParser</code></p>
 </li>
 <li>
 <p>This results in a <code>Command</code> object which is executed by the <code>LogicManager</code>.</p>
 </li>
 <li>
-<p>The command execution can affect the <code>Model</code> (e.g. adding a person).</p>
+<p>The command execution can affect the <code>Model</code> (e.g. adding a note).</p>
 </li>
 <li>
 <p>The result of the command execution is encapsulated as a <code>CommandResult</code> object which is passed back to the <code>Ui</code>.</p>
@@ -275,26 +282,42 @@ The following class plays an important role at the architecture level:</p>
 </li>
 </ol>
 </div>
+<div class="sect3">
+<h4 id="note-logic-component"><a class="link" href="#note-logic-component">2.3.1. Note Logic component</a></h4>
+<div id="fig-NoteLogicClassDiagram" class="imageblock">
+<div class="content">
+<img src="images/NoteLogicClassDiagram.png" alt="NoteLogicClassDiagram">
+</div>
+<div class="title">Figure 8. Structure of the Note Logic Component</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>Note Logic</code> is a sub-component of <code>Logic</code></p>
+</li>
+<li>
+<p>It obtains the user command parsed by <code>TaglineParser</code> through the <code>NoteCommandParser</code> class.</p>
+</li>
+<li>
+<p>The user command is passed to the respective command parser. E.g. <em>"note delete 1"</em> will be passed to <code>DeleteNoteParser</code></p>
+</li>
+<li>
+<p>This results in a <code>NoteCommand</code> object which is returned to the <code>LogicManager</code>.</p>
+</li>
+<li>
+<p>The command execution can affect the <code>NoteModel</code> (e.g. adding a note).</p>
+</li>
+</ol>
+</div>
 <div class="paragraph">
-<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code> API call.</p>
+<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("note delete 1")</code> API call.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/DeleteSequenceDiagram.png" alt="DeleteSequenceDiagram">
+<img src="images/NoteDeleteSequenceDiagram.png" alt="NoteDeleteSequenceDiagram">
 </div>
-<div class="title">Figure 8. Interactions Inside the Logic Component for the <code>delete 1</code> Command</div>
+<div class="title">Figure 9. Interactions Inside the Logic Component for the <code>note delete 1</code> Command</div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The lifeline for <code>DeleteCommandParser</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-</td>
-</tr>
-</table>
 </div>
 </div>
 <div class="sect2">
@@ -303,7 +326,7 @@ The lifeline for <code>DeleteCommandParser</code> should end at the destroy mark
 <div class="content">
 <img src="images/ModelClassDiagram.png" alt="ModelClassDiagram">
 </div>
-<div class="title">Figure 9. Structure of the Model Component</div>
+<div class="title">Figure 10. Structure of the Model Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/Model.java"><code>Model.java</code></a></p>
@@ -347,7 +370,7 @@ As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book<
 <div class="content">
 <img src="images/NoteModelClassDiagram.png" alt="NoteModelClassDiagram">
 </div>
-<div class="title">Figure 10. Structure of the Note Model Component</div>
+<div class="title">Figure 11. Structure of the Note Model Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/note/NoteModel.java"><code>NoteModel.java</code></a></p>
@@ -388,7 +411,7 @@ As an additional feature to be implemented in the future, we can store a <code>T
 <div class="content">
 <img src="images/StorageArchitectureDiagram.png" alt="StorageArchitectureDiagram">
 </div>
-<div class="title">Figure 11. Structure of the Storage Component</div>
+<div class="title">Figure 12. Structure of the Storage Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/storage/Storage.java"><code>Storage.java</code></a></p>
@@ -409,7 +432,7 @@ As an additional feature to be implemented in the future, we can store a <code>T
 <div class="content">
 <img src="images/NoteStorageClassDiagram.png" alt="NoteStorageClassDiagram">
 </div>
-<div class="title">Figure 12. Structure of the Note Storage Component</div>
+<div class="title">Figure 13. Structure of the Note Storage Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/storage/note/NoteBookStorage.java"><code>NoteBookStorage.java</code></a></p>
@@ -1573,4 +1596,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-23 15:10:00 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-23 15:45:44 UTC</div></div></div></body></html>
