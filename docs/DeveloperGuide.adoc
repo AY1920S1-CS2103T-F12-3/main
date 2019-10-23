@@ -364,7 +364,7 @@ image::GroupSequenceDiagram.png[]
 ** Pros: Group classes are less coupled to implementation of `Contact`. Simpler to load `Group` classes from storage.
  due to not needing to check and obtain a reference to `ContactId`. User input is also parsed as Strings.
 ** Cons: Deciding when to check if members are still part of a `Group` since it need not be done at loading time.
- this problem however will exist in Alternative 1 just here its more flexible.
+ This problem however will also exist in Alternative 1 just here its more flexible.
 
 // end::groupcontacts[]
 
