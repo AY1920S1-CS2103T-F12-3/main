@@ -160,7 +160,31 @@ Classes used by multiple components are in the `tagline.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+=== [Proposed] Chatbot prompting feature
+
+==== Description
+
+When the user enters an incomplete command, most of the parameters could have been already provided. Instead of forcing the user to edit the command entirely, TagLine will prompt the user for further details instead.
+
+At this point, the user may abort the command or provide the requested details. When all details are provided, the command is executed.
+
+==== Proposed Implementation
+
+The prompting mechanism uses `Prompt` objects to represent individual queries for additional information. A list of `Prompt` objects is used to pass information between the `Parser` and `MainWindow`. `Prompt` implements the following operations:
+
+Parser side:
+
+* `Prompt#setPrefix()` -- Sets the prefix of the queried data
+* `Prompt#setQuestion()` -- Sets the prompt to be displayed to the user
+* `Prompt#getResponse()` -- Gets the prompt response from the user
+
+UI side:
+
+* `Prompt#getQuestion()` -- Gets the prompt to be displayed to the user
+* `Prompt#setResponse()` -- Sets the response from the user
+
+
+
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
