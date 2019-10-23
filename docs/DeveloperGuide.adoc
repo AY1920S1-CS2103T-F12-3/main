@@ -290,7 +290,7 @@ The user can also abort the command by entering a special string. In this case, 
 The grouping feature is facilitated by `GroupBook` in addition to the current `AddressBook`.
 It extends the functionality of `AddressBook` by providing a way to group contacts together into unique `Group` classes
 identified by their `GroupName`. This allows users to form more natural associations of
-`Contact`s such as "BTS-members". Identifying which `Contact`s are members of a `Group` is done by
+contacts such as "BTS-members". Identifying which contacts are group members of a `Group` is done by
 storing a record of their `ContactId` in the `Group`.
 Additionally, `GroupManager` extends Tagline with the following operations:
 
@@ -301,16 +301,16 @@ Additionally, `GroupManager` extends Tagline with the following operations:
 * `GroupManager#getFilteredGroupList()` -- Returns a view only list of groups containing a subset of available Groups.
 * `GroupManager#updateFilteredGroupList()` -- Specifies which groups will be retrieved by `GroupManager#getFilteredGroupList()`.
 
-These operations are exposed in the `Model` interface by their respective method names.
+The above operations are exposed in the `Model` interface by their respective method names.
 
 * `GroupCommand#findOneGroup()` -- Retrieves one Group with name matching the exact provided String.
 * `GroupCommand#verifyMemberIdWithModel()` -- Compares members currently in a group with contacts in `AddressBook` and returns only those found in `AddressBook`.
 * `GroupCommand#setDifference()` -- Used to get contactids specified which do not exist in `AddressBook`.
 
-These static utility functions form the underlying structure how a GroupCommand works.
+These above are static utility functions which form the underlying structure of how a `GroupCommand` works.
 
-Given below is an example usage scenario on how a typical `Command` extending `GroupCommand` behaves at each step.
-Using `AddMemberToGroupCommand` as an example.
+Given below is an example usage scenario on how a typical lifecycle of a `Group` behaves at each step.
+With emphasis on showing the effects of `FindGroupCommand` as an example of a `GroupCommand`.
 
 Step 1. The user initially has several contacts in `AddressBook`.
 
