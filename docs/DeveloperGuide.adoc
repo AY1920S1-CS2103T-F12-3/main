@@ -1,4 +1,7 @@
 = TagLine - Developer Guide
+:toclevels: 3
+:sectnums:
+:sectnumlevels: 3
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
