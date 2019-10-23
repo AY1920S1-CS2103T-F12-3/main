@@ -155,7 +155,7 @@ image::NoteModelClassDiagram.png[]
 The `NoteModel`,
 
 * stores the Note Book data.
-* exposes an unmodifiable `ObservableList<Note>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Note>` which can be accessed from `Model` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
