@@ -21,12 +21,14 @@
 </li>
 <li><a href="#Design-Model">2.4. Model component</a>
 <ul class="sectlevel3">
-<li><a href="#Design-NoteModel">2.4.1. Note Model component</a></li>
+<li><a href="#Design-ContactModel">2.4.1. Contact Model component</a></li>
+<li><a href="#Design-NoteModel">2.4.2. Note Model component</a></li>
 </ul>
 </li>
 <li><a href="#Design-Storage">2.5. Storage component</a>
 <ul class="sectlevel3">
-<li><a href="#Design-NoteStorage">2.5.1. Note Storage component</a></li>
+<li><a href="#Design-ContactStorage">2.5.1. Contact Storage component</a></li>
+<li><a href="#Design-NoteStorage">2.5.2. Note Storage component</a></li>
 </ul>
 </li>
 <li><a href="#Design-Commons">2.6. Common classes</a></li>
@@ -340,37 +342,49 @@ The following class plays an important role at the architecture level:</p>
 <p>stores a <code>UserPref</code> object that represents the user&#8217;s preferences.</p>
 </li>
 <li>
+<p>manages Address Book data through <code>ContactModel</code> sub-component.</p>
+</li>
+<li>
+<p>manages Note Book data through <code>NoteMode</code> sub-component.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="Design-ContactModel"><a class="link" href="#Design-ContactModel">2.4.1. Contact Model component</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="images/ContactModelClassDiagram.png" alt="Contact Model Diagram" width="625" height="500">
+</div>
+<div class="title">Figure 11. Structure of the Contact Model Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/contact/ContactModel.java"><code>ContactModel.java</code></a></p>
+</div>
+<div class="paragraph">
+<p>The <code>ContactModel</code>,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
 <p>stores the Address Book data.</p>
 </li>
 <li>
-<p>exposes an unmodifiable <code>ObservableList&lt;Person&gt;</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
+<p>exposes an unmodifiable <code>ObservableList&lt;Contact&gt;</code> which can be accessed from <code>Model</code> that can be 'observed' e.g. the
+UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
 </li>
 <li>
 <p>does not depend on any of the other three components.</p>
 </li>
 </ul>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book</code>, which <code>Person</code> can reference. This would allow <code>Address Book</code> to only require one <code>Tag</code> object per unique <code>Tag</code>, instead of each <code>Person</code> needing their own <code>Tag</code> object. An example of how such a model may look like is given below.<br>
-<br>
-<span class="image"><img src="images/BetterModelClassDiagram.png" alt="BetterModelClassDiagram"></span>
-</td>
-</tr>
-</table>
 </div>
 <div class="sect3">
-<h4 id="Design-NoteModel"><a class="link" href="#Design-NoteModel">2.4.1. Note Model component</a></h4>
+<h4 id="Design-NoteModel"><a class="link" href="#Design-NoteModel">2.4.2. Note Model component</a></h4>
 <div class="imageblock">
 <div class="content">
 <img src="images/NoteModelClassDiagram.png" alt="NoteModelClassDiagram">
 </div>
-<div class="title">Figure 11. Structure of the Note Model Component</div>
+<div class="title">Figure 12. Structure of the Note Model Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/note/NoteModel.java"><code>NoteModel.java</code></a></p>
@@ -411,7 +425,7 @@ As an additional feature to be implemented in the future, we can store a <code>T
 <div class="content">
 <img src="images/StorageArchitectureDiagram.png" alt="StorageArchitectureDiagram">
 </div>
-<div class="title">Figure 12. Structure of the Storage Component</div>
+<div class="title">Figure 13. Structure of the Storage Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/storage/Storage.java"><code>Storage.java</code></a></p>
@@ -427,12 +441,34 @@ As an additional feature to be implemented in the future, we can store a <code>T
 </ul>
 </div>
 <div class="sect3">
-<h4 id="Design-NoteStorage"><a class="link" href="#Design-NoteStorage">2.5.1. Note Storage component</a></h4>
+<h4 id="Design-ContactStorage"><a class="link" href="#Design-ContactStorage">2.5.1. Contact Storage component</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="images/ContactStorageClassDiagram.png" alt="ContactStorageClassDiagram">
+</div>
+<div class="title">Figure 14. Structure of the Contact Storage Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/storage/note/ContactBookStorage.java"><code>ContactBookStorage.java</code></a></p>
+</div>
+<div class="paragraph">
+<p>The <code>ContactStorage</code> component,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>can save the Address Book data in json format and read it back.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Design-NoteStorage"><a class="link" href="#Design-NoteStorage">2.5.2. Note Storage component</a></h4>
 <div class="imageblock">
 <div class="content">
 <img src="images/NoteStorageClassDiagram.png" alt="NoteStorageClassDiagram">
 </div>
-<div class="title">Figure 13. Structure of the Note Storage Component</div>
+<div class="title">Figure 15. Structure of the Note Storage Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/storage/note/NoteBookStorage.java"><code>NoteBookStorage.java</code></a></p>
@@ -1596,4 +1632,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-23 17:23:16 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-23 17:33:24 UTC</div></div></div></body></html>
