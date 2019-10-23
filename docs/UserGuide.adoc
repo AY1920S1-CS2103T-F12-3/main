@@ -372,7 +372,6 @@ Format:
 
 `note clear`
 
-Executing this command will trigger a confirmation in the chatbot: +
 ```
 Are you sure that you want to clear all data in your note list? (Y/N)
 ```
