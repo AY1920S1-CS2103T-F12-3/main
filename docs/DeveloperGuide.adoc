@@ -141,9 +141,10 @@ image:BetterModelClassDiagram.png[]
 
 
 
+[[Design-NoteModel]]
 ==== Note Model component
 
-.Structure of the Model Component
+.Structure of the Note Model Component
 image::NoteModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/tagline/model/note/NoteModel.java[`NoteModel.java`]
@@ -169,10 +170,11 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 
+[[Design-NoteStorage]]
 ==== Note Storage component
 
 .Structure of the Note Storage Component
-image::NoteStorageArchitectureDiagram.png[]
+image::NoteStorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/tagline/storage/note/NoteBookStorage.java[`NoteBookStorage.java`]
 
