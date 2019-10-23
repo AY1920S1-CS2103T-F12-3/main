@@ -22,10 +22,11 @@
 </li>
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#proposed-undo-redo-feature">3.1. [Proposed] Undo/Redo feature</a></li>
-<li><a href="#proposed-data-encryption">3.2. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.3. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.4. Configuration</a></li>
+<li><a href="#proposed-chatbot-prompting-feature">3.1. [Proposed] Chatbot prompting feature</a></li>
+<li><a href="#proposed-undo-redo-feature">3.2. [Proposed] Undo/Redo feature</a></li>
+<li><a href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></li>
+<li><a href="#logging">3.4. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -180,10 +181,26 @@ The following class plays an important role at the architecture level:</p>
 <li>
 <p>The <code>ChatPane</code> manages text interaction with the user. It uses <code>CommandBox</code> to read commands and <code>DialogBox</code> to display commands and feedback.</p>
 </li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UiChatPaneClassDiagram.png" alt="UiChatPaneClassDiagram">
+</div>
+<div class="title">Figure 5. Structure of the Chat Pane sub-component</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>The <code>ResultPane</code> displays a relevant <code>ResultView</code> based on the command entered.</p>
 </li>
 </ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UiResultPaneClassDiagram.png" alt="UiResultPaneClassDiagram">
+</div>
+<div class="title">Figure 6. Structure of the Result Pane sub-component</div>
 </div>
 <div class="paragraph">
 <p>All these classes, including the <code>MainWindow</code> itself, inherit from the abstract <code>UiPart</code> class.</p>
@@ -214,7 +231,7 @@ The following class plays an important role at the architecture level:</p>
 <div class="content">
 <img src="images/LogicClassDiagram.png" alt="LogicClassDiagram">
 </div>
-<div class="title">Figure 5. Structure of the Logic Component</div>
+<div class="title">Figure 7. Structure of the Logic Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> :
@@ -246,7 +263,7 @@ The following class plays an important role at the architecture level:</p>
 <div class="content">
 <img src="images/DeleteSequenceDiagram.png" alt="DeleteSequenceDiagram">
 </div>
-<div class="title">Figure 6. Interactions Inside the Logic Component for the <code>delete 1</code> Command</div>
+<div class="title">Figure 8. Interactions Inside the Logic Component for the <code>delete 1</code> Command</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -267,7 +284,7 @@ The lifeline for <code>DeleteCommandParser</code> should end at the destroy mark
 <div class="content">
 <img src="images/ModelClassDiagram.png" alt="ModelClassDiagram">
 </div>
-<div class="title">Figure 7. Structure of the Model Component</div>
+<div class="title">Figure 9. Structure of the Model Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/Model.java"><code>Model.java</code></a></p>
@@ -312,7 +329,7 @@ As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book<
 <div class="content">
 <img src="images/StorageClassDiagram.png" alt="StorageClassDiagram">
 </div>
-<div class="title">Figure 8. Structure of the Storage Component</div>
+<div class="title">Figure 10. Structure of the Storage Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/storage/Storage.java"><code>Storage.java</code></a></p>
@@ -346,9 +363,135 @@ As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book<
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
 <div class="sect2">
-<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.1. [Proposed] Undo/Redo feature</a></h3>
+<h3 id="proposed-chatbot-prompting-feature"><a class="link" href="#proposed-chatbot-prompting-feature">3.1. [Proposed] Chatbot prompting feature</a></h3>
 <div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.1.1. Proposed Implementation</a></h4>
+<h4 id="description"><a class="link" href="#description">3.1.1. Description</a></h4>
+<div class="paragraph">
+<p>When the user enters an incomplete command, the command could be missing only a few compulsory fields. Instead of forcing the user to edit the command entirely, TagLine will prompt the user for further details instead.</p>
+</div>
+<div class="paragraph">
+<p>At this point, the user may abort the command or provide the requested details. When all details are provided, the command is executed.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.1.2. Proposed Implementation</a></h4>
+<div class="paragraph">
+<p>The prompting mechanism uses <code>Prompt</code> objects to represent individual queries for additional information. A list of <code>Prompt</code> objects is used to pass information between the <code>Logic</code> and <code>Ui</code> components. <code>Prompt</code> implements the following operations:</p>
+</div>
+<div class="paragraph">
+<p><code>Logic</code> side:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Prompt#setPrefix()</code>&#8201;&#8212;&#8201;Sets the prefix of the queried data</p>
+</li>
+<li>
+<p><code>Prompt#setQuestion()</code>&#8201;&#8212;&#8201;Sets the prompt to be displayed to the user</p>
+</li>
+<li>
+<p><code>Prompt#getResponse()</code>&#8201;&#8212;&#8201;Gets the prompt response from the user</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>Ui</code> side:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Prompt#getQuestion()</code>&#8201;&#8212;&#8201;Gets the prompt to be displayed to the user</p>
+</li>
+<li>
+<p><code>Prompt#setResponse()</code>&#8201;&#8212;&#8201;Sets the response from the user</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Given below is an example scenario where the user command has missing compulsory fields.</p>
+</div>
+<div class="paragraph">
+<p>Step 1: The <code>Ui</code> passes the user&#8217;s command to <code>Logic</code>, which finds one or more missing compulsory fields. For each missing field, it creates a new <code>Prompt</code> object with a question. Then it throws a <code>ParseException</code> containing the list of <code>Prompt</code> objects.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UserPromptSequenceDiagramStep1.png" alt="UserPromptSequenceDiagramStep1">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 2: The <code>Ui</code> receives the list of <code>Prompt</code> objects. For each <code>Prompt</code>, it retrieves the question and obtains the corresponding user feedback.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UserPromptSequenceDiagramStep2.png" alt="UserPromptSequenceDiagramStep2">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 3: The <code>Ui</code> passes the original command, together with the processed <code>Prompt</code> objects, back to <code>Logic</code>. <code>Logic</code> then executes the corrected command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UserPromptSequenceDiagramStep3.png" alt="UserPromptSequenceDiagramStep3">
+</div>
+</div>
+<div class="paragraph">
+<p>The user can also abort the command by entering a special string. In this case, the <code>Ui</code> will discard the original command and continue to receive further user commands.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.3. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-command-correction-method"><a class="link" href="#aspect-command-correction-method">Aspect: Command correction method</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1</strong>: The <code>Ui</code> updates the command with the user&#8217;s responses by adding the new data to the command string.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No need to overload <code>Logic#execute()</code> and <code>Parser#parse()</code> methods</p>
+</li>
+<li>
+<p>Cons: Requires <code>Ui</code> to know where to insert preambles, and increases coupling between <code>Ui</code> and <code>Logic</code> components (as <code>Ui</code> now needs to know and follow the command format)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong> (chosen): The <code>LogicManager</code> updates the command with the user&#8217;s responses by adding the new data to the command string.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No need to overload <code>Parser#parse()</code> method</p>
+</li>
+<li>
+<p>Cons: Requires all commands to follow the same general format</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 3</strong>: The <code>Parser</code> handles the <code>Prompt</code> objects when parsing the command</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easily handles preambles and allows greater extensibility of the prompt feature, e.g. can have the user fix incorrect commands</p>
+</li>
+<li>
+<p>Cons: Requires changing every <code>Parser</code> class, decreases maintainability in the long run</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.2. [Proposed] Undo/Redo feature</a></h3>
+<div class="sect3">
+<h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.2.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
 It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
@@ -490,7 +633,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.2. Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
 <div class="ulist">
@@ -560,20 +703,20 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.2. [Proposed] Data Encryption</a></h3>
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.3. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.4, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.5, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -604,7 +747,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.4. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.5. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -1346,4 +1489,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-23 05:12:15 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-23 13:50:29 UTC</div></div></div></body></html>
