@@ -344,7 +344,9 @@ Step 2. Wishing to better organize her contacts into groups, the user executes `
 image::GroupContactsState1.png[]
 The `GroupBook` model state now contains a `Group` instance for "BTS" with no members
  recorded as memberIds.
- A group with no members would not prompt the `UI` to display the contacts in the group.
+ A group with no members would not prompt the `UI` to display the contacts in the group
+ while a group with members in it would cause `UI` to display all the contacts belonging
+ to that group.
 
 Step 3. The user then executes `group add BTS --i 00001 --i 00002 --i 0013 --i 0004`
  calling the `addMembersToGroupCommand` to add several contacts to the group. Only the String
