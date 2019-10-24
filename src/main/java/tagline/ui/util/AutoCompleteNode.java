@@ -46,8 +46,11 @@ public class AutoCompleteNode {
     /**
      * Trims the matcher from a query string.
      */
-    public String trimMatcher(String query) {
-        return query.replaceFirst("^" + matcher + "\\s", "");
+    public String trimMatcher(String query) throws IllegalArgumentException {
+        if (!isTrimmable(query)) {
+            throw new IllegalArgumentException("AutoCompleteNode Error: Invalid trim");
+        }
+        return query.replaceFirst("^" + matcher + "\\s+", "");
     }
 
     /**
