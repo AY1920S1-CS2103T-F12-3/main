@@ -44,15 +44,21 @@
 <li><a href="#design-considerations">3.1.3. Design Considerations</a></li>
 </ul>
 </li>
-<li><a href="#proposed-undo-redo-feature">3.2. [Proposed] Undo/Redo feature</a>
+<li><a href="#proposed-group-contacts-feature">3.2. [Proposed] Group Contacts feature</a>
 <ul class="sectlevel3">
 <li><a href="#proposed-implementation-2">3.2.1. Proposed Implementation</a></li>
 <li><a href="#design-considerations-2">3.2.2. Design Considerations</a></li>
 </ul>
 </li>
-<li><a href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.4. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
+<li><a href="#proposed-undo-redo-feature">3.3. [Proposed] Undo/Redo feature</a>
+<ul class="sectlevel3">
+<li><a href="#proposed-implementation-3">3.3.1. Proposed Implementation</a></li>
+<li><a href="#design-considerations-3">3.3.2. Design Considerations</a></li>
+</ul>
+</li>
+<li><a href="#proposed-data-encryption">3.4. [Proposed] Data Encryption</a></li>
+<li><a href="#logging">3.5. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -675,9 +681,172 @@ As an additional feature to be implemented in the future, we can store a <code>T
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.2. [Proposed] Undo/Redo feature</a></h3>
+<h3 id="proposed-group-contacts-feature"><a class="link" href="#proposed-group-contacts-feature">3.2. [Proposed] Group Contacts feature</a></h3>
 <div class="sect3">
 <h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.2.1. Proposed Implementation</a></h4>
+<div class="paragraph">
+<p>The grouping feature is facilitated by <code>GroupBook</code> an additional Model component in addition to the current <code>AddressBook</code>.
+It extends the functionality of <code>AddressBook</code> by providing a way to group contacts together into unique <code>Group</code> classes
+identified by their <code>GroupName</code>. This allows users to form more natural associations of
+contacts such as "BTS-members". Identifying which contacts are group members of a <code>Group</code> is done by
+storing a record of their <code>ContactId</code> in the <code>Group</code>.
+Additionally, <code>GroupManager</code> extends Tagline with the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GroupManager#getGroupBook()</code>&#8201;&#8212;&#8201;Retrieves a view only version of the groups for storing data after app quits.</p>
+</li>
+<li>
+<p><code>GroupManager#deleteGroup()</code>&#8201;&#8212;&#8201;Deletes a group from the list of groups currently available.</p>
+</li>
+<li>
+<p><code>GroupManager#addGroup()</code>&#8201;&#8212;&#8201;Adds a group to the list of groups currently available.</p>
+</li>
+<li>
+<p><code>GroupManager#setGroup()</code>&#8201;&#8212;&#8201;Replaces a group in the list of groups with another group.</p>
+</li>
+<li>
+<p><code>GroupManager#getFilteredGroupList()</code>&#8201;&#8212;&#8201;Returns a view only list of groups containing a subset of available Groups.</p>
+</li>
+<li>
+<p><code>GroupManager#updateFilteredGroupList()</code>&#8201;&#8212;&#8201;Specifies which groups will be retrieved by <code>GroupManager#getFilteredGroupList()</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The above operations are exposed in the <code>Model</code> interface by their respective method names.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GroupCommand#findOneGroup()</code>&#8201;&#8212;&#8201;Retrieves one Group with name matching the exact provided String.</p>
+</li>
+<li>
+<p><code>GroupCommand#verifyMemberIdWithModel()</code>&#8201;&#8212;&#8201;Compares members currently in a group with contacts in <code>AddressBook</code> and returns only those found in <code>AddressBook</code>.</p>
+</li>
+<li>
+<p><code>GroupCommand#setDifference()</code>&#8201;&#8212;&#8201;Used to get contactids specified which do not exist in <code>AddressBook</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These above are static utility functions which form the underlying structure of how a <code>GroupCommand</code> works.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario on how a typical lifecycle of a <code>Group</code> behaves at each step.
+With emphasis on showing the effects of <code>FindGroupCommand</code> as an example of a <code>GroupCommand</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user initially has several contacts in <code>AddressBook</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/GroupContactsState0.png" alt="GroupContactsState0">
+</div>
+<div class="title">Figure 18. Simplified state of relevant Model components initially</div>
+</div>
+<div class="paragraph">
+<p>Step 2. Wishing to better organize her contacts into groups, the user executes <code>group create BTS</code> calling
+ <code>CreateGroupCommand</code>. to create a new <code>Group</code> instance with no members.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/GroupContactsState1.png" alt="GroupContactsState1">
+</div>
+<div class="title">Figure 19. State after Group "BTS" is created</div>
+</div>
+<div class="paragraph">
+<p>Step 3. The user then executes <code>group add BTS --i 00001 --i 00002 --i 0003 --i 0004</code>
+ calling the <code>addMembersToGroupCommand</code> to add several contacts to the group. Only the String
+ representation of the <code>ContactId</code> will be stored in the <code>Group</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/GroupContactsState2.png" alt="GroupContactsState2">
+</div>
+<div class="title">Figure 20. State after four contacts are added into Group "BTS"</div>
+</div>
+<div class="paragraph">
+<p>Step 4. The user may wish to remove some contacts calling <code>contact delete --i 0003</code>
+ which then deletes the <code>Contact</code> with contactId of 3. However, this does not remove the contact&#8217;s id from
+ the memberId attribute in the <code>Group</code> the contact was in. This step does not involve <code>GroupModel</code> in any way.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/GroupContactsState3.png" alt="GroupContactsState3">
+</div>
+<div class="title">Figure 21. State after contact with contactId = 00003 is deleted</div>
+</div>
+<div class="paragraph">
+<p>Step 5. The user executes <code>group find BTS</code> to call up all members on the <code>Group</code> and view the <code>Contact</code> profiles.
+ This calls <code>FindGroupCommand</code> which then updates the <code>Group</code> ensuring that all memberIds correspond to an existing
+ <code>ContactId</code> found in <code>AddressBook</code>. The contacts of the group are also displayed to the user.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/GroupContactsState4.png" alt="GroupContactsState4">
+</div>
+<div class="title">Figure 22. State after user views contacts of Group "BTS"</div>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram summarizes what happens when a user executes a <code>FindGroupCommand</code> which
+ which updates the <code>Group</code>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/GroupSequenceDiagram.png" alt="GroupSequenceDiagram">
+</div>
+<div class="title">Figure 23. Sequence diagram of executing <code>FindGroupCommand</code> to view contacts in a <code>Group</code></div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-groups-stores-contacts"><a class="link" href="#aspect-how-groups-stores-contacts">Aspect: How groups stores contacts</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1:</strong> Stores <code>ContactId</code> class in a <code>Collection</code> in <code>Group</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to get <code>ContactId</code> from <code>Group</code> to retrieve <code>Contact</code> classes from <code>Addressbook</code>.</p>
+</li>
+<li>
+<p>Cons: Increases coupling to implementation of <code>Contact</code>. Storage and retrieval after reloading the app would also
+cause new instances of <code>ContactId</code> to be created when loading <code>Group</code> or would require more complicated
+loading of <code>Group</code> from storage having to happen after <code>AddressBook</code> is loaded and having to reference
+<code>Contact</code> classes to ensure the same <code>ContactId</code> class is referenced by both <code>Contact</code> and <code>Group</code> it is in.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (current choice):</strong> Stores <code>Collection</code> of Strings which are able to uniquely identify <code>Contact</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Group classes are less coupled to implementation of <code>Contact</code>. Simpler to load <code>Group</code> classes from storage.
+due to not needing to check and obtain a reference to <code>ContactId</code>. User input is also parsed as Strings.</p>
+</li>
+<li>
+<p>Cons: Deciding when to check if members are still part of a <code>Group</code> since it need not be done at loading time.
+While it is more flexible, can be a potential source of confusion as it may be possible to forget to update
+the members in <code>Group</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.3. [Proposed] Undo/Redo feature</a></h3>
+<div class="sect3">
+<h4 id="proposed-implementation-3"><a class="link" href="#proposed-implementation-3">3.3.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
 It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
@@ -819,7 +988,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
 <div class="ulist">
@@ -889,20 +1058,20 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></h3>
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.4. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.5. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.5, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.6, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -933,7 +1102,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.5. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.6. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -1675,4 +1844,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-24 02:33:20 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-24 02:37:28 UTC</div></div></div></body></html>
