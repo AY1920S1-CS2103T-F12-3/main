@@ -334,7 +334,7 @@ With emphasis on showing the effects of `DeleteCommand` as an example of a comma
 would interact with `GroupCommand` and `GroupModel` state.
 
 
-Step 1. The user initially has several contacts in `AddressBook`.
+Step 1. The user initially has several contacts in `AddressBook`. +
 
 .Simplified state of relevant Model components initially
 image::GroupContactsState0.png[]
@@ -346,11 +346,10 @@ The `AddressBook` model state contains all the `Contact` class that exists in th
 
 
 Step 2. Wishing to better organize her contacts into groups, the user executes `group create BTS` calling
- `CreateGroupCommand`. to create a new `Group` instance with no members.
+ `CreateGroupCommand`. to create a new `Group` instance with no members. +
 
 .State after Group "BTS" is created
 image::GroupContactsState1.png[]
-
 
 The `GroupBook` model state now contains a `Group` instance for "BTS" with no members
  recorded as memberIds.
@@ -361,21 +360,21 @@ The `GroupBook` model state now contains a `Group` instance for "BTS" with no me
 
 Step 3. The user then executes `group add BTS --i 00001 --i 00002 --i 0013 --i 0004`
  calling the `addMembersToGroupCommand` to add several contacts to the group. Only the String
- representation of the `ContactId` will be stored in the `Group`.
+ representation of the `ContactId` will be stored in the `Group`. +
 
 .State after four contacts are added into Group "BTS"
 image::GroupContactsState2.png[]
 
-
 Group "BTS" now has members in it and the UI would display all the contacts found in the
  group.
+
 
 Step 4. The user realizes she has made a mistake adding a wrong contact and in a fit of rage
  chooses to delete the contact instead of merely removing from the Group.
  Executing `contact delete --i 00013`
  which then deletes the `Contact` with contactId of 00013.
  However, this does not remove the contact's id from
- the memberId attribute in the `Group` the contact was in. This step does not involve `GroupModel` in any way.
+ the memberId attribute in the `Group` the contact was in. This step does not involve `GroupModel` in any way. +
 
 .State after contact with contactId = 00013 is deleted
 image::GroupContactsState3.png[]
@@ -388,11 +387,10 @@ Deleting a `Contact` would cause it to be removed from `AddressBook` model state
 Step 5. The user then executes `group add BTS --i 00003` to add the correct contact as a member on the `Group`
  and view the `Contact` profiles.
  This calls `AddMemberToGroupCommand` which then updates the `Group` ensuring that all memberIds correspond to an existing
- `ContactId` found in `AddressBook`. The contacts of the group are also displayed to the user.
+ `ContactId` found in `AddressBook`. The contacts of the group are also displayed to the user. +
 
 .State after user views contacts of Group "BTS"
 image::GroupContactsState4.png[]
-
 
 Here, the `GroupBook` model state is updated and memberId of 00013 from the previous step is removed while `Contact`
  with contactId of 00003 is added into the `Group`. This change is also reflected in the `UI`.
