@@ -16,7 +16,8 @@
 <li><a href="#Design-Ui">2.2. UI component</a></li>
 <li><a href="#Design-Logic">2.3. Logic component</a>
 <ul class="sectlevel3">
-<li><a href="#note-logic-component">2.3.1. Note Logic component</a></li>
+<li><a href="#contact-logic-component">2.3.1. Contact Logic component</a></li>
+<li><a href="#note-logic-component">2.3.2. Note Logic component</a></li>
 </ul>
 </li>
 <li><a href="#Design-Model">2.4. Model component</a>
@@ -285,23 +286,65 @@ The following class plays an important role at the architecture level:</p>
 </ol>
 </div>
 <div class="sect3">
-<h4 id="note-logic-component"><a class="link" href="#note-logic-component">2.3.1. Note Logic component</a></h4>
-<div id="fig-NoteLogicClassDiagram" class="imageblock">
+<h4 id="contact-logic-component"><a class="link" href="#contact-logic-component">2.3.1. Contact Logic component</a></h4>
+<div class="imageblock">
 <div class="content">
-<img src="images/NoteLogicClassDiagram.png" alt="NoteLogicClassDiagram">
+<img src="images/ContactLogicClassDiagram.png" alt="ContactLogicClassDiagram">
 </div>
-<div class="title">Figure 8. Structure of the Note Logic Component</div>
+<div class="title">Figure 8. Structure of the Contact Logic Component</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><code>Note Logic</code> is a sub-component of <code>Logic</code></p>
+<p><code>Contact Logic</code> is a sub-component of <code>Logic</code>.</p>
+</li>
+<li>
+<p><code>TaglineParser</code> will pass a user input that can be classified as a contact command (i.e. has <em>"contact "</em> prefix),
+to the <code>ContactCommandParser</code> without including the <em>"contact"</em> keyword, e.g. <code>TaglineParser</code> will only pass
+<em>"create --n Bob"</em> instead of <em>"contact create --n Bob"</em>.</p>
+</li>
+<li>
+<p><code>ContactCommandParser</code> identifies the type of contact command and passes the argument string to the respective command
+parser. For example, <code>ContactCommandParser</code> will pass <em>"--n Bob"</em> to <code>CreateContactParser</code> if it receives
+<em>"create --n Bob"</em> as an input.</p>
+</li>
+<li>
+<p>This results in a <code>ContactCommand</code> object which is returned to the <code>LogicManager</code>.</p>
+</li>
+<li>
+<p>The command execution can affect the <code>ContactModel</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the
+<code>execute("contact create --n Bob")</code> API call.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ContactCreateSequenceDiagram.png" alt="ContactCreateSequenceDiagram">
+</div>
+<div class="title">Figure 9. Interactions Inside the Logic Component for the <code>contact create --n Bob</code> Command</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="note-logic-component"><a class="link" href="#note-logic-component">2.3.2. Note Logic component</a></h4>
+<div id="fig-NoteLogicClassDiagram" class="imageblock">
+<div class="content">
+<img src="images/NoteLogicClassDiagram.png" alt="NoteLogicClassDiagram">
+</div>
+<div class="title">Figure 10. Structure of the Note Logic Component</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>Note Logic</code> is a sub-component of <code>Logic</code>.</p>
 </li>
 <li>
 <p>It obtains the user command parsed by <code>TaglineParser</code> through the <code>NoteCommandParser</code> class.</p>
 </li>
 <li>
-<p>The user command is passed to the respective command parser. E.g. <em>"note delete 1"</em> will be passed to <code>DeleteNoteParser</code></p>
+<p>The user command is passed to the respective command parser. E.g. <em>"note delete 1"</em> will be passed to <code>DeleteNoteParser</code>.</p>
 </li>
 <li>
 <p>This results in a <code>NoteCommand</code> object which is returned to the <code>LogicManager</code>.</p>
@@ -318,7 +361,7 @@ The following class plays an important role at the architecture level:</p>
 <div class="content">
 <img src="images/NoteDeleteSequenceDiagram.png" alt="NoteDeleteSequenceDiagram">
 </div>
-<div class="title">Figure 9. Interactions Inside the Logic Component for the <code>note delete 1</code> Command</div>
+<div class="title">Figure 11. Interactions Inside the Logic Component for the <code>note delete 1</code> Command</div>
 </div>
 </div>
 </div>
@@ -328,7 +371,7 @@ The following class plays an important role at the architecture level:</p>
 <div class="content">
 <img src="images/ModelClassDiagram.png" alt="ModelClassDiagram">
 </div>
-<div class="title">Figure 10. Structure of the Model Component</div>
+<div class="title">Figure 12. Structure of the Model Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/Model.java"><code>Model.java</code></a></p>
@@ -355,7 +398,7 @@ The following class plays an important role at the architecture level:</p>
 <div class="content">
 <img src="images/ContactModelClassDiagram.png" alt="Contact Model Diagram" width="625" height="500">
 </div>
-<div class="title">Figure 11. Structure of the Contact Model Component</div>
+<div class="title">Figure 13. Structure of the Contact Model Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/contact/ContactModel.java"><code>ContactModel.java</code></a></p>
@@ -384,7 +427,7 @@ UI can be bound to this list so that the UI automatically updates when the data 
 <div class="content">
 <img src="images/NoteModelClassDiagram.png" alt="NoteModelClassDiagram">
 </div>
-<div class="title">Figure 12. Structure of the Note Model Component</div>
+<div class="title">Figure 14. Structure of the Note Model Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/note/NoteModel.java"><code>NoteModel.java</code></a></p>
@@ -425,7 +468,7 @@ As an additional feature to be implemented in the future, we can store a <code>T
 <div class="content">
 <img src="images/StorageArchitectureDiagram.png" alt="StorageArchitectureDiagram">
 </div>
-<div class="title">Figure 13. Structure of the Storage Component</div>
+<div class="title">Figure 15. Structure of the Storage Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/storage/Storage.java"><code>Storage.java</code></a></p>
@@ -446,7 +489,7 @@ As an additional feature to be implemented in the future, we can store a <code>T
 <div class="content">
 <img src="images/ContactStorageClassDiagram.png" alt="ContactStorageClassDiagram">
 </div>
-<div class="title">Figure 14. Structure of the Contact Storage Component</div>
+<div class="title">Figure 16. Structure of the Contact Storage Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/storage/note/ContactBookStorage.java"><code>ContactBookStorage.java</code></a></p>
@@ -468,7 +511,7 @@ As an additional feature to be implemented in the future, we can store a <code>T
 <div class="content">
 <img src="images/NoteStorageClassDiagram.png" alt="NoteStorageClassDiagram">
 </div>
-<div class="title">Figure 15. Structure of the Note Storage Component</div>
+<div class="title">Figure 17. Structure of the Note Storage Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/storage/note/NoteBookStorage.java"><code>NoteBookStorage.java</code></a></p>
@@ -1632,4 +1675,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-24 02:32:14 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-24 02:33:20 UTC</div></div></div></body></html>
