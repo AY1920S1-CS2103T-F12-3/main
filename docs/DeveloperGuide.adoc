@@ -337,11 +337,18 @@ Step 1. The user initially has several contacts in `AddressBook`.
 .Simplified state of relevant Model components initially
 image::GroupContactsState0.png[]
 
++
+The `AddressBook` model state contains all the `Contact` class that exists in the App.
+ Since no `Group` has been created yet, `GroupBook` model state is currently empty.
+ All of the contacts found in `AddressBook` are displayed on the `UI` by default.
+
 Step 2. Wishing to better organize her contacts into groups, the user executes `group create BTS` calling
  `CreateGroupCommand`. to create a new `Group` instance with no members.
 
 .State after Group "BTS" is created
 image::GroupContactsState1.png[]
+
++
 The `GroupBook` model state now contains a `Group` instance for "BTS" with no members
  recorded as memberIds.
  A group with no members would not prompt the `UI` to display the contacts in the group
@@ -354,6 +361,8 @@ Step 3. The user then executes `group add BTS --i 00001 --i 00002 --i 0013 --i 0
 
 .State after four contacts are added into Group "BTS"
 image::GroupContactsState2.png[]
+
++
 Group "BTS" now has members in it and the UI would display all the contacts found in the
  group.
 
