@@ -330,17 +330,20 @@ The above operations are exposed in the `Model` interface by their respective me
 These above are static utility functions which form the underlying structure of how a `GroupCommand` works.
 
 Given below is an example usage scenario on how a typical lifecycle of a `Group` behaves at each step.
-With emphasis on showing the effects of `FindGroupCommand` as an example of a `GroupCommand`.
+With emphasis on showing the effects of `DeleteCommand` as an example of a command from `ContactCommand`
+would interact with `GroupCommand` and `GroupModel` state.
+
 
 Step 1. The user initially has several contacts in `AddressBook`.
 
 .Simplified state of relevant Model components initially
 image::GroupContactsState0.png[]
 
-+
+
 The `AddressBook` model state contains all the `Contact` class that exists in the App.
  Since no `Group` has been created yet, `GroupBook` model state is currently empty.
  All of the contacts found in `AddressBook` are displayed on the `UI` by default.
+
 
 Step 2. Wishing to better organize her contacts into groups, the user executes `group create BTS` calling
  `CreateGroupCommand`. to create a new `Group` instance with no members.
@@ -348,12 +351,13 @@ Step 2. Wishing to better organize her contacts into groups, the user executes `
 .State after Group "BTS" is created
 image::GroupContactsState1.png[]
 
-+
+
 The `GroupBook` model state now contains a `Group` instance for "BTS" with no members
  recorded as memberIds.
  A group with no members would not prompt the `UI` to display the contacts in the group
  while a group with members in it would cause `UI` to display all the contacts belonging
  to that group.
+
 
 Step 3. The user then executes `group add BTS --i 00001 --i 00002 --i 0013 --i 0004`
  calling the `addMembersToGroupCommand` to add several contacts to the group. Only the String
@@ -362,7 +366,7 @@ Step 3. The user then executes `group add BTS --i 00001 --i 00002 --i 0013 --i 0
 .State after four contacts are added into Group "BTS"
 image::GroupContactsState2.png[]
 
-+
+
 Group "BTS" now has members in it and the UI would display all the contacts found in the
  group.
 
@@ -380,6 +384,7 @@ Deleting a `Contact` would cause it to be removed from `AddressBook` model state
  no longer exists. While the `UI` display no longer shows contact of 00013, it is still recorded as a member in
  `GroupBook` model state. The updating of `GroupBook` model state is deferred.
 
+
 Step 5. The user then executes `group add BTS --i 00003` to add the correct contact as a member on the `Group`
  and view the `Contact` profiles.
  This calls `AddMemberToGroupCommand` which then updates the `Group` ensuring that all memberIds correspond to an existing
@@ -388,8 +393,10 @@ Step 5. The user then executes `group add BTS --i 00003` to add the correct cont
 .State after user views contacts of Group "BTS"
 image::GroupContactsState4.png[]
 
+
 Here, the `GroupBook` model state is updated and memberId of 00013 from the previous step is removed while `Contact`
  with contactId of 00003 is added into the `Group`. This change is also reflected in the `UI`.
+
 
 The following sequence diagram summarizes what happens when a user executes a `FindGroupCommand` which
  which updates the `Group`:
