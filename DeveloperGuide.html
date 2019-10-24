@@ -735,10 +735,11 @@ Additionally, <code>GroupManager</code> extends Tagline with the following opera
 </div>
 <div class="paragraph">
 <p>Given below is an example usage scenario on how a typical lifecycle of a <code>Group</code> behaves at each step.
-With emphasis on showing the effects of <code>FindGroupCommand</code> as an example of a <code>GroupCommand</code>.</p>
+With emphasis on showing the effects of <code>DeleteCommand</code> as an example of a command from <code>ContactCommand</code>
+would interact with <code>GroupCommand</code> and <code>GroupModel</code> state.</p>
 </div>
 <div class="paragraph">
-<p>Step 1. The user initially has several contacts in <code>AddressBook</code>.</p>
+<p>Step 1. The user initially has several contacts in <code>AddressBook</code>.<br></p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -747,8 +748,13 @@ With emphasis on showing the effects of <code>FindGroupCommand</code> as an exam
 <div class="title">Figure 18. Simplified state of relevant Model components initially</div>
 </div>
 <div class="paragraph">
+<p>The <code>AddressBook</code> model state contains all the <code>Contact</code> class that exists in the App.
+ Since no <code>Group</code> has been created yet, <code>GroupBook</code> model state is currently empty.
+ All of the contacts found in <code>AddressBook</code> are displayed on the <code>UI</code> by default.</p>
+</div>
+<div class="paragraph">
 <p>Step 2. Wishing to better organize her contacts into groups, the user executes <code>group create BTS</code> calling
- <code>CreateGroupCommand</code>. to create a new <code>Group</code> instance with no members.</p>
+ <code>CreateGroupCommand</code>. to create a new <code>Group</code> instance with no members.<br></p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -757,9 +763,16 @@ With emphasis on showing the effects of <code>FindGroupCommand</code> as an exam
 <div class="title">Figure 19. State after Group "BTS" is created</div>
 </div>
 <div class="paragraph">
-<p>Step 3. The user then executes <code>group add BTS --i 00001 --i 00002 --i 0003 --i 0004</code>
+<p>The <code>GroupBook</code> model state now contains a <code>Group</code> instance for "BTS" with no members
+ recorded as memberIds.
+ A group with no members would not prompt the <code>UI</code> to display the contacts in the group
+ while a group with members in it would cause <code>UI</code> to display all the contacts belonging
+ to that group.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. The user then executes <code>group add BTS --i 00001 --i 00002 --i 0013 --i 0004</code>
  calling the <code>addMembersToGroupCommand</code> to add several contacts to the group. Only the String
- representation of the <code>ContactId</code> will be stored in the <code>Group</code>.</p>
+ representation of the <code>ContactId</code> will be stored in the <code>Group</code>.<br></p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -768,20 +781,33 @@ With emphasis on showing the effects of <code>FindGroupCommand</code> as an exam
 <div class="title">Figure 20. State after four contacts are added into Group "BTS"</div>
 </div>
 <div class="paragraph">
-<p>Step 4. The user may wish to remove some contacts calling <code>contact delete --i 0003</code>
- which then deletes the <code>Contact</code> with contactId of 3. However, this does not remove the contact&#8217;s id from
- the memberId attribute in the <code>Group</code> the contact was in. This step does not involve <code>GroupModel</code> in any way.</p>
+<p><code>Group</code> "BTS" now has members in it and the <code>UI</code> would display all the contacts found in the
+ group.</p>
+</div>
+<div class="paragraph">
+<p>Step 4. The user realizes she has made a mistake adding a wrong contact and in a fit of rage
+ chooses to delete the contact instead of merely removing from the Group.
+ Executing <code>contact delete --i 00013</code>
+ which then deletes the <code>Contact</code> with contactId of 00013.
+ However, this does not remove the contact&#8217;s id from
+ the memberId attribute in the <code>Group</code> the contact was in. This step does not involve <code>GroupModel</code> in any way.<br></p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/GroupContactsState3.png" alt="GroupContactsState3">
 </div>
-<div class="title">Figure 21. State after contact with contactId = 00003 is deleted</div>
+<div class="title">Figure 21. State after contact with contactId = 00013 is deleted</div>
 </div>
 <div class="paragraph">
-<p>Step 5. The user executes <code>group find BTS</code> to call up all members on the <code>Group</code> and view the <code>Contact</code> profiles.
- This calls <code>FindGroupCommand</code> which then updates the <code>Group</code> ensuring that all memberIds correspond to an existing
- <code>ContactId</code> found in <code>AddressBook</code>. The contacts of the group are also displayed to the user.</p>
+<p>Deleting a <code>Contact</code> would cause it to be removed from <code>AddressBook</code> model state and the <code>Contact</code>
+ no longer exists. While the <code>UI</code> display no longer shows contact of 00013, it is still recorded as a member in
+ <code>GroupBook</code> model state. The updating of <code>GroupBook</code> model state is deferred.</p>
+</div>
+<div class="paragraph">
+<p>Step 5. The user then executes <code>group add BTS --i 00003</code> to add the correct contact as a member on the <code>Group</code>
+ and view the <code>Contact</code> profiles.
+ This calls <code>AddMemberToGroupCommand</code> which then updates the <code>Group</code> ensuring that all memberIds correspond to an existing
+ <code>ContactId</code> found in <code>AddressBook</code>. The contacts of the group are also displayed to the user. <br></p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -790,8 +816,13 @@ With emphasis on showing the effects of <code>FindGroupCommand</code> as an exam
 <div class="title">Figure 22. State after user views contacts of Group "BTS"</div>
 </div>
 <div class="paragraph">
+<p>Here, the <code>GroupBook</code> model state is updated and memberId of 00013 from the previous step is removed while <code>Contact</code>
+ with contactId of 00003 is added into the <code>Group</code>. This change is also reflected in the <code>UI</code>.
+Now all is as it should be in <code>Group</code> "BTS".<br></p>
+</div>
+<div class="paragraph">
 <p>The following sequence diagram summarizes what happens when a user executes a <code>FindGroupCommand</code> which
- which updates the <code>Group</code>:</p>
+ which updates the <code>Group</code> similar to how <code>AddMemberToGroupCommand</code> does in the above example:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1844,4 +1875,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-24 02:58:03 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-24 13:49:29 UTC</div></div></div></body></html>
