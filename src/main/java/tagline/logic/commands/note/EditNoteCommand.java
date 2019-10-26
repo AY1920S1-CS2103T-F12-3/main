@@ -83,6 +83,24 @@ public class EditNoteCommand extends NoteCommand {
         return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, editedNote), ViewType.NOTE);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof EditNoteCommand)) {
+            return false;
+        }
+
+        // state check
+        EditNoteCommand e = (EditNoteCommand) other;
+        return noteId.equals(e.noteId)
+                && editNoteDescriptor.equals(e.editNoteDescriptor);
+    }
+
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.

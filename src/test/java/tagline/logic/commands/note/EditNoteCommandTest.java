@@ -1,14 +1,18 @@
 package tagline.logic.commands.note;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tagline.logic.commands.NoteCommandTestUtil.CONTENT_DESC_PROTECTOR;
 import static tagline.logic.commands.NoteCommandTestUtil.NON_EXISTING_NOTE_ID;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_CONTENT_INCIDENT;
+import static tagline.logic.commands.NoteCommandTestUtil.VALID_CONTENT_PROTECTOR;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TITLE_INCIDENT;
 import static tagline.logic.commands.NoteCommandTestUtil.assertCommandFailure;
 import static tagline.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
 import static tagline.logic.commands.note.EditNoteCommand.MESSAGE_DUPLICATE_NOTE;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
+import static tagline.testutil.TypicalIndexes.INDEX_SECOND;
 import static tagline.testutil.TypicalNotes.getTypicalNoteBook;
 
 import org.junit.jupiter.api.Test;
@@ -95,5 +99,34 @@ class EditNoteCommandTest {
         EditNoteCommand editNoteCommand = new EditNoteCommand(nonExistingId, descriptor);
 
         assertCommandFailure(editNoteCommand, model, Messages.MESSAGE_INVALID_NOTE_INDEX);
+    }
+
+    @Test
+    public void equals() {
+        EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder().withContent(VALID_CONTENT_INCIDENT).build();
+        final EditNoteCommand standardCommand = new EditNoteCommand(new NoteId(INDEX_FIRST.getOneBased()), descriptor);
+
+        // same values -> return true
+        EditNoteDescriptor copyDescriptor = new EditNoteDescriptorBuilder(descriptor).build();
+        EditNoteCommand commandWithSameValues = new EditNoteCommand(new NoteId(INDEX_FIRST.getOneBased()), copyDescriptor);
+        assertTrue(standardCommand.equals(commandWithSameValues));
+
+        // same object -> returns true
+        assertTrue(standardCommand.equals(standardCommand));
+
+        // null -> returns false
+        assertFalse(standardCommand.equals(null));
+
+        // different type -> returns false
+        assertFalse(standardCommand.equals(new ListNoteCommand(null)));
+
+        // different index -> returns false
+        assertFalse(standardCommand.equals(new EditNoteCommand(new NoteId(INDEX_SECOND.getOneBased()), descriptor)));
+
+        // different descriptor -> returns false
+        EditNoteDescriptor differentDescriptor = new EditNoteDescriptorBuilder()
+                .withContent(VALID_CONTENT_PROTECTOR).build();
+        assertFalse(standardCommand.equals(
+                new EditNoteCommand(new NoteId(INDEX_FIRST.getOneBased()), differentDescriptor)));
     }
 }
