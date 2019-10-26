@@ -6,8 +6,8 @@ import static tagline.logic.commands.NoteCommandTestUtil.INVALID_CONTENT_DESC;
 import static tagline.logic.commands.NoteCommandTestUtil.TITLE_DESC_PROTECTOR;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_CONTENT_PROTECTOR;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TITLE_PROTECTOR;
-import static tagline.logic.parser.note.NoteCommandParserTestUtil.assertParseFailure;
-import static tagline.logic.parser.note.NoteCommandParserTestUtil.assertParseSuccess;
+import static tagline.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static tagline.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
