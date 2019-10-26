@@ -43,7 +43,7 @@ public class EditNoteParser implements Parser<EditNoteCommand> {
             editNoteDescriptor.setTitle(new Title(argMultimap.getValue(PREFIX_TITLE).get()));
         }
         if (argMultimap.getValue(PREFIX_CONTENT).isPresent()) {
-            editNoteDescriptor.setContent(new Content(argMultimap.getValue(PREFIX_CONTENT).get()));
+            editNoteDescriptor.setContent(NoteParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get()));
         }
         /* TO ADD TAGS WHEN TAG IMPLEMENTED */
 
