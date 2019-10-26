@@ -1,5 +1,21 @@
 package tagline.logic.parser.note;
 
+import org.junit.jupiter.api.Test;
+import tagline.logic.parser.exceptions.ParseException;
+
+import static tagline.logic.parser.note.NoteParserUtil.MESSAGE_INVALID_INDEX;
+import static tagline.testutil.Assert.assertThrows;
+
 class NoteParserUtilTest {
 
+    @Test
+    public void parseIndex_invalidInput_throwsParseException() {
+        assertThrows(ParseException.class, () -> NoteParserUtil.parseIndex("a"));
+    }
+
+    @Test
+    public void parseIndex_outOfRangeInput_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
+                -> NoteParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+    }
 }

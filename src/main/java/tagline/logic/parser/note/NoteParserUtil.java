@@ -10,7 +10,7 @@ import tagline.model.note.NoteId;
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class NoteParserUtil {
-    public static final String MESSAGE_INVALID_INDEX = "Note index is not a non-zero unsigned long.";
+    public static final String MESSAGE_INVALID_INDEX = "Note index should be a positive integer.";
 
     /**
      * Parses {@code noteId} into an {@code NoteId} and returns it. Leading and trailing whitespaces will be
