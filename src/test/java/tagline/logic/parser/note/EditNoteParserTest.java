@@ -45,7 +45,7 @@ class EditNoteParserTest {
         assertParseFailure(parser, "1 invalid arguments", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser,"1 c/note content", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 c/note content", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
