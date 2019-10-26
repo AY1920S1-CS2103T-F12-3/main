@@ -2,6 +2,7 @@ package tagline.logic.commands.note;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tagline.logic.commands.NoteCommandTestUtil.VALID_TITLE_INCIDENT;
 import static tagline.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
 import static tagline.testutil.TypicalNotes.getTypicalNoteBook;
@@ -47,5 +48,26 @@ class EditNoteCommandTest {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
 
+    }
+
+    @Test
+    public void execute_someFieldsSpecified_success() {
+        Note originalNote = model.getNoteBook().getNoteList().get(INDEX_FIRST.getZeroBased());
+        Note editedNote = new NoteBuilder(originalNote).withTitle(VALID_TITLE_INCIDENT).build();
+
+        EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder(editedNote).build();
+        EditNoteCommand editNoteCommand = new EditNoteCommand(originalNote.getNoteId(), descriptor);
+
+        // check result manually as TimeLastEdited is dynamically obtained,
+        // resulting in failure for assertEquals
+        try {
+            CommandResult result = editNoteCommand.execute(model);
+            Note actualEditedNote = model.getNoteBook().getNoteList().get(INDEX_FIRST.getZeroBased());
+
+            assertEquals(result.getViewType(), EDIT_NOTE_COMMAND_VIEW_TYPE);
+            assertTrue(actualEditedNote.isUniqueNote(editedNote));
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
     }
 }
