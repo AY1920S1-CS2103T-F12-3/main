@@ -3,7 +3,6 @@ package tagline.logic.commands.note;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tagline.logic.commands.NoteCommandTestUtil.CONTENT_DESC_PROTECTOR;
 import static tagline.logic.commands.NoteCommandTestUtil.NON_EXISTING_NOTE_ID;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_CONTENT_INCIDENT;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_CONTENT_PROTECTOR;
@@ -108,7 +107,8 @@ class EditNoteCommandTest {
 
         // same values -> return true
         EditNoteDescriptor copyDescriptor = new EditNoteDescriptorBuilder(descriptor).build();
-        EditNoteCommand commandWithSameValues = new EditNoteCommand(new NoteId(INDEX_FIRST.getOneBased()), copyDescriptor);
+        EditNoteCommand commandWithSameValues = new EditNoteCommand(
+                new NoteId(INDEX_FIRST.getOneBased()), copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
