@@ -3,7 +3,9 @@ package tagline.logic.commands.note;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TITLE_INCIDENT;
+import static tagline.logic.commands.NoteCommandTestUtil.assertCommandFailure;
 import static tagline.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
+import static tagline.logic.commands.note.EditNoteCommand.MESSAGE_DUPLICATE_NOTE;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
 import static tagline.testutil.TypicalNotes.getTypicalNoteBook;
 
@@ -69,5 +71,15 @@ class EditNoteCommandTest {
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
+    }
+
+    @Test
+    public void execute_noFieldSpecified_failure() {
+        Note originalNote = model.getNoteBook().getNoteList().get(INDEX_FIRST.getZeroBased());
+
+        EditNoteDescriptor descriptor = new EditNoteDescriptor();
+        EditNoteCommand editNoteCommand = new EditNoteCommand(originalNote.getNoteId(), descriptor);
+
+        assertCommandFailure(editNoteCommand, model, MESSAGE_DUPLICATE_NOTE);
     }
 }
