@@ -2,6 +2,8 @@ package tagline.logic.commands.note;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tagline.logic.commands.NoteCommandTestUtil.NON_EXISTING_NOTE_ID;
+import static tagline.logic.commands.NoteCommandTestUtil.VALID_CONTENT_INCIDENT;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TITLE_INCIDENT;
 import static tagline.logic.commands.NoteCommandTestUtil.assertCommandFailure;
 import static tagline.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
@@ -11,12 +13,14 @@ import static tagline.testutil.TypicalNotes.getTypicalNoteBook;
 
 import org.junit.jupiter.api.Test;
 
+import tagline.commons.core.Messages;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
 import tagline.model.note.Note;
+import tagline.model.note.NoteId;
 import tagline.testutil.EditNoteDescriptorBuilder;
 import tagline.testutil.NoteBuilder;
 
@@ -81,5 +85,15 @@ class EditNoteCommandTest {
         EditNoteCommand editNoteCommand = new EditNoteCommand(originalNote.getNoteId(), descriptor);
 
         assertCommandFailure(editNoteCommand, model, MESSAGE_DUPLICATE_NOTE);
+    }
+
+    @Test
+    public void execute_invalidNoteId_failure() {
+        NoteId nonExistingId = NON_EXISTING_NOTE_ID;
+
+        EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder().withContent(VALID_CONTENT_INCIDENT).build();
+        EditNoteCommand editNoteCommand = new EditNoteCommand(nonExistingId, descriptor);
+
+        assertCommandFailure(editNoteCommand, model, Messages.MESSAGE_INVALID_NOTE_INDEX);
     }
 }
