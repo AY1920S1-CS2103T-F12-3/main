@@ -484,7 +484,7 @@ As an additional feature to be implemented in the future, we can store a <code>T
 <h3 id="Design-Storage"><a class="link" href="#Design-Storage">2.5. Storage component</a></h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/StorageArchitectureDiagram.png" alt="StorageArchitectureDiagram">
+<img src="images/StorageClassDiagram.png" alt="StorageClassDiagram">
 </div>
 <div class="title">Figure 15. Structure of the Storage Component</div>
 </div>
@@ -777,8 +777,9 @@ would interact with <code>GroupCommand</code> and <code>GroupModel</code> state.
 <div class="paragraph">
 <p>The <code>GroupBook</code> model state now contains a <code>Group</code> instance for "BTS" with no members
  recorded as memberIds.
- A group with no members would not prompt the <code>UI</code> to display the contacts in the group
- while a group with members in it would cause <code>UI</code> to display all the contacts belonging
+Any command regarding <code>Group</code> would prompt the <code>UI</code> to display the contacts in the group.
+ A group with no members would cause the <code>UI</code> to be empty. As there are no contacts in the group.
+ While a group with members in it would cause <code>UI</code> to display all the contacts belonging
  to that group.</p>
 </div>
 <div class="paragraph">
@@ -798,7 +799,7 @@ would interact with <code>GroupCommand</code> and <code>GroupModel</code> state.
 </div>
 <div class="paragraph">
 <p>Step 4. The user realizes she has made a mistake adding a wrong contact and in a fit of rage
- chooses to delete the contact instead of merely removing from the Group.
+ chooses to delete the contact instead of merely removing the contact from the Group.
  Executing <code>contact delete --i 00013</code>
  which then deletes the <code>Contact</code> with contactId of 00013.
  However, this does not remove the contact&#8217;s id from
@@ -2053,4 +2054,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-26 18:41:18 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-27 13:12:36 UTC</div></div></div></body></html>
