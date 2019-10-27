@@ -1,18 +1,9 @@
 package tagline.ui.util;
 
-import java.util.List;
-
 /**
  * Utility class for autocomplete feature.
  */
 public class AutoCompleteUtil {
-    /**
-     * Gets the list of suggestions matching a input, using an {@code AutoCompleteNode} as the matcher.
-     */
-    public List<String> getSuggestions(AutoCompleteNode root, String input) {
-        return root.findMatches(input);
-    }
-
     /**
      * Returns a root node that matches all current command strings in TagLine.
      */

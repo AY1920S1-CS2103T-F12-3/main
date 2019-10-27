@@ -29,7 +29,7 @@ public class AutoCompleteNode {
     }
 
     /**
-     * Returns true if {@code queryString} is a strict substring of {@code matcher}.
+     * Returns true if {@code queryString} is a strict prefix substring of {@code matcher}.
      */
     public boolean isMatch(String query) {
         return matcher.startsWith(query)
@@ -37,7 +37,7 @@ public class AutoCompleteNode {
     }
 
     /**
-     * Returns true if {@code queryString} contains {@code matcher} followed by a whitespace.
+     * Returns true if {@code queryString} begins with {@code matcher} followed by a whitespace.
      */
     public boolean isTrimmable(String query) {
         return query.matches("^" + matcher + "\\s.*");
