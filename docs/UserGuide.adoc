@@ -310,6 +310,7 @@ Replaces the content of the note which id is '_00002_' with “_Today I don’t 
 NOTE: Upload of image will be supported in v2.0 +
 Partial editing will be supported in v2.0
 
+[#note-tag]
 ==== Tag a note: `tag`
 
 Tags a note with one or more tags.
@@ -338,6 +339,7 @@ Example:
 +
 Untags '_#CS2103T_', '_#Duke_' and user with id '_@12300_' and group '_%cs2103T_' from note with id '_00002_'.
 
+[#note-list]
 ==== List notes: `list`
 
 Lists all notes in the application. Filters can be applied to show only notes related to certain keywords, hashtags, users or groups.
