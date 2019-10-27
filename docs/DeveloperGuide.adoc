@@ -208,7 +208,7 @@ As an additional feature to be implemented in the future, we can store a `Tag` l
 === Storage component
 
 .Structure of the Storage Component
-image::StorageArchitectureDiagram.png[]
+image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/tagline/storage/Storage.java[`Storage.java`]
 
