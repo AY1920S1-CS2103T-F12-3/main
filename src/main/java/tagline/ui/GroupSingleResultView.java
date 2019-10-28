@@ -19,10 +19,10 @@ public class GroupSingleResultView extends ResultView {
 
     @FXML
     private Label name;
-
+    @FXML
+    private Label memberCount;
     @FXML
     private Label description;
-
     @FXML
     private StackPane contactListPanelPlaceholder;
 
@@ -54,6 +54,13 @@ public class GroupSingleResultView extends ResultView {
      */
     void updateLabels(Group group) {
         name.setText(group.getGroupName().value);
+
+        if (group.getMemberIds().size() == 0) {
+            memberCount.setText("No members");
+        } else {
+            memberCount.setText(group.getMemberIds().size() + " member"
+                + (group.getMemberIds().size() == 1 ? "" : "s"));
+        }
 
         if (group.getGroupDescription().value.isBlank()) {
             description.setVisible(false); //hide field

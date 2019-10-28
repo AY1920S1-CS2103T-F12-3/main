@@ -417,13 +417,13 @@
     -fx-background-color: #666666;
 }
 
-#groupSingleResultView #nameLabel {
+#groupSingleResultView .big_label {
     -fx-text-fill: white;
     -fx-font-size: 24px;
     -fx-font-family: "Segoe UI Semibold"
 }
 
-#groupSingleResultView #descriptionLabel {
+#groupSingleResultView .small_label {
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-font-family: "Segoe UI"
