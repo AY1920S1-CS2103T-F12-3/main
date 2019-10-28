@@ -33,8 +33,7 @@ public class AddMemberToGroupCommand extends EditGroupCommand {
             + "Example: " + COMMAND_KEY + " " + COMMAND_WORD + " BTS_ARMY "
             + PREFIX_CONTACTID + " 47337 ";
 
-    public static final String MESSAGE_ADD_MEMBER_SUCCESS = "Add member to group%n"
-            + "Now displaying group:%n%s%n";
+    public static final String MESSAGE_ADD_MEMBER_SUCCESS = "Attempting to add contact(s) to group.\n";
     public static final String MESSAGE_NOT_ADDED = "At least one contactID to add must be provided.";
 
     //private final Group group;
@@ -79,8 +78,8 @@ public class AddMemberToGroupCommand extends EditGroupCommand {
 
         model.updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
         // i cannot use PREDICATE_SHOW_ALL_GROUP here because it would now display the contacts in the group
-        return new CommandResult(String.format(MESSAGE_ADD_MEMBER_SUCCESS + GroupCommand.notFoundString(notFound),
-            verifiedGroup), ViewType.GROUP_SINGLE);
+        return new CommandResult(MESSAGE_ADD_MEMBER_SUCCESS + GroupCommand.notFoundString(notFound),
+                ViewType.GROUP_SINGLE);
     }
 
     /**

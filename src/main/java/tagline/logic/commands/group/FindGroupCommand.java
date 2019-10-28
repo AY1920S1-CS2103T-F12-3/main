@@ -18,7 +18,7 @@ public class FindGroupCommand extends GroupCommand {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_KEYWORD_SUCCESS = "Success! Displaying the group:";
+    public static final String MESSAGE_KEYWORD_SUCCESS = "Success! Displaying the group.";
 
     public static final String MESSAGE_USAGE = COMMAND_KEY + " " + COMMAND_WORD
             + ": Finds a Group matching exactly the specified keywords (case-insensitive).\n"
