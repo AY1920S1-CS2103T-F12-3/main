@@ -8,6 +8,9 @@ import javafx.scene.layout.StackPane;
 import tagline.model.contact.Contact;
 import tagline.model.group.Group;
 
+/**
+ * The UI component that displays a single group as a result.
+ */
 public class GroupSingleResultView extends ResultView {
 
     private static final String FXML = "GroupSingleResultView.fxml";
@@ -46,6 +49,9 @@ public class GroupSingleResultView extends ResultView {
         });
     }
 
+    /**
+     * Updates the inner labels of this component.
+     */
     void updateLabels(Group group) {
         name.setText(group.getGroupName().value);
 
