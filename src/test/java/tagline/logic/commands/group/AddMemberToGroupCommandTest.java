@@ -34,7 +34,7 @@ import tagline.testutil.GroupBuilder;
  */
 public class AddMemberToGroupCommandTest {
 
-    private static final ViewType ADD_MEMBER_COMMAND_VIEW_TYPE = ViewType.CONTACT;
+    private static final ViewType ADD_MEMBER_COMMAND_VIEW_TYPE = ViewType.GROUP_SINGLE;
     private Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
         getTypicalGroupBookExistingMembers(), new UserPrefs());
 

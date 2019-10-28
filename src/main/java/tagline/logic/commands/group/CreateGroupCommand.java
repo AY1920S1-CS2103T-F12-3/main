@@ -59,7 +59,7 @@ public class CreateGroupCommand extends GroupCommand {
         model.addGroup(verifiedGroup);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS + GroupCommand.notFoundString(notFound), verifiedGroup),
-            ViewType.CONTACT);
+            ViewType.GROUP_SINGLE);
     }
 
     @Override

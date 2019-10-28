@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1" fx:id="groupSingleResultView" spacing="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10" />
+    </padding>
+    <Label fx:id="name" text="\$name" id="name-label" wrapText="true"/>
+    <Label fx:id="description" text="\$description" id="description-label" wrapText="true"/>
+    <Separator minHeight="2.0"/>
+    <StackPane fx:id="contactListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+</VBox>

@@ -132,6 +132,23 @@
     -fx-background-color: #313131;
 }
 
+.list-cell:filled:even #groupListCardPane {
+    -fx-background-color: #3c3e3f;
+}
+
+.list-cell:filled:odd #groupListCardPane {
+    -fx-background-color: #515658;
+}
+
+.list-cell:filled:selected #groupListCardPane {
+    -fx-background-color: #424d5f;
+}
+
+.list-cell:filled:selected #groupListCardPane {
+    -fx-border-color: #3e7b91;
+    -fx-border-width: 1;
+}
+
 .list-cell .label {
     -fx-text-fill: white;
 }
@@ -353,12 +370,12 @@
     -fx-background-radius: 0;
 }
 
-#tags {
+#memberIds {
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
 
-#tags .label {
+#memberIds .label {
     -fx-text-fill: white;
     -fx-background-color: #3e7b91;
     -fx-padding: 1 3 1 3;
@@ -398,4 +415,16 @@
 .dialog-box > .command-dialog {
     -fx-text-fill: #DDDDDD;
     -fx-background-color: #666666;
+}
+
+#groupSingleResultView #name-label {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-family: "Segoe UI Semibold"
+}
+
+#groupSingleResultView #description-label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI"
 }

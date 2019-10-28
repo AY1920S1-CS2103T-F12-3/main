@@ -45,7 +45,6 @@ public class ListGroupCommand extends GroupCommand {
         requireNonNull(model);
         GroupCommand.syncGroupBook(model); // updates all Groups to ensure no outdated MemberIds
 
-        model.updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
         model.updateFilteredGroupList(predicate);
 
         if (model.getFilteredGroupList().size() == 0) {
@@ -57,7 +56,7 @@ public class ListGroupCommand extends GroupCommand {
             .map(Group::toShortString)
             .forEach(sb::append);
 
-        return new CommandResult(String.format(MESSAGE_KEYWORD_SUCCESS, sb.toString()), ViewType.CONTACT);
+        return new CommandResult(String.format(MESSAGE_KEYWORD_SUCCESS, sb.toString()), ViewType.GROUP_LIST);
     }
 
 }

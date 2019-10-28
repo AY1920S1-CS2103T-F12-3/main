@@ -1,17 +1,20 @@
 package tagline.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import tagline.model.contact.Contact;
+import tagline.model.group.Group;
 
 /**
- * A UI component that displays information of a {@code Contact}.
+ * A UI component that displays information of a {@code Group}.
  */
-public class ContactListCard extends UiPart<Region> {
+public class GroupListCard extends UiPart<Region> {
 
-    private static final String FXML = "ContactListCard.fxml";
+    private static final String FXML = "GroupListCard.fxml";
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -20,33 +23,27 @@ public class ContactListCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Contact contact;
+    public final Group group;
 
     @FXML
-    private VBox contactListInternalPane;
+    private VBox groupListInternalPane;
     @FXML
     private Label name;
     @FXML
-    private Label id;
-    @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
     private Label description;
+    @FXML
+    private FlowPane memberIds;
 
-    public ContactListCard(Contact contact) {
+    public GroupListCard(Group group) {
         super(FXML);
-        this.contact = contact;
-        name.setText(contact.getName().fullName);
-        id.setText("ID: " + contact.getContactId());
+        this.group = group;
+        name.setText(group.getGroupName().value);
 
-        setLabelText(phone, contact.getPhone().value);
-        setLabelText(address, contact.getAddress().value);
-        setLabelText(email, contact.getEmail().value);
-        setLabelText(description, contact.getDescription().value);
+        setLabelText(description, group.getGroupDescription().value);
+
+        group.getMemberIds().stream()
+                .sorted(Comparator.comparing(id -> id.value))
+                .forEach(id -> memberIds.getChildren().add(new Label("#" + id.value)));
     }
 
     /**
@@ -56,7 +53,7 @@ public class ContactListCard extends UiPart<Region> {
     private void setLabelText(Label label, String text) {
         if (text.isEmpty()) {
             label.setVisible(false);
-            contactListInternalPane.getChildren().remove(label);
+            groupListInternalPane.getChildren().remove(label);
         } else {
             label.setText(text);
         }
@@ -70,12 +67,12 @@ public class ContactListCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ContactListCard)) {
+        if (!(other instanceof GroupListCard)) {
             return false;
         }
 
         // state check
-        ContactListCard card = (ContactListCard) other;
-        return contact.equals(card.contact);
+        GroupListCard card = (GroupListCard) other;
+        return group.equals(card.group);
     }
 }

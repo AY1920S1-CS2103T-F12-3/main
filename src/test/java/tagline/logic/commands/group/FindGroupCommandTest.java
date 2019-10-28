@@ -30,7 +30,7 @@ import tagline.model.note.NoteBook;
  */
 public class FindGroupCommandTest {
 
-    private static final ViewType FIND_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT;
+    private static final ViewType FIND_CONTACT_COMMAND_VIEW_TYPE = ViewType.GROUP_SINGLE;
     private Model model = new ModelManager(new AddressBook(), new NoteBook(),
         getTypicalGroupBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(new AddressBook(), new NoteBook(),

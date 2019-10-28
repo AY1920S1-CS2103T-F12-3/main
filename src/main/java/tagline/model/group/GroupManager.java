@@ -37,6 +37,7 @@ public class GroupManager implements GroupModel {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredGroups = new FilteredList<>(this.groupBook.getGroupList());
     }
+
     public GroupManager(ReadOnlyGroupBook groupBook) {
         this(groupBook, new UserPrefs());
     }

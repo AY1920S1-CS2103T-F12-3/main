@@ -31,8 +31,6 @@ public abstract class GroupCommand extends Command {
 
     public static final String MESSAGE_GROUP_NOT_FOUND = "The group name provided could not be found.";
 
-
-
     /**
      * Checks and returns if {@code Model} contains with the {@code Contact} with {@code ContactId}
      * matching {@code contactId}.
@@ -89,7 +87,6 @@ public abstract class GroupCommand extends Command {
      */
     public static Group findOneGroup(Model model, GroupNameEqualsKeywordPredicate predicate)
         throws CommandException {
-        model.updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
         model.updateFilteredGroupList(predicate);
         List<Group> filteredGroupList = model.getFilteredGroupList();
         Optional<Group> optionalGroup = filteredGroupList.stream().findFirst();
@@ -108,7 +105,6 @@ public abstract class GroupCommand extends Command {
     public static Group findOneGroup(Model model, String groupName) throws CommandException {
         // doesnt seem to work with emptystring, im not sure why
         assert groupName != "";
-
 
         if (!GroupName.isValidGroupName(groupName)) {
             throw new CommandException(GroupName.MESSAGE_CONSTRAINTS);

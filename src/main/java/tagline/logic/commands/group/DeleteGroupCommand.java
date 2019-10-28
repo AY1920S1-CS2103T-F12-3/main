@@ -51,7 +51,7 @@ public class DeleteGroupCommand extends GroupCommand {
         model.updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
 
         return new CommandResult(
-                String.format(MESSAGE_KEYWORD_SUCCESS, targetGroup.getGroupName().value), ViewType.CONTACT);
+                String.format(MESSAGE_KEYWORD_SUCCESS, targetGroup.getGroupName().value), ViewType.GROUP_LIST);
     }
 
     @Override

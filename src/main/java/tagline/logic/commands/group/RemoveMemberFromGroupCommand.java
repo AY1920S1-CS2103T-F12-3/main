@@ -85,7 +85,7 @@ public class RemoveMemberFromGroupCommand extends EditGroupCommand {
 
         model.updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
         return new CommandResult(String.format(MESSAGE_REMOVE_MEMBER_SUCCESS
-               + GroupCommand.notFoundString(membersNotFound), verifiedGroup), ViewType.CONTACT);
+               + GroupCommand.notFoundString(membersNotFound), verifiedGroup), ViewType.GROUP_SINGLE);
     }
 
     /**
