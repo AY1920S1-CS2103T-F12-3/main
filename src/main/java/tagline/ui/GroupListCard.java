@@ -5,6 +5,7 @@ import java.util.Comparator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import tagline.model.group.Group;
@@ -14,6 +15,7 @@ import tagline.model.group.Group;
  */
 public class GroupListCard extends UiPart<Region> {
 
+    public static final String EMPTY_GROUP_STRING = "No members in this group.";
     private static final String FXML = "GroupListCard.fxml";
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -28,9 +30,13 @@ public class GroupListCard extends UiPart<Region> {
     @FXML
     private VBox groupListInternalPane;
     @FXML
+    private HBox memberIdsContainer;
+    @FXML
     private Label name;
     @FXML
     private Label description;
+    @FXML
+    private Label memberIdsLabel;
     @FXML
     private FlowPane memberIds;
 
@@ -41,9 +47,16 @@ public class GroupListCard extends UiPart<Region> {
 
         setLabelText(description, group.getGroupDescription().value);
 
-        group.getMemberIds().stream()
-                .sorted(Comparator.comparing(id -> id.value))
-                .forEach(id -> memberIds.getChildren().add(new Label("#" + id.value)));
+        if (group.getMemberIds().isEmpty()) {
+            memberIdsLabel.setText(EMPTY_GROUP_STRING);
+            memberIdsLabel.setId("emptyGroupLabel");
+
+            memberIdsContainer.getChildren().remove(memberIds);
+        } else {
+            group.getMemberIds().stream()
+                    .sorted(Comparator.comparing(id -> id.value))
+                    .forEach(id -> memberIds.getChildren().add(new Label("#" + id.value)));
+        }
     }
 
     /**

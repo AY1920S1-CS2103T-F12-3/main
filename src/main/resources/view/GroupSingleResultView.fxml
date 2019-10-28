@@ -10,8 +10,8 @@
     <padding>
         <Insets top="10" right="10" bottom="10" left="10" />
     </padding>
-    <Label fx:id="name" text="\$name" id="name-label" wrapText="true"/>
-    <Label fx:id="description" text="\$description" id="description-label" wrapText="true"/>
+    <Label fx:id="name" text="\$name" id="nameLabel" wrapText="true"/>
+    <Label fx:id="description" text="\$description" id="descriptionLabel" wrapText="true"/>
     <Separator minHeight="2.0"/>
     <StackPane fx:id="contactListPanelPlaceholder" VBox.vgrow="ALWAYS" />
 </VBox>

@@ -417,14 +417,18 @@
     -fx-background-color: #666666;
 }
 
-#groupSingleResultView #name-label {
+#groupSingleResultView #nameLabel {
     -fx-text-fill: white;
     -fx-font-size: 24px;
     -fx-font-family: "Segoe UI Semibold"
 }
 
-#groupSingleResultView #description-label {
+#groupSingleResultView #descriptionLabel {
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-font-family: "Segoe UI"
+}
+
+#groupListCardPane #emptyGroupLabel {
+    -fx-text-fill: #999999;
 }
