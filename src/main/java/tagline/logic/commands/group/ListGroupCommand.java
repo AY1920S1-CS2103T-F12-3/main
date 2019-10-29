@@ -1,6 +1,7 @@
 package tagline.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
+import static tagline.model.contact.ContactModel.PREDICATE_SHOW_ALL_CONTACTS;
 import static tagline.model.group.GroupModel.PREDICATE_SHOW_ALL_GROUPS;
 
 import java.util.function.Predicate;
@@ -44,6 +45,7 @@ public class ListGroupCommand extends GroupCommand {
         requireNonNull(model);
         GroupCommand.syncGroupBook(model); // updates all Groups to ensure no outdated MemberIds
 
+        model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
         model.updateFilteredGroupList(predicate);
 
         if (model.getFilteredGroupList().size() == 0) {

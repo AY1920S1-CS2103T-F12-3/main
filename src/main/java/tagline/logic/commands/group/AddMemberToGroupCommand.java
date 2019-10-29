@@ -2,7 +2,6 @@ package tagline.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
 import static tagline.logic.parser.group.GroupCliSyntax.PREFIX_CONTACTID;
-import static tagline.model.group.GroupModel.PREDICATE_SHOW_ALL_GROUPS;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -33,7 +32,7 @@ public class AddMemberToGroupCommand extends EditGroupCommand {
             + "Example: " + COMMAND_KEY + " " + COMMAND_WORD + " BTS_ARMY "
             + PREFIX_CONTACTID + " 47337 ";
 
-    public static final String MESSAGE_ADD_MEMBER_SUCCESS = "Attempting to add contact(s) to group.\n";
+    public static final String MESSAGE_ADD_MEMBER_SUCCESS = "Attempting to add contact(s) to group.";
     public static final String MESSAGE_NOT_ADDED = "At least one contactID to add must be provided.";
 
     //private final Group group;
@@ -76,8 +75,9 @@ public class AddMemberToGroupCommand extends EditGroupCommand {
         Group verifiedGroup = GroupCommand.verifyGroupWithModel(model, editedGroup);
         model.setGroup(groupToEdit, verifiedGroup);
 
-        model.updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
-        // i cannot use PREDICATE_SHOW_ALL_GROUP here because it would now display the contacts in the group
+        model.updateFilteredContactList(GroupCommand.groupToContactIdPredicate(verifiedGroup));
+        model.updateFilteredGroupList(GroupNameEqualsKeywordPredicate.generatePredicate(verifiedGroup));
+
         return new CommandResult(MESSAGE_ADD_MEMBER_SUCCESS + GroupCommand.notFoundString(notFound),
                 ViewType.GROUP_SINGLE);
     }

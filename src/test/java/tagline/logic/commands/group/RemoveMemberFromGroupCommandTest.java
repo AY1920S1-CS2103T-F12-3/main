@@ -67,6 +67,7 @@ public class RemoveMemberFromGroupCommandTest {
 
         // ensured expectedModel ContactDisplay is same due to setting predicate
         expectedModel.updateFilteredContactList(GroupCommand.memberIdsToContactIdPredicate(editedGroup.getMemberIds()));
+        expectedModel.updateFilteredGroupList(GroupNameEqualsKeywordPredicate.generatePredicate(editedGroup));
 
         GroupCommandTestUtil.assertCommandSuccess(editGroupCommand, model, expectedMessage,
             REMOVE_MEMBER_COMMAND_VIEW_TYPE, expectedModel);
@@ -86,6 +87,7 @@ public class RemoveMemberFromGroupCommandTest {
 
         // ensured expectedModel ContactDisplay is same due to setting predicate
         expectedModel.updateFilteredContactList(GroupCommand.memberIdsToContactIdPredicate(editedGroup.getMemberIds()));
+        expectedModel.updateFilteredGroupList(GroupNameEqualsKeywordPredicate.generatePredicate(editedGroup));
 
         assertCommandSuccess(editGroupCommand, model, expectedMessage, REMOVE_MEMBER_COMMAND_VIEW_TYPE, expectedModel);
     }

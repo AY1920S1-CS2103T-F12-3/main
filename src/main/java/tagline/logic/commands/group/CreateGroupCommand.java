@@ -10,6 +10,7 @@ import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.group.Group;
+import tagline.model.group.GroupNameEqualsKeywordPredicate;
 import tagline.model.group.MemberId;
 
 
@@ -28,7 +29,7 @@ public class CreateGroupCommand extends GroupCommand {
             + PREFIX_CONTACTID + "1077 "
             + PREFIX_CONTACTID + "1078";
 
-    public static final String MESSAGE_SUCCESS = "New group successfully added.\n";
+    public static final String MESSAGE_SUCCESS = "New group successfully added.";
     public static final String MESSAGE_DUPLICATE_GROUP = "This group already exists in the group book";
 
     private final Group toAdd;
@@ -56,6 +57,8 @@ public class CreateGroupCommand extends GroupCommand {
         Group verifiedGroup = GroupCommand.verifyGroupWithModel(model, toAdd);
 
         model.addGroup(verifiedGroup);
+        model.updateFilteredContactList(GroupCommand.groupToContactIdPredicate(verifiedGroup));
+        model.updateFilteredGroupList(GroupNameEqualsKeywordPredicate.generatePredicate(verifiedGroup));
 
         return new CommandResult(MESSAGE_SUCCESS + GroupCommand.notFoundString(notFound),
             ViewType.GROUP_SINGLE);

@@ -42,7 +42,7 @@ public class GroupSingleResultView extends ResultView {
         groupList.addListener(new ListChangeListener<Group>() {
             @Override
             public void onChanged(Change<? extends Group> change) {
-                if (groupList.size() == 1) {
+                if (groupList.size() == 1) { //Single group display
                     updateLabels(groupList.get(0));
                 }
             }

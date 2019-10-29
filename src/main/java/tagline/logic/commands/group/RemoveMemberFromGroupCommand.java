@@ -2,7 +2,6 @@ package tagline.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
 import static tagline.logic.parser.group.GroupCliSyntax.PREFIX_CONTACTID;
-import static tagline.model.group.GroupModel.PREDICATE_SHOW_ALL_GROUPS;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -35,7 +34,6 @@ public class RemoveMemberFromGroupCommand extends EditGroupCommand {
             + "Example: " + COMMAND_KEY + " " + COMMAND_WORD + " BTS_ARMY "
             + PREFIX_CONTACTID + " 47337 ";
 
-    public static final String MESSAGE_UI = "UI: now displaying all contacts in found group";
     public static final String MESSAGE_REMOVE_MEMBER_SUCCESS = "Attempting to remove contact(s) from group.";
     public static final String MESSAGE_NOT_REMOVED = "At least one contactID to be removed must be provided.";
 
@@ -82,7 +80,9 @@ public class RemoveMemberFromGroupCommand extends EditGroupCommand {
 
         model.setGroup(groupToEdit, verifiedGroup);
 
-        model.updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
+        model.updateFilteredContactList(GroupCommand.groupToContactIdPredicate(verifiedGroup));
+        model.updateFilteredGroupList(GroupNameEqualsKeywordPredicate.generatePredicate(verifiedGroup));
+
         return new CommandResult(MESSAGE_REMOVE_MEMBER_SUCCESS
                 + GroupCommand.notFoundString(membersNotFound), ViewType.GROUP_SINGLE);
     }

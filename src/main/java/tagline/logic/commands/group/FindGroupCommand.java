@@ -42,6 +42,9 @@ public class FindGroupCommand extends GroupCommand {
         Group verifiedGroup = GroupCommand.verifyGroupWithModel(model, targetGroup);
         model.setGroup(targetGroup, verifiedGroup);
 
+        model.updateFilteredContactList(GroupCommand.groupToContactIdPredicate(verifiedGroup));
+        model.updateFilteredGroupList(GroupNameEqualsKeywordPredicate.generatePredicate(verifiedGroup));
+
         return new CommandResult(MESSAGE_KEYWORD_SUCCESS, ViewType.GROUP_SINGLE);
     }
 
