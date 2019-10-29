@@ -26,7 +26,7 @@ public class ListNoteParser implements Parser<ListNoteCommand> {
     }
 
     /**
-     * Contains utility methods used for generating the {@code Filter} classes from the argument string.
+     * Contains utility methods used for generating the *Filter classes from the argument string.
      */
     private static class NoteFilterUtil {
         private static final String HASHTAG_FILTER_FORMAT = "#";

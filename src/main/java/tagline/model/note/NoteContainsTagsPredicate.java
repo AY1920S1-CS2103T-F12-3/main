@@ -1,10 +1,9 @@
 package tagline.model.note;
 
-import tagline.commons.util.StringUtil;
-import tagline.model.tag.Tag;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import tagline.model.tag.Tag;
 
 /**
  * Tests that a {@code Note}'s {@code Tag} matches any of the tags given.

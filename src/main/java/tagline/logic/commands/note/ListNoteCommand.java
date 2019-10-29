@@ -3,14 +3,19 @@ package tagline.logic.commands.note;
 import static java.util.Objects.requireNonNull;
 import static tagline.model.note.NoteModel.PREDICATE_SHOW_ALL_NOTES;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.note.NoteContainsKeywordsPredicate;
+import tagline.model.note.NoteContainsTagsPredicate;
+import tagline.model.tag.Tag;
 
 /**
  * Lists all contacts in the address book to the user.
@@ -21,7 +26,9 @@ public class ListNoteCommand extends NoteCommand {
 
     public static final String MESSAGE_SUCCESS = "Listed all notes";
     public static final String MESSAGE_KEYWORD_SUCCESS = "Listed notes for keyword: %1$s";
-    public static final String MESSAGE_KEYWORD_EMPTYLIST = "No notes matching keyword: %1$s";
+    public static final String MESSAGE_KEYWORD_EMPTYLIST = "No notes matching keywords: %1$s";
+    public static final String MESSAGE_TAG_SUCCESS = "Listed notes for tags: %1$s";
+    public static final String MESSAGE_TAG_EMPTYLIST = "No notes matching tags: %1$s";
 
     private final Filter filter;
 
@@ -44,15 +51,28 @@ public class ListNoteCommand extends NoteCommand {
         } else {
             return filterAndListByKeyword(model);
         }
-
-        /* TODO Implement filter by tag */
     }
 
     /**
      * Filter note list by {code Tag}
      */
     private CommandResult filterAndListByTag(Model model) throws CommandException {
-        return new CommandResult(MESSAGE_SUCCESS, ViewType.NOTE);
+        Pattern tagFilterFormat = Pattern.compile("[@#%][^@#%]+");
+        Matcher matcher = tagFilterFormat.matcher(filter.filterValue);
+        List<Tag> tags = new ArrayList<>();
+
+        while (matcher.find()) {
+            // TODO Parse tag string matcher.group().strip() to get Tag
+        }
+
+        NoteContainsTagsPredicate predicate = new NoteContainsTagsPredicate(tags);
+        model.updateFilteredNoteList(predicate);
+
+        if (model.getFilteredNoteList().size() == 0) {
+            throw new CommandException(String.format(MESSAGE_TAG_EMPTYLIST, filter.filterValue));
+        }
+
+        return new CommandResult(String.format(MESSAGE_TAG_SUCCESS, filter.filterValue), ViewType.NOTE);
     }
 
     /**
