@@ -1,5 +1,8 @@
 package tagline.ui.util;
 
+import static java.util.Objects.requireNonNull;
+import static tagline.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,6 +28,7 @@ public class AutoCompleteNode {
      * Adds a new child matcher node to the current node.
      */
     public void addChildren(AutoCompleteNode... other) {
+        requireAllNonNull(Arrays.asList(other));
         this.children.addAll(Arrays.asList(other));
     }
 
@@ -32,6 +36,7 @@ public class AutoCompleteNode {
      * Returns true if {@code queryString} is a strict prefix substring of {@code matcher}.
      */
     public boolean isMatch(String query) {
+        requireNonNull(query);
         return matcher.startsWith(query)
             && !matcher.equals(query);
     }
@@ -40,6 +45,7 @@ public class AutoCompleteNode {
      * Returns true if {@code queryString} begins with {@code matcher} followed by a whitespace.
      */
     public boolean isTrimmable(String query) {
+        requireNonNull(query);
         return query.matches("^" + matcher + "\\s.*");
     }
 
@@ -47,6 +53,7 @@ public class AutoCompleteNode {
      * Trims the matcher from a query string.
      */
     public String trimMatcher(String query) throws IllegalArgumentException {
+        requireNonNull(query);
         if (!isTrimmable(query)) {
             throw new IllegalArgumentException("AutoCompleteNode Error: Invalid trim");
         }
@@ -57,6 +64,7 @@ public class AutoCompleteNode {
      * Prepends the matcher to the result of a query to a child node.
      */
     public String prependMatcher(String result) {
+        requireNonNull(result);
         return matcher + " " + result;
     }
 
@@ -65,6 +73,8 @@ public class AutoCompleteNode {
      * Matchers for child nodes will be applied with a whitespace after the parent matcher.
      */
     public List<String> findMatches(String query) {
+        requireNonNull(query);
+
         //if matchString begins with queryString
         if (isMatch(query)) {
             return Arrays.asList(matcher);
@@ -94,21 +104,25 @@ public class AutoCompleteNode {
 
         @Override
         public boolean isMatch(String query) {
+            requireNonNull(query);
             return false; //never matches
         }
 
         @Override
         public boolean isTrimmable(String query) {
+            requireNonNull(query);
             return true; //always trimmable
         }
 
         @Override
         public String trimMatcher(String query) {
+            requireNonNull(query);
             return query;
         }
 
         @Override
         public String prependMatcher(String result) {
+            requireNonNull(result);
             return result;
         }
     }

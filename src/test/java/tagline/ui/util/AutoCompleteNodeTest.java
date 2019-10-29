@@ -37,7 +37,16 @@ public class AutoCompleteNodeTest {
     }
 
     @Test
+    void addChildren_nullArgument_exceptionThrown() {
+        assertThrows(Exception.class, () -> rootNodeWithNoChildren.addChildren(null, NODE_ALICE));
+        assertThrows(Exception.class, () -> nodeWithNoChildren.addChildren(null, NODE_ALICE));
+    }
+
+    @Test
     void isMatch() {
+        assertThrows(Exception.class, () -> rootNodeWithNoChildren.isMatch(null));
+        assertThrows(Exception.class, () -> nodeWithNoChildren.isMatch(null));
+
         assertFalse(rootNodeWithNoChildren.isMatch(""));
         assertFalse(rootNodeWithNoChildren.isMatch("C"));
 
@@ -48,7 +57,13 @@ public class AutoCompleteNodeTest {
     }
 
     @Test
-    void isTrimmable() {
+    void isTrimmable_nullArgument_exceptionThrown() {
+        assertThrows(Exception.class, () -> rootNodeWithNoChildren.isTrimmable(null));
+        assertThrows(Exception.class, () -> nodeWithNoChildren.isTrimmable(null));
+    }
+
+    @Test
+    void isTrimmable_successful() {
         assertTrue(rootNodeWithNoChildren.isTrimmable(""));
         assertTrue(rootNodeWithNoChildren.isTrimmable("Charlie"));
 
@@ -56,6 +71,12 @@ public class AutoCompleteNodeTest {
         assertFalse(nodeWithNoChildren.isTrimmable("Charlie"));
         assertFalse(nodeWithNoChildren.isTrimmable("Charles Bob"));
         assertFalse(nodeWithNoChildren.isTrimmable("Alice Charlie "));
+    }
+
+    @Test
+    void trimMatcher_nullArgument_exceptionThrown() {
+        assertThrows(Exception.class, () -> rootNodeWithNoChildren.trimMatcher(null));
+        assertThrows(Exception.class, () -> nodeWithNoChildren.trimMatcher(null));
     }
 
     @Test
@@ -68,19 +89,31 @@ public class AutoCompleteNodeTest {
     }
 
     @Test
-    void trimMatcher_invalidTrim() {
+    void trimMatcher_invalidTrim_exceptionThrown() {
         assertThrows(IllegalArgumentException.class, () -> nodeWithNoChildren.trimMatcher("Charlie"));
         assertThrows(IllegalArgumentException.class, () -> nodeWithNoChildren.trimMatcher("Alice Charlie"));
     }
 
     @Test
-    void prependMatcher() {
+    void prependMatcher_nullArgument_exceptionThrown() {
+        assertThrows(Exception.class, () -> rootNodeWithNoChildren.trimMatcher(null));
+        assertThrows(Exception.class, () -> nodeWithNoChildren.trimMatcher(null));
+    }
+
+    @Test
+    void prependMatcher_successful() {
         assertEquals("Bob", rootNodeWithNoChildren.prependMatcher("Bob"));
         assertEquals("Charlie Bob", nodeWithNoChildren.prependMatcher("Bob"));
     }
 
     @Test
-    void findMatches() {
+    void findMatches_nullArgument_exceptionThrown() {
+        assertThrows(Exception.class, () -> rootNodeWithNoChildren.findMatches(null));
+        assertThrows(Exception.class, () -> nodeWithNoChildren.findMatches(null));
+    }
+
+    @Test
+    void findMatches_successful() {
         assertEquals(Arrays.asList("Charlie", "Delta"), rootNodeWithChildren.findMatches(""));
         assertEquals(Arrays.asList("Charlie"), rootNodeWithChildren.findMatches("Char"));
         assertEquals(new ArrayList<>(), rootNodeWithChildren.findMatches("Charlie"));
