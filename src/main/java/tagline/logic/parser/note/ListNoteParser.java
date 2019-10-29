@@ -26,7 +26,7 @@ public class ListNoteParser implements Parser<ListNoteCommand> {
     }
 
     /**
-     * Contains utility methods used for generating the *Filter classes from the argument string.
+     * Contains utility methods used for generating the {@code Filter} classes from the argument string.
      */
     private static class NoteFilterUtil {
         private static final String HASHTAG_FILTER_FORMAT = "#";
@@ -51,9 +51,7 @@ public class ListNoteParser implements Parser<ListNoteCommand> {
             Matcher filterMatcher = TAG_FILTER_FORMAT.matcher(trimmedArg);
 
             if (filterMatcher.matches()) {
-                return null;
-                /* TO ADD WHEN TAG IMPLEMENTED */
-                // generateTagFilter(trimmedArg);
+                return generateTagFilter(trimmedArg);
             } else {
                 return generateKeywordFilter(trimmedArg);
             }
@@ -61,6 +59,10 @@ public class ListNoteParser implements Parser<ListNoteCommand> {
 
         private static Filter generateKeywordFilter(String keyword) {
             return new Filter(keyword, FilterType.KEYWORD);
+        }
+
+        private static Filter generateTagFilter(String tag) {
+            return new Filter(tag, FilterType.TAG);
         }
     }
 }

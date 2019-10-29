@@ -39,11 +39,20 @@ public class ListNoteCommand extends NoteCommand {
         if (filter == null) { // No filter, list all notes
             model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
             return new CommandResult(MESSAGE_SUCCESS, ViewType.NOTE);
-        } else { // list if note contains keyword (filter.filterType.equals(KEYWORD))
+        } else if (filter.filterType == Filter.FilterType.TAG) {
+            return filterAndListByTag(model);
+        } else {
             return filterAndListByKeyword(model);
         }
 
         /* TODO Implement filter by tag */
+    }
+
+    /**
+     * Filter note list by {code Tag}
+     */
+    private CommandResult filterAndListByTag(Model model) throws CommandException {
+        return new CommandResult(MESSAGE_SUCCESS, ViewType.NOTE);
     }
 
     /**
@@ -70,7 +79,7 @@ public class ListNoteCommand extends NoteCommand {
          * Represents the type of filter to list notes by.
          */
         public enum FilterType {
-            KEYWORD
+            KEYWORD, TAG
         }
 
         private final String filterValue;
