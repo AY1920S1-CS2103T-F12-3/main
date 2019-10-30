@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
+import tagline.logic.commands.note.NoteFilter.FilterType;
 import tagline.model.Model;
 import tagline.model.note.NoteContainsKeywordsPredicate;
 import tagline.model.note.NoteContainsTagsPredicate;
@@ -30,12 +31,12 @@ public class ListNoteCommand extends NoteCommand {
     public static final String MESSAGE_TAG_SUCCESS = "Listed notes for tags: %1$s";
     public static final String MESSAGE_TAG_EMPTYLIST = "No notes matching tags: %1$s";
 
-    private final Filter filter;
+    private final NoteFilter filter;
 
     /**
      * @param filter to list notes by
      */
-    public ListNoteCommand(Filter filter) {
+    public ListNoteCommand(NoteFilter filter) {
         this.filter = filter;
     }
 
@@ -46,7 +47,8 @@ public class ListNoteCommand extends NoteCommand {
         if (filter == null) { // No filter, list all notes
             model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
             return new CommandResult(MESSAGE_SUCCESS, ViewType.NOTE);
-        } else if (filter.filterType == Filter.FilterType.TAG) {
+
+        } else if (filter.getFilterType() == FilterType.TAG) {
             return filterAndListByTag(model);
         } else {
             return filterAndListByKeyword(model);
@@ -57,13 +59,10 @@ public class ListNoteCommand extends NoteCommand {
      * Filter note list by {code Tag}
      */
     private CommandResult filterAndListByTag(Model model) throws CommandException {
-        Pattern tagFilterFormat = Pattern.compile("[@#%][^@#%]+");
-        Matcher matcher = tagFilterFormat.matcher(filter.filterValue);
         List<Tag> tags = new ArrayList<>();
 
-        while (matcher.find()) {
-            // TODO Parse tag string matcher.group().strip() to get Tag
-        }
+        // filter.getFilterValues
+        // get Tag from TagContent
 
         NoteContainsTagsPredicate predicate = new NoteContainsTagsPredicate(tags);
         model.updateFilteredNoteList(predicate);
@@ -79,8 +78,7 @@ public class ListNoteCommand extends NoteCommand {
      * Filter note list by String keyword
      */
     private CommandResult filterAndListByKeyword(Model model) throws CommandException {
-        List<String> keywordList = Arrays.asList(filter.filterValue.split(" "));
-        NoteContainsKeywordsPredicate predicate = new NoteContainsKeywordsPredicate(keywordList);
+        NoteContainsKeywordsPredicate predicate = new NoteContainsKeywordsPredicate(filter.getFilterValues());
 
         model.updateFilteredNoteList(predicate);
 
@@ -91,31 +89,4 @@ public class ListNoteCommand extends NoteCommand {
         return new CommandResult(String.format(MESSAGE_KEYWORD_SUCCESS, filter.filterValue), ViewType.NOTE);
     }
 
-    /**
-     * Stores filter for note listing.
-     */
-    public static class Filter {
-        /**
-         * Represents the type of filter to list notes by.
-         */
-        public enum FilterType {
-            KEYWORD, TAG
-        }
-
-        private final String filterValue;
-        private final FilterType filterType;
-
-        public Filter(String filterValue, FilterType filterType) {
-            this.filterValue = filterValue;
-            this.filterType = filterType;
-        }
-
-        public String getFilterValue() {
-            return filterValue;
-        }
-
-        public FilterType getFilterType() {
-            return filterType;
-        }
-    }
 }

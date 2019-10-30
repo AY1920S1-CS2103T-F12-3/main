@@ -2,14 +2,20 @@ package tagline.logic.parser.note;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import tagline.logic.commands.note.KeywordFilter;
 import tagline.logic.commands.note.ListNoteCommand;
-import tagline.logic.commands.note.ListNoteCommand.Filter;
-import tagline.logic.commands.note.ListNoteCommand.Filter.FilterType;
+import tagline.logic.commands.note.NoteFilter;
+import tagline.logic.commands.note.NoteFilter.FilterType;
+import tagline.logic.commands.note.TagFilter;
 import tagline.logic.parser.Parser;
 import tagline.logic.parser.exceptions.ParseException;
+import tagline.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new ListNoteCommand object
@@ -32,15 +38,14 @@ public class ListNoteParser implements Parser<ListNoteCommand> {
         private static final String HASHTAG_FILTER_FORMAT = "#";
         private static final String CONTACT_FILTER_FORMAT = "@";
         private static final String GROUP_FILTER_FORMAT = "%";
-
-        private static final Pattern TAG_FILTER_FORMAT = Pattern.compile("["
-                + HASHTAG_FILTER_FORMAT + CONTACT_FILTER_FORMAT + GROUP_FILTER_FORMAT + "].*");
+        private static final String TAG_FILTER_FORMAT
+                = HASHTAG_FILTER_FORMAT + CONTACT_FILTER_FORMAT + GROUP_FILTER_FORMAT;
 
         /**
          * Parses {@code argString} into a {@code Filter} and returns it. Leading and trailing whitespaces will be
          * trimmed.
          */
-        public static Filter generateFilter(String argString) {
+        public static NoteFilter generateFilter(String argString) {
             String trimmedArg = argString.strip();
 
             // No filter provided, list all notes
@@ -48,7 +53,8 @@ public class ListNoteParser implements Parser<ListNoteCommand> {
                 return null;
             }
 
-            Matcher filterMatcher = TAG_FILTER_FORMAT.matcher(trimmedArg);
+            Pattern tagFilterPattern = Pattern.compile("[" + TAG_FILTER_FORMAT + "].*");
+            Matcher filterMatcher = tagFilterPattern.matcher(trimmedArg);
 
             if (filterMatcher.matches()) {
                 return generateTagFilter(trimmedArg);
@@ -57,12 +63,20 @@ public class ListNoteParser implements Parser<ListNoteCommand> {
             }
         }
 
-        private static Filter generateKeywordFilter(String keyword) {
-            return new Filter(keyword, FilterType.KEYWORD);
+        private static NoteFilter generateKeywordFilter(String keyword) {
+            return new KeywordFilter(keyword);
         }
 
-        private static Filter generateTagFilter(String tag) {
-            return new Filter(tag, FilterType.TAG);
+        private static NoteFilter generateTagFilter(String tag) {
+            Pattern tagFilterFormat = Pattern.compile("[" + TAG_FILTER_FORMAT +"][^" + TAG_FILTER_FORMAT + "]+");
+            Matcher matcher = tagFilterFormat.matcher(tag);
+            List<Tag> tags = new ArrayList<>();
+
+            while (matcher.find()) {
+
+            }
+
+            return new TagFilter(tags);
         }
     }
 }
