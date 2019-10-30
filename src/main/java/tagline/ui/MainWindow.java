@@ -19,6 +19,7 @@ import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.logic.parser.exceptions.PromptRequestException;
+import tagline.ui.exceptions.PromptOngoingException;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -26,6 +27,8 @@ import tagline.logic.parser.exceptions.PromptRequestException;
  */
 public class MainWindow extends UiPart<Stage> {
 
+    public static final String BEGIN_PROMPTING_STRING = "Invalid command, requesting additional information. "
+            + "Press the escape key to abort.";
     public static final String ABORT_PROMPTING_STRING = "Command has been aborted.";
     private static final String FXML = "MainWindow.fxml";
 
@@ -202,45 +205,42 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see tagline.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText)
+            throws CommandException, ParseException, PromptOngoingException {
         chatPane.setCommandFromUser(commandText);
 
-        //Cleanup aborted prompt handler
-        if (promptHandler != null && promptHandler.isAborted()) {
+        //Clean up aborted or complete prompt handler
+        if (promptHandler != null && (promptHandler.isAborted() || promptHandler.isComplete())) {
             promptHandler = null;
         }
 
-        //Prompting in progress
-        if (promptHandler != null) {
-            promptHandler.fillNextPrompt(commandText);
+        try {
+            //Prompting in progress
+            if (promptHandler != null) {
+                promptHandler.fillNextPrompt(commandText);
 
-            if (!promptHandler.isComplete()) {
-                chatPane.setFeedbackToUser(promptHandler.getNextPrompt());
-                throw new ParseException("Waiting on more prompts.");
-            }
+                if (!promptHandler.isComplete()) {
+                    chatPane.setFeedbackToUser(promptHandler.getNextPrompt());
+                    throw new PromptOngoingException();
+                }
 
-            try {
-                CommandResult commandResult = logic.execute(promptHandler.getPendingCommand());
+                CommandResult commandResult = logic.execute(promptHandler.getPendingCommand(),
+                        promptHandler.getFilledPromptList());
                 displayCommandResult(commandResult);
                 return commandResult;
-            } catch (CommandException | ParseException e) {
-                logger.info("Invalid command: " + commandText);
-                chatPane.setFeedbackToUser(e.getMessage());
-                throw e;
-            } finally {
-                promptHandler = null;
             }
-        }
 
-        try {
             CommandResult commandResult = logic.execute(commandText);
             displayCommandResult(commandResult);
             return commandResult;
+
         } catch (PromptRequestException e) {
             logger.info("Invalid command, requesting prompt: " + commandText);
+            chatPane.setFeedbackToUser(BEGIN_PROMPTING_STRING);
+
             promptHandler = new PromptHandler(commandText, e.getPrompts());
             chatPane.setFeedbackToUser(promptHandler.getNextPrompt());
-            throw e;
+            throw new PromptOngoingException();
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             chatPane.setFeedbackToUser(e.getMessage());

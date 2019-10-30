@@ -3,6 +3,7 @@ package tagline.logic.parser;
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -64,4 +65,20 @@ public class TaglineParser {
         }
     }
 
+    /**
+     * Parses user input into command for execution, with a list of filled prompts.
+     *
+     * @param userInput full user input string
+     * @param filledPrompts list of filled prompts from the user
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public Command parseCommand(String userInput, List<Prompt> filledPrompts) throws ParseException {
+        StringBuilder commandBuilder = new StringBuilder(userInput);
+        filledPrompts.forEach(prompt -> commandBuilder
+                        .append(" ").append(prompt.getArgumentPrefix())
+                        .append(" ").append(prompt.getPromptResponse()));
+
+        return parseCommand(commandBuilder.toString());
+    }
 }
