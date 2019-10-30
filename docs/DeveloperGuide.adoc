@@ -158,6 +158,19 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `note delete 1` Command
 image::NoteDeleteSequenceDiagram.png[]
 
+[[fig-GroupLogicClassDiagram]]
+.Structure of the Note Logic Component
+image::GroupLogicClassDiagram.png[]
+
+.  `Group Logic` is a sub-component of `Logic`.
+.  It obtains the user command parsed by `TaglineParser` through the `GroupCommandParser` class.
+.  The user command is passed to the respective command parser. E.g. __"group delete x1"__ will be passed to `DeleteGroupParser`.
+.  This results in a `GroupCommand` object which is returned to the `LogicManager`.
+.  The command execution can affect the `GroupModel` (e.g. adding a group).
+.  The command execution can affect the `ContactModel` (e.g. displaying contacts in a group).
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("group delete x1")` API call.
+
 [[Design-Model]]
 === Model component
 
@@ -170,7 +183,9 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * manages Address Book data through `ContactModel` sub-component.
-* manages Note Book data through `NoteMode` sub-component.
+* manages Note Book data through `NoteModel` sub-component.
+* manages Group Book data through `GroupModel` sub-component.
+* manages Tag Book data through `TagModel` sub-component.
 
 [[Design-ContactModel]]
 ==== Contact Model component
@@ -203,6 +218,20 @@ The `NoteModel`,
 
 [NOTE]
 As an additional feature to be implemented in the future, we can store a `Tag` list in `Note`. This would allow `Note` to be able to be better categorized.
+
+[[Design-GroupModel]]
+==== Group Model component
+
+.Structure of the Group Model Component
+image::GroupModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/tagline/model/group/GroupModel.java[`GroupModel.java`]
+
+The `GroupModel`,
+
+* stores the Group Book data.
+* exposes an unmodifiable `ObservableList<Group>` which can be accessed from `Model` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
 
 [[Design-Storage]]
 === Storage component
@@ -241,6 +270,19 @@ The `NoteStorage` component,
 * can save `Note` objects in json format and read it back.
 * can save `NoteIdCounter` state in json format and read it back.
 * can save the Note Book data in json format and read it back.
+
+[[Design-GroupStorage]]
+==== Group Storage component
+
+.Structure of the Group Storage Component
+image::GroupStorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/tagline/storage/group/GroupBookStorage.java[`GroupBookStorage.java`]
+
+The `GroupStorage` component,
+
+* can save `Group` objects in json format and read it back.
+* can save the Group Book data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
