@@ -1,15 +1,22 @@
+// @@author shiweing
 package tagline.logic.commands.note;
-
-import tagline.model.tag.Tag;
 
 import java.util.Collections;
 import java.util.List;
 
-public class TagFilter implements NoteFilter<Tag> {
-    List<Tag> filterValues;
+import tagline.model.tag.Tag;
 
-    public TagFilter(List<Tag> tagDescriptors) {
-        filterValues = tagDescriptors;
+/**
+ * Generates a {@code TagFilter} containing the list of tags to find and filter notes against.
+ */
+public class TagFilter implements NoteFilter<Tag> {
+
+    private final String filterString;
+    private final List<Tag> filterValues;
+
+    public TagFilter(String tagString, List<Tag> tags) {
+        filterString = tagString;
+        filterValues = tags;
     }
 
     public List<Tag> getFilterValues() {
@@ -18,5 +25,10 @@ public class TagFilter implements NoteFilter<Tag> {
 
     public FilterType getFilterType() {
         return FilterType.TAG;
+    }
+
+    @Override
+    public String toString() {
+        return filterString;
     }
 }

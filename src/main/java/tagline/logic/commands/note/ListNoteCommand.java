@@ -1,13 +1,11 @@
+// @@author shiweing
 package tagline.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
 import static tagline.model.note.NoteModel.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
@@ -61,32 +59,35 @@ public class ListNoteCommand extends NoteCommand {
     private CommandResult filterAndListByTag(Model model) throws CommandException {
         List<Tag> tags = new ArrayList<>();
 
-        // filter.getFilterValues
-        // get Tag from TagContent
+        for (Tag tagToFind : ((TagFilter) filter).getFilterValues()) {
+            // model.findTag(tagToFind);
+            // CommandException if not found
+        }
 
         NoteContainsTagsPredicate predicate = new NoteContainsTagsPredicate(tags);
         model.updateFilteredNoteList(predicate);
 
         if (model.getFilteredNoteList().size() == 0) {
-            throw new CommandException(String.format(MESSAGE_TAG_EMPTYLIST, filter.filterValue));
+            throw new CommandException(String.format(MESSAGE_TAG_EMPTYLIST, filter));
         }
 
-        return new CommandResult(String.format(MESSAGE_TAG_SUCCESS, filter.filterValue), ViewType.NOTE);
+        return new CommandResult(String.format(MESSAGE_TAG_SUCCESS, filter), ViewType.NOTE);
     }
 
     /**
      * Filter note list by String keyword
      */
     private CommandResult filterAndListByKeyword(Model model) throws CommandException {
-        NoteContainsKeywordsPredicate predicate = new NoteContainsKeywordsPredicate(filter.getFilterValues());
+        NoteContainsKeywordsPredicate predicate = new NoteContainsKeywordsPredicate((
+                (KeywordFilter) filter).getFilterValues());
 
         model.updateFilteredNoteList(predicate);
 
         if (model.getFilteredNoteList().size() == 0) {
-            throw new CommandException(String.format(MESSAGE_KEYWORD_EMPTYLIST, filter.filterValue));
+            throw new CommandException(String.format(MESSAGE_KEYWORD_EMPTYLIST, filter));
         }
 
-        return new CommandResult(String.format(MESSAGE_KEYWORD_SUCCESS, filter.filterValue), ViewType.NOTE);
+        return new CommandResult(String.format(MESSAGE_KEYWORD_SUCCESS, filter), ViewType.NOTE);
     }
 
 }
