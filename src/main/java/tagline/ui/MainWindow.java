@@ -1,6 +1,5 @@
 package tagline.ui;
 
-import java.util.Arrays;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -18,7 +17,6 @@ import tagline.commons.core.LogsCenter;
 import tagline.logic.Logic;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
-import tagline.logic.parser.Prompt;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.logic.parser.exceptions.PromptRequestException;
 
@@ -235,10 +233,6 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         try {
-            if (promptHandler == null) {
-                throw new PromptRequestException(
-                        Arrays.asList(new Prompt("", "Are you sure about that?")));
-            }
             CommandResult commandResult = logic.execute(commandText);
             displayCommandResult(commandResult);
             return commandResult;
