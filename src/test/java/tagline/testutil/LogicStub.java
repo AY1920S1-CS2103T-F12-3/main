@@ -30,7 +30,7 @@ public class LogicStub implements Logic {
     public LogicStub(Path addressBookFilePath, Path noteBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
         this.noteBookFilePath = noteBookFilePath;
-        this.groupBookFilePath = groupBookFilePath;
+        this.groupBookFilePath = null;
     }
 
     /**
