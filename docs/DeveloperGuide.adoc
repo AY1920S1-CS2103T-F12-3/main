@@ -158,8 +158,10 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `note delete 1` Command
 image::NoteDeleteSequenceDiagram.png[]
 
+==== Group Logic component
+
 [[fig-GroupLogicClassDiagram]]
-.Structure of the Note Logic Component
+.Structure of the Group Logic Component
 image::GroupLogicClassDiagram.png[]
 
 .  `Group Logic` is a sub-component of `Logic`.
