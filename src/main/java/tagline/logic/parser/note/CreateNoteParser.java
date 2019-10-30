@@ -4,6 +4,7 @@ import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -13,7 +14,9 @@ import tagline.logic.parser.ArgumentMultimap;
 import tagline.logic.parser.ArgumentTokenizer;
 import tagline.logic.parser.Parser;
 import tagline.logic.parser.Prefix;
+import tagline.logic.parser.Prompt;
 import tagline.logic.parser.exceptions.ParseException;
+import tagline.logic.parser.exceptions.PromptRequestException;
 import tagline.model.note.Content;
 import tagline.model.note.Note;
 import tagline.model.note.NoteId;
@@ -48,6 +51,17 @@ public class CreateNoteParser implements Parser<CreateNoteCommand> {
         Note note = new Note(noteId, title, content, timeCreated, timeLastEdited, tags);
 
         return new CreateNoteCommand(note);
+    }
+
+    /**
+     * Checks the compulsory fields of the command (i.e. name).
+     * @throws PromptRequestException if name is missing
+     */
+    private void checkCompulsoryFields(ArgumentMultimap argMultimap) throws PromptRequestException {
+        if (!argMultimap.getValue(PREFIX_CONTENT).isPresent()) {
+            throw new PromptRequestException(Arrays.asList(new Prompt(PREFIX_CONTENT.getPrefix(),
+                    "Please enter the content of your note.")));
+        }
     }
 
     /**

@@ -233,12 +233,16 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             displayCommandResult(commandResult);
             return commandResult;
-
         } catch (PromptRequestException e) {
             logger.info("Invalid command, requesting prompt: " + commandText);
             chatPane.setFeedbackToUser(BEGIN_PROMPTING_STRING);
 
-            promptHandler = new PromptHandler(commandText, e.getPrompts());
+            if (promptHandler != null) {
+                promptHandler = new PromptHandler(promptHandler.getPendingCommand(), e.getPrompts());
+            } else {
+                promptHandler = new PromptHandler(commandText, e.getPrompts());
+            }
+
             chatPane.setFeedbackToUser(promptHandler.getNextPrompt());
             throw new PromptOngoingException();
         } catch (CommandException | ParseException e) {
