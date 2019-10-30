@@ -1,3 +1,4 @@
+//@@author e0031374
 package tagline.logic.commands.group;
 
 import static tagline.logic.commands.CommandTestUtil.showContactAtIndex;
@@ -21,7 +22,7 @@ import tagline.model.note.NoteBook;
  */
 public class ListGroupCommandTest {
 
-    private static final ViewType LIST_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT;
+    private static final ViewType LIST_CONTACT_COMMAND_VIEW_TYPE = ViewType.GROUP_LIST;
     private Model model;
     private Model expectedModel;
 

@@ -1,3 +1,4 @@
+//@@author e0031374
 package tagline.model.group;
 
 import java.nio.file.Path;
@@ -84,4 +85,10 @@ public interface GroupModel {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredGroupList(Predicate<Group> predicate);
+
+    /**
+     * Returns an unmodifiable copy of the filtered group list with a set predicate.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    ObservableList<Group> getFilteredGroupListWithPredicate(Predicate<Group> predicate);
 }

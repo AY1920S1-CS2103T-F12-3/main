@@ -1,3 +1,4 @@
+//@@author e0031374
 package tagline.logic.commands.group;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -34,7 +35,7 @@ import tagline.testutil.GroupBuilder;
  */
 public class AddMemberToGroupCommandTest {
 
-    private static final ViewType ADD_MEMBER_COMMAND_VIEW_TYPE = ViewType.CONTACT;
+    private static final ViewType ADD_MEMBER_COMMAND_VIEW_TYPE = ViewType.GROUP_SINGLE;
     private Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
         getTypicalGroupBookExistingMembers(), new UserPrefs());
 
@@ -62,6 +63,7 @@ public class AddMemberToGroupCommandTest {
 
         // ensured expectedModel ContactDisplay is same due to setting predicate
         expectedModel.updateFilteredContactList(GroupCommand.memberIdsToContactIdPredicate(editedGroup.getMemberIds()));
+        expectedModel.updateFilteredGroupList(GroupNameEqualsKeywordPredicate.generatePredicate(editedGroup));
 
         GroupCommandTestUtil.assertCommandSuccess(editGroupCommand, model, expectedMessage,
             ADD_MEMBER_COMMAND_VIEW_TYPE, expectedModel);
@@ -81,6 +83,7 @@ public class AddMemberToGroupCommandTest {
 
         // ensured expectedModel ContactDisplay is same due to setting predicate
         expectedModel.updateFilteredContactList(GroupCommand.memberIdsToContactIdPredicate(editedGroup.getMemberIds()));
+        expectedModel.updateFilteredGroupList(GroupNameEqualsKeywordPredicate.generatePredicate(editedGroup));
 
         assertCommandSuccess(editGroupCommand, model, expectedMessage, ADD_MEMBER_COMMAND_VIEW_TYPE, expectedModel);
     }

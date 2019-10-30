@@ -1,3 +1,4 @@
+//@@author e0031374
 package tagline.logic.commands.group;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,7 +28,7 @@ import tagline.model.note.NoteBook;
  */
 class DeleteGroupCommandTest {
 
-    private static final ViewType DELETE_GROUP_COMMAND_VIEW_TYPE = ViewType.CONTACT;
+    private static final ViewType DELETE_GROUP_COMMAND_VIEW_TYPE = ViewType.GROUP_LIST;
     private Model model = new ModelManager(new AddressBook(), new NoteBook(),
             getTypicalGroupBook(), new UserPrefs());
 

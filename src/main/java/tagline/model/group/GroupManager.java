@@ -1,3 +1,4 @@
+//@@author e0031374
 package tagline.model.group;
 
 import static java.util.Objects.requireNonNull;
@@ -37,6 +38,7 @@ public class GroupManager implements GroupModel {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredGroups = new FilteredList<>(this.groupBook.getGroupList());
     }
+
     public GroupManager(ReadOnlyGroupBook groupBook) {
         this(groupBook, new UserPrefs());
     }
@@ -110,13 +112,11 @@ public class GroupManager implements GroupModel {
     @Override
     public void addGroup(Group group) {
         groupBook.addGroup(group);
-        updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
     }
 
     @Override
     public void setGroup(Group target, Group editedGroup) {
         requireAllNonNull(target, editedGroup);
-
         groupBook.setGroup(target, editedGroup);
     }
 
@@ -135,6 +135,15 @@ public class GroupManager implements GroupModel {
     public void updateFilteredGroupList(Predicate<Group> predicate) {
         requireNonNull(predicate);
         filteredGroups.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Group> getFilteredGroupListWithPredicate(Predicate<Group> predicate) {
+        requireNonNull(predicate);
+
+        FilteredList<Group> filteredGroupsCopy = new FilteredList<>(groupBook.getGroupList());
+        filteredGroupsCopy.setPredicate(predicate);
+        return filteredGroupsCopy;
     }
 
     @Override
