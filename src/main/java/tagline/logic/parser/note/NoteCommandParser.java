@@ -55,7 +55,7 @@ public class NoteCommandParser {
             return new ListNoteParser().parse(arguments);
 
         case ClearNoteCommand.COMMAND_WORD:
-           return new ClearNoteCommand();
+            return new ClearNoteCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
