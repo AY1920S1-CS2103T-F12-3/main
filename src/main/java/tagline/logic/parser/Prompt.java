@@ -40,9 +40,9 @@ public class Prompt {
         }
 
         if (other instanceof Prompt) {
-            return argumentPrefix.equals(((Prompt)other).argumentPrefix)
-                    && promptQuestion.equals(((Prompt)other).promptQuestion)
-                    && promptResponse.equals(((Prompt)other).promptResponse);
+            return argumentPrefix.equals(((Prompt) other).argumentPrefix)
+                    && promptQuestion.equals(((Prompt) other).promptQuestion)
+                    && promptResponse.equals(((Prompt) other).promptResponse);
         }
 
         return false;
