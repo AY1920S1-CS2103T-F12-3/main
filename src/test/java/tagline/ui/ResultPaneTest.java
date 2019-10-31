@@ -67,7 +67,8 @@ public class ResultPaneTest {
 
     @Start
     void setUp(Stage stage) throws TimeoutException {
-        logic = new LogicStub(testFolder.resolve("addressbook.json"), testFolder.resolve("notebook.json"));
+        logic = new LogicStub(testFolder.resolve("addressbook.json"), testFolder.resolve("notebook.json"),
+                testFolder.resolve("groupbook.json"));
         initMainWindow(stage, logic);
     }
 
