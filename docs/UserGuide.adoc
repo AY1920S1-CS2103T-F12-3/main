@@ -241,11 +241,14 @@ Format:
 
 Example:
 
-. To add a member to our '_ao3_' group we can use the command
+
+* To add a member to our '_ao3_' group we can use the command
  `group create ao3 --i 90040`
+
 .Entering the command
 image::ug_groupadd1.PNG[width="600"]
-. This adds a contact with ID '_90040_' to the group with name '_ao3_'
+
+* This adds a contact with ID '_90040_' to the group with name '_ao3_'
 The display will show the group and the contact that has been added.
 
 .Command executed Group created
@@ -260,13 +263,13 @@ Format:
 
 Example:
 
-. To show all the groups stored we can use the command
+* To show all the groups stored we can use the command
  `group list`
 
 .Entering the command
 image::ug_grouplist1.png[width="600"]
 
-. This displays all groups
+* This displays all groups
 
 .Command executed, Groups displayed
 image::ug_grouplist2.png[width="600"]
@@ -280,13 +283,13 @@ Format:
 
 Example:
 
-. To find a '_ao3_' group from the list of groups we have, we can use command
+* To find a '_ao3_' group from the list of groups we have, we can use command
  `group find ao3` with the exact group name we are looking for
 
 .Entering the command
 image::ug_groupfind1.png[width="600"]
 
-. This searches for a group with the exact name as group '_ao3_'
+* This searches for a group with the exact name as group '_ao3_'
 The display will show the group and the group members
 
 .Command executed, Group found and displaying Contacts
@@ -312,13 +315,13 @@ Format:
 
 Example:
 
-. To delete the group '_ao3_', we can use command
+* To delete the group '_ao3_', we can use command
  `group delete ao3`
 
 .Entering the command
 image::ug_groupdelete1.png[width="600"]
 
-. This searches for a group with the exact name as group '_ao3_'
+* This searches for a group with the exact name as group '_ao3_'
 The display will display all remaining groups in a list.
 
 .Command executed Group deleted
