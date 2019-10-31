@@ -1,6 +1,5 @@
 package tagline.ui;
 
-/*
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testfx.util.NodeQueryUtils.hasText;
@@ -23,6 +22,7 @@ import org.testfx.framework.junit5.Stop;
 
 import javafx.scene.Node;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import tagline.model.group.Group;
 
 @ExtendWith(ApplicationExtension.class)
@@ -31,6 +31,10 @@ public class GroupListCardTest {
 
     @Start
     void setUp(Stage stage) {
+        if (stage.getStyle() != StageStyle.DECORATED) {
+            stage.initStyle(StageStyle.DECORATED);
+        }
+
         stage.setWidth(500); //for human-viewable results
     }
 
@@ -93,4 +97,3 @@ public class GroupListCardTest {
         assertEquals(0, getChildNodes(robot, "#memberIds > .label").size());
     }
 }
-*/

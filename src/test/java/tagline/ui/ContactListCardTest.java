@@ -19,6 +19,7 @@ import org.testfx.framework.junit5.Stop;
 
 import javafx.scene.Node;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import tagline.model.contact.Contact;
 
 @ExtendWith(ApplicationExtension.class)
@@ -27,6 +28,10 @@ public class ContactListCardTest {
 
     @Start
     void setUp(Stage stage) {
+        if (stage.getStyle() != StageStyle.DECORATED) {
+            stage.initStyle(StageStyle.DECORATED);
+        }
+
         stage.setWidth(500); //for human-viewable results
     }
 
