@@ -6,6 +6,7 @@ import static tagline.model.note.NoteModel.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
@@ -28,6 +29,7 @@ public class ListNoteCommand extends NoteCommand {
     public static final String MESSAGE_KEYWORD_EMPTYLIST = "No notes matching keywords: %1$s";
     public static final String MESSAGE_TAG_SUCCESS = "Listed notes for tags: %1$s";
     public static final String MESSAGE_TAG_EMPTYLIST = "No notes matching tags: %1$s";
+    public static final String MESSAGE_TAG_NOT_FOUND = "Tag cannot be found: %1$s";
 
     private final NoteFilter filter;
 
@@ -60,8 +62,13 @@ public class ListNoteCommand extends NoteCommand {
         List<Tag> tags = new ArrayList<>();
 
         for (Tag tagToFind : ((TagFilter) filter).getFilterValues()) {
-            // model.findTag(tagToFind);
-            // CommandException if not found
+            Optional<Tag> tagFound = model.findTag(tagToFind);
+
+            if (tagFound.isEmpty()) {
+                throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagToFind));
+            }
+
+            tags.add(tagFound.get());
         }
 
         NoteContainsTagsPredicate predicate = new NoteContainsTagsPredicate(tags);
