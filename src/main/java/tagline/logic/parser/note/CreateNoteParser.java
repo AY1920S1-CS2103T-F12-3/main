@@ -30,6 +30,8 @@ import tagline.model.tag.Tag;
  * Parses input arguments and creates a new CreateNoteCommand object
  */
 public class CreateNoteParser implements Parser<CreateNoteCommand> {
+    public static final String CREATE_NOTE_MISSING_CONTENT_PROMPT = "Please enter the content of the note.";
+
     /**
      * Parses the given {@code String} of arguments in the context of the CreateNoteCommand
      * and returns an CreateNoteCommand object for execution.
@@ -38,8 +40,13 @@ public class CreateNoteParser implements Parser<CreateNoteCommand> {
     public CreateNoteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CONTENT);
 
-        if (!argMultimap.getPreamble().isEmpty() || !arePrefixesPresent(argMultimap, PREFIX_CONTENT)) {
+        if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateNoteCommand.MESSAGE_USAGE));
+        }
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_CONTENT)) {
+            throw new PromptRequestException(Arrays.asList(new Prompt(PREFIX_CONTENT.getPrefix(),
+                    CREATE_NOTE_MISSING_CONTENT_PROMPT)));
         }
 
         NoteId noteId = new NoteId();
@@ -52,17 +59,6 @@ public class CreateNoteParser implements Parser<CreateNoteCommand> {
         Note note = new Note(noteId, title, content, timeCreated, timeLastEdited, tags);
 
         return new CreateNoteCommand(note);
-    }
-
-    /**
-     * Checks the compulsory fields of the command (i.e. name).
-     * @throws PromptRequestException if name is missing
-     */
-    private void checkCompulsoryFields(ArgumentMultimap argMultimap) throws PromptRequestException {
-        if (!argMultimap.getValue(PREFIX_CONTENT).isPresent()) {
-            throw new PromptRequestException(Arrays.asList(new Prompt(PREFIX_CONTENT.getPrefix(),
-                    "Please enter the content of your note.")));
-        }
     }
 
     /**

@@ -74,11 +74,34 @@ public class TaglineParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput, List<Prompt> filledPrompts) throws ParseException {
-        StringBuilder commandBuilder = new StringBuilder(userInput);
-        filledPrompts.forEach(prompt -> commandBuilder
-                        .append(" ").append(prompt.getArgumentPrefix())
-                        .append(" ").append(prompt.getPromptResponse()));
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
 
-        return parseCommand(commandBuilder.toString());
+        final String commandKey = matcher.group("commandKey");
+        final String commandStr = matcher.group("commandStr");
+
+        switch (commandKey) {
+
+            case ContactCommand.COMMAND_KEY:
+                return new ContactCommandParser().parseCommand(commandStr, filledPrompts);
+
+            case NoteCommand.COMMAND_KEY:
+                return new NoteCommandParser().parseCommand(commandStr, filledPrompts);
+
+            case GroupCommand.COMMAND_KEY:
+                //Currently doesn't support prompts
+                return new GroupCommandParser().parseCommand(commandStr);
+
+            case ExitCommand.COMMAND_KEY:
+                return new ExitCommand();
+
+            case HelpCommand.COMMAND_KEY:
+                return new HelpCommand();
+
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
     }
 }
