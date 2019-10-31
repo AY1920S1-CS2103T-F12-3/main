@@ -196,27 +196,20 @@ Format:
 
 Example:
 
-We wish to add contact with ID '_90040_' to the group '_ao3_' +
+We wish to organize our contacts better by grouping '_ao3_' readers together +
+we can start by creating an '_ao3_' group with a few initial members
+
 First use the command
-* `group add ao3 --i 90040`
+* `group create ao3 --i 212 --i 215`
 
 .Entering the command
-image::ug_groupcreate1.png[width="400"]
+image::ug_groupcreate1.png[width="600"]
 
-* The display will show the contact that has been added to the group.
+* This creates a group with name '_ao3_' that contains contacts with ID '_212_' and '_215_' +
+The display will show the group created and contact that has been added.
 
 .Command executed Group created
 image::ug_groupcreate2.png[width="600"]
-
-Example:
-
-* `group create CS2103-F12-3`
-+
-Creates a group with name '_CS2103-F12-3_'.
-
-* `group create CS2103-F12-3 --i 12345 --i 23451 --i 34512 --i 45123 --i 51234`
-+
-Creates a group with name '_CS2103-F12-3_' that contains contacts with ID '_12345_', '_23451_', '_34512_', '_45123_', and '_51234_' as group members.
 
 ==== Add member to a group: `add`
 Adds members to a group.
