@@ -122,8 +122,6 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
-
-
     /**
      * Initializes the chat pane.
      */
@@ -139,7 +137,7 @@ public class MainWindow extends UiPart<Stage> {
     private void initResultPane() {
         resultPane = new ResultPane();
         resultPane.fillInnerParts(logic.getFilteredContactList(), logic.getFilteredNoteList(),
-                logic.getFilteredGroupList());
+                logic.getFilteredGroupList(), logic.getFilteredTagList());
         resultPanePlaceholder.getChildren().add(resultPane.getRoot());
     }
 

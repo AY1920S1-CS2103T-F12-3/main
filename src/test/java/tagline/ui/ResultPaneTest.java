@@ -20,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import tagline.logic.Logic;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
@@ -32,16 +33,16 @@ public class ResultPaneTest {
     private static final String RESPONSE_STRING = "feedback123";
 
     private static final CommandResult CONTACT_COMMAND_RESULT = new CommandResultBuilder()
-            .putName(RESPONSE_STRING)
-            .putViewType(ViewType.CONTACT)
-            .build();
+        .putName(RESPONSE_STRING)
+        .putViewType(ViewType.CONTACT_LIST)
+        .build();
     private static final CommandResult NOTE_COMMAND_RESULT = new CommandResultBuilder()
-            .putName(RESPONSE_STRING)
-            .putViewType(ViewType.NOTE)
-            .build();
+        .putName(RESPONSE_STRING)
+        .putViewType(ViewType.NOTE)
+        .build();
     private static final CommandResult NONE_COMMAND_RESULT = new CommandResultBuilder()
-            .putName(RESPONSE_STRING)
-            .build();
+        .putName(RESPONSE_STRING)
+        .build();
 
     @TempDir
     public Path testFolder;
@@ -73,7 +74,7 @@ public class ResultPaneTest {
     @Start
     void setUp(Stage stage) throws TimeoutException {
         logic = new LogicStub(testFolder.resolve("addressbook.json"), testFolder.resolve("notebook.json"),
-                testFolder.resolve("groupbook.json"));
+            testFolder.resolve("groupbook.json"), testFolder.resolve("tagbook.json"));
         initStage(stage);
         initMainWindow(stage, logic);
     }
@@ -119,7 +120,7 @@ public class ResultPaneTest {
         sendCommandWithResult(robot, NOTE_COMMAND_RESULT);
 
         assertSingleResultView(robot);
-        assertResultViewId(robot, "#noteResultView");
+        assertResultViewId(robot, "#noteListResultView");
     }
 
     @Test
@@ -128,7 +129,7 @@ public class ResultPaneTest {
         sendCommandWithResult(robot, NOTE_COMMAND_RESULT);
 
         assertSingleResultView(robot);
-        assertResultViewId(robot, "#noteResultView");
+        assertResultViewId(robot, "#noteListResultView");
     }
 
     @Test
@@ -137,7 +138,7 @@ public class ResultPaneTest {
         sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
 
         assertSingleResultView(robot);
-        assertResultViewId(robot, "#contactResultView");
+        assertResultViewId(robot, "#contactListResultView");
     }
 
     @Test
@@ -146,7 +147,7 @@ public class ResultPaneTest {
         sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
 
         assertSingleResultView(robot);
-        assertResultViewId(robot, "#contactResultView");
+        assertResultViewId(robot, "#contactListResultView");
     }
 
     @Test
@@ -155,7 +156,7 @@ public class ResultPaneTest {
         sendCommandWithResult(robot, NONE_COMMAND_RESULT);
 
         assertSingleResultView(robot);
-        assertResultViewId(robot, "#contactResultView");
+        assertResultViewId(robot, "#contactListResultView");
     }
 
     @Test
@@ -164,6 +165,6 @@ public class ResultPaneTest {
         sendCommandWithResult(robot, NONE_COMMAND_RESULT);
 
         assertSingleResultView(robot);
-        assertResultViewId(robot, "#noteResultView");
+        assertResultViewId(robot, "#noteListResultView");
     }
 }

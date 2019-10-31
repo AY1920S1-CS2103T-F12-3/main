@@ -8,9 +8,9 @@ import static tagline.logic.commands.group.FindGroupCommand.MESSAGE_KEYWORD_SUCC
 import static tagline.logic.commands.group.GroupCommand.MESSAGE_GROUP_NOT_FOUND;
 import static tagline.logic.commands.group.GroupCommandTestUtil.assertCommandFailure;
 import static tagline.logic.commands.group.GroupCommandTestUtil.assertCommandSuccess;
-import static tagline.testutil.TypicalGroups.GUARDIANS;
-import static tagline.testutil.TypicalGroups.MYSTIC_ARTS;
-import static tagline.testutil.TypicalGroups.getTypicalGroupBook;
+import static tagline.testutil.group.TypicalGroups.GUARDIANS;
+import static tagline.testutil.group.TypicalGroups.MYSTIC_ARTS;
+import static tagline.testutil.group.TypicalGroups.getTypicalGroupBook;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -32,7 +32,7 @@ import tagline.model.tag.TagBook;
  */
 public class FindGroupCommandTest {
 
-    private static final ViewType FIND_CONTACT_COMMAND_VIEW_TYPE = ViewType.GROUP_SINGLE;
+    private static final ViewType FIND_CONTACT_COMMAND_VIEW_TYPE = ViewType.GROUP_PROFILE;
     private Model model = new ModelManager(new AddressBook(), new NoteBook(),
         getTypicalGroupBook(), new TagBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(new AddressBook(), new NoteBook(),

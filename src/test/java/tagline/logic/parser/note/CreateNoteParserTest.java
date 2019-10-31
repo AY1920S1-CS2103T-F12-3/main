@@ -14,7 +14,7 @@ import static tagline.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static tagline.logic.parser.CommandParserTestUtil.assertPromptRequest;
 import static tagline.logic.parser.note.CreateNoteParser.CREATE_NOTE_MISSING_CONTENT_PROMPT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
-import static tagline.testutil.TypicalNotes.PROTECTOR;
+import static tagline.testutil.note.TypicalNotes.PROTECTOR;
 
 import java.util.Arrays;
 
@@ -24,7 +24,7 @@ import tagline.logic.commands.note.CreateNoteCommand;
 import tagline.logic.parser.Prompt;
 import tagline.model.note.Note;
 import tagline.model.note.NoteIdCounter;
-import tagline.testutil.NoteBuilder;
+import tagline.testutil.note.NoteBuilder;
 
 class CreateNoteParserTest {
     private CreateNoteParser parser = new CreateNoteParser();

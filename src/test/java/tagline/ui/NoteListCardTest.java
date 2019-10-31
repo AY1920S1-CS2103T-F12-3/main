@@ -1,7 +1,7 @@
 package tagline.ui;
 
 import static org.testfx.util.NodeQueryUtils.hasText;
-import static tagline.ui.NoteListCard.UNTITLED_NOTE_STRING;
+import static tagline.ui.note.NoteListCard.UNTITLED_NOTE_STRING;
 
 import java.util.concurrent.TimeoutException;
 
@@ -19,7 +19,8 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import tagline.model.note.Note;
-import tagline.testutil.TypicalNotes;
+import tagline.testutil.note.TypicalNotes;
+import tagline.ui.note.NoteListCard;
 
 @ExtendWith(ApplicationExtension.class)
 public class NoteListCardTest {
