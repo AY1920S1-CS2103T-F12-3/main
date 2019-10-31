@@ -196,6 +196,20 @@ Format:
 
 Example:
 
+We wish to add contact with ID '_90040_' to the group '_ao3_' +
+First use the command
+* `group add ao3 --i 90040`
+
+.Entering the command
+image::ug_groupcreate1.png[width="400"]
+
+* The display will show the contact that has been added to the group.
+
+.Command executed Group created
+image::ug_groupcreate2.png[width="600"]
+
+Example:
+
 * `group create CS2103-F12-3`
 +
 Creates a group with name '_CS2103-F12-3_'.
