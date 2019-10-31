@@ -84,24 +84,24 @@ public class TaglineParser {
 
         switch (commandKey) {
 
-            case ContactCommand.COMMAND_KEY:
-                return new ContactCommandParser().parseCommand(commandStr, filledPrompts);
+        case ContactCommand.COMMAND_KEY:
+            return new ContactCommandParser().parseCommand(commandStr, filledPrompts);
 
-            case NoteCommand.COMMAND_KEY:
-                return new NoteCommandParser().parseCommand(commandStr, filledPrompts);
+        case NoteCommand.COMMAND_KEY:
+            return new NoteCommandParser().parseCommand(commandStr, filledPrompts);
 
-            case GroupCommand.COMMAND_KEY:
-                //Currently doesn't support prompts
-                return new GroupCommandParser().parseCommand(commandStr);
+        case GroupCommand.COMMAND_KEY:
+            //Currently doesn't support prompts
+            return new GroupCommandParser().parseCommand(commandStr);
 
-            case ExitCommand.COMMAND_KEY:
-                return new ExitCommand();
+        case ExitCommand.COMMAND_KEY:
+            return new ExitCommand();
 
-            case HelpCommand.COMMAND_KEY:
-                return new HelpCommand();
+        case HelpCommand.COMMAND_KEY:
+            return new HelpCommand();
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 }

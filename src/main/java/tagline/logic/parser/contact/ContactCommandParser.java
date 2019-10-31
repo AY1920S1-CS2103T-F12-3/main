@@ -16,7 +16,7 @@ import tagline.logic.commands.contact.DeleteContactCommand;
 import tagline.logic.commands.contact.EditContactCommand;
 import tagline.logic.commands.contact.FindContactCommand;
 import tagline.logic.commands.contact.ListContactCommand;
-import tagline.logic.parser.ParserUtil;
+import tagline.logic.parser.ParserPromptHandlerUtil;
 import tagline.logic.parser.Prompt;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.logic.parser.exceptions.PromptRequestException;
@@ -25,8 +25,8 @@ import tagline.logic.parser.exceptions.PromptRequestException;
  * Parses user input.
  */
 public class ContactCommandParser {
-    public static final String CONTACT_CLEAR_COMMAND_CONFIRM_STRING = "Are you sure you want to clear your contact list? " +
-            "Enter 'Y' to continue.";
+    public static final String CONTACT_CLEAR_COMMAND_CONFIRM_STRING = "Are you sure you want to clear your contact"
+            + " list? Enter 'Y' to continue.";
     public static final String CONTACT_CLEAR_COMMAND_ABORTED_STRING = "The current command has been aborted.";
     public static final String CONTACT_CLEAR_CONFIRM_CHARACTER = "Y";
 
@@ -92,35 +92,35 @@ public class ContactCommandParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        final String filledArguments = ParserUtil.getArgsWithFilledPrompts(arguments, promptList);
+        final String filledArguments = ParserPromptHandlerUtil.getArgsWithFilledPrompts(arguments, promptList);
 
         switch (commandWord) {
 
-            case CreateContactCommand.COMMAND_WORD:
-                return new AddContactParser().parse(filledArguments);
+        case CreateContactCommand.COMMAND_WORD:
+            return new AddContactParser().parse(filledArguments);
 
-            case EditContactCommand.COMMAND_WORD:
-                return new EditCommandParser().parse(filledArguments);
+        case EditContactCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(filledArguments);
 
-            case DeleteContactCommand.COMMAND_WORD:
-                return new DeleteContactParser().parse(filledArguments);
+        case DeleteContactCommand.COMMAND_WORD:
+            return new DeleteContactParser().parse(filledArguments);
 
-            case FindContactCommand.COMMAND_WORD:
-                return new FindContactParser().parse(filledArguments);
+        case FindContactCommand.COMMAND_WORD:
+            return new FindContactParser().parse(filledArguments);
 
-            case ListContactCommand.COMMAND_WORD:
-                return new ListContactCommand();
+        case ListContactCommand.COMMAND_WORD:
+            return new ListContactCommand();
 
-            case ClearContactCommand.COMMAND_WORD:
-                if (ParserUtil.getPromptResponseFromPrefix("", promptList)
-                        .equals(CONTACT_CLEAR_CONFIRM_CHARACTER)) {
-                    return new ClearContactCommand();
-                } else {
-                    throw new ParseException(CONTACT_CLEAR_COMMAND_ABORTED_STRING);
-                }
+        case ClearContactCommand.COMMAND_WORD:
+            if (ParserPromptHandlerUtil.getPromptResponseFromPrefix("", promptList)
+                    .equals(CONTACT_CLEAR_CONFIRM_CHARACTER)) {
+                return new ClearContactCommand();
+            } else {
+                throw new ParseException(CONTACT_CLEAR_COMMAND_ABORTED_STRING);
+            }
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 }
