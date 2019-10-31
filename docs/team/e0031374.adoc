@@ -64,13 +64,13 @@ First use the command
 * `group add ao3 --i 90040`
 
 .Entering the command
-image::ug_groupadd1.png[]
+image::ug_groupadd1.PNG[]
 
 Then, +
 The contact with ID '_90040_' would then be added the group '_ao3_'
 
 .Contact with matching contact id gets added into the group
-image::ug_groupadd1.png[]
+image::ug_groupadd2.PNG[]
 
 
 include::../UserGuide.adoc[tag=delete]
