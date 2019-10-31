@@ -29,12 +29,18 @@ import tagline.model.group.Group;
 public class GroupListCardTest {
     private GroupListCard groupListCard;
 
-    @Start
-    void setUp(Stage stage) {
+    /**
+     * Sets up the stage style. Can only be done once per testing session.
+     */
+    private void initStage(Stage stage) {
         if (stage.getStyle() != StageStyle.DECORATED) {
             stage.initStyle(StageStyle.DECORATED);
         }
+    }
 
+    @Start
+    void setUp(Stage stage) {
+        initStage(stage);
         stage.setWidth(500); //for human-viewable results
     }
 
