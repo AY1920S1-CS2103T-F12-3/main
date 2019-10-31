@@ -55,7 +55,7 @@ Example:
 +
 Adds contacts with ID '_12345_', '_23451_', '_34512_', '_45123_', and '_51234_' to the group with name '_CS2103-F12-3_' as group members.
 
-+
+
 
 Illustrated Example:
 
