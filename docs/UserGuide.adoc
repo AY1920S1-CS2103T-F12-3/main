@@ -49,7 +49,7 @@ Are you new to TagLine? Or are you prone to making typos? In either case, TagLin
 
 === Autocomplete
 
-When you enter a command, TagLine will display auto-complete suggestions as you type.
+When you enter a command, TagLine will display autocomplete suggestions as you type.
 
 To illustrate, let's suppose you are trying to create a new contact. However, you only remember that the first keyword is `contact`! With the autocomplete feature, it is easy to find the correct command. Try following the following steps:
 
