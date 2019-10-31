@@ -27,7 +27,7 @@ import tagline.ui.exceptions.PromptOngoingException;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    public static final String BEGIN_PROMPTING_STRING = "Invalid command, requesting additional information. "
+    public static final String BEGIN_PROMPTING_STRING = "Please confirm some additional details for the command. "
             + "Press the escape key to abort.";
     public static final String ABORT_PROMPTING_STRING = "Command has been aborted.";
     private static final String FXML = "MainWindow.fxml";
