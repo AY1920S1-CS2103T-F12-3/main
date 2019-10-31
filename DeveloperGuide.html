@@ -18,18 +18,21 @@
 <ul class="sectlevel3">
 <li><a href="#contact-logic-component">2.3.1. Contact Logic component</a></li>
 <li><a href="#note-logic-component">2.3.2. Note Logic component</a></li>
+<li><a href="#group-logic-component">2.3.3. Group Logic component</a></li>
 </ul>
 </li>
 <li><a href="#Design-Model">2.4. Model component</a>
 <ul class="sectlevel3">
 <li><a href="#Design-ContactModel">2.4.1. Contact Model component</a></li>
 <li><a href="#Design-NoteModel">2.4.2. Note Model component</a></li>
+<li><a href="#Design-GroupModel">2.4.3. Group Model component</a></li>
 </ul>
 </li>
 <li><a href="#Design-Storage">2.5. Storage component</a>
 <ul class="sectlevel3">
 <li><a href="#Design-ContactStorage">2.5.1. Contact Storage component</a></li>
 <li><a href="#Design-NoteStorage">2.5.2. Note Storage component</a></li>
+<li><a href="#Design-GroupStorage">2.5.3. Group Storage component</a></li>
 </ul>
 </li>
 <li><a href="#Design-Commons">2.6. Common classes</a></li>
@@ -275,7 +278,7 @@ The following class plays an important role at the architecture level:</p>
 <div class="content">
 <img src="images/LogicClassDiagram.png" alt="LogicClassDiagram">
 </div>
-<div class="title">Figure 7. Structure of the Logic Component</div>
+<div class="title">Figure 7. Class diagram of overall Logic Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> :
@@ -309,7 +312,7 @@ The following class plays an important role at the architecture level:</p>
 <div class="content">
 <img src="images/ContactLogicClassDiagram.png" alt="ContactLogicClassDiagram">
 </div>
-<div class="title">Figure 8. Structure of the Contact Logic Component</div>
+<div class="title">Figure 8. Class diagram of the Contact Logic Component</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -351,7 +354,7 @@ parser. For example, <code>ContactCommandParser</code> will pass <em>"--n Bob"</
 <div class="content">
 <img src="images/NoteLogicClassDiagram.png" alt="NoteLogicClassDiagram">
 </div>
-<div class="title">Figure 10. Structure of the Note Logic Component</div>
+<div class="title">Figure 10. Class diagram of the Note Logic Component</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -382,6 +385,40 @@ parser. For example, <code>ContactCommandParser</code> will pass <em>"--n Bob"</
 <div class="title">Figure 11. Interactions Inside the Logic Component for the <code>note delete 1</code> Command</div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="group-logic-component"><a class="link" href="#group-logic-component">2.3.3. Group Logic component</a></h4>
+<div id="fig-GroupLogicClassDiagram" class="imageblock">
+<div class="content">
+<img src="images/GroupLogicClassDiagram.png" alt="GroupLogicClassDiagram">
+</div>
+<div class="title">Figure 12. Class diagram of the Group Logic Component</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>Group Logic</code> is a sub-component of <code>Logic</code>.</p>
+</li>
+<li>
+<p>It obtains the user command parsed by <code>TaglineParser</code> through the <code>GroupCommandParser</code> class.</p>
+</li>
+<li>
+<p>The user command is passed to the respective command parser. E.g. <em>"group delete x1"</em> will be passed to <code>DeleteGroupParser</code>.</p>
+</li>
+<li>
+<p>This results in a <code>GroupCommand</code> object which is returned to the <code>LogicManager</code>.</p>
+</li>
+<li>
+<p>The command execution can affect the <code>GroupModel</code> (e.g. adding a group).</p>
+</li>
+<li>
+<p>The command execution can affect the <code>ContactModel</code> (e.g. displaying contacts in a group).</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("group delete x1")</code> API call.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Design-Model"><a class="link" href="#Design-Model">2.4. Model component</a></h3>
@@ -389,7 +426,7 @@ parser. For example, <code>ContactCommandParser</code> will pass <em>"--n Bob"</
 <div class="content">
 <img src="images/ModelClassDiagram.png" alt="ModelClassDiagram">
 </div>
-<div class="title">Figure 12. Structure of the Model Component</div>
+<div class="title">Figure 13. Class diagram of the overall Model Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/Model.java"><code>Model.java</code></a></p>
@@ -406,7 +443,13 @@ parser. For example, <code>ContactCommandParser</code> will pass <em>"--n Bob"</
 <p>manages Address Book data through <code>ContactModel</code> sub-component.</p>
 </li>
 <li>
-<p>manages Note Book data through <code>NoteMode</code> sub-component.</p>
+<p>manages Note Book data through <code>NoteModel</code> sub-component.</p>
+</li>
+<li>
+<p>manages Group Book data through <code>GroupModel</code> sub-component.</p>
+</li>
+<li>
+<p>manages Tag Book data through <code>TagModel</code> sub-component.</p>
 </li>
 </ul>
 </div>
@@ -416,7 +459,7 @@ parser. For example, <code>ContactCommandParser</code> will pass <em>"--n Bob"</
 <div class="content">
 <img src="images/ContactModelClassDiagram.png" alt="Contact Model Diagram" width="625" height="500">
 </div>
-<div class="title">Figure 13. Structure of the Contact Model Component</div>
+<div class="title">Figure 14. Class diagram of the Contact Model Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/contact/ContactModel.java"><code>ContactModel.java</code></a></p>
@@ -445,7 +488,7 @@ UI can be bound to this list so that the UI automatically updates when the data 
 <div class="content">
 <img src="images/NoteModelClassDiagram.png" alt="NoteModelClassDiagram">
 </div>
-<div class="title">Figure 14. Structure of the Note Model Component</div>
+<div class="title">Figure 15. Class diagram of the Note Model Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/note/NoteModel.java"><code>NoteModel.java</code></a></p>
@@ -479,6 +522,34 @@ As an additional feature to be implemented in the future, we can store a <code>T
 </table>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Design-GroupModel"><a class="link" href="#Design-GroupModel">2.4.3. Group Model component</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="images/GroupModelClassDiagram.png" alt="GroupModelClassDiagram">
+</div>
+<div class="title">Figure 16. Class diagram of the Group Model Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/group/GroupModel.java"><code>GroupModel.java</code></a></p>
+</div>
+<div class="paragraph">
+<p>The <code>GroupModel</code>,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>stores the Group Book data.</p>
+</li>
+<li>
+<p>exposes an unmodifiable <code>ObservableList&lt;Group&gt;</code> which can be accessed from <code>Model</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
+</li>
+<li>
+<p>does not depend on any of the other three components.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Design-Storage"><a class="link" href="#Design-Storage">2.5. Storage component</a></h3>
@@ -486,7 +557,7 @@ As an additional feature to be implemented in the future, we can store a <code>T
 <div class="content">
 <img src="images/StorageClassDiagram.png" alt="StorageClassDiagram">
 </div>
-<div class="title">Figure 15. Structure of the Storage Component</div>
+<div class="title">Figure 17. Class diagram of the overall Storage Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/storage/Storage.java"><code>Storage.java</code></a></p>
@@ -507,7 +578,7 @@ As an additional feature to be implemented in the future, we can store a <code>T
 <div class="content">
 <img src="images/ContactStorageClassDiagram.png" alt="ContactStorageClassDiagram">
 </div>
-<div class="title">Figure 16. Structure of the Contact Storage Component</div>
+<div class="title">Figure 18. Class diagram of the Contact Storage Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/storage/note/ContactBookStorage.java"><code>ContactBookStorage.java</code></a></p>
@@ -529,7 +600,7 @@ As an additional feature to be implemented in the future, we can store a <code>T
 <div class="content">
 <img src="images/NoteStorageClassDiagram.png" alt="NoteStorageClassDiagram">
 </div>
-<div class="title">Figure 17. Structure of the Note Storage Component</div>
+<div class="title">Figure 19. Class diagram of the Note Storage Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/storage/note/NoteBookStorage.java"><code>NoteBookStorage.java</code></a></p>
@@ -547,6 +618,31 @@ As an additional feature to be implemented in the future, we can store a <code>T
 </li>
 <li>
 <p>can save the Note Book data in json format and read it back.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Design-GroupStorage"><a class="link" href="#Design-GroupStorage">2.5.3. Group Storage component</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="images/GroupStorageClassDiagram.png" alt="GroupStorageClassDiagram">
+</div>
+<div class="title">Figure 20. Class diagram of the Group Storage Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/storage/group/GroupBookStorage.java"><code>GroupBookStorage.java</code></a></p>
+</div>
+<div class="paragraph">
+<p>The <code>GroupStorage</code> component,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>can save <code>Group</code> objects in json format and read it back.</p>
+</li>
+<li>
+<p>can save the Group Book data in json format and read it back.</p>
 </li>
 </ul>
 </div>
@@ -757,7 +853,7 @@ would interact with <code>GroupCommand</code> and <code>GroupModel</code> state.
 <div class="content">
 <img src="images/GroupContactsState0.png" alt="GroupContactsState0">
 </div>
-<div class="title">Figure 18. Simplified state of relevant Model components initially</div>
+<div class="title">Figure 21. Simplified state of relevant Model components initially</div>
 </div>
 <div class="paragraph">
 <p>The <code>AddressBook</code> model state contains all the <code>Contact</code> class that exists in the App.
@@ -772,7 +868,7 @@ would interact with <code>GroupCommand</code> and <code>GroupModel</code> state.
 <div class="content">
 <img src="images/GroupContactsState1.png" alt="GroupContactsState1">
 </div>
-<div class="title">Figure 19. State after Group "BTS" is created</div>
+<div class="title">Figure 22. State after Group "BTS" is created</div>
 </div>
 <div class="paragraph">
 <p>The <code>GroupBook</code> model state now contains a <code>Group</code> instance for "BTS" with no members
@@ -791,7 +887,7 @@ Any command regarding <code>Group</code> would prompt the <code>UI</code> to dis
 <div class="content">
 <img src="images/GroupContactsState2.png" alt="GroupContactsState2">
 </div>
-<div class="title">Figure 20. State after four contacts are added into Group "BTS"</div>
+<div class="title">Figure 23. State after four contacts are added into Group "BTS"</div>
 </div>
 <div class="paragraph">
 <p><code>Group</code> "BTS" now has members in it and the <code>UI</code> would display all the contacts found in the
@@ -809,7 +905,7 @@ Any command regarding <code>Group</code> would prompt the <code>UI</code> to dis
 <div class="content">
 <img src="images/GroupContactsState3.png" alt="GroupContactsState3">
 </div>
-<div class="title">Figure 21. State after contact with contactId = 00013 is deleted</div>
+<div class="title">Figure 24. State after contact with contactId = 00013 is deleted</div>
 </div>
 <div class="paragraph">
 <p>Deleting a <code>Contact</code> would cause it to be removed from <code>AddressBook</code> model state and the <code>Contact</code>
@@ -826,7 +922,7 @@ Any command regarding <code>Group</code> would prompt the <code>UI</code> to dis
 <div class="content">
 <img src="images/GroupContactsState4.png" alt="GroupContactsState4">
 </div>
-<div class="title">Figure 22. State after user views contacts of Group "BTS"</div>
+<div class="title">Figure 25. State after user views contacts of Group "BTS"</div>
 </div>
 <div class="paragraph">
 <p>Here, the <code>GroupBook</code> model state is updated and memberId of 00013 from the previous step is removed while <code>Contact</code>
@@ -841,7 +937,7 @@ Now all is as it should be in <code>Group</code> "BTS".<br></p>
 <div class="content">
 <img src="images/GroupSequenceDiagram.png" alt="GroupSequenceDiagram">
 </div>
-<div class="title">Figure 23. Sequence diagram of executing <code>FindGroupCommand</code> to view contacts in a <code>Group</code></div>
+<div class="title">Figure 26. Sequence diagram of executing <code>FindGroupCommand</code> to view contacts in a <code>Group</code></div>
 </div>
 </div>
 <div class="sect3">
@@ -1007,7 +1103,7 @@ It contains a String filter value and the enum <code>FilterType</code>.</p>
 <div class="content">
 <img src="images/FilterKeywordSequenceDiagram1.png" alt="FilterKeywordSequenceDiagram1">
 </div>
-<div class="title">Figure 24. Sequence diagram of parsing note filter user command to obtain a <code>ListNoteCommand</code></div>
+<div class="title">Figure 27. Sequence diagram of parsing note filter user command to obtain a <code>ListNoteCommand</code></div>
 </div>
 <div class="paragraph">
 <p><strong>Step 2:</strong> The <code>ListNoteCommand</code> returned will be executed by the <code>LogicManager</code>. If a <code>Filter</code> exists and is of <code>FilterType.KEYWORD</code>, <code>ListNoteCommand#filterAndListByKeyword()</code> will be called.</p>
@@ -1016,7 +1112,7 @@ It contains a String filter value and the enum <code>FilterType</code>.</p>
 <div class="content">
 <img src="images/FilterKeywordSequenceDiagram2.png" alt="FilterKeywordSequenceDiagram2">
 </div>
-<div class="title">Figure 25. Sequence diagram of executing <code>ListNoteCommand</code> to update filtered note list by keyword in <code>Model</code></div>
+<div class="title">Figure 28. Sequence diagram of executing <code>ListNoteCommand</code> to update filtered note list by keyword in <code>Model</code></div>
 </div>
 <div class="paragraph">
 <p>The method will create a <code>NoteContainsKeywordsPredicate</code> and update the list of notes to be displayed via <code>Model</code>.</p>
@@ -1048,7 +1144,7 @@ It contains a String filter value and the enum <code>FilterType</code>.</p>
 <div class="content">
 <img src="images/FilterTagSequenceDiagram.png" alt="FilterTagSequenceDiagram">
 </div>
-<div class="title">Figure 26. Sequence diagram of executing <code>ListNoteCommand</code> to update filtered note list by <code>Tag</code> in <code>Model</code></div>
+<div class="title">Figure 29. Sequence diagram of executing <code>ListNoteCommand</code> to update filtered note list by <code>Tag</code> in <code>Model</code></div>
 </div>
 </div>
 </div>
@@ -1422,12 +1518,6 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">group my contacts</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">manage contacts for different occasions better</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">view all contacts in a group</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
@@ -1452,12 +1542,6 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">list all notes by chronological order</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">view most relevant notes first</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">tag my notes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">group related notes together</p></td>
 </tr>
@@ -1474,7 +1558,13 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <td class="tableblock halign-left valign-top"><p class="tableblock">discuss these notes with them when I meet them</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">group my contacts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">manage contacts for different occasions better</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">view all notes related to a group</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1544,6 +1634,12 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">prompted for confirmation when I delete or edit notes or contacts</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">avoid making irreversible mistakes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list all notes by chronological order</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">view most relevant notes first</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
@@ -1634,18 +1730,8 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </li>
 <li>
 <p>1b. <span class="underline">UCE02 Command with missing compulsory fields</span></p>
-</li>
-<li>
-<p>1c. User inputs a group with the same members as one that already exists.</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>1c1. TagLine adds the new group name as an alias to the currently existing group.</p>
 <div class="paragraph">
 <p>Use case ends.</p>
-</div>
-</li>
-</ul>
 </div>
 </li>
 </ul>
@@ -1752,26 +1838,6 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p><strong>Extensions</strong></p>
-</div>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2a. User aborts the command.</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2a1. TagLine confirms the abort.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
 <h3 id="uce02-command-with-missing-compulsory-fields" class="discrete">UCE02 Command with missing compulsory fields</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
@@ -1876,9 +1942,6 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </li>
 <li>
 <p>Should be able to display large amounts of text quickly, i.e. up to 10MB of text data within 2 seconds</p>
-</li>
-<li>
-<p>A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.</p>
 </li>
 <li>
 <p>Command syntax should not exceed 10 distinct terms, in order to avoid user confusion.</p>
@@ -2054,4 +2117,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-31 14:28:05 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-31 14:57:43 UTC</div></div></div></body></html>

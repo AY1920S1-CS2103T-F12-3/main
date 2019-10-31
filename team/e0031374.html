@@ -1,0 +1,369 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Jonas Ong - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="../images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link active" href="../index.html">AB-3</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level4">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">tagline</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="../LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/AY1920S1-CS2103T-F12-3/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Jonas Ong - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="project-tagline"><a class="link" href="#project-tagline">PROJECT: Tagline</a></h2>
+<div class="sectionbody">
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-the-project-tagline"><a class="link" href="#about-the-project-tagline">About the project: Tagline</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tasked with enhancing the capabilities of a basic command line interface desktop addressbook application, my team chose to extend the functionality to include note-taking capabilities. Combining the existing contact infrastructure with tags and note support, we aim to make a more people-centric note taking platform we call Tagline. This application aims to help students more easily organize and find their notes based on the people the notes are connected to.
+This is what our project looks like</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ui_notes.png" alt="ui notes" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p>My role for this project is to implement the <code>Group</code>  feature to allow for organizing <code>Contact`s together into `Groups</code> which can be used to manage notes as a whole. The following sections together with documentation added to the user and developer guides depict this enhancement in greater detail.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Major enhancement</strong>: I added a range of features providing the <strong>ability to group contacts together</strong> for better organization</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: with <code>group create</code> a group of contacts can be created, contacts can be added or removed using <code>group add</code> and <code>group remove</code> commands. Groups can be searched for and displayed using <code>group list</code> and <code>group find</code>.</p>
+</li>
+<li>
+<p>Justification: social circles exist in more than just a one to one relationship and can belong in a group with a shared feature be it an orientation group of friends who all know each other or a project group with common purpose. Having the capability to quickly reference other contacts in the same group would make the user experience much better compared to scrolling through an alphabetically ordered list in an addressbook.</p>
+</li>
+<li>
+<p>Highlights: this enhancements supplements the existing structure of the addressbook.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Code contributed</strong>: The following links highlight samples of my code [<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/blob/master/src/main/java/tagline/logic/parser/group/GroupCommandParser.java">Functional code</a>] [<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/blob/master/src/test/java/tagline/model/group/GroupManagerTest.java">Test code</a>] _</p>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Documentation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated the developer guide to better reflect <code>Model</code> and <code>Storage</code> components after they have been changed to accommodate other features: <a href="https://ay1920s1-cs2103t-f12-3.github.io/main/DeveloperGuide.html#Design-NoteModel">NoteModel</a>, <a href="https://ay1920s1-cs2103t-f12-3.github.io/main/DeveloperGuide.html#Design-Storage">StorageComponent</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Contributed to forum discussions to clarify potential tripups (examples:  <a href="https://github.com/nus-cs2103-AY1920S1/forum/issues/131">131</a></p>
+</li>
+<li>
+<p>Reviewed and offered suggestions for other teams in class  (examples:  <a href="https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/62">SecureIT#22</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>{you can add/remove categories in the list above}</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="add-member-to-a-group-code-add-code"><a class="link" href="#add-member-to-a-group-code-add-code">Add member to a group: <code>add</code></a></h4>
+<div class="paragraph">
+<p>Adds members to a group.</p>
+</div>
+<div class="paragraph">
+<p>Format:</p>
+</div>
+<div class="paragraph">
+<p><code>group add GROUP_NAME [--i CONTACT_ID]+</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>group add CS2103-F12-3 --i 12345 --i 23451 --i 34512 --i 45123 --i 51234</code></p>
+<div class="paragraph">
+<p>Adds contacts with ID '<em>12345</em>', '<em>23451</em>', '<em>34512</em>', '<em>45123</em>', and '<em>51234</em>' to the group with name '<em>CS2103-F12-3</em>' as group members.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Illustrated Example:</p>
+</div>
+<div class="paragraph">
+<p>We wish to add contact with ID '<em>90040</em>' to the group '<em>ao3</em>'<br>
+First use the command
+* <code>group add ao3 --i 90040</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_groupadd1.PNG" alt="ug groupadd1">
+</div>
+<div class="title">Figure 1. Entering the command</div>
+</div>
+<div class="paragraph">
+<p>Then,<br>
+The contact with ID '<em>90040</em>' would then be added the group '<em>ao3</em>'</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_groupadd2.PNG" alt="ug groupadd2">
+</div>
+<div class="title">Figure 2. Contact with matching contact id gets added into the group</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following is a sample of some of my additions to Tagline Developer Guide. This is primarily for <code>group</code> features.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">[Proposed] Data Encryption</a></h3>
+<div class="paragraph">
+<p><em>{Explain here how the data encryption feature will be implemented}</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-group-contacts-feature"><a class="link" href="#proposed-group-contacts-feature">[Proposed] Group Contacts feature</a></h3>
+<div class="sect3">
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">Proposed Implementation</a></h4>
+<div class="paragraph">
+<p>The grouping feature is facilitated by <code>GroupBook</code> an additional Model component in addition to the current <code>AddressBook</code>.
+It extends the functionality of <code>AddressBook</code> by providing a way to group contacts together into unique <code>Group</code> classes
+identified by their <code>GroupName</code>. This allows users to form more natural associations of
+contacts such as "BTS-members". Identifying which contacts are group members of a <code>Group</code> is done by
+storing a record of their <code>ContactId</code> in the <code>Group</code>.
+Additionally, <code>GroupManager</code> extends Tagline with the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GroupManager#getGroupBook()</code>&#8201;&#8212;&#8201;Retrieves a view only version of the groups for storing data after app quits.</p>
+</li>
+<li>
+<p><code>GroupManager#deleteGroup()</code>&#8201;&#8212;&#8201;Deletes a group from the list of groups currently available.</p>
+</li>
+<li>
+<p><code>GroupManager#addGroup()</code>&#8201;&#8212;&#8201;Adds a group to the list of groups currently available.</p>
+</li>
+<li>
+<p><code>GroupManager#setGroup()</code>&#8201;&#8212;&#8201;Replaces a group in the list of groups with another group.</p>
+</li>
+<li>
+<p><code>GroupManager#getFilteredGroupList()</code>&#8201;&#8212;&#8201;Returns a view only list of groups containing a subset of available Groups.</p>
+</li>
+<li>
+<p><code>GroupManager#updateFilteredGroupList()</code>&#8201;&#8212;&#8201;Specifies which groups will be retrieved by <code>GroupManager#getFilteredGroupList()</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The above operations are exposed in the <code>Model</code> interface by their respective method names.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GroupCommand#findOneGroup()</code>&#8201;&#8212;&#8201;Retrieves one Group with name matching the exact provided String.</p>
+</li>
+<li>
+<p><code>GroupCommand#verifyMemberIdWithModel()</code>&#8201;&#8212;&#8201;Compares members currently in a group with contacts in <code>AddressBook</code> and returns only those found in <code>AddressBook</code>.</p>
+</li>
+<li>
+<p><code>GroupCommand#setDifference()</code>&#8201;&#8212;&#8201;Used to get contactids specified which do not exist in <code>AddressBook</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These above are static utility functions which form the underlying structure of how a <code>GroupCommand</code> works.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario on how a typical lifecycle of a <code>Group</code> behaves at each step.
+With emphasis on showing the effects of <code>DeleteCommand</code> as an example of a command from <code>ContactCommand</code>
+would interact with <code>GroupCommand</code> and <code>GroupModel</code> state.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user initially has several contacts in <code>AddressBook</code>.<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/GroupContactsState0.png" alt="GroupContactsState0">
+</div>
+<div class="title">Figure 3. Simplified state of relevant Model components initially</div>
+</div>
+<div class="paragraph">
+<p>The <code>AddressBook</code> model state contains all the <code>Contact</code> class that exists in the App.
+ Since no <code>Group</code> has been created yet, <code>GroupBook</code> model state is currently empty.
+ All of the contacts found in <code>AddressBook</code> are displayed on the <code>UI</code> by default.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. Wishing to better organize her contacts into groups, the user executes <code>group create BTS</code> calling
+ <code>CreateGroupCommand</code>. to create a new <code>Group</code> instance with no members.<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/GroupContactsState1.png" alt="GroupContactsState1">
+</div>
+<div class="title">Figure 4. State after Group "BTS" is created</div>
+</div>
+<div class="paragraph">
+<p>The <code>GroupBook</code> model state now contains a <code>Group</code> instance for "BTS" with no members
+ recorded as memberIds.
+Any command regarding <code>Group</code> would prompt the <code>UI</code> to display the contacts in the group.
+ A group with no members would cause the <code>UI</code> to be empty. As there are no contacts in the group.
+ While a group with members in it would cause <code>UI</code> to display all the contacts belonging
+ to that group.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. The user then executes <code>group add BTS --i 00001 --i 00002 --i 0013 --i 0004</code>
+ calling the <code>addMembersToGroupCommand</code> to add several contacts to the group. Only the String
+ representation of the <code>ContactId</code> will be stored in the <code>Group</code>.<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/GroupContactsState2.png" alt="GroupContactsState2">
+</div>
+<div class="title">Figure 5. State after four contacts are added into Group "BTS"</div>
+</div>
+<div class="paragraph">
+<p><code>Group</code> "BTS" now has members in it and the <code>UI</code> would display all the contacts found in the
+ group.</p>
+</div>
+<div class="paragraph">
+<p>Step 4. The user realizes she has made a mistake adding a wrong contact and in a fit of rage
+ chooses to delete the contact instead of merely removing the contact from the Group.
+ Executing <code>contact delete --i 00013</code>
+ which then deletes the <code>Contact</code> with contactId of 00013.
+ However, this does not remove the contact&#8217;s id from
+ the memberId attribute in the <code>Group</code> the contact was in. This step does not involve <code>GroupModel</code> in any way.<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/GroupContactsState3.png" alt="GroupContactsState3">
+</div>
+<div class="title">Figure 6. State after contact with contactId = 00013 is deleted</div>
+</div>
+<div class="paragraph">
+<p>Deleting a <code>Contact</code> would cause it to be removed from <code>AddressBook</code> model state and the <code>Contact</code>
+ no longer exists. While the <code>UI</code> display no longer shows contact of 00013, it is still recorded as a member in
+ <code>GroupBook</code> model state. The updating of <code>GroupBook</code> model state is deferred.</p>
+</div>
+<div class="paragraph">
+<p>Step 5. The user then executes <code>group add BTS --i 00003</code> to add the correct contact as a member on the <code>Group</code>
+ and view the <code>Contact</code> profiles.
+ This calls <code>AddMemberToGroupCommand</code> which then updates the <code>Group</code> ensuring that all memberIds correspond to an existing
+ <code>ContactId</code> found in <code>AddressBook</code>. The contacts of the group are also displayed to the user. <br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/GroupContactsState4.png" alt="GroupContactsState4">
+</div>
+<div class="title">Figure 7. State after user views contacts of Group "BTS"</div>
+</div>
+<div class="paragraph">
+<p>Here, the <code>GroupBook</code> model state is updated and memberId of 00013 from the previous step is removed while <code>Contact</code>
+ with contactId of 00003 is added into the <code>Group</code>. This change is also reflected in the <code>UI</code>.
+Now all is as it should be in <code>Group</code> "BTS".<br></p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram summarizes what happens when a user executes a <code>FindGroupCommand</code> which
+ which updates the <code>Group</code> similar to how <code>AddMemberToGroupCommand</code> does in the above example:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/GroupSequenceDiagram.png" alt="GroupSequenceDiagram">
+</div>
+<div class="title">Figure 8. Sequence diagram of executing <code>FindGroupCommand</code> to view contacts in a <code>Group</code></div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-groups-stores-contacts"><a class="link" href="#aspect-how-groups-stores-contacts">Aspect: How groups stores contacts</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1:</strong> Stores <code>ContactId</code> class in a <code>Collection</code> in <code>Group</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to get <code>ContactId</code> from <code>Group</code> to retrieve <code>Contact</code> classes from <code>Addressbook</code>.</p>
+</li>
+<li>
+<p>Cons: Increases coupling to implementation of <code>Contact</code>. Storage and retrieval after reloading the app would also
+cause new instances of <code>ContactId</code> to be created when loading <code>Group</code> or would require more complicated
+loading of <code>Group</code> from storage having to happen after <code>AddressBook</code> is loaded and having to reference
+<code>Contact</code> classes to ensure the same <code>ContactId</code> class is referenced by both <code>Contact</code> and <code>Group</code> it is in.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (current choice):</strong> Stores <code>Collection</code> of Strings which are able to uniquely identify <code>Contact</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Group classes are less coupled to implementation of <code>Contact</code>. Simpler to load <code>Group</code> classes from storage.
+due to not needing to check and obtain a reference to <code>ContactId</code>. User input is also parsed as Strings.</p>
+</li>
+<li>
+<p>Cons: Deciding when to check if members are still part of a <code>Group</code> since it need not be done at loading time.
+While it is more flexible, can be a potential source of confusion as it may be possible to forget to update
+the members in <code>Group</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-31 14:57:43 UTC</div></div></div></body></html>
