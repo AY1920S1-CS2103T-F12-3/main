@@ -7,6 +7,7 @@ import static tagline.logic.commands.CommandTestUtil.CONTACT_ID_TWO;
 import static tagline.logic.commands.CommandTestUtil.NON_EXISTING_ID;
 import static tagline.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static tagline.model.contact.ContactModel.PREDICATE_SHOW_ALL_CONTACTS;
 import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
 
@@ -21,6 +22,7 @@ import tagline.model.contact.Contact;
 import tagline.model.contact.ContactId;
 import tagline.model.group.GroupBook;
 import tagline.model.note.NoteBook;
+import tagline.model.tag.TagBook;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -30,7 +32,7 @@ public class DeleteContactCommandTest {
 
     private static final ViewType DELETE_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT;
     private Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-        new GroupBook(), new UserPrefs());
+        new GroupBook(), new TagBook(), new UserPrefs());
 
     @Test
     public void execute_validContactId_success() {
@@ -40,7 +42,7 @@ public class DeleteContactCommandTest {
         String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new NoteBook(),
-            new GroupBook(), new UserPrefs());
+            new GroupBook(), new TagBook(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
 
         assertCommandSuccess(deleteContactCommand, model, expectedMessage,
@@ -55,12 +57,14 @@ public class DeleteContactCommandTest {
         String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new NoteBook(),
-             new GroupBook(), new UserPrefs());
+             new GroupBook(), new TagBook(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
 
         showNoContact(model);
         showNoContact(expectedModel);
 
+        // added this in, so delete contact will force contact to show all
+        expectedModel.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
         assertCommandSuccess(deleteContactCommand, model, expectedMessage,
                 DELETE_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }
