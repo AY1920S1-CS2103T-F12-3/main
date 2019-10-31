@@ -1,5 +1,6 @@
 package tagline.ui;
 
+/*
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testfx.util.NodeQueryUtils.hasText;
@@ -24,7 +25,6 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import tagline.model.group.Group;
 
-/*
 @ExtendWith(ApplicationExtension.class)
 public class GroupListCardTest {
     private GroupListCard groupListCard;
