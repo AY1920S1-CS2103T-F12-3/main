@@ -196,17 +196,15 @@ Format:
 
 Example:
 
-We wish to organize our contacts better by grouping '_ao3_' readers together +
-we can start by creating an '_ao3_' group with a few initial members
-
-First use the command
-* `group create ao3 --i 212 --i 215`
+* We wish to organize our contacts better by grouping '_ao3_' readers together.
+We can start by creating an '_ao3_' group with a few initial members using the command
+ `group create ao3 --i 212 --i 215`
 
 .Entering the command
 image::ug_groupcreate1.png[width="600"]
 
 * This creates a group with name '_ao3_' that contains contacts with ID '_212_' and '_215_' +
-The display will show the group created and contact that has been added.
+The display will show the group created and the contact that has been added.
 
 .Command executed Group created
 image::ug_groupcreate2.png[width="600"]
