@@ -11,7 +11,7 @@
 Tasked with enhancing the capabilities of a basic command line interface desktop addressbook application, my team chose to extend the functionality to include note-taking capabilities. Combining the existing contact infrastructure with tags and note support, we aim to make a more people-centric note taking platform we call Tagline. This application aims to help students more easily organize and find their notes based on the people the notes are connected to.
 This is what our project looks like
 
-image::docs/images/Ui.png[width="600"]
+image::ui_notes.png[width="600"]
 
 My role for this project is to implement the `Group`  feature to allow for organizing `Contact`s together into `Groups` which can be used to manage notes as a whole. The following sections together with documentation added to the user and developer guides depict this enhancement in greater detail.
 
