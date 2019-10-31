@@ -66,12 +66,12 @@ Format:
 
 `help`
 
-==== Exits the app: `bye`
+==== Exits the app: `exit`
 
 Exits the application.
 
 Format:
-`bye`
+`exit`
 
 === Manage contacts: `contact`
 
@@ -181,9 +181,13 @@ Examples:
 +
 Executing this command will trigger a confirmation in the chatbot:
 +
-  `Are you sure that you want to clear all data in your contact list? (Y/N)`
+  Please confirm some additional details for the command. Press the escape key to abort.
+
+  Are you sure you want to clear your contact list? Enter 'Y' to continue.
+
 +
 Then, if you answer "Y", the chatbot will clear all data in your contact list.
+If you press the ESC key, the command will be aborted.
 
 === Manage groups: `group`
 
@@ -209,7 +213,7 @@ The display will show the group created and the contact that has been added.
 .Command executed Group created
 image::ug_groupcreate2.png[width="600"]
 
-* `[coming in v2.0]` : group descriptions and editing groups
+NOTE: group descriptions and editing groups will be supported in v2.0
 
 ==== Remove member from a group: `remove`
 Removes member from a group.
@@ -459,9 +463,14 @@ Format:
 
 `note clear`
 
-```
-Are you sure that you want to clear all data in your note list? (Y/N)
-```
+Executing this command will trigger a confirmation in the chatbot:
+
+  Please confirm some additional details for the command. Press the escape key to abort.
+
+  Are you sure you want to clear your contact list? Enter 'Y' to continue.
+
+Then, if you answer "Y", the chatbot will clear all data in your contact list.
+If you press the ESC key, the command will be aborted.
 
 Then, if you answer "Y", the chatbot will clear all data in your note list.
 
