@@ -271,12 +271,10 @@ Example:
  `group list`
 
 .Entering the command
-image::ug_grouplist1.png[width="600"]
 
 * This displays all groups
 
 .Command executed, Groups displayed
-image::ug_grouplist2.png[width="600"]
 
 ==== Find a group: `find`
 Finds a specific group and display the members
@@ -291,13 +289,11 @@ Example:
  `group find ao3` with the exact group name we are looking for
 
 .Entering the command
-image::ug_groupfind1.png[width="600"]
 
 * This searches for a group with the exact name as group '_ao3_'
 The display will show the group and the group members
 
 .Command executed, Group found and displaying Contacts
-image::ug_groupfind2.png[width="600"]
 
 ==== Display profile of a group: `show` `[coming in v2.0]`
 Display the profile page of a contact group which shows the members of the group and notes tagged with the group.
@@ -323,13 +319,11 @@ Example:
  `group delete ao3`
 
 .Entering the command
-image::ug_groupdelete1.png[width="600"]
 
 * This searches for a group with the exact name as group '_ao3_'
 The display will display all remaining groups in a list.
 
 .Command executed Group deleted
-image::ug_groupdelete2.png[width="600"]
 
 === Manage your notes: `note`
 
