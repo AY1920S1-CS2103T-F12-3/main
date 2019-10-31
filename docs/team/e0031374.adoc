@@ -41,6 +41,38 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+
+==== Add member to a group: `add`
+Adds members to a group.
+
+Format:
+
+`group add GROUP_NAME [--i CONTACT_ID]+`
+
+Example:
+
+* `group add CS2103-F12-3 --i 12345 --i 23451 --i 34512 --i 45123 --i 51234`
++
+Adds contacts with ID '_12345_', '_23451_', '_34512_', '_45123_', and '_51234_' to the group with name '_CS2103-F12-3_' as group members.
+
++
+
+Illustrated Example:
+
+We wish to add contact with ID '_90040_' to the group '_ao3_' +
+First use the command
+* `group add ao3 --i 90040`
+
+.Entering the command
+image::ug_groupadd1.png[]
+
+Then, +
+The contact with ID '_90040_' would then be added the group '_ao3_'
+
+.Contact with matching contact id gets added into the group
+image::ug_groupadd1.png[]
+
+
 include::../UserGuide.adoc[tag=delete]
 
 include::../UserGuide.adoc[tag=dataencryption]
@@ -50,6 +82,7 @@ The following is a sample of some of my additions to Tagline Developer Guide. Th
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
