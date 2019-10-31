@@ -23,7 +23,10 @@ public class AutoCompleteUtil {
             new AutoCompleteNode("list"),
             new AutoCompleteNode("create"),
             new AutoCompleteNode("edit"),
-            new AutoCompleteNode("delete")
+            new AutoCompleteNode("delete"),
+            new AutoCompleteNode("tag"),
+            new AutoCompleteNode("untag"),
+            new AutoCompleteNode("clear")
         );
 
         AutoCompleteNode groupRoot = new AutoCompleteNode("group");
