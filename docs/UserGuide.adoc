@@ -466,8 +466,6 @@ Executing this command will trigger a confirmation in the chatbot:
 Then, if you answer "Y", the chatbot will clear all data in your contact list.
 If you press the ESC key, the command will be aborted.
 
-Then, if you answer "Y", the chatbot will clear all data in your note list.
-
 ==== Sort your notes: `sort` `[coming in v2.0]`
 Sort notes in different orders (i.e last updated date, alphabetically).
 
