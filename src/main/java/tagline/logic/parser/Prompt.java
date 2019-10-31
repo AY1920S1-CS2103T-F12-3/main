@@ -14,6 +14,7 @@ public class Prompt {
         requireAllNonNull(argumentPrefix, promptQuestion);
         this.argumentPrefix = argumentPrefix;
         this.promptQuestion = promptQuestion;
+        this.promptResponse = ""; //default empty response
     }
 
     public String getPromptQuestion() {
@@ -30,5 +31,27 @@ public class Prompt {
 
     public void setPromptResponse(String promptResponse) {
         this.promptResponse = promptResponse;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (other instanceof Prompt) {
+            return argumentPrefix.equals(((Prompt)other).argumentPrefix)
+                    && promptQuestion.equals(((Prompt)other).promptQuestion)
+                    && promptResponse.equals(((Prompt)other).promptResponse);
+        }
+
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder("Prefix: ").append(argumentPrefix)
+                .append(", Question: ").append(promptQuestion)
+                .append(", Response: ").append(promptResponse).toString();
     }
 }
