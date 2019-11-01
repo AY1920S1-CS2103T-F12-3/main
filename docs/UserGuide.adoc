@@ -515,8 +515,6 @@ Example:
 |Lists all notes tagged with the group '_cs2103 team_'.
 |===
 
-NOTE: Filtering by multiple tags will be supported in v2.0
-
 ==== Clear all notes: `clear`
 Clears all notes.
 
