@@ -36,7 +36,7 @@ public class Note {
 
         requireAllNonNull(noteid, title, content, timeCreated, timeLastEdited, tags);
 
-        checkArgument(isValidNote(title.value, content.value));
+        checkArgument(isValidNote(title.value, content.value), MESSAGE_CONSTRAINTS);
 
         this.noteid = noteid;
         this.title = title;

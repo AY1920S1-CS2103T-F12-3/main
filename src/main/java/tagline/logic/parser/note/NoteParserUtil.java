@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class NoteParserUtil {
-    public static final String ERROR_INVALID_INDEX = "Note index is not a non-zero unsigned long.";
+    public static final String ERROR_INVALID_INDEX = "Note index is not a non-zero unsigned number: %1$s";
     public static final String ERROR_SINGLE_PREFIX_USAGE
             = "Please only provide a single instance of the prefix: %1$s";
 
@@ -27,7 +27,7 @@ public class NoteParserUtil {
     public static NoteId parseIndex(String noteId) throws ParseException {
         String trimmedId = noteId.trim();
         if (!isNonZeroUnsignedLong(trimmedId)) {
-            throw new ParseException(ERROR_INVALID_INDEX);
+            throw new ParseException(String.format(ERROR_INVALID_INDEX, noteId));
         }
         return new NoteId(Long.parseLong(trimmedId));
     }

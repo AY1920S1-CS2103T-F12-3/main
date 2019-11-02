@@ -17,7 +17,8 @@ class NoteParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, ERROR_INVALID_INDEX, ()
-            -> NoteParserUtil.parseIndex(String.valueOf(Long.MAX_VALUE + 1)));
+        String outOfRangeInput = String.valueOf(Long.MAX_VALUE + 1);
+        assertThrows(ParseException.class, String.format(ERROR_INVALID_INDEX, outOfRangeInput), ()
+            -> NoteParserUtil.parseIndex(outOfRangeInput));
     }
 }

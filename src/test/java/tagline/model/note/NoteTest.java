@@ -18,6 +18,13 @@ import tagline.testutil.note.NoteBuilder;
 public class NoteTest {
 
     @Test
+    public void constructor_invalidNote_throwIllegalArgumentException() {
+        // Title and content are both empty
+        assertThrows(IllegalArgumentException.class, Note.MESSAGE_CONSTRAINTS,
+                () -> new NoteBuilder().withTitle("").withContent("").build());
+    }
+
+    @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Note note = new NoteBuilder().build();
         assertThrows(UnsupportedOperationException.class, () -> note.getTags().remove(0));

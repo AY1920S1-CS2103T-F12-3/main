@@ -49,7 +49,8 @@ public class NoteCommandTestUtil {
     public static final String CONTENT_DESC_INCIDENT = " " + PREFIX_CONTENT + VALID_CONTENT_INCIDENT;
     /* TO ADD FOR TAG WHEN TAG IMPLEMENTED */
 
-    public static final String INVALID_CONTENT_DESC = " " + PREFIX_CONTENT + " "; // content cannot be blank
+    public static final String BLANK_CONTENT_DESC = " " + PREFIX_CONTENT + " "; // content and
+    public static final String BLANK_TITLE_DESC = " " + PREFIX_TITLE + " "; // title cannot be both blank
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

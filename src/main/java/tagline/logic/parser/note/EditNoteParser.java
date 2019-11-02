@@ -7,6 +7,7 @@ import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 
+import tagline.logic.commands.note.CreateNoteCommand;
 import tagline.logic.commands.note.EditNoteCommand;
 import tagline.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
 import tagline.logic.parser.ArgumentMultimap;
@@ -31,13 +32,9 @@ public class EditNoteParser implements Parser<EditNoteCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CONTENT, PREFIX_TAG);
 
-        NoteId noteId;
+        checkArguments(argMultimap);
 
-        try {
-            noteId = NoteParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNoteCommand.MESSAGE_USAGE), pe);
-        }
+        NoteId noteId = NoteParserUtil.parseIndex(argMultimap.getPreamble());
 
         EditNoteDescriptor editNoteDescriptor = new EditNoteDescriptor();
         if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
@@ -55,4 +52,18 @@ public class EditNoteParser implements Parser<EditNoteCommand> {
         return new EditNoteCommand(noteId, editNoteDescriptor);
     }
 
+    /**
+     * Check for the validity of arguments in {@code argMultimap}
+     * E.g. There should be at most one usage of title and content.
+     */
+    private void checkArguments(ArgumentMultimap argMultimap) throws ParseException {
+        // missing index
+        if (argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNoteCommand.MESSAGE_USAGE));
+        }
+
+        // check at most only one usage of provided prefixes
+        NoteParserUtil.checkSinglePrefixUsage(argMultimap, PREFIX_TITLE, PREFIX_CONTENT);
+    }
 }
