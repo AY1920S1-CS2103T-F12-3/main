@@ -9,6 +9,7 @@ import tagline.logic.parser.ArgumentMultimap;
 import tagline.logic.parser.Prefix;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.note.NoteId;
+import tagline.model.note.Title;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -29,6 +30,20 @@ public class NoteParserUtil {
             throw new ParseException(String.format(ERROR_INVALID_INDEX, noteId));
         }
         return new NoteId(Long.parseLong(trimmedId));
+    }
+
+    /**
+     * Parses {@code title} into a {@code Title} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified title is invalid (more than 50 characters).
+     */
+    public static Title parseTitle(String title) throws ParseException {
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(trimmedTitle)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Title(trimmedTitle);
     }
 
     /**
