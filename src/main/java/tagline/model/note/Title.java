@@ -8,7 +8,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class Title {
 
-    public final String titleDescription;
+    public final String value;
 
     /**
      * Constructs a {@code Name}.
@@ -17,24 +17,24 @@ public class Title {
      */
     public Title(String title) {
         requireNonNull(title);
-        titleDescription = title;
+        value = title;
     }
 
     @Override
     public String toString() {
-        return titleDescription;
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Title// instanceof handles nulls
-                && titleDescription.equals(((Title) other).titleDescription)); // state check
+                && value.equals(((Title) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return titleDescription.hashCode();
+        return value.hashCode();
     }
 
 }

@@ -5,17 +5,9 @@ import static tagline.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Note's content in the note book.
- * Guarantees: immutable; is valid as declared in {@link #isValidContent(String)}
+ * Guarantees: immutable
  */
 public class Content {
-
-    public static final String MESSAGE_CONSTRAINTS = "Content can take any values, and it should not be blank";
-
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-    */
-    public static final String VALIDATION_REGEX = "(?s)[^\\s].*";
 
     public final String value;
 
@@ -26,15 +18,8 @@ public class Content {
      */
     public Content(String content) {
         requireNonNull(content);
-        checkArgument(isValidContent(content), MESSAGE_CONSTRAINTS);
+        // checkArgument(isValidContent(content), MESSAGE_CONSTRAINTS);
         value = content;
-    }
-
-    /**
-     * Returns true if a given string is a valid email.
-     */
-    public static boolean isValidContent(String test) {
-        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

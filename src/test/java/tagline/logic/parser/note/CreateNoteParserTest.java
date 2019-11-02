@@ -69,10 +69,19 @@ class CreateNoteParserTest {
         // Set note id counter so generated id is VALID_NOTEID_PROTECTOR
         NoteIdCounter.setCount(VALID_NOTEID_PROTECTOR - 1);
 
-        // zero title
+        // zero title, but with content
         Note expectedNote = new NoteBuilder(PROTECTOR).withTitle("").build();
         assertParseSuccess(parser,
                 CONTENT_DESC_PROTECTOR,
+                new CreateNoteCommand(expectedNote));
+
+        // Set note id counter so generated id is VALID_NOTEID_PROTECTOR
+        NoteIdCounter.setCount(VALID_NOTEID_PROTECTOR - 1);
+
+        // zero content, but with title
+        expectedNote = new NoteBuilder(PROTECTOR).withContent("").build();
+        assertParseSuccess(parser,
+                TITLE_DESC_PROTECTOR,
                 new CreateNoteCommand(expectedNote));
 
         /* TO ADD TEST FOR TAGS WHEN TAG IMPLEMENTED */

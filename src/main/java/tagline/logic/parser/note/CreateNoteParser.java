@@ -8,13 +8,11 @@ import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import tagline.logic.commands.note.CreateNoteCommand;
 import tagline.logic.parser.ArgumentMultimap;
 import tagline.logic.parser.ArgumentTokenizer;
 import tagline.logic.parser.Parser;
-import tagline.logic.parser.Prefix;
 import tagline.logic.parser.Prompt;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.logic.parser.exceptions.PromptRequestException;
@@ -40,18 +38,11 @@ public class CreateNoteParser implements Parser<CreateNoteCommand> {
     public CreateNoteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CONTENT);
 
-        if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateNoteCommand.MESSAGE_USAGE));
-        }
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_CONTENT)) {
-            throw new PromptRequestException(Arrays.asList(new Prompt(PREFIX_CONTENT.getPrefix(),
-                    CREATE_NOTE_MISSING_CONTENT_PROMPT)));
-        }
+        checkArguments(argMultimap);
 
         NoteId noteId = new NoteId();
         Title title = new Title(argMultimap.getValue(PREFIX_TITLE).orElse(""));
-        Content content = NoteParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get());
+        Content content = new Content(argMultimap.getValue(PREFIX_CONTENT).orElse(""));
         TimeCreated timeCreated = new TimeCreated();
         TimeLastEdited timeLastEdited = new TimeLastEdited(timeCreated.getTime());
         Set<Tag> tags = new HashSet<>(); /* TO UPDATE TAG PARSING WHEN TAG IMPLEMENTED */
@@ -62,10 +53,22 @@ public class CreateNoteParser implements Parser<CreateNoteCommand> {
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
+     * Check for the validity of arguments in {@code argMultimap}
+     * E.g. There should be no preamble.
+     *      There should be at most one usage of title and content.
+     *      Title and content should not be both empty.
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    private void checkArguments(ArgumentMultimap argMultimap) throws ParseException {
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateNoteCommand.MESSAGE_USAGE));
+        }
+
+        if (!NoteParserUtil.anyPrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_CONTENT)) {
+            throw new PromptRequestException(Arrays.asList(new Prompt(PREFIX_CONTENT.getPrefix(),
+                    CREATE_NOTE_MISSING_CONTENT_PROMPT)));
+        }
+
+        NoteParserUtil.checkSinglePrefixUsage(argMultimap, PREFIX_TITLE, PREFIX_CONTENT);
     }
 }
