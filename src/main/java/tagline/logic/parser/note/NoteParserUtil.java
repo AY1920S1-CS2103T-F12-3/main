@@ -3,21 +3,20 @@ package tagline.logic.parser.note;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.stream.Stream;
+
 import tagline.logic.parser.ArgumentMultimap;
 import tagline.logic.parser.Prefix;
 import tagline.logic.parser.exceptions.ParseException;
-import tagline.model.note.Content;
 import tagline.model.note.NoteId;
-
-import java.util.stream.Stream;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class NoteParserUtil {
     public static final String ERROR_INVALID_INDEX = "Note index is not a non-zero unsigned number: %1$s";
-    public static final String ERROR_SINGLE_PREFIX_USAGE
-            = "Please only provide a single instance of the prefix: %1$s";
+    public static final String ERROR_SINGLE_PREFIX_USAGE =
+            "Please only provide a single instance of the prefix: %1$s";
 
     /**
      * Parses {@code noteId} into an {@code NoteId} and returns it. Leading and trailing whitespaces will be

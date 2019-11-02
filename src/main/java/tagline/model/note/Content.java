@@ -1,7 +1,6 @@
 package tagline.model.note;
 
 import static java.util.Objects.requireNonNull;
-import static tagline.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Note's content in the note book.

@@ -16,6 +16,8 @@ import tagline.model.tag.Tag;
  */
 public class Note {
 
+    public static final String MESSAGE_CONSTRAINTS = "Note requires either a title or content";
+
     // Identity fields
     private final NoteId noteid;
     private final Title title;
@@ -25,8 +27,6 @@ public class Note {
     // Data fields
     private final TimeLastEdited timeLastEdited;
     private final Set<Tag> tags = new HashSet<>();
-
-    public static final String MESSAGE_CONSTRAINTS = "Note requires either a title or content";
 
     /**
      * Every field must be present and not null.

@@ -20,8 +20,8 @@ public class NoteTest {
     @Test
     public void constructor_invalidNote_throwIllegalArgumentException() {
         // Title and content are both empty
-        assertThrows(IllegalArgumentException.class, Note.MESSAGE_CONSTRAINTS,
-                () -> new NoteBuilder().withTitle("").withContent("").build());
+        assertThrows(IllegalArgumentException.class,
+                Note.MESSAGE_CONSTRAINTS, () -> new NoteBuilder().withTitle("").withContent("").build());
     }
 
     @Test

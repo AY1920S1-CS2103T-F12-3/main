@@ -4,7 +4,6 @@ package tagline.logic.commands.note;
 import static java.util.Objects.requireNonNull;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
-import static tagline.model.note.Note.isValidNote;
 import static tagline.model.note.NoteModel.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.Collections;

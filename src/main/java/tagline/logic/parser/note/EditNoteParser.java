@@ -7,7 +7,6 @@ import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 
-import tagline.logic.commands.note.CreateNoteCommand;
 import tagline.logic.commands.note.EditNoteCommand;
 import tagline.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
 import tagline.logic.parser.ArgumentMultimap;
