@@ -4,6 +4,7 @@ package tagline.logic.parser.note;
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.logic.commands.NoteCommandTestUtil.CONTENT_DESC_INCIDENT;
 import static tagline.logic.commands.NoteCommandTestUtil.CONTENT_DESC_PROTECTOR;
+import static tagline.logic.commands.NoteCommandTestUtil.INVALID_TITLE_DESC;
 import static tagline.logic.commands.NoteCommandTestUtil.PREAMBLE_WHITESPACE;
 import static tagline.logic.commands.NoteCommandTestUtil.TITLE_DESC_INCIDENT;
 import static tagline.logic.commands.NoteCommandTestUtil.TITLE_DESC_PROTECTOR;
@@ -26,6 +27,7 @@ import tagline.logic.commands.note.CreateNoteCommand;
 import tagline.logic.parser.Prompt;
 import tagline.model.note.Note;
 import tagline.model.note.NoteIdCounter;
+import tagline.model.note.Title;
 import tagline.testutil.note.NoteBuilder;
 
 class CreateNoteParserTest {
@@ -43,10 +45,16 @@ class CreateNoteParserTest {
                 PREAMBLE_WHITESPACE + TITLE_DESC_PROTECTOR + CONTENT_DESC_PROTECTOR,
                 new CreateNoteCommand(expectedNote));
 
-        /* TO ADD TEST FOR TAGS WHEN TAG IMPLEMENTED */
+        /* TODO ADD TEST FOR TAGS WHEN TAG IMPLEMENTED */
 
         // Set note id counter BACK TO 0
         NoteIdCounter.setCount(0);
+    }
+
+    @Test
+    public void parse_invalidFieldsPresent_failure() {
+        // invalid title
+        assertParseFailure(parser, INVALID_TITLE_DESC, Title.MESSAGE_CONSTRAINTS);
     }
 
     @Test

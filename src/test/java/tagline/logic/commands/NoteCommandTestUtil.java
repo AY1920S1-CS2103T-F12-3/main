@@ -49,6 +49,9 @@ public class NoteCommandTestUtil {
     public static final String CONTENT_DESC_INCIDENT = " " + PREFIX_CONTENT + VALID_CONTENT_INCIDENT;
     /* TO ADD FOR TAG WHEN TAG IMPLEMENTED */
 
+
+    public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE
+            + "This title is too long, more than 50 characters. INVALID!"; // title cannot be more than 50 chars
     public static final String BLANK_CONTENT_DESC = " " + PREFIX_CONTENT + " "; // content and
     public static final String BLANK_TITLE_DESC = " " + PREFIX_TITLE + " "; // title cannot be both blank
 

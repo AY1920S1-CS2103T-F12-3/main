@@ -15,7 +15,6 @@ import tagline.logic.parser.Parser;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.note.Content;
 import tagline.model.note.NoteId;
-import tagline.model.note.Title;
 
 /**
  * Parses input arguments and creates a new EditNoteCommand object
@@ -37,7 +36,7 @@ public class EditNoteParser implements Parser<EditNoteCommand> {
 
         EditNoteDescriptor editNoteDescriptor = new EditNoteDescriptor();
         if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
-            editNoteDescriptor.setTitle(new Title(argMultimap.getValue(PREFIX_TITLE).get()));
+            editNoteDescriptor.setTitle(NoteParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get()));
         }
         if (argMultimap.getValue(PREFIX_CONTENT).isPresent()) {
             editNoteDescriptor.setContent(new Content(argMultimap.getValue(PREFIX_CONTENT).get()));

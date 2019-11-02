@@ -4,6 +4,7 @@ package tagline.logic.parser.note;
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.logic.commands.NoteCommandTestUtil.CONTENT_DESC_INCIDENT;
 import static tagline.logic.commands.NoteCommandTestUtil.CONTENT_DESC_PROTECTOR;
+import static tagline.logic.commands.NoteCommandTestUtil.INVALID_TITLE_DESC;
 import static tagline.logic.commands.NoteCommandTestUtil.TITLE_DESC_INCIDENT;
 import static tagline.logic.commands.NoteCommandTestUtil.TITLE_DESC_PROTECTOR;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_CONTENT_PROTECTOR;
@@ -19,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import tagline.logic.commands.note.EditNoteCommand;
 import tagline.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
 import tagline.model.note.NoteId;
+import tagline.model.note.Title;
 import tagline.testutil.note.EditNoteDescriptorBuilder;
 
 class EditNoteParserTest {
@@ -56,6 +58,12 @@ class EditNoteParserTest {
         invalidPreamble = "1 c/note content";
         assertParseFailure(parser, invalidPreamble,
                 String.format(ERROR_INVALID_INDEX, invalidPreamble));
+    }
+
+    @Test
+    public void parse_invalidFieldsPresent_failure() {
+        // invalid title
+        assertParseFailure(parser, "1" + INVALID_TITLE_DESC, Title.MESSAGE_CONSTRAINTS);
     }
 
     @Test
