@@ -7,14 +7,14 @@ import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 import static tagline.model.note.NoteModel.PREDICATE_SHOW_ALL_NOTES;
 
+import java.util.Set;
+
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.note.Note;
 import tagline.model.tag.Tag;
-
-import java.util.Set;
 
 /**
  * Creates a new note.

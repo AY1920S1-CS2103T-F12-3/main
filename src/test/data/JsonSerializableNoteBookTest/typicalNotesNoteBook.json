@@ -33,7 +33,13 @@
     "content" : "\"Six stones, three teams, one shot. Five years ago, we lost. All of us. We lost friends. We lost family. We lost a part of ourselves. Today, we have a chance to take it all back. You know your teams. You know your missions. Get the stones. Get them back.\"-- Steve Rogers",
     "timeCreated" : "16-Oct-2023 08:38:09",
     "noteIdCount" : "329",
-    "tagged" : [ ],
+    "tagged" : [ {
+      "tagType" : ".JsonAdaptedHashTag",
+      "value" : "avenger"
+    }, {
+      "tagType" : ".JsonAdaptedHashTag",
+      "value" : "movie"
+    } ],
     "timeLastEdited" : "17-Oct-2023 17:19:18"
   }, {
     "noteId" : "21",

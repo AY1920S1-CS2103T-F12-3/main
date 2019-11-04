@@ -1,7 +1,6 @@
 package tagline.testutil.note;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +13,6 @@ import tagline.model.note.TimeLastEdited;
 import tagline.model.note.Title;
 import tagline.model.tag.HashTag;
 import tagline.model.tag.Tag;
-import tagline.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Note objects.

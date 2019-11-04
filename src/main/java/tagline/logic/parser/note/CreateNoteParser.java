@@ -7,7 +7,6 @@ import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 import tagline.logic.commands.note.CreateNoteCommand;

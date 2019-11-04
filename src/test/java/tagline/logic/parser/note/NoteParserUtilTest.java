@@ -8,13 +8,13 @@ import static tagline.logic.parser.note.NoteParserUtil.ERROR_INVALID_INDEX;
 import static tagline.logic.parser.tag.TagParserUtil.TAG_USAGE;
 import static tagline.testutil.Assert.assertThrows;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.note.Title;
-
-import java.util.Arrays;
-import java.util.List;
 
 class NoteParserUtilTest {
 

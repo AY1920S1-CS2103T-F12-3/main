@@ -12,7 +12,6 @@ import tagline.logic.parser.ArgumentMultimap;
 import tagline.logic.parser.Prefix;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.logic.parser.tag.TagParserUtil;
-import tagline.model.Model;
 import tagline.model.note.NoteId;
 import tagline.model.note.Title;
 import tagline.model.tag.Tag;
