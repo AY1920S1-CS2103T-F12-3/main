@@ -1,5 +1,7 @@
 package tagline.testutil.note;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,6 +12,7 @@ import tagline.model.note.NoteId;
 import tagline.model.note.TimeCreated;
 import tagline.model.note.TimeLastEdited;
 import tagline.model.note.Title;
+import tagline.model.tag.HashTag;
 import tagline.model.tag.Tag;
 import tagline.model.util.SampleDataUtil;
 
@@ -26,6 +29,8 @@ public class NoteBuilder {
         + "that have been enhanced and altered by various alien civilizations for millennia.";
     public static final String DEFAULT_TIMECREATED = "13-May-1995 15:35:08";
     public static final String DEFAULT_TIMELASTUPDATED = "13-May-1995 15:35:08";
+    public static final String DEFAULT_TAG_AVENGER = "avenger";
+    public static final String DEFAULT_TAG_MOVIE = "movie";
 
     private NoteId noteId;
     private Title title;
@@ -42,6 +47,8 @@ public class NoteBuilder {
         timeLastEdited = new TimeLastEdited(new Date(DEFAULT_TIMELASTUPDATED));
 
         tags = new HashSet<>();
+        tags.add(new HashTag(DEFAULT_TAG_AVENGER));
+        tags.add(new HashTag(DEFAULT_TAG_MOVIE));
     }
 
     /**
@@ -77,8 +84,8 @@ public class NoteBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Note} that we are building.
      */
-    public NoteBuilder withTags(String... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+    public NoteBuilder withTags(Tag... tags) {
+        this.tags = new HashSet<>(Arrays.asList(tags));
         return this;
     }
 
