@@ -45,8 +45,6 @@ class CreateNoteParserTest {
                 PREAMBLE_WHITESPACE + TITLE_DESC_PROTECTOR + CONTENT_DESC_PROTECTOR,
                 new CreateNoteCommand(expectedNote));
 
-        /* TODO ADD TEST FOR TAGS WHEN TAG IMPLEMENTED */
-
         // Set note id counter BACK TO 0
         NoteIdCounter.setCount(0);
     }
