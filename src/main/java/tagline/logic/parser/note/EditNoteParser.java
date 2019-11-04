@@ -4,7 +4,6 @@ package tagline.logic.parser.note;
 import static java.util.Objects.requireNonNull;
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
-import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 
 import tagline.logic.commands.note.EditNoteCommand;
