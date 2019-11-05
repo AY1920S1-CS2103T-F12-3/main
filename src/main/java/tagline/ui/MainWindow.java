@@ -167,7 +167,7 @@ public class MainWindow extends UiPart<Stage> {
      * Initializes the status bar.
      */
     private void initStatusBar() {
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getNoteBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
