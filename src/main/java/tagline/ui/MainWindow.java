@@ -10,6 +10,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import tagline.commons.core.GuiSettings;
@@ -30,6 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     public static final String BEGIN_PROMPTING_STRING = "Please confirm some additional details for the command. "
             + "Press the escape key to abort.";
     public static final String ABORT_PROMPTING_STRING = "Command has been aborted.";
+    public static final double CHAT_PANE_MINIMUM_WIDTH_RATIO = 0.3;
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -46,6 +48,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private HBox centerPane;
 
     @FXML
     private StackPane chatPanePlaceholder;
@@ -67,6 +72,7 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
         setAbortPromptListener();
+        setResizeListener();
 
         helpWindow = new HelpWindow();
     }
@@ -79,6 +85,22 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
+    /**
+     * Sets the listener to dynamically resize the chat pane to take up a ratio of at least
+     * {@code CHAT_PANE_MINIMUM_WIDTH_RATIO} of the total width.
+     */
+    private void setResizeListener() {
+        centerPane.widthProperty().addListener((observable, oldVal, newVal) -> {
+            double chatPaneWidth = (double)newVal * CHAT_PANE_MINIMUM_WIDTH_RATIO;
+            if (chatPaneWidth > chatPanePlaceholder.getMinWidth()) {
+                chatPanePlaceholder.setPrefWidth(chatPaneWidth);
+            }
+        });
+    }
+
+    /**
+     * Sets the listener to abort prompts by pressing the Esc key.
+     */
     private void setAbortPromptListener() {
         getRoot().getScene().setOnKeyPressed(new EventHandler<>() {
             @Override
@@ -253,7 +275,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Handles the GUI feedback for a {@code CommandResult}.
      */
-    private void displayCommandResult(CommandResult commandResult) throws PromptRequestException {
+    private void displayCommandResult(CommandResult commandResult) {
         logger.info("Result: " + commandResult.getFeedbackToUser());
         chatPane.setFeedbackToUser(commandResult.getFeedbackToUser());
         resultPane.setCurrentViewType(commandResult.getViewType());
