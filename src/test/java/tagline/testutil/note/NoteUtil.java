@@ -1,10 +1,12 @@
 package tagline.testutil.note;
 
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
+import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 
 import tagline.logic.commands.note.CreateNoteCommand;
 import tagline.model.note.Note;
+import tagline.model.tag.Tag;
 
 /**
  * A utility class for Note.
@@ -23,9 +25,12 @@ public class NoteUtil {
      */
     public static String getNoteDetails(Note note) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_TITLE + note.getTitle().titleDescription + " ");
+        sb.append(PREFIX_TITLE + note.getTitle().value + " ");
         sb.append(PREFIX_CONTENT + note.getContent().value + " ");
-        /* TO ADD GET TAGS WHEN TAG IMPLEMENTED */
+
+        for (Tag tag : note.getTags()) {
+            sb.append(PREFIX_TAG + tag.toString() + " ");
+        }
         return sb.toString();
     }
 }
