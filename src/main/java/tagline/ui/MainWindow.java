@@ -91,7 +91,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void setResizeListener() {
         centerPane.widthProperty().addListener((observable, oldVal, newVal) -> {
-            double chatPaneWidth = (double)newVal * CHAT_PANE_MINIMUM_WIDTH_RATIO;
+            double chatPaneWidth = (double) newVal * CHAT_PANE_MINIMUM_WIDTH_RATIO;
             if (chatPaneWidth > chatPanePlaceholder.getMinWidth()) {
                 chatPanePlaceholder.setPrefWidth(chatPaneWidth);
             }
