@@ -1,6 +1,7 @@
 package tagline.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static tagline.ui.GuiTestUtil.enterCommand;
 
 import java.nio.file.Path;
 import java.util.concurrent.TimeoutException;
@@ -10,18 +11,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
 import org.testfx.api.FxRobot;
-import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.framework.junit5.Stop;
 
-import javafx.event.ActionEvent;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
-import tagline.logic.Logic;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
 import tagline.testutil.CommandResultBuilder;
@@ -47,51 +42,26 @@ public class ResultPaneTest {
     @TempDir
     public Path testFolder;
 
-    private MainWindow mainWindow;
+    private GuiTestController controller = GuiTestController.getInstance();
     private LogicStub logic;
 
-    /**
-     * Sets up the stage style. Can only be done once per testing session.
-     */
-    private void initStage(Stage stage) {
-        if (stage.getStyle() != StageStyle.DECORATED) {
-            stage.initStyle(StageStyle.DECORATED);
-        }
-    }
-
-    /**
-     * Set up the main window.
-     */
-    private void initMainWindow(Stage stage, Logic logic) throws TimeoutException {
-        FxToolkit.setupStage(s -> {
-            mainWindow = new MainWindow(s, logic);
-            mainWindow.show();
-            mainWindow.fillInnerParts();
-        });
-        FxToolkit.showStage();
-    }
-
     @Start
-    void setUp(Stage stage) throws TimeoutException {
+    private void setUp(Stage stage) throws TimeoutException {
         logic = new LogicStub(testFolder.resolve("addressbook.json"), testFolder.resolve("notebook.json"),
-            testFolder.resolve("groupbook.json"), testFolder.resolve("tagbook.json"));
-        initStage(stage);
-        initMainWindow(stage, logic);
+                testFolder.resolve("groupbook.json"), testFolder.resolve("tagbook.json"));
+
+        controller.initStageStyle(stage);
+        controller.initMainWindow(stage, logic);
     }
 
     @Stop
-    void tearDown() throws TimeoutException {
-        FxToolkit.cleanupStages();
+    private void tearDown() throws TimeoutException {
+        controller.doTearDown();
     }
 
     @AfterEach
-    void pause(FxRobot robot) {
-        String headlessPropertyValue = System.getProperty("testfx.headless");
-        if (headlessPropertyValue != null && headlessPropertyValue.equals("true")) {
-            return;
-        }
-
-        robot.sleep(500);
+    private void pause(FxRobot robot) {
+        controller.pause(robot);
     }
 
     private void assertSingleResultView(FxRobot robot) {
@@ -108,14 +78,11 @@ public class ResultPaneTest {
      */
     private void sendCommandWithResult(FxRobot robot, CommandResult commandResult) {
         logic.setCommandResult(commandResult);
-        robot.clickOn(".commandTextField");
-
-        TextField textField = robot.lookup(".commandTextField").queryAs(TextField.class);
-        robot.interact(() -> textField.fireEvent(new ActionEvent()));
+        enterCommand(robot, "");
     }
 
     @Test
-    void switchViewToContact(FxRobot robot) {
+    public void switchViewToContact(FxRobot robot) {
         sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
 
         assertSingleResultView(robot);
@@ -123,7 +90,7 @@ public class ResultPaneTest {
     }
 
     @Test
-    void switchViewToContactFromContact(FxRobot robot) {
+    public void switchViewToContactFromContact(FxRobot robot) {
         sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
         sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
 
@@ -132,7 +99,7 @@ public class ResultPaneTest {
     }
 
     @Test
-    void switchViewToNoneFromContact(FxRobot robot) {
+    public void switchViewToNoneFromContact(FxRobot robot) {
         sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
         sendCommandWithResult(robot, NONE_COMMAND_RESULT);
 
@@ -141,7 +108,7 @@ public class ResultPaneTest {
     }
 
     @Test
-    void switchViewToNoteFromContact(FxRobot robot) {
+    public void switchViewToNoteFromContact(FxRobot robot) {
         sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
         sendCommandWithResult(robot, NOTE_COMMAND_RESULT);
 
