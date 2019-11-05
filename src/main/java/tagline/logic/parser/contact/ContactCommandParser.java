@@ -60,7 +60,7 @@ public class ContactCommandParser {
             return new ShowContactParser().parse(arguments);
 
         case EditContactCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            return new EditContactParser().parse(arguments);
 
         case DeleteContactCommand.COMMAND_WORD:
             return new DeleteContactParser().parse(arguments);
@@ -104,7 +104,7 @@ public class ContactCommandParser {
             return new AddContactParser().parse(filledArguments);
 
         case EditContactCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(filledArguments);
+            return new EditContactParser().parse(filledArguments);
 
         case DeleteContactCommand.COMMAND_WORD:
             return new DeleteContactParser().parse(filledArguments);

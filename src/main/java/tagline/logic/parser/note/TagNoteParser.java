@@ -5,7 +5,6 @@ import static tagline.logic.parser.ParserUtil.allPrefixesPresent;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import tagline.logic.commands.note.TagNoteCommand;
@@ -38,11 +37,6 @@ public class TagNoteParser implements Parser<TagNoteCommand> {
         checkCompulsoryFields(argMultimap);
 
         NoteId noteId;
-        if (argMultimap.getPreamble().isEmpty()) {
-            throw new PromptRequestException(Collections.singletonList(
-                    new Prompt("", TAG_NOTE_MISSING_ID_PROMPT_STRING)));
-        }
-
         try {
             noteId = NoteParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {

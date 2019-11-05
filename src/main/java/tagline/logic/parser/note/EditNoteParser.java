@@ -2,6 +2,7 @@
 package tagline.logic.parser.note;
 
 import static java.util.Objects.requireNonNull;
+import static tagline.logic.parser.ParserUtil.anyPrefixesPresent;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 
@@ -58,8 +59,8 @@ public class EditNoteParser implements Parser<EditNoteCommand> {
      * E.g. There should be at most one usage of title and content.
      */
     private void checkArguments(ArgumentMultimap argMultimap) throws ParseException {
-        // missing index
-        if (argMultimap.getPreamble().isEmpty()) {
+        // missing index but has edits
+        if (argMultimap.getPreamble().isEmpty() && anyPrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_CONTENT)) {
             throw new PromptRequestException(Collections.singletonList(
                     new Prompt("", EDIT_NOTE_MISSING_ID_PROMPT_STRING)));
         }
