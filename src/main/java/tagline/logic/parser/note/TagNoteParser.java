@@ -72,8 +72,7 @@ public class TagNoteParser implements Parser<TagNoteCommand> {
     private static void checkCompulsoryFields(ArgumentMultimap argMultimap) throws PromptRequestException {
         List<Prompt> promptList = new ArrayList<>();
         if (argMultimap.getPreamble().isEmpty()) {
-            throw new PromptRequestException(Collections.singletonList(
-                    new Prompt("", TAG_NOTE_MISSING_ID_PROMPT_STRING)));
+            promptList.add(new Prompt("", TAG_NOTE_MISSING_ID_PROMPT_STRING));
         }
 
         if (!allPrefixesPresent(argMultimap, PREFIX_TAG)) {

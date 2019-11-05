@@ -5,7 +5,6 @@ import static tagline.logic.parser.ParserUtil.allPrefixesPresent;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import tagline.logic.commands.note.TagNoteCommand;
@@ -67,8 +66,7 @@ public class UntagNoteParser implements Parser<UntagNoteCommand> {
     private static void checkCompulsoryFields(ArgumentMultimap argMultimap) throws PromptRequestException {
         List<Prompt> promptList = new ArrayList<>();
         if (argMultimap.getPreamble().isEmpty()) {
-            throw new PromptRequestException(Collections.singletonList(
-                    new Prompt("", UNTAG_NOTE_MISSING_ID_PROMPT_STRING)));
+            promptList.add(new Prompt("", UNTAG_NOTE_MISSING_ID_PROMPT_STRING));
         }
 
         if (!allPrefixesPresent(argMultimap, PREFIX_TAG)) {
