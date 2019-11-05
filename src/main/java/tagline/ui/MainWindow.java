@@ -149,7 +149,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void initChatPane() {
         chatPane = new ChatPane();
-        chatPane.fillInnerParts(this::executeCommand);
+        chatPane.fillInnerParts(this::handleUserInput);
         chatPanePlaceholder.getChildren().add(chatPane.getRoot());
     }
 
@@ -221,11 +221,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Executes the command and returns the result.
+     * Handles some user input and returns the result.
      *
-     * @see tagline.logic.Logic#execute(String)
+     * @param commandText Raw input entered by the user
+     * @return A CommandResult representing the result of a successful command.
+     * @throws CommandException if a command was executed unsuccessfully
+     * @throws ParseException if the user entered an invalid command
+     * @throws PromptOngoingException if prompting is ongoing and more responses are expected
      */
-    private CommandResult executeCommand(String commandText)
+    private CommandResult handleUserInput(String commandText)
             throws CommandException, ParseException, PromptOngoingException {
         chatPane.setCommandFromUser(commandText);
 
@@ -237,22 +241,10 @@ public class MainWindow extends UiPart<Stage> {
         try {
             //Prompting in progress
             if (promptHandler != null) {
-                promptHandler.fillNextPrompt(commandText);
-
-                if (!promptHandler.isComplete()) {
-                    chatPane.setFeedbackToUser(promptHandler.getNextPrompt());
-                    throw new PromptOngoingException();
-                }
-
-                CommandResult commandResult = logic.execute(promptHandler.getPendingCommand(),
-                        promptHandler.getFilledPromptList());
-                displayCommandResult(commandResult);
-                return commandResult;
+                return handlePromptResponse(commandText);
+            } else {
+                return handleCommandString(commandText);
             }
-
-            CommandResult commandResult = logic.execute(commandText);
-            displayCommandResult(commandResult);
-            return commandResult;
         } catch (PromptRequestException e) {
             logger.info("Invalid command, requesting prompt: " + commandText);
             chatPane.setFeedbackToUser(BEGIN_PROMPTING_STRING);
@@ -270,6 +262,41 @@ public class MainWindow extends UiPart<Stage> {
             chatPane.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Handles a command string from the user.
+     *
+     * @see Logic#execute(String) for details on command execution.
+     */
+    private CommandResult handleCommandString(String commandText) throws ParseException, CommandException {
+        CommandResult commandResult = logic.execute(commandText);
+        displayCommandResult(commandResult);
+        return commandResult;
+    }
+
+    /**
+     * Handles a response to a prompt.
+     *
+     * <p>If prompting is complete, this method executes the command with the filled prompts and returns the command
+     * result. Otherwise, this method throws a {@code PromptOngoingException}, indicating that more responses from the
+     * user are expected.</p>
+     *
+     * @throws PromptOngoingException if there are more prompts to answer
+     */
+    private CommandResult handlePromptResponse(String commandText)
+            throws PromptOngoingException, ParseException, CommandException {
+        promptHandler.fillNextPrompt(commandText);
+
+        if (!promptHandler.isComplete()) {
+            chatPane.setFeedbackToUser(promptHandler.getNextPrompt());
+            throw new PromptOngoingException();
+        }
+
+        CommandResult commandResult = logic.execute(promptHandler.getPendingCommand(),
+                promptHandler.getFilledPromptList());
+        displayCommandResult(commandResult);
+        return commandResult;
     }
 
     /**
