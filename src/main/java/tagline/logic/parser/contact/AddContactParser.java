@@ -82,6 +82,7 @@ public class AddContactParser implements Parser<CreateContactCommand> {
         return new CreateContactCommand(contact);
     }
 
+    //@@author tanlk99
     /**
      * Checks the compulsory fields of the command (i.e. name).
      * @throws PromptRequestException if a compulsory field is missing

@@ -56,7 +56,7 @@ public class CreateGroupParser implements Parser<CreateGroupCommand> {
         return new CreateGroupCommand(group);
     }
 
-    //@author tanlk99
+    //@@author tanlk99
     /**
      * Checks the compulsory fields of the command (i.e. group name).
      * @throws PromptRequestException if a compulsory field is missing

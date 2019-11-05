@@ -69,7 +69,7 @@ public class GroupCommandParser {
         }
     }
 
-    //@author tanlk99
+    //@@author tanlk99
     /**
      * Parses user input into a group command for execution, using a list of filled prompts.
      *

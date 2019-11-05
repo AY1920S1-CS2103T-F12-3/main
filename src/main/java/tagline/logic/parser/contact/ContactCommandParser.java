@@ -80,7 +80,7 @@ public class ContactCommandParser {
         }
     }
 
-    //@author tanlk99
+    //@@author tanlk99
     /**
      * Parses user input into a contact command for execution, using a list of filled prompts.
      *

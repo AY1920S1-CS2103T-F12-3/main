@@ -1,3 +1,4 @@
+//@@author tanlk99
 package tagline.ui;
 
 import java.util.logging.Logger;
@@ -81,10 +82,6 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-    }
-
     /**
      * Sets the listener to dynamically resize the chat pane to take up a ratio of at least
      * {@code CHAT_PANE_MINIMUM_WIDTH_RATIO} of the total width.
@@ -106,13 +103,18 @@ public class MainWindow extends UiPart<Stage> {
             @Override
             public void handle(KeyEvent keyEvent) {
                 if (keyEvent.getCode() == KeyCode.ESCAPE && promptHandler != null
-                    && !promptHandler.isAborted()) {
+                        && !promptHandler.isAborted()) {
                     logger.info("ESCAPE PRESSED");
                     chatPane.setFeedbackToUser(ABORT_PROMPTING_STRING);
                     promptHandler.setAborted();
                 }
             }
         });
+    }
+
+    //@@author
+    private void setAccelerators() {
+        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
     /**
@@ -144,6 +146,7 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    //@@author tanlk99
     /**
      * Initializes the chat pane.
      */
@@ -180,6 +183,7 @@ public class MainWindow extends UiPart<Stage> {
         initResultPane();
     }
 
+    //@@author
     /**
      * Sets the default size based on {@code guiSettings}.
      */
@@ -220,6 +224,7 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    //@@author tanlk99
     /**
      * Handles some user input and returns the result.
      *

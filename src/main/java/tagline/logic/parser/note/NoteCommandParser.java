@@ -81,7 +81,7 @@ public class NoteCommandParser {
         }
     }
 
-    //@author tanlk99
+    //@@author tanlk99
     /**
      * Parses user input into note command for execution, using a list of filled prompts.
      *

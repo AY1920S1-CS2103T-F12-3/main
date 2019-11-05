@@ -64,7 +64,7 @@ public class TagNoteParser implements Parser<TagNoteCommand> {
     }
 
 
-    //@author tanlk99
+    //@@author tanlk99
     /**
      * Checks the compulsory fields of the command (i.e. note ID, tag name).
      * @throws PromptRequestException if a compulsory field is missing

@@ -59,7 +59,7 @@ public class AddMemberToGroupParser implements Parser<AddMemberToGroupCommand> {
         return new AddMemberToGroupCommand(predicate, editGroupDescriptor);
     }
 
-    //@author tanlk99
+    //@@author tanlk99
     /**
      * Checks the compulsory fields of the command (i.e. group name, contact ID).
      * @throws PromptRequestException if a compulsory field is missing
