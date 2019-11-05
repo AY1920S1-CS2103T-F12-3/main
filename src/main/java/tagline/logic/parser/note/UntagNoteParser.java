@@ -2,7 +2,6 @@ package tagline.logic.parser.note;
 
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.logic.parser.ParserUtil.allPrefixesPresent;
-import static tagline.logic.parser.group.GroupCliSyntax.PREFIX_CONTACTID;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -73,7 +72,7 @@ public class UntagNoteParser implements Parser<UntagNoteCommand> {
         }
 
         if (!allPrefixesPresent(argMultimap, PREFIX_TAG)) {
-            promptList.add(new Prompt(PREFIX_CONTACTID.getPrefix(), UNTAG_NOTE_MISSING_TAGS_PROMPT_STRING));
+            promptList.add(new Prompt(PREFIX_TAG.getPrefix(), UNTAG_NOTE_MISSING_TAGS_PROMPT_STRING));
         }
 
         if (!promptList.isEmpty()) {
