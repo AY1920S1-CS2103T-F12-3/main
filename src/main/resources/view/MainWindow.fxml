@@ -35,7 +35,7 @@
 
                 <HBox fx:id="centerPane" minHeight="200" VBox.vgrow="ALWAYS">
                     <StackPane fx:id="chatPanePlaceholder" styleClass="pane-with-border" minWidth="350"
-                               HBox.hgrow="SOMETIMES"/>
+                               prefWidth="350" HBox.hgrow="NEVER"/>
                     <StackPane fx:id="resultPanePlaceholder" styleClass="pane-with-border" minWidth="350"
                                prefWidth="350" HBox.hgrow="ALWAYS"/>
                 </HBox>

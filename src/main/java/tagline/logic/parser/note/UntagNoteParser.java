@@ -72,7 +72,7 @@ public class UntagNoteParser implements Parser<UntagNoteCommand> {
                     new Prompt("", UNTAG_NOTE_MISSING_ID_PROMPT_STRING)));
         }
 
-        if (!allPrefixesPresent(argMultimap, PREFIX_CONTACTID)) {
+        if (!allPrefixesPresent(argMultimap, PREFIX_TAG)) {
             promptList.add(new Prompt(PREFIX_CONTACTID.getPrefix(), UNTAG_NOTE_MISSING_TAGS_PROMPT_STRING));
         }
 

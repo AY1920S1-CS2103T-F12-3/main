@@ -91,6 +91,7 @@ public class MainWindow extends UiPart<Stage> {
             double chatPaneWidth = (double) newVal * CHAT_PANE_MINIMUM_WIDTH_RATIO;
             if (chatPaneWidth > chatPanePlaceholder.getMinWidth()) {
                 chatPanePlaceholder.setPrefWidth(chatPaneWidth);
+                chatPanePlaceholder.setMaxWidth(chatPaneWidth);
             }
         });
     }
