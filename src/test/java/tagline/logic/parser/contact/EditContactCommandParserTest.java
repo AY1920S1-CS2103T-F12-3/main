@@ -1,4 +1,4 @@
-package tagline.logic.parser;
+package tagline.logic.parser.contact;
 
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -26,7 +26,6 @@ import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.contact.EditContactCommand;
 import tagline.logic.commands.contact.EditContactCommand.EditContactDescriptor;
-import tagline.logic.parser.contact.EditCommandParser;
 import tagline.model.contact.ContactId;
 import tagline.model.contact.Email;
 import tagline.model.contact.Name;

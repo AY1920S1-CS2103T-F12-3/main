@@ -87,5 +87,7 @@ public class NoteListCardTest {
                 hasText(TypicalNotes.EARTH_NO_TITLE.getContent().value));
         FxAssert.verifyThat(getChildNode(robot, "#id"),
                 hasText("#" + TypicalNotes.EARTH_NO_TITLE.getNoteId().value));
+
+
     }
 }

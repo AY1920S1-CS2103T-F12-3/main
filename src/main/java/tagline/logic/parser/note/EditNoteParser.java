@@ -2,16 +2,19 @@
 package tagline.logic.parser.note;
 
 import static java.util.Objects.requireNonNull;
-import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
+
+import java.util.Collections;
 
 import tagline.logic.commands.note.EditNoteCommand;
 import tagline.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
 import tagline.logic.parser.ArgumentMultimap;
 import tagline.logic.parser.ArgumentTokenizer;
 import tagline.logic.parser.Parser;
+import tagline.logic.parser.Prompt;
 import tagline.logic.parser.exceptions.ParseException;
+import tagline.logic.parser.exceptions.PromptRequestException;
 import tagline.model.note.Content;
 import tagline.model.note.NoteId;
 
@@ -19,6 +22,8 @@ import tagline.model.note.NoteId;
  * Parses input arguments and creates a new EditNoteCommand object
  */
 public class EditNoteParser implements Parser<EditNoteCommand> {
+    public static final String EDIT_NOTE_MISSING_ID_PROMPT_STRING = "Please enter the ID of the note to edit.";
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditNoteCommand
      * and returns an EditNoteCommand object for execution.
@@ -55,11 +60,12 @@ public class EditNoteParser implements Parser<EditNoteCommand> {
     private void checkArguments(ArgumentMultimap argMultimap) throws ParseException {
         // missing index
         if (argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNoteCommand.MESSAGE_USAGE));
+            throw new PromptRequestException(Collections.singletonList(
+                    new Prompt("", EDIT_NOTE_MISSING_ID_PROMPT_STRING)));
         }
 
         // check at most only one usage of provided prefixes
         NoteParserUtil.checkSinglePrefixUsage(argMultimap, PREFIX_TITLE, PREFIX_CONTENT);
     }
 }
+

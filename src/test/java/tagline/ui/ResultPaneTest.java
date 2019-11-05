@@ -115,26 +115,7 @@ public class ResultPaneTest {
     }
 
     @Test
-    void switchViewToNoteFromContact(FxRobot robot) {
-        sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
-        sendCommandWithResult(robot, NOTE_COMMAND_RESULT);
-
-        assertSingleResultView(robot);
-        assertResultViewId(robot, "#noteListResultView");
-    }
-
-    @Test
-    void switchViewToNoteFromNote(FxRobot robot) {
-        sendCommandWithResult(robot, NOTE_COMMAND_RESULT);
-        sendCommandWithResult(robot, NOTE_COMMAND_RESULT);
-
-        assertSingleResultView(robot);
-        assertResultViewId(robot, "#noteListResultView");
-    }
-
-    @Test
-    void switchViewToContactFromNote(FxRobot robot) {
-        sendCommandWithResult(robot, NOTE_COMMAND_RESULT);
+    void switchViewToContact(FxRobot robot) {
         sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
 
         assertSingleResultView(robot);
@@ -160,9 +141,9 @@ public class ResultPaneTest {
     }
 
     @Test
-    void switchViewToNoneFromNote(FxRobot robot) {
+    void switchViewToNoteFromContact(FxRobot robot) {
+        sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
         sendCommandWithResult(robot, NOTE_COMMAND_RESULT);
-        sendCommandWithResult(robot, NONE_COMMAND_RESULT);
 
         assertSingleResultView(robot);
         assertResultViewId(robot, "#noteListResultView");

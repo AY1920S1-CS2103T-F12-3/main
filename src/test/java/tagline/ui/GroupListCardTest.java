@@ -56,8 +56,7 @@ public class GroupListCardTest {
         FxToolkit.cleanupStages();
     }
 
-    @AfterEach
-    void pause(FxRobot robot) {
+    @AfterEach    void pause(FxRobot robot) {
         String headlessPropertyValue = System.getProperty("testfx.headless");
         if (headlessPropertyValue != null && headlessPropertyValue.equals("true")) {
             return;
