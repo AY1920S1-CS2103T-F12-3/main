@@ -305,18 +305,17 @@ At this point, the user may abort the command or provide the requested details. 
 
 ==== Proposed Implementation
 
-The prompting mechanism uses `Prompt` objects to represent individual queries for additional information. A list of `Prompt` objects is used to pass information between the `Logic` and `Ui` components. `Prompt` implements the following operations:
+===== Representing a prompt
 
-`Logic` side:
+The prompting mechanism uses `Prompt` objects to represent individual queries for additional information. A list of `Prompt` objects is used to pass information between the `Logic` and `Ui` components. `Prompt` contains the following fields:
 
-* `Prompt#setPrefix()` -- Sets the prefix of the queried data
-* `Prompt#setQuestion()` -- Sets the prompt to be displayed to the user
-* `Prompt#getResponse()` -- Gets the prompt response from the user
+- `prefix`: The prefix of the missing field (e.g. for a `contact create` command, the `name` field has prefix `--n`)
+- `question`: A question to ask the user for details regarding the missing information
+- `response`: The response from the user
 
-`Ui` side:
+These fields are accessible through getters and setters in the `Prompt` class.
 
-* `Prompt#getQuestion()` -- Gets the prompt to be displayed to the user
-* `Prompt#setResponse()` -- Sets the response from the user
+===== Passing the prompts
 
 Given below is an example scenario where the user command has missing compulsory fields.
 
@@ -324,7 +323,7 @@ Step 1: The `Ui` passes the user's command to `Logic`, which finds one or more m
 
 image::UserPromptSequenceDiagramStep1.png[]
 
-Step 2: The `Ui` receives the list of `Prompt` objects. For each `Prompt`, it retrieves the question and obtains the corresponding user feedback.
+Step 2: The `Ui` receives the list of `Prompt` objects. For each `Prompt`, it retrieves the question and obtains the corresponding user feedback using the mechanism <<Getting responses from the user, here>>.
 
 image::UserPromptSequenceDiagramStep2.png[]
 
@@ -332,7 +331,44 @@ Step 3: The `Ui` passes the original command, together with the processed `Promp
 
 image::UserPromptSequenceDiagramStep3.png[]
 
-The user can also abort the command by entering a special string. In this case, the `Ui` will discard the original command and continue to receive further user commands.
+The full sequence diagram is shown below:
+
+image::UserPromptSequenceDiagramFull.png[]
+
+The user can also abort the command by pressing the Escape button. In this case, the `Ui` will discard the original command and continue to receive further user commands.
+
+===== Getting prompts from the user
+
+To obtain responses to a list of prompts, the UI uses a `PromptHandler` to indicate the incomplete command that it is currently working on. `PromptHandler` uses the Iterator design pattern to fill a list of prompts. It implements the following operations:
+
+- `PromptHandler#getPendingCommand`: Returns the incomplete command
+- `PromptHandler#fillNextPrompt`: Fills the next unfilled prompt in the list
+- `PromptHandler#getNextPrompt`: Gets the question of the next unfilled prompt in the list
+- `PromptHandler#isComplete`: Returns true if all prompts have been filled
+- `PromptHandler#getFilledPromptList`: Gets the filled prompt list
+
+To allow the `Ui` to handle user prompts, the sequence of steps taken to handle user input has been modified. To illustrate the program flow, three possible scenarios of user input will be discussed.
+
+. The user enters some input with missing compulsory fields.
+    .. The input is passed to `Logic`, where a `PromptRequestException` is thrown.
+    .. `MainWindow` takes the list of prompts in the `PromptRequestException`, and creates a new `PromptHandler` in the private field `promptHandler`.
+    .. `MainWindow` gets the first prompt question from `promptHandler` and displays it.
+
+. The user is currently being prompted, and enters some input to answer a prompt. There are more prompts remaining.
+    .. `MainWindow` has a `promptHandler` which is incomplete. It calls `fillNextPrompt` with the user input.
+    .. `MainWindow` checks that `promptHandler` is still incomplete.
+    .. `MainWindow` gets the next prompt question from `promptHandler` and displays it.
+
+. The user is currently being prompted, and enters some input to answer a prompt. There are no more prompts remaining.
+    .. `MainWindow` has a `promptHandler` which is incomplete. It calls `fillNextPrompt` with the user input.
+    .. `MainWindow` checks that `promptHandler` is now complete.
+    .. `MainWindow` calls `getPendingCommand` and `getNextPrompt` of `promptHandler`.
+    .. The incomplete command and the filled prompt list are passed to `Logic` to execute the command.
+
+The cases above are labelled and summarized in the full activity diagram below. The mechanism for aborting commands is done using listeners and not shown below.
+
+.Overall activity diagram for handling user input
+image::UserPromptActivityDiagram.png[]
 
 ==== Design Considerations
 
@@ -344,9 +380,11 @@ The user can also abort the command by entering a special string. In this case, 
 * **Alternative 2**: The `LogicManager` updates the command with the user's responses by adding the new data to the command string.
 ** Pros: No need to overload `Parser#parse()` method
 ** Cons: Requires `LogicManager` to know where to insert preambles, and reduces flexibility of prompting
-* **Alternative 3** (chosen): `TaglineParser` handles the `Prompt` objects when parsing the command
+* **Alternative 3**: `TaglineParser` and the individual parser classes handles the `Prompt` objects when parsing the command
 ** Pros: Easily handles preambles, and also allows greater extensibility of the prompt feature, e.g. can have the user fix incorrect commands or confirm actions
 ** Cons: Requires changing multiple `Parser` classes, decreases maintainability in the long run
+
+**Alternative 3** is chosen as it allows the confirmation messages for the `clear` commands to be implemented easily.
 
 === [Proposed] Group Contacts feature
 ==== Proposed Implementation

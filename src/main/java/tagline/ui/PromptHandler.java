@@ -25,25 +25,32 @@ public class PromptHandler {
         return pendingCommand;
     }
 
+    /**
+     * Gets the filled prompt list.
+     * Can only be called if all prompts have been filled.
+     */
     public List<Prompt> getFilledPromptList() {
+        assert isComplete();
         return filledPromptList;
     }
 
     /**
-     * Fills the next unfilled prompt in the list.
+     * Fills the next unfilled prompt in the list with the user response.
      */
-    public void fillNextPrompt(String commandText) {
+    public void fillNextPrompt(String userResponse) {
+        assert nextIndex >= 0 && nextIndex < promptList.size();
         Prompt currentPrompt = promptList.get(nextIndex);
-        currentPrompt.setPromptResponse(commandText);
+        currentPrompt.setPromptResponse(userResponse);
 
         nextIndex++;
         filledPromptList.add(currentPrompt);
     }
 
     /**
-     * Returns the next prompt in the list.
+     * Returns the question for the next prompt in the list.
      */
     public String getNextPrompt() {
+        assert nextIndex >= 0 && nextIndex < promptList.size();
         return promptList.get(nextIndex).getPromptQuestion();
     }
 
