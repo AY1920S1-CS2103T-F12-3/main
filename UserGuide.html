@@ -263,16 +263,16 @@ to get started. Enjoy!</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>contact create NAME</code>, <code>NAME</code> is a parameter which can be used as <code>contact create John Doe</code>.</p>
+<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>contact create --n NAME</code>, <code>NAME</code> is a parameter which can be used as <code>contact create --n John Doe</code>.</p>
 </li>
 <li>
 <p>Items in square brackets are optional e.g <code>[--n NAME]</code> and <code>[--e EMAIL]</code> can be used as <code>--n John Doe --e <a href="mailto:j.doe@gmail.com">j.doe@gmail.com</a></code> or only <code>--n John Doe</code>.</p>
 </li>
 <li>
-<p>Items with <code>*</code> after them can be used multiple times including zero times e.g. <code>[--t TAG]*</code>​ can be used as <code>&lt;empty&gt;</code> (i.e. 0 times), <code>--t friend</code>, <code>--t friend --t family</code>, etc.</p>
+<p>Items with <code>*</code> after them can be used multiple times including zero times e.g. <code>[--t TAG]*</code>​ can be used as <code>&lt;empty&gt;</code> (i.e. 0 times), <code>--t #friend</code>, <code>--t #friend --t #family</code>, etc.</p>
 </li>
 <li>
-<p>Items with <code>+</code>​ after them can be used one or multiple times e.g. <code>[--t TAG]+</code>​ can be used as <code>--t friend</code> and <code>--t friend --t family</code> but cannot be used as <code>&lt;empty&gt;</code> (i.e. 0 times),</p>
+<p>Items with <code>+</code>​ after them can be used one or multiple times e.g. <code>[--t TAG]+</code>​ can be used as <code>--t #friend</code> and <code>--t #friend --t #family</code> but cannot be used as <code>&lt;empty&gt;</code> (i.e. 0 times),</p>
 </li>
 <li>
 <p>Parameters can be in any order e.g. <code>--n NAME --p PHONE_NUMBER</code> and <code>--p PHONE_NUMBER --n NAME</code> are considered the same.</p>
@@ -841,35 +841,60 @@ list of notes will appear in the right pane. The left pane still displays a chat
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/NoteListExample.png" alt="NoteListExample">
+<img src="images/NoteListExample.png" alt="NoteListExample" width="600">
 </div>
 <div class="title">Figure 14. An example of Note View</div>
 </div>
 <div class="sect3">
 <h4 id="creates-a-note-code-create-code"><a class="link" href="#creates-a-note-code-create-code">4.4.1. Creates a note: <code>create</code></a></h4>
 <div class="paragraph">
-<p>Creates a new note.</p>
+<p>Creates a new note. If any tags are listed, the note will be tagged with them.<br>
+Notes without title will be titled "Untitled Note"</p>
 </div>
 <div class="paragraph">
 <p>Format:</p>
 </div>
 <div class="paragraph">
-<p><code>note create [--T TITLE] --c CONTENT</code></p>
+<p><code>note create [--T TITLE] [--c CONTENT] [--t TAG]*</code></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+TITLE and CONTENT can be optional if the other is defined but cannot be both empty.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Example:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p><code>note create --c Today I don’t feel like doing anything</code><br>
-Adds a note with content “Today I don’t feel like doing anything”.</p>
+<p>Let&#8217;s say you found a resource link that can be referenced for your assignment and you would like to make a note. You can create a note with the resource link as the content with the following command
+<code>note create --T MIPS --c <a href="https://en.wikipedia.org/wiki/MIPS_architecture" class="bare">https://en.wikipedia.org/wiki/MIPS_architecture</a> --t #assignment</code></p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_notecreate1.png" alt="ug notecreate1" width="600">
+</div>
+<div class="title">Figure 15. Entering <code>note create</code> command</div>
+</div>
 </li>
 <li>
-<p><code>note create --T Relax --c Today I don’t feel like doing anything</code><br>
-Adds a note with title "Relax" and content “Today I don’t feel like doing anything”.</p>
+<p>A note is created with the title "MIPS" and content "https://en.wikipedia.org/wiki/MIPS_architecture". The note is also tagged with the hashtag "assignment".<br>
+The note created is displayed in the right pane.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_notecreate2.png" alt="ug notecreate2" width="600">
+</div>
+<div class="title">Figure 16. Note created after command execution</div>
+</div>
 </li>
-</ul>
+</ol>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -895,18 +920,43 @@ Upload of image will be supported in v2.0
 <div class="paragraph">
 <p><code>note delete NOTE_ID</code></p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+As assigned note id is static, deleted note id are not reassigned.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Example:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p><code>note delete 00002</code></p>
-<div class="paragraph">
-<p>Deletes note with id '<em>00002</em>'.</p>
+<p>If you have completed your assignment and would like to delete the note related to the resource link, you can delete with the command <code>note delete 16</code>.<br>
+As the note id is "00016", you can enter "16" as the NOTE_ID parameter.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_notedelete1.png" alt="ug notedelete1" width="600">
+</div>
+<div class="title">Figure 17. Entering <code>note delete</code> command</div>
 </div>
 </li>
-</ul>
+<li>
+<p>The note will be deleted from TagLine.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_notedelete2.png" alt="ug notedelete2" width="600">
+</div>
+<div class="title">Figure 18. Note deleted after command execution</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -918,20 +968,44 @@ Upload of image will be supported in v2.0
 <p>Format:</p>
 </div>
 <div class="paragraph">
-<p><code>note edit NOTE_ID --c NEW_CONTENT</code></p>
+<p><code>note edit NOTE_ID [--T NEW_TITLE] [--c NEW_CONTENT]</code></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Enter the parameters to update.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Example:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p><code>note edit 00002 --c Today I don’t feel like doing anything</code></p>
-<div class="paragraph">
-<p>Replaces the content of the note which id is '<em>00002</em>' with “<em>Today I don’t feel like doing anything.</em>”</p>
+<p>If you find that your note title should have more information, you can enter the command <code>note edit 16 --T CS2100 Assignment: MIPS</code></p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_noteedit1.png" alt="ug noteedit1" width="600">
+</div>
+<div class="title">Figure 19. Entering <code>note edit</code> command</div>
 </div>
 </li>
-</ul>
+<li>
+<p>The title of the note will be changed from "MIPS" to "CS2100 Assignment: MIPS".</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_noteedit2.png" alt="ug noteedit2" width="600">
+</div>
+<div class="title">Figure 20. Note edited after command execution</div>
+</div>
+</li>
+</ol>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1047,11 +1121,87 @@ Partial editing will be supported in v2.0
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>note list %GROUPNAME</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>note list %cs2103 team</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>note list %cs2103t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Lists all notes tagged with the group '<em>cs2103 team</em>'.</p></td>
 </tr>
 </tbody>
 </table>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When you would like to see all the notes you have in TagLine, you can enter the command <code>note list</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_notelist1.png" alt="ug notelist1" width="600">
+</div>
+<div class="title">Figure 21. Entering <code>note list</code> command</div>
+</div>
+</li>
+<li>
+<p>All notes are displayed.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_notelist2.png" alt="ug notelist2" width="600">
+</div>
+<div class="title">Figure 22. All notes displayed</div>
+</div>
+</li>
+<li>
+<p>When you would like to find the notes containing the keyword "cs", you can enter the command <code>note list cs</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_notelist3.png" alt="ug notelist3" width="600">
+</div>
+<div class="title">Figure 23. Entering <code>note list</code> command with keyword</div>
+</div>
+</li>
+<li>
+<p>Notes with the keyword "cs" found in the title or content are displayed.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_notelist4.png" alt="ug notelist4" width="600">
+</div>
+<div class="title">Figure 24. Notes containing keyword displayed</div>
+</div>
+</li>
+<li>
+<p>When you would like to see the notes tagged with the hashtag "assignment", you can enter the command <code>note list #assignment</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_notelist5.png" alt="ug notelist5" width="600">
+</div>
+<div class="title">Figure 25. Entering <code>note list</code> command with tag filter</div>
+</div>
+</li>
+<li>
+<p>Notes tagged with "#assignment" are displayed.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_notelist6.png" alt="ug notelist6" width="600">
+</div>
+<div class="title">Figure 26. Filtered tagged notes displayed</div>
+</div>
+</li>
+<li>
+<p>When you would like to filter by multiple tags, you can enter the command <code>note list @00001 %cs2103t</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_notelist7.png" alt="ug notelist7" width="600">
+</div>
+<div class="title">Figure 27. Entering <code>note list</code> command with multiple tag filter</div>
+</div>
+</li>
+<li>
+<p>Notes tagged with contact of contact id "1" or with group with group name "cs2103t" are displayed.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_notelist8.png" alt="ug notelist8" width="600">
+</div>
+<div class="title">Figure 28. Filtered notes displayed</div>
+</div>
+</li>
+</ol>
+</div>
 </div>
 <div class="sect3">
 <h4 id="clear-all-notes-code-clear-code"><a class="link" href="#clear-all-notes-code-clear-code">4.4.7. Clear all notes: <code>clear</code></a></h4>
@@ -1077,8 +1227,14 @@ Partial editing will be supported in v2.0
 <pre>Are you sure you want to clear your contact list? Enter 'Y' to continue.</pre>
 </div>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_noteclear.png" alt="ug noteclear" width="600">
+</div>
+<div class="title">Figure 29. Confirmation for clearing notes</div>
+</div>
 <div class="paragraph">
-<p>Then, if you answer "Y", the chatbot will clear all data in your contact list.
+<p>If you answer "Y", the chatbot will clear all data in your contact list.<br>
 If you press the ESC key, the command will be aborted.</p>
 </div>
 </div>
@@ -1134,4 +1290,4 @@ If you press the ESC key, the command will be aborted.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-06 00:38:50 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-06 11:13:36 UTC</div></div></div></body></html>
