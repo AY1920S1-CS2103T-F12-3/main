@@ -15,10 +15,8 @@ import tagline.ui.CommandBox.CommandExecutor;
  * The UI component that stores the chat window.
  */
 public class ChatPane extends UiPart<GridPane> {
-
     private static final String FXML = "ChatPane.fxml";
     private static final String TAGLINE_RESPONSE_IMAGE = "/images/tagline_icon.png";
-    public static final String ABORT_PROMPTING_STRING = "Command has been aborted.";
 
     private CommandBox commandBox;
 
@@ -74,10 +72,9 @@ public class ChatPane extends UiPart<GridPane> {
     }
 
     /**
-     * Handles aborting a prompt.
+     * Enables autocomplete for the command box.
      */
-    public void abortPrompt() {
-        setFeedbackToUser(ABORT_PROMPTING_STRING);
+    public void enableAutocomplete() {
         commandBox.setAutoCompleteEnabled(true);
     }
 }
