@@ -18,6 +18,7 @@ public class ChatPane extends UiPart<GridPane> {
 
     private static final String FXML = "ChatPane.fxml";
     private static final String TAGLINE_RESPONSE_IMAGE = "/images/tagline_icon.png";
+    public static final String ABORT_PROMPTING_STRING = "Command has been aborted.";
 
     private CommandBox commandBox;
 
@@ -70,5 +71,13 @@ public class ChatPane extends UiPart<GridPane> {
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
         dialogContainer.getChildren().add(DialogBox.getResponseDialog(feedbackToUser, image).getRoot());
+    }
+
+    /**
+     * Handles aborting a prompt.
+     */
+    public void abortPrompt() {
+        setFeedbackToUser(ABORT_PROMPTING_STRING);
+        commandBox.setAutoCompleteEnabled(true);
     }
 }
