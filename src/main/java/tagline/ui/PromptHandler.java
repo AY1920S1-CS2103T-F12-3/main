@@ -2,6 +2,7 @@
 package tagline.ui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import tagline.logic.parser.Prompt;
@@ -31,12 +32,12 @@ public class PromptHandler {
     }
 
     /**
-     * Gets the filled prompt list.
-     * Can only be called if all prompts have been filled.
+     * Gets an unmodifiable view of the filled prompt list.
+     * Only called if all prompts have been filled.
      */
     public List<Prompt> getFilledPromptList() {
         assert isComplete();
-        return filledPromptList;
+        return Collections.unmodifiableList(filledPromptList);
     }
 
     /**

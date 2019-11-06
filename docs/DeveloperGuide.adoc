@@ -82,19 +82,19 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/tagline/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` which is made up of four parts, i.e. `StatusBarFooter`, `HelpWindow`, `ChatPane` and `ResultPane`. In particular,
+The UI consists of a `MainWindow` which is made up of four parts, i.e. `StatusBarFooter`, `HelpWindow`, `ChatPane` and `ResultPane`. `MainWindow` may also have a `PromptHandler` which contains a list of `Prompt` objects (see <<User Prompting, here>> for more information). In particular,
 
-*  The `ChatPane` manages text interaction with the user. It uses `CommandBox` to read commands and `DialogBox` to display commands and feedback.
+*  The `ChatPane` manages text interaction with the user. It uses `CommandBox` to read commands and `DialogBox` to display commands and feedback. To handle auto-completion, `CommandBox` uses an `AutoCompleteNode` to provide suggestions. The class diagram for the sub-component is shown below.
 
 .Structure of the Chat Pane sub-component
 image::UiChatPaneClassDiagram.png[]
 
-*  The `ResultPane` displays a relevant `ResultView` based on the command entered.
+*  The `ResultPane` displays a relevant `ResultView` based on the command entered. The following class diagram shows a partial view of the component with only the `NoteListResultView` and `ContactListResultView`.
 
 .Structure of the Result Pane sub-component
 image::UiResultPaneClassDiagram.png[]
 
-All these classes, including the `MainWindow` itself, inherit from the abstract `UiPart` class.
+Most of  these classes, including the `MainWindow` itself, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/tagline/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
