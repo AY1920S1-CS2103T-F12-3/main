@@ -405,9 +405,10 @@ image::UserPromptActivityDiagram.png[]
 ** Cons: Requires changing multiple `Parser` classes, may increase code duplication
 
 **Alternative 3** is chosen as it allows the confirmation messages for the `clear` commands to be implemented easily.
-// end::userprompting[]
 
 For Alternative 1 and 2, implementing confirmation would inadvertently add an alternative command to directly perform the action. To illustrate, suppose we check for confirmation for the `contact clear` command by having the user type `YES`. Then due to the mechanism of the prompting feature, we will inadvertently include a new command like `contact clear <prefix> YES`. Since this is unintuitive, alternative 3 was chosen instead.
+
+// end::userprompting[]
 
 === [Proposed] Group Contacts feature
 ==== Proposed Implementation
