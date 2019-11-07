@@ -74,6 +74,8 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+// tag::designui[]
+
 [[Design-Ui]]
 === UI component
 
@@ -105,6 +107,8 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
+// end::designui[]
+
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -295,6 +299,7 @@ Classes used by multiple components are in the `tagline.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::userprompting[]
 === User Prompting
 
 ==== Description
@@ -303,7 +308,7 @@ When the user enters an incomplete command, the command could be missing only a 
 
 At this point, the user may abort the command or provide the requested details. When all details are provided, the command is executed.
 
-==== Proposed Implementation
+==== Implementation
 
 ===== Representing a prompt
 
@@ -385,6 +390,7 @@ image::UserPromptActivityDiagram.png[]
 ** Cons: Requires changing multiple `Parser` classes, decreases maintainability in the long run
 
 **Alternative 3** is chosen as it allows the confirmation messages for the `clear` commands to be implemented easily.
+// end::userprompting[]
 
 === [Proposed] Group Contacts feature
 ==== Proposed Implementation
