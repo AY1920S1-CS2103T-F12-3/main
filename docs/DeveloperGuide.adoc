@@ -362,7 +362,7 @@ To allow the `Ui` to handle user prompts, the sequence of steps taken to handle 
 . The user is currently being prompted, and enters some input to answer a prompt. There are no more prompts remaining.
     .. `MainWindow` has a `promptHandler` which is incomplete. It calls `fillNextPrompt` with the user input.
     .. `MainWindow` checks that `promptHandler` is now complete.
-    .. `MainWindow` calls `getPendingCommand` and `getNextPrompt` of `promptHandler`.
+    .. `MainWindow` calls `getPendingCommand` and `getFilledPromptList` of `promptHandler`.
     .. The incomplete command and the filled prompt list are passed to `Logic` to execute the command.
 
 The cases above are labelled and summarized in the full activity diagram below. The mechanism for aborting commands is done using listeners and not shown below.
