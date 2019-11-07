@@ -40,7 +40,7 @@
 </li>
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#proposed-chatbot-prompting-feature">3.1. [Proposed] Chatbot prompting feature</a>
+<li><a href="#user-prompting">3.1. User Prompting</a>
 <ul class="sectlevel3">
 <li><a href="#description">3.1.1. Description</a></li>
 <li><a href="#proposed-implementation">3.1.2. Proposed Implementation</a></li>
@@ -65,15 +65,8 @@
 <li><a href="#proposed-implementation-4">3.4.2. Proposed Implementation</a></li>
 </ul>
 </li>
-<li><a href="#proposed-undo-redo-feature">3.5. [Proposed] Undo/Redo feature</a>
-<ul class="sectlevel3">
-<li><a href="#proposed-implementation-5">3.5.1. Proposed Implementation</a></li>
-<li><a href="#design-considerations-3">3.5.2. Design Considerations</a></li>
-</ul>
-</li>
-<li><a href="#proposed-data-encryption">3.6. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.7. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.8. Configuration</a></li>
+<li><a href="#logging">3.5. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -221,12 +214,12 @@ The following class plays an important role at the architecture level:</p>
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/ui/Ui.java"><code>Ui.java</code></a></p>
 </div>
 <div class="paragraph">
-<p>The UI consists of a <code>MainWindow</code> which is made up of four parts, i.e. <code>StatusBarFooter</code>, <code>HelpWindow</code>, <code>ChatPane</code> and <code>ResultPane</code>. In particular,</p>
+<p>The UI consists of a <code>MainWindow</code> which is made up of four parts, i.e. <code>StatusBarFooter</code>, <code>HelpWindow</code>, <code>ChatPane</code> and <code>ResultPane</code>. <code>MainWindow</code> may also have a <code>PromptHandler</code> which contains a list of <code>Prompt</code> objects (see <a href="#user-prompting">here</a> for more information). In particular,</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The <code>ChatPane</code> manages text interaction with the user. It uses <code>CommandBox</code> to read commands and <code>DialogBox</code> to display commands and feedback.</p>
+<p>The <code>ChatPane</code> manages text interaction with the user. It uses <code>CommandBox</code> to read commands and <code>DialogBox</code> to display commands and feedback. To handle auto-completion, <code>CommandBox</code> uses an <code>AutoCompleteNode</code> to provide suggestions. The class diagram for the sub-component is shown below.</p>
 </li>
 </ul>
 </div>
@@ -239,7 +232,7 @@ The following class plays an important role at the architecture level:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The <code>ResultPane</code> displays a relevant <code>ResultView</code> based on the command entered.</p>
+<p>The <code>ResultPane</code> displays a relevant <code>ResultView</code> based on the command entered. The following class diagram shows a partial view of the component with only the <code>NoteListResultView</code> and <code>ContactListResultView</code>.</p>
 </li>
 </ul>
 </div>
@@ -250,7 +243,7 @@ The following class plays an important role at the architecture level:</p>
 <div class="title">Figure 6. Structure of the Result Pane sub-component</div>
 </div>
 <div class="paragraph">
-<p>All these classes, including the <code>MainWindow</code> itself, inherit from the abstract <code>UiPart</code> class.</p>
+<p>Most of  these classes, including the <code>MainWindow</code> itself, inherit from the abstract <code>UiPart</code> class.</p>
 </div>
 <div class="paragraph">
 <p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
@@ -663,7 +656,7 @@ As an additional feature to be implemented in the future, we can store a <code>T
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
 <div class="sect2">
-<h3 id="proposed-chatbot-prompting-feature"><a class="link" href="#proposed-chatbot-prompting-feature">3.1. [Proposed] Chatbot prompting feature</a></h3>
+<h3 id="user-prompting"><a class="link" href="#user-prompting">3.1. User Prompting</a></h3>
 <div class="sect3">
 <h4 id="description"><a class="link" href="#description">3.1.1. Description</a></h4>
 <div class="paragraph">
@@ -675,38 +668,30 @@ As an additional feature to be implemented in the future, we can store a <code>T
 </div>
 <div class="sect3">
 <h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.1.2. Proposed Implementation</a></h4>
+<div class="sect4">
+<h5 id="representing-a-prompt"><a class="link" href="#representing-a-prompt">Representing a prompt</a></h5>
 <div class="paragraph">
-<p>The prompting mechanism uses <code>Prompt</code> objects to represent individual queries for additional information. A list of <code>Prompt</code> objects is used to pass information between the <code>Logic</code> and <code>Ui</code> components. <code>Prompt</code> implements the following operations:</p>
-</div>
-<div class="paragraph">
-<p><code>Logic</code> side:</p>
+<p>The prompting mechanism uses <code>Prompt</code> objects to represent individual queries for additional information. A list of <code>Prompt</code> objects is used to pass information between the <code>Logic</code> and <code>Ui</code> components. <code>Prompt</code> contains the following fields:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>Prompt#setPrefix()</code>&#8201;&#8212;&#8201;Sets the prefix of the queried data</p>
+<p><code>prefix</code>: The prefix of the missing field (e.g. for a <code>contact create</code> command, the <code>name</code> field has prefix <code>--n</code>)</p>
 </li>
 <li>
-<p><code>Prompt#setQuestion()</code>&#8201;&#8212;&#8201;Sets the prompt to be displayed to the user</p>
+<p><code>question</code>: A question to ask the user for details regarding the missing information</p>
 </li>
 <li>
-<p><code>Prompt#getResponse()</code>&#8201;&#8212;&#8201;Gets the prompt response from the user</p>
+<p><code>response</code>: The response from the user</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><code>Ui</code> side:</p>
+<p>These fields are accessible through getters and setters in the <code>Prompt</code> class.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>Prompt#getQuestion()</code>&#8201;&#8212;&#8201;Gets the prompt to be displayed to the user</p>
-</li>
-<li>
-<p><code>Prompt#setResponse()</code>&#8201;&#8212;&#8201;Sets the response from the user</p>
-</li>
-</ul>
 </div>
+<div class="sect4">
+<h5 id="passing-the-prompts"><a class="link" href="#passing-the-prompts">Passing the prompts</a></h5>
 <div class="paragraph">
 <p>Given below is an example scenario where the user command has missing compulsory fields.</p>
 </div>
@@ -719,7 +704,7 @@ As an additional feature to be implemented in the future, we can store a <code>T
 </div>
 </div>
 <div class="paragraph">
-<p>Step 2: The <code>Ui</code> receives the list of <code>Prompt</code> objects. For each <code>Prompt</code>, it retrieves the question and obtains the corresponding user feedback.</p>
+<p>Step 2: The <code>Ui</code> receives the list of <code>Prompt</code> objects. For each <code>Prompt</code>, it retrieves the question and obtains the corresponding user feedback using the mechanism <a href="#Getting responses from the user">here</a>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -735,7 +720,108 @@ As an additional feature to be implemented in the future, we can store a <code>T
 </div>
 </div>
 <div class="paragraph">
-<p>The user can also abort the command by entering a special string. In this case, the <code>Ui</code> will discard the original command and continue to receive further user commands.</p>
+<p>The full sequence diagram is shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UserPromptSequenceDiagramFull.png" alt="UserPromptSequenceDiagramFull">
+</div>
+</div>
+<div class="paragraph">
+<p>The user can also abort the command by pressing the Escape button. In this case, the <code>Ui</code> will discard the original command and continue to receive further user commands.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="getting-prompts-from-the-user"><a class="link" href="#getting-prompts-from-the-user">Getting prompts from the user</a></h5>
+<div class="paragraph">
+<p>To obtain responses to a list of prompts, the UI uses a <code>PromptHandler</code> to indicate the incomplete command that it is currently working on. <code>PromptHandler</code> uses the Iterator design pattern to fill a list of prompts. It implements the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>PromptHandler#getPendingCommand</code>: Returns the incomplete command</p>
+</li>
+<li>
+<p><code>PromptHandler#fillNextPrompt</code>: Fills the next unfilled prompt in the list</p>
+</li>
+<li>
+<p><code>PromptHandler#getNextPrompt</code>: Gets the question of the next unfilled prompt in the list</p>
+</li>
+<li>
+<p><code>PromptHandler#isComplete</code>: Returns true if all prompts have been filled</p>
+</li>
+<li>
+<p><code>PromptHandler#getFilledPromptList</code>: Gets the filled prompt list</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To allow the <code>Ui</code> to handle user prompts, the sequence of steps taken to handle user input has been modified. To illustrate the program flow, three possible scenarios of user input will be discussed.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The user enters some input with missing compulsory fields.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The input is passed to <code>Logic</code>, where a <code>PromptRequestException</code> is thrown.</p>
+</li>
+<li>
+<p><code>MainWindow</code> takes the list of prompts in the <code>PromptRequestException</code>, and creates a new <code>PromptHandler</code> in the private field <code>promptHandler</code>.</p>
+</li>
+<li>
+<p><code>MainWindow</code> gets the first prompt question from <code>promptHandler</code> and displays it.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>The user is currently being prompted, and enters some input to answer a prompt. There are more prompts remaining.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><code>MainWindow</code> has a <code>promptHandler</code> which is incomplete. It calls <code>fillNextPrompt</code> with the user input.</p>
+</li>
+<li>
+<p><code>MainWindow</code> checks that <code>promptHandler</code> is still incomplete.</p>
+</li>
+<li>
+<p><code>MainWindow</code> gets the next prompt question from <code>promptHandler</code> and displays it.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>The user is currently being prompted, and enters some input to answer a prompt. There are no more prompts remaining.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><code>MainWindow</code> has a <code>promptHandler</code> which is incomplete. It calls <code>fillNextPrompt</code> with the user input.</p>
+</li>
+<li>
+<p><code>MainWindow</code> checks that <code>promptHandler</code> is now complete.</p>
+</li>
+<li>
+<p><code>MainWindow</code> calls <code>getPendingCommand</code> and <code>getNextPrompt</code> of <code>promptHandler</code>.</p>
+</li>
+<li>
+<p>The incomplete command and the filled prompt list are passed to <code>Logic</code> to execute the command.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The cases above are labelled and summarized in the full activity diagram below. The mechanism for aborting commands is done using listeners and not shown below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UserPromptActivityDiagram.png" alt="UserPromptActivityDiagram">
+</div>
+<div class="title">Figure 21. Overall activity diagram for handling user input</div>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -758,32 +844,35 @@ As an additional feature to be implemented in the future, we can store a <code>T
 </div>
 </li>
 <li>
-<p><strong>Alternative 2</strong> (chosen): The <code>LogicManager</code> updates the command with the user&#8217;s responses by adding the new data to the command string.</p>
+<p><strong>Alternative 2</strong>: The <code>LogicManager</code> updates the command with the user&#8217;s responses by adding the new data to the command string.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros: No need to overload <code>Parser#parse()</code> method</p>
 </li>
 <li>
-<p>Cons: Requires all commands to follow the same general format</p>
+<p>Cons: Requires <code>LogicManager</code> to know where to insert preambles, and reduces flexibility of prompting</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 3</strong>: The <code>Parser</code> handles the <code>Prompt</code> objects when parsing the command</p>
+<p><strong>Alternative 3</strong>: <code>TaglineParser</code> and the individual parser classes handles the <code>Prompt</code> objects when parsing the command</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Easily handles preambles and allows greater extensibility of the prompt feature, e.g. can have the user fix incorrect commands</p>
+<p>Pros: Easily handles preambles, and also allows greater extensibility of the prompt feature, e.g. can have the user fix incorrect commands or confirm actions</p>
 </li>
 <li>
-<p>Cons: Requires changing every <code>Parser</code> class, decreases maintainability in the long run</p>
+<p>Cons: Requires changing multiple <code>Parser</code> classes, decreases maintainability in the long run</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p><strong>Alternative 3</strong> is chosen as it allows the confirmation messages for the <code>clear</code> commands to be implemented easily.</p>
 </div>
 </div>
 </div>
@@ -793,7 +882,7 @@ As an additional feature to be implemented in the future, we can store a <code>T
 <div class="sect3">
 <h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.2.1. Proposed Implementation</a></h4>
 <div class="paragraph">
-<p>The grouping feature is facilitated by <code>GroupBook</code> an additional Model component in addition to the current <code>AddressBook</code>.
+<p>The grouping feature is facilitated by <code>GroupBook</code>, an additional Model component in addition to the current <code>AddressBook</code>.
 It extends the functionality of <code>AddressBook</code> by providing a way to group contacts together into unique <code>Group</code> classes
 identified by their <code>GroupName</code>. This allows users to form more natural associations of
 contacts such as "BTS-members". Identifying which contacts are group members of a <code>Group</code> is done by
@@ -853,7 +942,7 @@ would interact with <code>GroupCommand</code> and <code>GroupModel</code> state.
 <div class="content">
 <img src="images/GroupContactsState0.png" alt="GroupContactsState0">
 </div>
-<div class="title">Figure 21. Simplified state of relevant Model components initially</div>
+<div class="title">Figure 22. Simplified state of relevant Model components initially</div>
 </div>
 <div class="paragraph">
 <p>The <code>AddressBook</code> model state contains all the <code>Contact</code> class that exists in the App.
@@ -868,7 +957,7 @@ would interact with <code>GroupCommand</code> and <code>GroupModel</code> state.
 <div class="content">
 <img src="images/GroupContactsState1.png" alt="GroupContactsState1">
 </div>
-<div class="title">Figure 22. State after Group "BTS" is created</div>
+<div class="title">Figure 23. State after Group "BTS" is created</div>
 </div>
 <div class="paragraph">
 <p>The <code>GroupBook</code> model state now contains a <code>Group</code> instance for "BTS" with no members
@@ -887,7 +976,7 @@ Any command regarding <code>Group</code> would prompt the <code>UI</code> to dis
 <div class="content">
 <img src="images/GroupContactsState2.png" alt="GroupContactsState2">
 </div>
-<div class="title">Figure 23. State after four contacts are added into Group "BTS"</div>
+<div class="title">Figure 24. State after four contacts are added into Group "BTS"</div>
 </div>
 <div class="paragraph">
 <p><code>Group</code> "BTS" now has members in it and the <code>UI</code> would display all the contacts found in the
@@ -905,7 +994,7 @@ Any command regarding <code>Group</code> would prompt the <code>UI</code> to dis
 <div class="content">
 <img src="images/GroupContactsState3.png" alt="GroupContactsState3">
 </div>
-<div class="title">Figure 24. State after contact with contactId = 00013 is deleted</div>
+<div class="title">Figure 25. State after contact with contactId = 00013 is deleted</div>
 </div>
 <div class="paragraph">
 <p>Deleting a <code>Contact</code> would cause it to be removed from <code>AddressBook</code> model state and the <code>Contact</code>
@@ -922,7 +1011,7 @@ Any command regarding <code>Group</code> would prompt the <code>UI</code> to dis
 <div class="content">
 <img src="images/GroupContactsState4.png" alt="GroupContactsState4">
 </div>
-<div class="title">Figure 25. State after user views contacts of Group "BTS"</div>
+<div class="title">Figure 26. State after user views contacts of Group "BTS"</div>
 </div>
 <div class="paragraph">
 <p>Here, the <code>GroupBook</code> model state is updated and memberId of 00013 from the previous step is removed while <code>Contact</code>
@@ -937,7 +1026,7 @@ Now all is as it should be in <code>Group</code> "BTS".<br></p>
 <div class="content">
 <img src="images/GroupSequenceDiagram.png" alt="GroupSequenceDiagram">
 </div>
-<div class="title">Figure 26. Sequence diagram of executing <code>FindGroupCommand</code> to view contacts in a <code>Group</code></div>
+<div class="title">Figure 27. Sequence diagram of executing <code>FindGroupCommand</code> to view contacts in a <code>Group</code></div>
 </div>
 </div>
 <div class="sect3">
@@ -1103,7 +1192,7 @@ It contains a String filter value and the enum <code>FilterType</code>.</p>
 <div class="content">
 <img src="images/FilterKeywordSequenceDiagram1.png" alt="FilterKeywordSequenceDiagram1">
 </div>
-<div class="title">Figure 27. Sequence diagram of parsing note filter user command to obtain a <code>ListNoteCommand</code></div>
+<div class="title">Figure 28. Sequence diagram of parsing note filter user command to obtain a <code>ListNoteCommand</code></div>
 </div>
 <div class="paragraph">
 <p><strong>Step 2:</strong> The <code>ListNoteCommand</code> returned will be executed by the <code>LogicManager</code>. If a <code>Filter</code> exists and is of <code>FilterType.KEYWORD</code>, <code>ListNoteCommand#filterAndListByKeyword()</code> will be called.</p>
@@ -1112,7 +1201,7 @@ It contains a String filter value and the enum <code>FilterType</code>.</p>
 <div class="content">
 <img src="images/FilterKeywordSequenceDiagram2.png" alt="FilterKeywordSequenceDiagram2">
 </div>
-<div class="title">Figure 28. Sequence diagram of executing <code>ListNoteCommand</code> to update filtered note list by keyword in <code>Model</code></div>
+<div class="title">Figure 29. Sequence diagram of executing <code>ListNoteCommand</code> to update filtered note list by keyword in <code>Model</code></div>
 </div>
 <div class="paragraph">
 <p>The method will create a <code>NoteContainsKeywordsPredicate</code> and update the list of notes to be displayed via <code>Model</code>.</p>
@@ -1144,240 +1233,20 @@ It contains a String filter value and the enum <code>FilterType</code>.</p>
 <div class="content">
 <img src="images/FilterTagSequenceDiagram.png" alt="FilterTagSequenceDiagram">
 </div>
-<div class="title">Figure 29. Sequence diagram of executing <code>ListNoteCommand</code> to update filtered note list by <code>Tag</code> in <code>Model</code></div>
+<div class="title">Figure 30. Sequence diagram of executing <code>ListNoteCommand</code> to update filtered note list by <code>Tag</code> in <code>Model</code></div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.5. [Proposed] Undo/Redo feature</a></h3>
-<div class="sect3">
-<h4 id="proposed-implementation-5"><a class="link" href="#proposed-implementation-5">3.5.1. Proposed Implementation</a></h4>
-<div class="paragraph">
-<p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
-It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
-Additionally, it implements the following operations:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>VersionedAddressBook#commit()</code>&#8201;&#8212;&#8201;Saves the current address book state in its history.</p>
-</li>
-<li>
-<p><code>VersionedAddressBook#undo()</code>&#8201;&#8212;&#8201;Restores the previous address book state from its history.</p>
-</li>
-<li>
-<p><code>VersionedAddressBook#redo()</code>&#8201;&#8212;&#8201;Restores a previously undone address book state from its history.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>These operations are exposed in the <code>Model</code> interface as <code>Model#commitAddressBook()</code>, <code>Model#undoAddressBook()</code> and <code>Model#redoAddressBook()</code> respectively.</p>
-</div>
-<div class="paragraph">
-<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
-</div>
-<div class="paragraph">
-<p>Step 1. The user launches the application for the first time. The <code>VersionedAddressBook</code> will be initialized with the initial address book state, and the <code>currentStatePointer</code> pointing to that single address book state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoState0.png" alt="UndoRedoState0">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 2. The user executes <code>delete 5</code> command to delete the 5th person in the address book. The <code>delete</code> command calls <code>Model#commitAddressBook()</code>, causing the modified state of the address book after the <code>delete 5</code> command executes to be saved in the <code>addressBookStateList</code>, and the <code>currentStatePointer</code> is shifted to the newly inserted address book state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoState1.png" alt="UndoRedoState1">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 3. The user executes <code>add n/David &#8230;&#8203;</code> to add a new person. The <code>add</code> command also calls <code>Model#commitAddressBook()</code>, causing another modified address book state to be saved into the <code>addressBookStateList</code>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoState2.png" alt="UndoRedoState2">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If a command fails its execution, it will not call <code>Model#commitAddressBook()</code>, so the address book state will not be saved into the <code>addressBookStateList</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the <code>undo</code> command. The <code>undo</code> command will call <code>Model#undoAddressBook()</code>, which will shift the <code>currentStatePointer</code> once to the left, pointing it to the previous address book state, and restores the address book to that state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoState3.png" alt="UndoRedoState3">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The <code>undo</code> command uses <code>Model#canUndoAddressBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The following sequence diagram shows how the undo operation works:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoSequenceDiagram.png" alt="UndoSequenceDiagram">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The lifeline for <code>UndoCommand</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoAddressBook()</code>, which shifts the <code>currentStatePointer</code> once to the right, pointing to the previously undone state, and restores the address book to that state.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index <code>addressBookStateList.size() - 1</code>, pointing to the latest address book state, then there are no undone address book states to restore. The <code>redo</code> command uses <code>Model#canRedoAddressBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 5. The user then decides to execute the command <code>list</code>. Commands that do not modify the address book, such as <code>list</code>, will usually not call <code>Model#commitAddressBook()</code>, <code>Model#undoAddressBook()</code> or <code>Model#redoAddressBook()</code>. Thus, the <code>addressBookStateList</code> remains unchanged.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoState4.png" alt="UndoRedoState4">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 6. The user executes <code>clear</code>, which calls <code>Model#commitAddressBook()</code>. Since the <code>currentStatePointer</code> is not pointing at the end of the <code>addressBookStateList</code>, all address book states after the <code>currentStatePointer</code> will be purged. We designed it this way because it no longer makes sense to redo the <code>add n/David &#8230;&#8203;</code> command. This is the behavior that most modern desktop applications follow.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoState5.png" alt="UndoRedoState5">
-</div>
-</div>
-<div class="paragraph">
-<p>The following activity diagram summarizes what happens when a user executes a new command:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/CommitActivityDiagram.png" alt="CommitActivityDiagram">
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.5.2. Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Saves the entire address book.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy to implement.</p>
-</li>
-<li>
-<p>Cons: May have performance issues in terms of memory usage.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Individual command knows how to undo/redo by itself.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Will use less memory (e.g. for <code>delete</code>, just save the person being deleted).</p>
-</li>
-<li>
-<p>Cons: We must ensure that the implementation of each individual command are correct.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-data-structure-to-support-the-undo-redo-commands"><a class="link" href="#aspect-data-structure-to-support-the-undo-redo-commands">Aspect: Data structure to support the undo/redo commands</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Use a list to store the history of address book states.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.</p>
-</li>
-<li>
-<p>Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both <code>HistoryManager</code> and <code>VersionedAddressBook</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Use <code>HistoryManager</code> for undo/redo</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.</p>
-</li>
-<li>
-<p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.6. [Proposed] Data Encryption</a></h3>
-<div class="paragraph">
-<p><em>{Explain here how the data encryption feature will be implemented}</em></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.7. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.5. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.8, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.6, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1408,7 +1277,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.8. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.6. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -2117,4 +1986,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-06 11:13:36 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-07 07:34:24 UTC</div></div></div></body></html>
