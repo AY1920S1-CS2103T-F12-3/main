@@ -1,0 +1,642 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Tan Likai - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="../images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link active" href="../index.html">AB-3</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level4">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">tagline</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="../LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/AY1920S1-CS2103T-F12-3/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Tan Likai - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="project-tagline"><a class="link" href="#project-tagline">PROJECT: TagLine</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-the-project"><a class="link" href="#about-the-project">About the project</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>My team of 5 software engineering students were tasked with enhancing a basic command line interface desktop addressbook application for our Software Engineering project.</p>
+</div>
+<div class="paragraph">
+<p>We chose to expand the application into a note management application with contact management capabilities called <strong>TagLine</strong>. In addition to the originally existing operations on contacts, this enhanced application allows users to record and list notes; create groups of contacts; and tag notes with relevant hashtags, contacts or groups.</p>
+</div>
+<div class="paragraph">
+<p>Below is a screenshot of our project:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../images/ui_notes.png" alt="ui notes"></span></p>
+</div>
+<div class="paragraph">
+<p>My role was to design the UI and write Java code, FXML and CSS for it. The following sections illustrate some more specific enhancements I have made to the UI, as well as some relevant documentation in the user and developer guides related to these enhancements.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Major enhancement</strong>: I added <strong>autocomplete</strong> for commands in TagLine.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: When the user starts typing a command, a list of autocomplete suggestions will be shown below the command box.</p>
+</li>
+<li>
+<p>Justification: This feature benefits new users by allowing them to understand all the possible commands in TagLine.</p>
+</li>
+<li>
+<p>Highlights: I implemented <code>AutoCompleteNode</code> using a search tree, so that it only gets the most relevant suggestions. Additionally, using CSS, I applied a custom skin to the default ControlsFX autocomplete popup.</p>
+</li>
+<li>
+<p>Credits: I used the ControlsFX library for the GUI implementation of the autocomplete box.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Major enhancement</strong>: I added <strong>user prompting</strong> for commands in TagLine.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: TagLine can detect if a command entered by the user is missing some information. For example, a user may forget to indicate the name when adding a contact. In that case, the TagLine chatbot will ask the user for the name of the contact.</p>
+<div class="paragraph">
+<p>As an extension, using the same framework, TagLine can request confirmation when performing major changes like clearing the contact or note list.</p>
+</div>
+</li>
+<li>
+<p>Justification: This feature benefits inexperienced users by allowing them to easily fix mistakes without having to retype entire commands. Also, it allows for an alternative method of inputting commands field by field, which may be preferable to some users.</p>
+</li>
+<li>
+<p>Highlights: This feature required implementing additional interactions between the <code>Ui</code> and the <code>Logic</code> components, which was done using an intermediate class to pass prompts. I also had to design a new program flow for the <code>Ui</code> to handle user prompts.</p>
+<div class="paragraph">
+<p>To increase user-friendliness, I included messages to tell the user when they are being prompted, and disabled autocomplete when the user enters the response.</p>
+</div>
+<div class="paragraph">
+<p>For future commands, this feature is easily extensible as it only requires the new <code>Parser</code> to throw an exception requesting some prompts.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>: I added the GUI views for listing notes, viewing a single group and listing groups. I also refactored the original contact list to be able to hide empty fields.</p>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>: I implemented a chat interface for communicating with the user.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Credits: I reused my code from my individual project to build the chat interface.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Code contributed</strong>: [<a href="https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=f12-3&amp;sort=groupTitle&amp;sortWithin=title&amp;since=2019-09-06&amp;timeframe=commit&amp;mergegroup=false&amp;groupSelect=groupByRepos&amp;breakdown=false&amp;tabOpen=true&amp;tabType=authorship&amp;tabAuthor=tanlk99&amp;tabRepo=AY1920S1-CS2103T-F12-3%2Fmain%5Bmaster%5D">RepoSense report</a>]</p>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Project management:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Handled releases <code>v1.1</code> - <code>v1.3</code> (3 releases) on GitHub</p>
+</li>
+<li>
+<p>Setup Coveralls</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Enhancements to existing features:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Wrote GUI tests to test new and old components of the UI, increasing coverage for the <code>tagline.ui</code> package to 65.6%</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/pull/140">#140</a>, <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/pull/68">#68</a>, <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/pull/105">#105</a></p>
+</li>
+<li>
+<p>Reported bugs and suggestions for other teams: <a href="https://github.com/AY1920S1-CS2103T-W13-1/main/issues/96">#96</a>, <a href="https://github.com/AY1920S1-CS2103T-W13-1/main/issues/95">#95</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Tools:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Integrated ControlsFX to the project for the autocomplete feature (<a href="https://github.com">#42</a>)</p>
+</li>
+<li>
+<p>Integrated TestFX to the team repo to write and perform GUI tests.</p>
+</li>
+<li>
+<p>Integrated Hamcrest to the team repo to write GUI tests.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="learning-tagline"><a class="link" href="#learning-tagline">Learning TagLine</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Are you new to TagLine? Or are you prone to making typos? In either case, TagLine has some nifty features to help you out.</p>
+</div>
+<div class="sect2">
+<h3 id="autocomplete"><a class="link" href="#autocomplete">Autocomplete</a></h3>
+<div class="paragraph">
+<p>When you enter a command, TagLine will display autocomplete suggestions as you type.</p>
+</div>
+<div class="paragraph">
+<p>To illustrate, let&#8217;s suppose you are trying to create a new contact. However, you only remember that the first keyword is <code>contact</code>! With the autocomplete feature, it is easy to find the correct command. Try following the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Type <code>contact</code> into the command box, followed by a space. A list of suggestions will pop up under the command bar.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_autocomplete1.png" alt="ug autocomplete1" width="790">
+</div>
+</div>
+</li>
+<li>
+<p>Use the arrow keys to navigate to the correct command (optional if using mouse).</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_autocomplete2.png" alt="ug autocomplete2" width="790">
+</div>
+</div>
+</li>
+<li>
+<p>Press the Enter key or click on the command in the menu. Your command box will now display <code>contact create</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_autocomplete3.png" alt="ug autocomplete3" width="790">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Note</strong></p>
+</div>
+<div class="paragraph">
+<p>After typing a command, if the autocomplete menu is still showing, please wait a moment for it to disappear, or click elsewhere on the screen. If you press Enter too quickly, this will cause your command to be overwritten.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="prompts"><a class="link" href="#prompts">Prompts</a></h3>
+<div class="paragraph">
+<p>For some commands, TagLine can prompt you when there is missing important information. Instead of having to type the whole command again, you will only need to fill in the couple of fields you missed.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s take the same example of creating a new contact.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Suppose you accidentally pressed Enter too early, and sent the command <code>contact create</code> as is.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_prompt1.png" alt="ug prompt1" width="790">
+</div>
+</div>
+</li>
+<li>
+<p>Maybe you have intended to call this new contact <code>Bob</code>. Then type <code>Bob</code> into the command box and press Enter (or Send). Then TagLine would appear like this:</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_prompt2.png" alt="ug prompt2" width="790">
+</div>
+</div>
+</li>
+<li>
+<p>As can be seen above, TagLine has successfully created a new contact named <code>Bob</code>.</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="aborting-an-incomplete-command"><a class="link" href="#aborting-an-incomplete-command">Aborting an incomplete command</a></h4>
+<div class="paragraph">
+<p>But what if we don&#8217;t want to proceed with the command? You can abort the command by pressing the Escape key.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>After step 1 of the above example, let&#8217;s say you no longer want to create a new contact. Press the Escape key.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_prompt3.png" alt="ug prompt3" width="790">
+</div>
+</div>
+</li>
+<li>
+<p>The incomplete command will not be executed. Now you can continue to enter other commands into the command box.</p>
+</li>
+</ol>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Note</strong></p>
+</div>
+<div class="paragraph">
+<p>When given prompts, to minimize inconvenience to you, the autocomplete menu is temporarily disabled. Once prompting is complete or aborted, autocomplete will be re-enabled.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="Design-Ui"><a class="link" href="#Design-Ui">UI component</a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UiClassDiagram.png" alt="UiClassDiagram">
+</div>
+<div class="title">Figure 1. Structure of the UI Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> : <a href="{repoURL}/src/main/java/tagline/ui/Ui.java"><code>Ui.java</code></a></p>
+</div>
+<div class="paragraph">
+<p>The UI consists of a <code>MainWindow</code> which is made up of four parts, i.e. <code>StatusBarFooter</code>, <code>HelpWindow</code>, <code>ChatPane</code> and <code>ResultPane</code>. <code>MainWindow</code> may also have a <code>PromptHandler</code> which contains a list of <code>Prompt</code> objects (see <a href="#user-prompting">here</a> for more information). In particular,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>ChatPane</code> manages text interaction with the user. It uses <code>CommandBox</code> to read commands and <code>DialogBox</code> to display commands and feedback. To handle auto-completion, <code>CommandBox</code> uses an <code>AutoCompleteNode</code> to provide suggestions. The class diagram for the sub-component is shown below.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UiChatPaneClassDiagram.png" alt="UiChatPaneClassDiagram">
+</div>
+<div class="title">Figure 2. Structure of the Chat Pane sub-component</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>ResultPane</code> displays a relevant <code>ResultView</code> based on the command entered. The following class diagram shows a partial view of the component with only the <code>NoteListResultView</code> and <code>ContactListResultView</code>.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UiResultPaneClassDiagram.png" alt="UiResultPaneClassDiagram">
+</div>
+<div class="title">Figure 3. Structure of the Result Pane sub-component</div>
+</div>
+<div class="paragraph">
+<p>Most of  these classes, including the <code>MainWindow</code> itself, inherit from the abstract <code>UiPart</code> class.</p>
+</div>
+<div class="paragraph">
+<p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="{repoURL}/src/main/java/tagline/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="{repoURL}/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
+</div>
+<div class="paragraph">
+<p>The <code>UI</code> component,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Executes user commands using the <code>Logic</code> component.</p>
+</li>
+<li>
+<p>Displays feedback and updates the <code>ResultPane</code> using <code>CommandResult</code> in the <code>Logic</code> component.</p>
+</li>
+<li>
+<p>Listens for changes to <code>Model</code> data so that the UI can be updated with the modified data.</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="user-prompting"><a class="link" href="#user-prompting">User Prompting</a></h3>
+<div class="sect3">
+<h4 id="description"><a class="link" href="#description">Description</a></h4>
+<div class="paragraph">
+<p>When the user enters an incomplete command, the command could be missing only a few compulsory fields. Instead of forcing the user to edit the command entirely, TagLine will prompt the user for further details instead.</p>
+</div>
+<div class="paragraph">
+<p>At this point, the user may abort the command or provide the requested details. When all details are provided, the command is executed.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<div class="sect4">
+<h5 id="representing-a-prompt"><a class="link" href="#representing-a-prompt">Representing a prompt</a></h5>
+<div class="paragraph">
+<p>The prompting mechanism uses <code>Prompt</code> objects to represent individual queries for additional information. A list of <code>Prompt</code> objects is used to pass information between the <code>Logic</code> and <code>Ui</code> components. <code>Prompt</code> contains the following fields:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>prefix</code>: The prefix of the missing field (e.g. for a <code>contact create</code> command, the <code>name</code> field has prefix <code>--n</code>)</p>
+</li>
+<li>
+<p><code>question</code>: A question to ask the user for details regarding the missing information</p>
+</li>
+<li>
+<p><code>response</code>: The response from the user</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These fields are accessible through getters and setters in the <code>Prompt</code> class.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="passing-the-prompts"><a class="link" href="#passing-the-prompts">Passing the prompts</a></h5>
+<div class="paragraph">
+<p>Given below is an example scenario where the user command has missing compulsory fields.</p>
+</div>
+<div class="paragraph">
+<p>Step 1: The <code>Ui</code> passes the user&#8217;s command to <code>Logic</code>, which finds one or more missing compulsory fields. For each missing field, it creates a new <code>Prompt</code> object with a question. Then it throws a <code>ParseException</code> containing the list of <code>Prompt</code> objects.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UserPromptSequenceDiagramStep1.png" alt="UserPromptSequenceDiagramStep1">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 2: The <code>Ui</code> receives the list of <code>Prompt</code> objects. For each <code>Prompt</code>, it retrieves the question and obtains the corresponding user feedback using the mechanism <a href="#Getting responses from the user">here</a>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UserPromptSequenceDiagramStep2.png" alt="UserPromptSequenceDiagramStep2">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 3: The <code>Ui</code> passes the original command, together with the processed <code>Prompt</code> objects, back to <code>Logic</code>. <code>Logic</code> then executes the corrected command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UserPromptSequenceDiagramStep3.png" alt="UserPromptSequenceDiagramStep3">
+</div>
+</div>
+<div class="paragraph">
+<p>The full sequence diagram is shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UserPromptSequenceDiagramFull.png" alt="UserPromptSequenceDiagramFull">
+</div>
+</div>
+<div class="paragraph">
+<p>The user can also abort the command by pressing the Escape button. In this case, the <code>Ui</code> will discard the original command and continue to receive further user commands.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="getting-prompts-from-the-user"><a class="link" href="#getting-prompts-from-the-user">Getting prompts from the user</a></h5>
+<div class="paragraph">
+<p>To obtain responses to a list of prompts, the UI uses a <code>PromptHandler</code> to indicate the incomplete command that it is currently working on. <code>PromptHandler</code> uses the Iterator design pattern to fill a list of prompts. It implements the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>PromptHandler#getPendingCommand</code>: Returns the incomplete command</p>
+</li>
+<li>
+<p><code>PromptHandler#fillNextPrompt</code>: Fills the next unfilled prompt in the list</p>
+</li>
+<li>
+<p><code>PromptHandler#getNextPrompt</code>: Gets the question of the next unfilled prompt in the list</p>
+</li>
+<li>
+<p><code>PromptHandler#isComplete</code>: Returns true if all prompts have been filled</p>
+</li>
+<li>
+<p><code>PromptHandler#getFilledPromptList</code>: Gets the filled prompt list</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To allow the <code>Ui</code> to handle user prompts, the sequence of steps taken to handle user input has been modified. To illustrate the program flow, three possible scenarios of user input will be discussed.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The user enters some input with missing compulsory fields.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The input is passed to <code>Logic</code>, where a <code>PromptRequestException</code> is thrown.</p>
+</li>
+<li>
+<p><code>MainWindow</code> takes the list of prompts in the <code>PromptRequestException</code>, and creates a new <code>PromptHandler</code> in the private field <code>promptHandler</code>.</p>
+</li>
+<li>
+<p><code>MainWindow</code> gets the first prompt question from <code>promptHandler</code> and displays it.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>The user is currently being prompted, and enters some input to answer a prompt. There are more prompts remaining.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><code>MainWindow</code> has a <code>promptHandler</code> which is incomplete. It calls <code>fillNextPrompt</code> with the user input.</p>
+</li>
+<li>
+<p><code>MainWindow</code> checks that <code>promptHandler</code> is still incomplete.</p>
+</li>
+<li>
+<p><code>MainWindow</code> gets the next prompt question from <code>promptHandler</code> and displays it.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>The user is currently being prompted, and enters some input to answer a prompt. There are no more prompts remaining.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><code>MainWindow</code> has a <code>promptHandler</code> which is incomplete. It calls <code>fillNextPrompt</code> with the user input.</p>
+</li>
+<li>
+<p><code>MainWindow</code> checks that <code>promptHandler</code> is now complete.</p>
+</li>
+<li>
+<p><code>MainWindow</code> calls <code>getPendingCommand</code> and <code>getFilledPromptList</code> of <code>promptHandler</code>.</p>
+</li>
+<li>
+<p>The incomplete command and the filled prompt list are passed to <code>Logic</code> to execute the command.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The cases above are labelled and summarized in the full activity diagram below. The mechanism for aborting commands is done using listeners and not shown below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UserPromptActivityDiagram.png" alt="UserPromptActivityDiagram">
+</div>
+<div class="title">Figure 4. Overall activity diagram for handling user input</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-prompt-handling-method"><a class="link" href="#aspect-prompt-handling-method">Aspect: Prompt handling method</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1</strong>: The <code>Ui</code> functions as per before and is unaware of prompting. The <code>Logic</code> keeps track of the incomplete command and sends prompts back as <code>CommandResult</code> objects.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Decreases coupling between <code>Ui</code> and <code>Logic</code> components</p>
+</li>
+<li>
+<p>Cons: Violates the Single Responsibility Principle for <code>CommandResult</code>, i.e. <code>CommandResult</code> may now have to change because of changes to the prompting feature</p>
+<div class="paragraph">
+<p><code>Ui</code> has no way to know if it is currently handling prompting, so it cannot abort prompts, disable/enable autocomplete or display special messages.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: The <code>Logic</code> component keeps track of the incomplete command and throws an exception containing prompts to the <code>Ui</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Greater flexibility for <code>Ui</code> to handle prompts, e.g. aborting</p>
+</li>
+<li>
+<p>Cons: <code>LogicManager</code> has to keep track of the command entered, rather than simply acting as a bridge between the <code>Ui</code> and the <code>Parser</code> sub-component. Increases number of potential points of failure and decreases maintainability.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 3</strong>: The <code>Logic</code> component requests prompts from the <code>Ui</code>. The <code>Ui</code> component keeps track of the incomplete command.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Greater flexibility for <code>Ui</code> to handle prompts, e.g. aborting</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Alternative 3</strong> was chosen as it allows for flexibility in prompt handling while having <code>Ui</code> be the sole component responsible for collecting prompt responses.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-command-correction-method"><a class="link" href="#aspect-command-correction-method">Aspect: Command correction method</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1</strong>: The <code>Ui</code> updates the command with the user&#8217;s responses by adding the new data to the command string.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No need to overload <code>Logic#execute()</code> and <code>Parser#parse()</code> methods</p>
+</li>
+<li>
+<p>Cons: Requires <code>Ui</code> to know where to insert preambles, and increases coupling between <code>Ui</code> and <code>Logic</code> components (as <code>Ui</code> now needs to know and follow the command format)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: The <code>LogicManager</code> updates the command with the user&#8217;s responses by adding the new data to the command string.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No need to overload <code>Parser#parse()</code> method</p>
+</li>
+<li>
+<p>Cons: Requires <code>LogicManager</code> to know where to insert preambles, and reduces flexibility of prompting</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 3</strong>: <code>TaglineParser</code> and the individual parser classes handle the list of <code>Prompt</code> objects when parsing the command</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easily handles preambles, and also allows greater extensibility of the prompt feature, e.g. can have the user fix incorrect commands or confirm actions</p>
+</li>
+<li>
+<p>Cons: Requires changing multiple <code>Parser</code> classes, may increase code duplication</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Alternative 3</strong> is chosen as it allows the confirmation messages for the <code>clear</code> commands to be implemented easily.</p>
+</div>
+<div class="paragraph">
+<p>For Alternative 1 and 2, implementing confirmation would inadvertently add an alternative command to directly perform the action. To illustrate, suppose we check for confirmation for the <code>contact clear</code> command by having the user type <code>YES</code>. Then due to the mechanism of the prompting feature, we will inadvertently include a new command like <code>contact clear &lt;prefix&gt; YES</code>. Since this is unintuitive, alternative 3 was chosen instead.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-07 16:16:42 UTC</div></div></div></body></html>

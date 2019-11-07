@@ -43,26 +43,26 @@
 <li><a href="#user-prompting">3.1. User Prompting</a>
 <ul class="sectlevel3">
 <li><a href="#description">3.1.1. Description</a></li>
-<li><a href="#proposed-implementation">3.1.2. Proposed Implementation</a></li>
+<li><a href="#implementation-2">3.1.2. Implementation</a></li>
 <li><a href="#design-considerations">3.1.3. Design Considerations</a></li>
 </ul>
 </li>
 <li><a href="#proposed-group-contacts-feature">3.2. [Proposed] Group Contacts feature</a>
 <ul class="sectlevel3">
-<li><a href="#proposed-implementation-2">3.2.1. Proposed Implementation</a></li>
+<li><a href="#proposed-implementation">3.2.1. Proposed Implementation</a></li>
 <li><a href="#design-considerations-2">3.2.2. Design Considerations</a></li>
 </ul>
 </li>
 <li><a href="#proposed-tagging-feature">3.3. [Proposed] Tagging feature</a>
 <ul class="sectlevel3">
 <li><a href="#description-2">3.3.1. Description</a></li>
-<li><a href="#proposed-implementation-3">3.3.2. Proposed Implementation</a></li>
+<li><a href="#proposed-implementation-2">3.3.2. Proposed Implementation</a></li>
 </ul>
 </li>
 <li><a href="#proposed-note-filtering-feature">3.4. [Proposed] Note filtering feature</a>
 <ul class="sectlevel3">
 <li><a href="#description-3">3.4.1. Description</a></li>
-<li><a href="#proposed-implementation-4">3.4.2. Proposed Implementation</a></li>
+<li><a href="#proposed-implementation-3">3.4.2. Proposed Implementation</a></li>
 </ul>
 </li>
 <li><a href="#logging">3.5. Logging</a></li>
@@ -667,7 +667,7 @@ As an additional feature to be implemented in the future, we can store a <code>T
 </div>
 </div>
 <div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.1.2. Proposed Implementation</a></h4>
+<h4 id="implementation-2"><a class="link" href="#implementation-2">3.1.2. Implementation</a></h4>
 <div class="sect4">
 <h5 id="representing-a-prompt"><a class="link" href="#representing-a-prompt">Representing a prompt</a></h5>
 <div class="paragraph">
@@ -803,7 +803,7 @@ As an additional feature to be implemented in the future, we can store a <code>T
 <p><code>MainWindow</code> checks that <code>promptHandler</code> is now complete.</p>
 </li>
 <li>
-<p><code>MainWindow</code> calls <code>getPendingCommand</code> and <code>getNextPrompt</code> of <code>promptHandler</code>.</p>
+<p><code>MainWindow</code> calls <code>getPendingCommand</code> and <code>getFilledPromptList</code> of <code>promptHandler</code>.</p>
 </li>
 <li>
 <p>The incomplete command and the filled prompt list are passed to <code>Logic</code> to execute the command.</p>
@@ -826,6 +826,55 @@ As an additional feature to be implemented in the future, we can store a <code>T
 </div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.3. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-prompt-handling-method"><a class="link" href="#aspect-prompt-handling-method">Aspect: Prompt handling method</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1</strong>: The <code>Ui</code> functions as per before and is unaware of prompting. The <code>Logic</code> keeps track of the incomplete command and sends prompts back as <code>CommandResult</code> objects.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Decreases coupling between <code>Ui</code> and <code>Logic</code> components</p>
+</li>
+<li>
+<p>Cons: Violates the Single Responsibility Principle for <code>CommandResult</code>, i.e. <code>CommandResult</code> may now have to change because of changes to the prompting feature</p>
+<div class="paragraph">
+<p><code>Ui</code> has no way to know if it is currently handling prompting, so it cannot abort prompts, disable/enable autocomplete or display special messages.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: The <code>Logic</code> component keeps track of the incomplete command and throws an exception containing prompts to the <code>Ui</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Greater flexibility for <code>Ui</code> to handle prompts, e.g. aborting</p>
+</li>
+<li>
+<p>Cons: <code>LogicManager</code> has to keep track of the command entered, rather than simply acting as a bridge between the <code>Ui</code> and the <code>Parser</code> sub-component. Increases number of potential points of failure and decreases maintainability.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 3</strong>: The <code>Logic</code> component requests prompts from the <code>Ui</code>. The <code>Ui</code> component keeps track of the incomplete command.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Greater flexibility for <code>Ui</code> to handle prompts, e.g. aborting</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Alternative 3</strong> was chosen as it allows for flexibility in prompt handling while having <code>Ui</code> be the sole component responsible for collecting prompt responses.</p>
+</div>
+</div>
 <div class="sect4">
 <h5 id="aspect-command-correction-method"><a class="link" href="#aspect-command-correction-method">Aspect: Command correction method</a></h5>
 <div class="ulist">
@@ -857,14 +906,14 @@ As an additional feature to be implemented in the future, we can store a <code>T
 </div>
 </li>
 <li>
-<p><strong>Alternative 3</strong>: <code>TaglineParser</code> and the individual parser classes handles the <code>Prompt</code> objects when parsing the command</p>
+<p><strong>Alternative 3</strong>: <code>TaglineParser</code> and the individual parser classes handle the list of <code>Prompt</code> objects when parsing the command</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros: Easily handles preambles, and also allows greater extensibility of the prompt feature, e.g. can have the user fix incorrect commands or confirm actions</p>
 </li>
 <li>
-<p>Cons: Requires changing multiple <code>Parser</code> classes, decreases maintainability in the long run</p>
+<p>Cons: Requires changing multiple <code>Parser</code> classes, may increase code duplication</p>
 </li>
 </ul>
 </div>
@@ -874,13 +923,16 @@ As an additional feature to be implemented in the future, we can store a <code>T
 <div class="paragraph">
 <p><strong>Alternative 3</strong> is chosen as it allows the confirmation messages for the <code>clear</code> commands to be implemented easily.</p>
 </div>
+<div class="paragraph">
+<p>For Alternative 1 and 2, implementing confirmation would inadvertently add an alternative command to directly perform the action. To illustrate, suppose we check for confirmation for the <code>contact clear</code> command by having the user type <code>YES</code>. Then due to the mechanism of the prompting feature, we will inadvertently include a new command like <code>contact clear &lt;prefix&gt; YES</code>. Since this is unintuitive, alternative 3 was chosen instead.</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="proposed-group-contacts-feature"><a class="link" href="#proposed-group-contacts-feature">3.2. [Proposed] Group Contacts feature</a></h3>
 <div class="sect3">
-<h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.2.1. Proposed Implementation</a></h4>
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.2.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>The grouping feature is facilitated by <code>GroupBook</code>, an additional Model component in addition to the current <code>AddressBook</code>.
 It extends the functionality of <code>AddressBook</code> by providing a way to group contacts together into unique <code>Group</code> classes
@@ -1081,7 +1133,7 @@ the members in <code>Group</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="proposed-implementation-3"><a class="link" href="#proposed-implementation-3">3.3.2. Proposed Implementation</a></h4>
+<h4 id="proposed-implementation-2"><a class="link" href="#proposed-implementation-2">3.3.2. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>In order to add tagging feature we will need to take a look at two processes, which are the tag command creation and the
  execution of the command.</p>
@@ -1169,7 +1221,7 @@ interact with TagManager which will find the tag or create it if it does not exi
 </div>
 </div>
 <div class="sect3">
-<h4 id="proposed-implementation-4"><a class="link" href="#proposed-implementation-4">3.4.2. Proposed Implementation</a></h4>
+<h4 id="proposed-implementation-3"><a class="link" href="#proposed-implementation-3">3.4.2. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>The note filter mechanism is facilitated by the <code>Filter</code> inner class in <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/logic/commands/note/ListNoteCommand.java"><code>ListNoteCommand</code></a>.
 It contains a String filter value and the enum <code>FilterType</code>.</p>
@@ -1986,4 +2038,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-07 09:08:59 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-07 16:16:42 UTC</div></div></div></body></html>
