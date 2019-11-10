@@ -411,6 +411,8 @@ For Alternative 1 and 2, implementing confirmation would inadvertently add an al
 
 // end::userprompting[]
 
+// tag::groupcontacts[]
+[[Group-Contacts-Feature]]
 === Group Contacts feature
 
 ==== Description
@@ -420,8 +422,7 @@ to better express relationships much like how they exists as in real life. This 
 would provide the foundation for further more advanced features such as tagging of notes with
 group tags.
 
-The user can work with groups by using the commands as detailed in
-the <<UserGuide#manage-groups-code-group-code, `group`>> section.
+The user can work with groups by using the commands as detailed in the <<UserGuide#manage-groups-code-group-code, `group`>> section.
 
 Commands currently available:
 
@@ -552,7 +553,6 @@ image::GroupSequenceDiagram.png[]
 ** Cons: Deciding when to check if members are still part of a `Group` since it need not be done at loading time.
  While it is more flexible, can be a potential source of confusion as it may be possible to forget to update
  the members in `Group`.
-
 // end::groupcontacts[]
 
 === [Proposed] Tagging feature

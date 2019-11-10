@@ -250,10 +250,14 @@ Executing this command will trigger a confirmation in the chatbot:
 Then, if you answer "Y", the chatbot will clear all data in your contact list.
 If you press the ESC key, the command will be aborted.
 
+
+
+// tag::group-command[]
 === Manage groups: `group`
 
 NOTE: group descriptions and editing groups will be supported in v2.0, disregard any group description references here
 
+// tag::groupcreate-command[]
 ==== Create a contact group: `create`
 Creates a new group. If any contacts are mentioned, the new group will contain all of the mentioned contacts.
 
@@ -277,7 +281,9 @@ The display will show the group created and the contact that has been added.
 image::ug_groupcreate2.png[width="600"]
 
 NOTE: group descriptions and editing groups will be supported in v2.0
+// end::groupcreate-command[]
 
+// tag::groupremove-command[]
 ==== Remove member from a group: `remove`
 Removes member from a group.
 
@@ -299,6 +305,7 @@ The display will show the group and the contact left in the group.
 
 .Command executed group member removed
 image::ug_groupremove2.png[width="600"]
+// end::groupremove-command[]
 
 
 NOTE: The UI prompt would indicate 'Attempting to remove contact(s) from group' this
@@ -306,6 +313,8 @@ prompt is a confirmation and signals that the command has been executed and no o
 prompt will be given. The prompts purpose is to warn that contact ids given which
 do not appear in the Group would not be detected and the user should check it manually.
 Auto detection of contacts to be deleted that are not found in the Group is left to v2.0
+
+// tag::groupadd-command[]
 
 ==== Add member to a group: `add`
 Adds members to a group.
@@ -329,6 +338,7 @@ The display will show the group and the contact that has been added.
 
 .Command executed Group created
 image::ug_groupadd2.PNG[width="600"]
+// end::groupadd-command[]
 
 NOTE: The UI prompt would indicate 'Attempting to add contact(s) from group' this
 prompt is a confirmation and signals that the command has been executed and no other
@@ -418,6 +428,7 @@ The display will display all remaining groups in a list.
 image::ug_groupdelete2.png[width="600"]
 
 NOTE: group descriptions will be supported in v2.0
+// end::group-command[]
 
 // tag::note-command[]
 === Manage your notes: `note`
