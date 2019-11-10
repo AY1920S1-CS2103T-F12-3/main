@@ -585,7 +585,7 @@ Example:
 |Lists all notes tagged with the contact of ID '_12345_'.
 
 |`note list %GROUPNAME`
-|`note list %cs2103t`
+|`note list %cs2103-team`
 |Lists all notes tagged with the group '_cs2103-team_'.
 |===
 
