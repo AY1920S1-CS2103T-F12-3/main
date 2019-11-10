@@ -1,0 +1,634 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Ng Shi Wei - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="../images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link active" href="../index.html">AB-3</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level4">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">tagline</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="../LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/AY1920S1-CS2103T-F12-3/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Ng Shi Wei - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="project-tagline"><a class="link" href="#project-tagline">PROJECT: Tagline</a></h2>
+<div class="sectionbody">
+<hr>
+<div class="sect2">
+<h3 id="about-the-project"><a class="link" href="#about-the-project">About the project</a></h3>
+<div class="paragraph">
+<p>My team of 5 software engineering students were tasked with enhancing a basic command line interface desktop AddressBook application for our Software Engineering project. We chose to morph it into a note management application called <strong>TagLine</strong>. This enhanced application enables students to store their notes in a centralised application; organise notes related to contact, topic or project group; and filter and find their notes with ease.</p>
+</div>
+<div class="paragraph">
+<p>This is  what our project looks like:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ui.png" alt="ui">
+</div>
+<div class="title">Figure 1. The graphical user interface for TagLine</div>
+</div>
+<div class="paragraph">
+<p>My role was to design and write the codes for the note commands, including basic add, delete, edit command as well as a filter feature. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h3>
+<hr>
+<div class="paragraph">
+<p>This section shows a summary of my coding, documentation, and other helpful contributions to the team project.</p>
+</div>
+<div class="paragraph">
+<p><strong>Enhancement added:</strong> I added the ability to store and filter notes</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="underline">What it does</span>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>note create</code> command creates and stores a note to TagLine.</p>
+</li>
+<li>
+<p>The <code>note delete</code> command deletes the note from TagLine.</p>
+</li>
+<li>
+<p>The <code>note edit</code> command edits the note in TagLine.</p>
+</li>
+<li>
+<p>The <code>note list</code> command filters and list notes according to the user input provided.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><span class="underline">Justification</span>: In the case that the notes in TagLine grows, it will be difficult to find notes. The <code>note list</code> command allows users to easily find and filter the notes that they require.</p>
+</li>
+<li>
+<p><span class="underline">Highlight</span></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Note filtering work with both keyword filtering as well as tag filtering. A user can specify a keyword, if the keyword is found in note content or title, the note will be displayed. Users can also tag their notes to organise them, as implemented by other members. The <code>note list</code> command can filter the notes using tags.</p>
+</li>
+<li>
+<p>An in-depth analysis of design alternatives was necessary for the code style and design to be consistent with other features. Also, future changes and additions should be easy to be implemented if need be.</p>
+</li>
+<li>
+<p>The implementation was challenging as TagLine has 3 different tags – Hashtags, Contact as tag, and Group name as tag. The note list command has to be implemented such that the filtering applies generally to all 3 tags.</p>
+</li>
+<li>
+<p>Credit: The architecture and code of note create/delete/edit commands were reused and morphed from AddressBook commands.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Code contributed:</strong> Please click these links to see a sample of my code: [Functional code ] [Test code]</p>
+</div>
+<div class="paragraph">
+<p><strong>Other contributions:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Documentation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add the logic of note commands in developer guide after their addition to TagLine: <a href="../DeveloperGuide.html#Design-NoteLogic">NoteLogic</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Reviewed and offered suggestions for Developer Guide of other teams in class  (examples:  <a href="https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/62">SecureIT#22</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h3>
+<hr>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We had to update the original AddressBook User Guide with instructions for the enhancements that we had added. The following is an excerpt from our <strong>TagLine User Guide</strong>, showing additions that I have made for the <code>note</code> commands.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="manage-your-notes-code-note-code"><a class="link" href="#manage-your-notes-code-note-code">Manage your notes: <code>note</code></a></h3>
+<div class="paragraph">
+<p>Tagline can help people to manage their notes easily. When you use note commands, a view that displays a
+list of notes will appear in the right pane. The left pane still displays a chat bot for user interaction.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/NoteListExample.png" alt="NoteListExample" width="600">
+</div>
+<div class="title">Figure 2. An example of Note View</div>
+</div>
+<div class="sect3">
+<h4 id="creates-a-note-code-create-code"><a class="link" href="#creates-a-note-code-create-code">Creates a note: <code>create</code></a></h4>
+<div class="paragraph">
+<p>Creates a new note. If any tags are listed, the note will be tagged with them.<br>
+Notes without title will be titled "Untitled Note"</p>
+</div>
+<div class="paragraph">
+<p>Format:</p>
+</div>
+<div class="paragraph">
+<p><code>note create [--T TITLE] [--c CONTENT] [--t TAG]*</code></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+TITLE and CONTENT can be optional if the other is defined but cannot be both empty.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let&#8217;s say you found a resource link that can be referenced for your assignment and you would like to make a note. You can create a note with the resource link as the content with the following command
+<code>note create --T MIPS --c <a href="https://en.wikipedia.org/wiki/MIPS_architecture" class="bare">https://en.wikipedia.org/wiki/MIPS_architecture</a> --t #assignment</code></p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_notecreate1.png" alt="ug notecreate1" width="600">
+</div>
+<div class="title">Figure 3. Entering <code>note create</code> command</div>
+</div>
+</li>
+<li>
+<p>A note is created with the title "MIPS" and content "https://en.wikipedia.org/wiki/MIPS_architecture". The note is also tagged with the hashtag "assignment".<br>
+The note created is displayed in the right pane.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_notecreate2.png" alt="ug notecreate2" width="600">
+</div>
+<div class="title">Figure 4. Note created after command execution</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Upload of image will be supported in v2.0
+==== Delete a note: <code>delete</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Deletes a note.</p>
+</div>
+<div class="paragraph">
+<p>Format:</p>
+</div>
+<div class="paragraph">
+<p><code>note delete NOTE_ID</code></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+As assigned note id is static, deleted note id are not reassigned.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If you have completed your assignment and would like to delete the note related to the resource link, you can delete with the command <code>note delete 16</code>.<br>
+As the note id is "00016", you can enter "16" as the NOTE_ID parameter.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_notedelete1.png" alt="ug notedelete1" width="600">
+</div>
+<div class="title">Figure 5. Entering <code>note delete</code> command</div>
+</div>
+</li>
+<li>
+<p>The note will be deleted from TagLine.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_notedelete2.png" alt="ug notedelete2" width="600">
+</div>
+<div class="title">Figure 6. Note deleted after command execution</div>
+</div>
+<div class="paragraph">
+<p>==== Edit a note: <code>edit</code></p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Edits a saved note.</p>
+</div>
+<div class="paragraph">
+<p>Format:</p>
+</div>
+<div class="paragraph">
+<p><code>note edit NOTE_ID [--T NEW_TITLE] [--c NEW_CONTENT]</code></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Enter the parameters to update.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If you find that your note title should have more information, you can enter the command <code>note edit 16 --T CS2100 Assignment: MIPS</code></p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_noteedit1.png" alt="ug noteedit1" width="600">
+</div>
+<div class="title">Figure 7. Entering <code>note edit</code> command</div>
+</div>
+</li>
+<li>
+<p>The title of the note will be changed from "MIPS" to "CS2100 Assignment: MIPS".</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_noteedit2.png" alt="ug noteedit2" width="600">
+</div>
+<div class="title">Figure 8. Note edited after command execution</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Upload of image will be supported in v2.0<br>
+Partial editing will be supported in v2.0
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="note-list"><a class="link" href="#note-list">List notes: <code>list</code></a></h4>
+<div class="paragraph">
+<p>Lists all notes in the application. Filters can be applied to show only notes related to certain keywords, hashtags, users or groups.</p>
+</div>
+<div class="paragraph">
+<p>Format:</p>
+</div>
+<div class="paragraph">
+<p><code>note list [# / @ / %][FILTER]</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Format</th>
+<th class="tableblock halign-left valign-top">Example</th>
+<th class="tableblock halign-left valign-top">Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>note list</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>note list</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lists all notes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>note list KEYWORD</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>note list meeting</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lists all notes which contain the phrase “<em>meeting</em>”.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>note list #HASHTAG</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>note list #cs2100</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lists all notes with the hashtag '<em>#cs2100</em>'.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>note list @CONTACTID</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>note list @12345</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lists all notes tagged with the contact of ID '<em>12345</em>'.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>note list %GROUPNAME</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>note list %cs2103t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lists all notes tagged with the group '<em>cs2103 team</em>'.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When you would like to see all the notes you have in TagLine, you can enter the command <code>note list</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_notelist1.png" alt="ug notelist1" width="600">
+</div>
+<div class="title">Figure 9. Entering <code>note list</code> command</div>
+</div>
+</li>
+<li>
+<p>All notes are displayed.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_notelist2.png" alt="ug notelist2" width="600">
+</div>
+<div class="title">Figure 10. All notes displayed</div>
+</div>
+</li>
+<li>
+<p>When you would like to find the notes containing the keyword "cs", you can enter the command <code>note list cs</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_notelist3.png" alt="ug notelist3" width="600">
+</div>
+<div class="title">Figure 11. Entering <code>note list</code> command with keyword</div>
+</div>
+</li>
+<li>
+<p>Notes with the keyword "cs" found in the title or content are displayed.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_notelist4.png" alt="ug notelist4" width="600">
+</div>
+<div class="title">Figure 12. Notes containing keyword displayed</div>
+</div>
+</li>
+<li>
+<p>When you would like to see the notes tagged with the hashtag "assignment", you can enter the command <code>note list #assignment</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_notelist5.png" alt="ug notelist5" width="600">
+</div>
+<div class="title">Figure 13. Entering <code>note list</code> command with tag filter</div>
+</div>
+</li>
+<li>
+<p>Notes tagged with "#assignment" are displayed.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_notelist6.png" alt="ug notelist6" width="600">
+</div>
+<div class="title">Figure 14. Filtered tagged notes displayed</div>
+</div>
+</li>
+<li>
+<p>When you would like to filter by multiple tags, you can enter the command <code>note list @00001 %cs2103t</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_notelist7.png" alt="ug notelist7" width="600">
+</div>
+<div class="title">Figure 15. Entering <code>note list</code> command with multiple tag filter</div>
+</div>
+</li>
+<li>
+<p>Notes tagged with contact of contact id "1" or with group with group name "cs2103t" are displayed.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_notelist8.png" alt="ug notelist8" width="600">
+</div>
+<div class="title">Figure 16. Filtered notes displayed</div>
+</div>
+<div class="paragraph">
+<p>==== Clear all notes: <code>clear</code>
+Clears all notes.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Format:</p>
+</div>
+<div class="paragraph">
+<p><code>note clear</code></p>
+</div>
+<div class="paragraph">
+<p>Executing this command will trigger a confirmation in the chatbot:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Please confirm some additional details for the command. Press the escape key to abort.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Are you sure you want to clear your contact list? Enter 'Y' to continue.</pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ug_noteclear.png" alt="ug noteclear" width="600">
+</div>
+<div class="title">Figure 17. Confirmation for clearing notes</div>
+</div>
+<div class="paragraph">
+<p>If you answer "Y", the chatbot will clear all data in your contact list.<br>
+If you press the ESC key, the command will be aborted.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h3>
+<hr>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The following section shows my additions to the TagLine Developer Guide for the <code>note</code> logic and filter feature.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="note-filtering-feature"><a class="link" href="#note-filtering-feature">Note filtering feature</a></h3>
+<div class="sect3">
+<h4 id="description"><a class="link" href="#description">Description</a></h4>
+<div class="paragraph">
+<p>The user can filter notes by providing a filter in the <a href="UserGuide.html#note-list"><code>note list</code></a> command.</p>
+</div>
+<div class="paragraph">
+<p>Types of filter:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>No prefix - filter by String keyword</p>
+</li>
+<li>
+<p>Prefix <code>#</code> - filter by hashtag</p>
+</li>
+<li>
+<p>Prefix <code>@</code> - filter by contact</p>
+</li>
+<li>
+<p>Prefix <code>%</code> - filter by group</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<div class="paragraph">
+<p>The note filter mechanism is facilitated by the <a href="{repoURL}/src/main/java/tagline/logic/commands/note/NoteFilter.java"><code>NoteFilter</code></a> class.
+It contains the filter value and the enum <code>FilterType</code>.</p>
+</div>
+<div class="paragraph">
+<p>A <code>NoteFilter</code> is generated by the <code>NoteFilterUtil</code> inner class in <a href="{repoURL}/src/main/java/tagline/logic/parser/note/ListNoteParser.java"><code>ListNoteParser</code></a> and passed into <a href="{repoURL}/src/main/java/tagline/logic/commands/note/ListNoteCommand.java"><code>ListNoteCommand</code></a>.</p>
+</div>
+<div class="paragraph">
+<p><code>ListNoteCommand</code> then creates a <code>Predicate</code> based on the filter and updates the list of notes in the UI via <code>Model</code>.</p>
+</div>
+<div class="sect4">
+<h5 id="filter-by-string-keyword"><a class="link" href="#filter-by-string-keyword">Filter by String keyword</a></h5>
+<div class="paragraph">
+<p>Filter by keyword is facilitated by the following classes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="{repoURL}/src/main/java/tagline/logic/commands/note/KeywordFilter.java"><code>KeywordFilter</code></a> - implementation of <code>NoteFilter</code> that is passed into <code>ListNoteCommand</code></p>
+</li>
+<li>
+<p><a href="{repoURL}/src/main/java/tagline/model/note/NoteContainsKeywordsPredicate.java"><code>NoteContainsKeywordsPredicate</code></a> - <code>Predicate</code> passed into <code>Model#updateFilteredNoteList()</code> to list only notes that contain the keywords.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Given below is an example scenario where the user enters a command to filter notes by keywords.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1:</strong> The user command is passed through the <code>LogicManager</code> to <code>ListNoteParser</code>. <code>ListNoteParser</code> checks the input arguments and identify the String keywords.</p>
+</div>
+<div class="paragraph">
+<p>The keywords are passed into <code>NoteFilterUtil#generateKeywordFilter()</code>  which returns a <code>KeywordFilter</code> containing the keywords and <code>FilterType.KEYWORD</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/FilterKeywordSequenceDiagram1.png" alt="FilterKeywordSequenceDiagram1">
+</div>
+<div class="title">Figure 18. Sequence diagram of parsing <code>note list</code> user command to obtain a <code>ListNoteCommand</code></div>
+</div>
+<div class="paragraph">
+<p><strong>Step 2:</strong> The <code>ListNoteCommand</code> returned will be executed by the <code>LogicManager</code>. If a <code>NoteFilter</code> exists and is of <code>FilterType.KEYWORD</code>, <code>ListNoteCommand#filterAndListByKeyword()</code> will be called.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/FilterKeywordSequenceDiagram2.png" alt="FilterKeywordSequenceDiagram2">
+</div>
+<div class="title">Figure 19. Sequence diagram of executing <code>ListNoteCommand</code> to update filtered note list by keyword in <code>Model</code></div>
+</div>
+<div class="paragraph">
+<p>The method will create a <code>NoteContainsKeywordsPredicate</code> and update the list of notes to be displayed via <code>Model#updateFilteredNoteList()</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/FilterKeywordExample.png" alt="FilterKeywordExample">
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="filter-by-tag"><a class="link" href="#filter-by-tag">Filter by Tag</a></h5>
+<div class="paragraph">
+<p>Filter by <code>Tag</code> is facilitated by the following classes/methods:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="{repoURL}/src/main/java/tagline/logic/parser/tag/TagParserUtil.java"><code>TagParserUtil#parseTag()</code></a> - to obtain the <code>Tag</code> objects from the user input tag strings</p>
+</li>
+<li>
+<p><a href="{repoURL}/src/main/java/tagline/logic/commands/note/TagFilter.java"><code>TagFilter</code></a> - implementation of <code>NoteFilter</code> that is passed into <code>ListNoteCommand</code></p>
+</li>
+<li>
+<p><a href="{repoURL}/src/main/java/tagline/model/note/NoteContainsKeywordsPredicate.java"><code>NoteContainsTagsPredicate</code></a> - <code>Predicate</code> passed into <code>Model#updateFilteredNoteList()</code> to list only notes that is tagged by specified <code>Tag</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Given below is an example scenario where the user enters a command to filter notes by tag.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1:</strong> Similar to filtering by keyword, the user command is passed to the <code>ListNoteParser</code>. The <code>ListNoteParser</code> checks the input arguments and identify the tag strings.</p>
+</div>
+<div class="paragraph">
+<p>The tag strings are passed into <code>NoteFilterUtil#generateTagFilter()</code>. <code>TagParserUtil#parseTag()</code> is called to get <code>Tag</code> from the tag string. <code>TagFilter</code> containing the list of tags and <code>FilterType.TAG</code> is returned.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/FilterTagSequenceDiagram1.png" alt="FilterTagSequenceDiagram1">
+</div>
+<div class="title">Figure 20. Sequence diagram of parsing user input tag strings to obtain a <code>ListNoteCommand</code></div>
+</div>
+<div class="paragraph">
+<p><strong>Step 2:</strong> The <code>ListNoteCommand</code> returned will be executed by the <code>LogicManager</code>. If a <code>NoteFilter</code> exists and is of <code>FilterType.TAG</code>, <code>ListNoteCommand#filterAndListByTag()</code> will be called.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/FilterTagSequenceDiagram2.png" alt="FilterTagSequenceDiagram2">
+</div>
+<div class="title">Figure 21. Sequence diagram of executing <code>ListNoteCommand</code> to update filtered note list by <code>Tag</code> in <code>Model</code></div>
+</div>
+<div class="paragraph">
+<p>The method will check if the tags in the <code>NoteFilter</code> exists via <code>Model#findTag()</code>. If a <code>Tag</code> does not exist, an error message will be displayed.</p>
+</div>
+<div class="paragraph">
+<p>If all tags exist, the tags will be passed into the <code>NoteContainsTagsPredicate</code> and update the list of notes to be displayed via <code>Model#updateFilteredNoteList()</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/FilterTagExample.png" alt="FilterTagExample">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-10 05:50:30 UTC</div></div></div></body></html>
