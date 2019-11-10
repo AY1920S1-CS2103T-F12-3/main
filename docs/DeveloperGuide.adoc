@@ -411,28 +411,49 @@ For Alternative 1 and 2, implementing confirmation would inadvertently add an al
 
 // end::userprompting[]
 
-=== [Proposed] Group Contacts feature
-==== Proposed Implementation
+=== Group Contacts feature
+
+==== Description
+
+Groups allows users to better organize contacts into relevant social circles (represented as `Group`)
+to better express relationships much like how they exists as in real life. This feature
+would provide the foundation for further more advanced features such as tagging of notes with
+group tags.
+
+The user can work with groups by using the commands as detailed in
+the <<UserGuide#manage-groups-code-group-code, `group`>> section.
+
+Commands currently available:
+
+* `group create` - creates a new group
+* `group remove` - removes a contact from a group
+* `group add` - adds an existing contact to the group
+* `group list` - list all available groups
+* `group find` - searches for group by exact name and displays contacts in the group
+* `group delete` - disbands a group (contacts in group are not deleted)
+
+==== Implementation
 
 The grouping feature is facilitated by `GroupBook`, an additional Model component in addition to the current `AddressBook`.
 It extends the functionality of `AddressBook` by providing a way to group contacts together into unique `Group` classes
 identified by their `GroupName`. This allows users to form more natural associations of
 contacts such as "BTS-members". Identifying which contacts are group members of a `Group` is done by
 storing a record of their `ContactId` in the `Group`.
-Additionally, `GroupManager` extends Tagline with the following operations:
+Additionally, `GroupManager` extends Tagline with the following operations to support
+commands dealing with groups:
 
-* `GroupManager#getGroupBook()` -- Retrieves a view only version of the groups for storing data after app quits.
-* `GroupManager#deleteGroup()` -- Deletes a group from the list of groups currently available.
-* `GroupManager#addGroup()` -- Adds a group to the list of groups currently available.
-* `GroupManager#setGroup()` -- Replaces a group in the list of groups with another group.
-* `GroupManager#getFilteredGroupList()` -- Returns a view only list of groups containing a subset of available Groups.
-* `GroupManager#updateFilteredGroupList()` -- Specifies which groups will be retrieved by `GroupManager#getFilteredGroupList()`.
+* link:{repoURL}/src/main/java/tagline/model/group/GroupManager.java[`GroupManager#getGroupBook()`] -- Retrieves a view only version of the groups for storing data after app quits.
+* link:{repoURL}/src/main/java/tagline/model/group/GroupManager.java[`GroupManager#deleteGroup()`] -- Deletes a group from the list of groups currently available.
+* link:{repoURL}/src/main/java/tagline/model/group/GroupManager.java[`GroupManager#addGroup()`] -- Adds a group to the list of groups currently available.
+* link:{repoURL}/src/main/java/tagline/model/group/GroupManager.java[`GroupManager#setGroup()`] -- Replaces a group in the list of groups with another group.
+* link:{repoURL}/src/main/java/tagline/model/group/GroupManager.java[`GroupManager#getFilteredGroupList()`] -- Returns a view only list of groups containing a subset of available Groups.
+* link:{repoURL}/src/main/java/tagline/model/group/GroupManager.java[`GroupManager#updateFilteredGroupList()`] -- Specifies which groups will be retrieved by `GroupManager#getFilteredGroupList()`.
 
 The above operations are exposed in the `Model` interface by their respective method names.
 
-* `GroupCommand#findOneGroup()` -- Retrieves one Group with name matching the exact provided String.
-* `GroupCommand#verifyMemberIdWithModel()` -- Compares members currently in a group with contacts in `AddressBook` and returns only those found in `AddressBook`.
-* `GroupCommand#setDifference()` -- Used to get contactids specified which do not exist in `AddressBook`.
+* link:{repoURL}/src/main/java/tagline/logic/commands/group/GroupCommand.java[`GroupCommand#findOneGroup()`] -- Retrieves one Group with name matching the exact provided String.
+* link:{repoURL}/src/main/java/tagline/logic/commands/group/GroupCommand.java[`GroupCommand#verifyMemberIdWithModel()`] -- Compares members currently in a group with contacts in `AddressBook` and returns only those found in `AddressBook`.
+* link:{repoURL}/src/main/java/tagline/logic/commands/group/GroupCommand.java[`GroupCommand#setDifference()`] -- Used to get contactids specified which do not exist in `AddressBook`.
 
 These above are static utility functions which form the underlying structure of how a `GroupCommand` works.
 
@@ -479,7 +500,7 @@ image::GroupContactsState2.png[]
 
 Step 4. The user realizes she has made a mistake adding a wrong contact and in a fit of rage
  chooses to delete the contact instead of merely removing the contact from the Group.
- Executing `contact delete --i 00013`
+ Executing `contact delete 00013`
  which then deletes the `Contact` with contactId of 00013.
  However, this does not remove the contact's id from
  the memberId attribute in the `Group` the contact was in. This step does not involve `GroupModel` in any way. +
