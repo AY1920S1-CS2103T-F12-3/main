@@ -179,9 +179,9 @@ public class SampleDataUtil {
             new Group(new GroupName("UI"), new GroupDescription(""),
                     getMemberIdSet("99999")),
             new Group(new GroupName("ARMY"), new GroupDescription(""),
-                    getMemberIdSet("1","3", "6")),
+                    getMemberIdSet("1", "3", "6")),
             new Group(new GroupName("Wattpad"), new GroupDescription(""),
-                    getMemberIdSet("2","4", "5")),
+                    getMemberIdSet("2", "4", "5")),
             new Group(new GroupName("Seventeen"), new GroupDescription(""),
                     getMemberIdSet("901", "902", "903", "904", "905", "906", "907", "908",
                             "909", "9010", "9011", "9012", "9013"))
