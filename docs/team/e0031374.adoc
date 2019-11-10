@@ -22,7 +22,8 @@ the people the notes are connected to.
 
 This is what our project looks like
 
-image::frontpage.png[width="500"]
+image::frontpage.png[]
+//image::frontpage.png[width="500"]
 
 My role for this project is to implement the `Group`  feature to allow for organizing `Contact`s together into `Groups` which can be used to manage notes as a whole. The following sections together with documentation added to the user and developer guides depict this enhancement in greater detail.
 
@@ -157,7 +158,7 @@ would interact with `GroupCommand` and `GroupModel` state.
 Step 1. The user initially has several contacts in `AddressBook`. +
 
 .Simplified state of relevant Model components initially
-image::GroupContactsState0.png[]
+image::GroupContactsState0.png[width="500"]
 
 
 The `AddressBook` model state contains all the `Contact` class that exists in the App.
@@ -169,7 +170,7 @@ Step 2. Wishing to better organize her contacts into groups, the user executes `
  `CreateGroupCommand`. to create a new `Group` instance with no members. +
 
 .State after Group "BTS" is created
-image::GroupContactsState1.png[]
+image::GroupContactsState1.png[width="600"]
 
 The `GroupBook` model state now contains a `Group` instance for "BTS" with no members
 recorded as memberIds.
@@ -184,7 +185,7 @@ calling the `addMembersToGroupCommand` to add several contacts to the group. Onl
 representation of the `ContactId` will be stored in the `Group`. +
 
 .State after four contacts are added into Group "BTS"
-image::GroupContactsState2.png[]
+image::GroupContactsState2.png[width="600"]
 
 `Group` "BTS" now has members in it and the `UI` would display all the contacts found in the
 group.
@@ -198,7 +199,7 @@ However, this does not remove the contact's id from
 the memberId attribute in the `Group` the contact was in. This step does not involve `GroupModel` in any way. +
 
 .State after contact with contactId = 00013 is deleted, UI for groups is not active at this point
-image::GroupContactsState3.png[]
+image::GroupContactsState3.png[width="600"]
 
 Deleting a `Contact` would cause it to be removed from `AddressBook` model state and the `Contact`
 no longer exists. Due to the `contact` command, the active UI shifts to displaying a list
@@ -214,7 +215,7 @@ This calls `AddMemberToGroupCommand` which then updates the `Group` ensuring tha
  `ContactId` found in `AddressBook`. The contacts of the group are also displayed to the user.  +
 
 .State after user views contacts of Group "BTS", UI displaying the group of contacts is now visible
-image::GroupContactsState4.png[]
+image::GroupContactsState4.png[width="600"]
 
 Here, the `GroupBook` model state is updated and memberId of 00013 from the previous step is removed while `Contact`
 with contactId of 00003 is added into the `Group`. This change is also reflected in the `UI`
