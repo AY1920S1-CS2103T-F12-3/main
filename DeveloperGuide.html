@@ -84,6 +84,8 @@
 <li><a href="#launch-and-shutdown">G.1. Launch and Shutdown</a></li>
 <li><a href="#deleting-a-person">G.2. Deleting a person</a></li>
 <li><a href="#saving-data">G.3. Saving data</a></li>
+<li><a href="#autocomplete">G.4. Autocomplete</a></li>
+<li><a href="#prompting">G.5. Prompting</a></li>
 </ul>
 </li>
 </ul>
@@ -2126,5 +2128,81 @@ Expected: Similar to previous.</p>
 <p><em>{ more test cases &#8230;&#8203; }</em></p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="autocomplete"><a class="link" href="#autocomplete">G.4. Autocomplete</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Looking at autocomplete options</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Test case</strong>: Type a valid partial command, e.g. <code>c</code>, <code>co</code> or <code>contact del</code>.<br>
+<strong>Expected</strong>: The autocomplete popup will suggest the next word. So <code>contact</code> will be suggested for <code>c</code> and <code>co</code>, and <code>contact delete</code> will be suggested for <code>contact del</code>.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: Type an invalid partial command, e.g. <code>d</code> or <code>contact qqq</code><br>
+<strong>Expected</strong>: The autocomplete popup disappears.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: Use the arrow keys to navigate down to an option in the autocomplete popup. Press Enter or use the mouse to select it.<br>
+<strong>Expected</strong>: The command box displays the auto-completed string.</p>
+</li>
+</ol>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 05:50:50 UTC</div></div></div></body></html>
+</li>
+</ol>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Note</strong></p>
+</div>
+<div class="paragraph">
+<p>The autocomplete menu will only pop up <strong>after</strong> the user types in the command box. It will disappear after clicking elsewhere on the screen or selecting an autocomplete option.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="prompting"><a class="link" href="#prompting">G.5. Prompting</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Requesting additional information from the user</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Test case</strong>: <code>contact create</code><br>
+<strong>Expected</strong>: The chat pane will show two dialogs from TagLine. The first dialog will indicate that the user is being prompted, and the second will ask for the contact name.<br>
+<strong>Continuation</strong>: <code>Bob</code><br>
+<strong>Expected</strong>: A contact named 'Bob' will be created.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>note tag</code><br>
+<strong>Expected</strong>: The chat pane will show two dialogs from TagLine. The first dialog will indicate that the user is being prompted, and the second will ask for the note ID.<br>
+<strong>Continuation</strong>: <code>1</code> (or any valid note ID)<br>
+<strong>Expected</strong>: The chat pane will display another dialog from TagLine, asking for a tag.<br>
+<strong>Continuation</strong>: <code>#TEST</code> (or any valid tag)<br>
+<strong>Expected</strong>: The note with ID 1 will be tagged with the tag <code>#TEST</code>.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>contact delete</code><br>
+<strong>Expected</strong>: TagLine will ask for the contact ID.<br>
+<strong>Continuation</strong>: Enter any invalid ID.<br>
+<strong>Expected</strong>: An error message will be shown.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>contact delete</code><br>
+<strong>Expected</strong>: TagLine will ask for the contact ID.<br>
+<strong>Continuation</strong>: Press the escape key.<br>
+<strong>Expected</strong>: A special message will be shown indicating that the command has been aborted.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 09:32:58 UTC</div></div></div></body></html>
