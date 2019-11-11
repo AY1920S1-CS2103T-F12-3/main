@@ -157,7 +157,7 @@ public class SampleDataUtil {
         // @formatter:off
         return new Group[]{
             new Group(new GroupName("cs2103t"), new GroupDescription(""),
-                    getMemberIdSet("90035", "90036", "90037", "90038", "90041")),
+                    getMemberIdSet("00001", "00002", "00003", "00004", "00005")),
             new Group(new GroupName("X1"), new GroupDescription(""),
                     getMemberIdSet("90031", "90032", "90033", "90034", "90035", "90036", "90037", "90038",
                     "90039", "90040", "90041")),
@@ -209,7 +209,7 @@ public class SampleDataUtil {
         return Stream.of(
                 getHashTagSet("hello", "homework", "game", "songs", "assignment"),
                 getContactTagSet("1", "2", "3", "4", "5"),
-                getGroupTagSet("cs2103t"))
+                getGroupTagSet("cs2103t", "X1", "BTS", "Wanna-One", "iKon"))
                 .flatMap(Stream::of)
                 .toArray(Tag[]::new);
     }
