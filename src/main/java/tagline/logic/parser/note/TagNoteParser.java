@@ -68,7 +68,7 @@ public class TagNoteParser implements Parser<TagNoteCommand> {
      * Checks the compulsory fields of the command (i.e. note ID, tag name).
      * @throws PromptRequestException if a compulsory field is missing
      */
-    private static void checkCompulsoryFields(ArgumentMultimap argMultimap) throws ParseException {
+    private static void checkCompulsoryFields(ArgumentMultimap argMultimap) throws PromptRequestException {
         List<Prompt> promptList = new ArrayList<>();
         if (argMultimap.getPreamble().isEmpty()) {
             promptList.add(new Prompt("", TAG_NOTE_MISSING_ID_PROMPT_STRING));
