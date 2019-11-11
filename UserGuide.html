@@ -354,18 +354,6 @@ list of contacts will appear in the right pane. The left pane still displays a c
 </li>
 </ul>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Contacts with the same name is allowed only if they have different phone number and email address.
-</td>
-</tr>
-</table>
-</div>
 </div>
 <div class="sect3">
 <h4 id="list-all-contacts-code-list-code"><a class="link" href="#list-all-contacts-code-list-code">4.2.2. List all contacts: <code>list</code></a></h4>
@@ -1122,6 +1110,67 @@ Partial editing will be supported in v2.0
 <p><code>note tag NOTE_ID [--t TAG]+</code></p>
 </div>
 <div class="paragraph">
+<p>In Tagline, there are 3 types of tags. They are hash tag, contact tag and group tag.</p>
+</div>
+<div class="paragraph">
+<p><br></p>
+</div>
+<div class="sect4">
+<h5 id="tag-a-note-with-a-hash-tag"><a class="link" href="#tag-a-note-with-a-hash-tag">Tag a note with a hash tag</a></h5>
+<div class="paragraph">
+<p>Hash tag is a tag of the form <code>#TOPIC</code> where <code>TOPIC</code> could be substituted with any string not longer than 30
+characters.</p>
+</div>
+<div class="paragraph">
+<p>Example: <code>#Assignment_1</code>, <code>#Project CS2103T</code>, <code>#Meeting Notes</code></p>
+</div>
+<div class="paragraph">
+<p>By tagging a note with a hash tag, user can easily find all notes related to a certain topic.</p>
+</div>
+<div class="paragraph">
+<p><br></p>
+</div>
+<div class="paragraph">
+<p>Here is an example of tagging a note with a hash tag</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Enter the command <code>note tag 1 --t #any topic</code> into the command box.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_notetag_hashtag1.png" alt="ug notetag hashtag1" width="600">
+</div>
+</div>
+</li>
+<li>
+<p>Send the command and you will be able to see the tag in the note view.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ug_notetag_hashtag2.png" alt="ug notetag hashtag2" width="600">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><br></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="tag-a-note-with-a-contact-tag"><a class="link" href="#tag-a-note-with-a-contact-tag">Tag a note with a contact tag</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="tag-a-note-with-a-group-tag"><a class="link" href="#tag-a-note-with-a-group-tag">Tag a note with a group tag</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="tag-a-note-with-all-tags"><a class="link" href="#tag-a-note-with-all-tags">Tag a note with all tags</a></h5>
+<div class="paragraph">
+<p>We can also combine the three tags above in one <code>note tag</code> command.</p>
+</div>
+<div class="paragraph">
 <p>Example:</p>
 </div>
 <div class="ulist">
@@ -1135,6 +1184,7 @@ Partial editing will be supported in v2.0
 </ul>
 </div>
 </div>
+</div>
 <div class="sect3">
 <h4 id="untag-a-note-code-untag-code"><a class="link" href="#untag-a-note-code-untag-code">4.4.5. Untag a note: <code>untag</code></a></h4>
 <div class="paragraph">
@@ -1145,6 +1195,9 @@ Partial editing will be supported in v2.0
 </div>
 <div class="paragraph">
 <p><code>note untag NOTE_ID [--t TAG]+</code></p>
+</div>
+<div class="paragraph">
+<p>Similar with <code>note tag</code> command we can also untag a note with three types of tags.</p>
 </div>
 <div class="paragraph">
 <p>Example:</p>
@@ -1376,4 +1429,4 @@ note, it will still appear in this. The tag list serves as a history to remind y
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 10:20:20 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 10:29:26 UTC</div></div></div></body></html>
