@@ -7,15 +7,32 @@
 </div>
 </div>
 <div class="sect1">
+<h2 id="purpose-of-personal-project-portfolio"><a class="link" href="#purpose-of-personal-project-portfolio">Purpose of Personal Project Portfolio</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This portfolio is to document my contributions made towards the project done in CS2103T.
+It highlights several of my code contributions as well as documentation additions to show the
+main feature I have been working on as part of the project.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="about-the-project-tagline"><a class="link" href="#about-the-project-tagline">About the project: Tagline</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Tasked with enhancing the capabilities of a basic command line interface desktop addressbook application, my team chose to extend the functionality to include note-taking capabilities. Combining the existing contact infrastructure with tags and note support, we aim to make a more people-centric note taking platform we call Tagline. This application aims to help students more easily organize and find their notes based on the people the notes are connected to.
-This is what our project looks like</p>
+<p>Tasked with enhancing the capabilities of a basic command line interface desktop addressbook
+application, my team of five chose to extend the functionality to include note-taking
+capabilities. Combining the existing contact infrastructure with tags and note support,
+we aim to make a more people-centric note taking platform we call Tagline.
+This application aims to help students more easily organize and find their notes based on
+the people the notes are connected to.</p>
+</div>
+<div class="paragraph">
+<p>This is what our project looks like</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/ui_notes.png" alt="ui notes" width="600">
+<img src="../images/frontpage.png" alt="frontpage">
 </div>
 </div>
 <div class="paragraph">
@@ -26,6 +43,12 @@ This is what our project looks like</p>
 <div class="sect1">
 <h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>In this project, I my main feature was to develop a way to organize contact together into
+Groups. This allows users to organize contacts in a more natural way based on social circles
+of relationships rather than as an alphatically ordered list.
+It would also lay the groundwork for other features such as group tagging of notes.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -79,24 +102,30 @@ This is what our project looks like</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p><em>{you can add/remove categories in the list above}</em></p>
-</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The following sample highlights some of my additions to Tagline User Guide.
+This is primarily for <code>group</code> features I had developed.</p>
+</div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 100%;">
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The following excerpt for <code>group add</code> is chosen to represent other group command
+which are written in a similar style but ommitted due repetition. The sample aims to
+demonstrate my approach to writing documentation to help
+end users better understand the features of the product.</em></p></td>
 </tr>
 </tbody>
 </table>
+<div class="sect2">
+<h3 id="sample-code-group-add-code-command"><a class="link" href="#sample-code-group-add-code-command">Sample: <code>group add</code> command</a></h3>
 <div class="sect3">
 <h4 id="add-member-to-a-group-code-add-code"><a class="link" href="#add-member-to-a-group-code-add-code">Add member to a group: <code>add</code></a></h4>
 <div class="paragraph">
@@ -111,36 +140,35 @@ This is what our project looks like</p>
 <div class="paragraph">
 <p>Example:</p>
 </div>
-<div class="paragraph">
-<p><code>group add CS2103-F12-3 --i 12345 --i 23451 --i 34512 --i 45123 --i 51234</code></p>
-</div>
-<div class="paragraph">
-<p>+
-Adds contacts with ID '<em>12345</em>', '<em>23451</em>', '<em>34512</em>', '<em>45123</em>', and '<em>51234</em>' to the group with name '<em>CS2103-F12-3</em>' as group members.</p>
-</div>
-<div class="paragraph">
-<p>Illustrated Example:</p>
-</div>
-<div class="paragraph">
-<p>We wish to add contact with ID '<em>90040</em>' to the group '<em>ao3</em>'<br>
-First use the command
-* <code>group add ao3 --i 90040</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Over time our '<em>ao3</em>' group has grown with new members joining. We need to update our
+group to record the recent addition. To add a member to our '<em>ao3</em>' group we can use the command
+ <code>group create ao3 --i 90040</code></p>
+</li>
+</ul>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/ug_groupadd1.PNG" alt="ug groupadd1">
+<img src="../images/ug_groupadd1.PNG" alt="ug groupadd1" width="600">
 </div>
 <div class="title">Figure 1. Entering the command</div>
 </div>
-<div class="paragraph">
-<p>Then,<br>
-The contact with ID '<em>90040</em>' would then be added the group '<em>ao3</em>'</p>
+<div class="ulist">
+<ul>
+<li>
+<p>This adds a contact with ID '<em>90040</em>' to the group with name '<em>ao3</em>'
+The display will show the group and the contact that has been added.</p>
+</li>
+</ul>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/ug_groupadd2.PNG" alt="ug groupadd2">
+<img src="../images/ug_groupadd2.PNG" alt="ug groupadd2" width="600">
 </div>
-<div class="title">Figure 2. Contact with matching contact id gets added into the group</div>
+<div class="title">Figure 2. Command executed Group created</div>
+</div>
 </div>
 </div>
 </div>
@@ -149,7 +177,8 @@ The contact with ID '<em>90040</em>' would then be added the group '<em>ao3</em>
 <h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following is a sample of some of my additions to Tagline Developer Guide. This is primarily for <code>group</code> features.</p>
+<p>The following sample highlights some of my additions to Tagline Developer Guide.
+This is primarily for <code>group</code> features I had developed.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -157,41 +186,82 @@ The contact with ID '<em>90040</em>' would then be added the group '<em>ao3</em>
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The following excerpt demonstrate my approach to writing documentation to showcase
+how I write technical documentation to explain how my developed feature functions
+to aid future developers better understand how the feature functions and the
+design choices considered and made.</em></p></td>
 </tr>
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="proposed-group-contacts-feature"><a class="link" href="#proposed-group-contacts-feature">[Proposed] Group Contacts feature</a></h3>
+<h3 id="Group-Contacts-Feature"><a class="link" href="#Group-Contacts-Feature">Group Contacts feature</a></h3>
 <div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">Proposed Implementation</a></h4>
+<h4 id="description"><a class="link" href="#description">Description</a></h4>
 <div class="paragraph">
-<p>The grouping feature is facilitated by <code>GroupBook</code> an additional Model component in addition to the current <code>AddressBook</code>.
-It extends the functionality of <code>AddressBook</code> by providing a way to group contacts together into unique <code>Group</code> classes
-identified by their <code>GroupName</code>. This allows users to form more natural associations of
-contacts such as "BTS-members". Identifying which contacts are group members of a <code>Group</code> is done by
-storing a record of their <code>ContactId</code> in the <code>Group</code>.
-Additionally, <code>GroupManager</code> extends Tagline with the following operations:</p>
+<p>Groups allows users to better organize contacts into relevant social circles (represented as <code>Group</code>)
+to better express relationships much like how they exists as in real life. This feature
+would provide the foundation for further more advanced features such as tagging of notes with
+group tags.</p>
+</div>
+<div class="paragraph">
+<p>The user can work with groups by using the commands as detailed in the <a href="UserGuide.html#manage-groups-code-group-code"><code>group</code></a> section.</p>
+</div>
+<div class="paragraph">
+<p>Commands currently available:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>GroupManager#getGroupBook()</code>&#8201;&#8212;&#8201;Retrieves a view only version of the groups for storing data after app quits.</p>
+<p><code>group create</code> - creates a new group</p>
 </li>
 <li>
-<p><code>GroupManager#deleteGroup()</code>&#8201;&#8212;&#8201;Deletes a group from the list of groups currently available.</p>
+<p><code>group remove</code> - removes a contact from a group</p>
 </li>
 <li>
-<p><code>GroupManager#addGroup()</code>&#8201;&#8212;&#8201;Adds a group to the list of groups currently available.</p>
+<p><code>group add</code> - adds an existing contact to the group</p>
 </li>
 <li>
-<p><code>GroupManager#setGroup()</code>&#8201;&#8212;&#8201;Replaces a group in the list of groups with another group.</p>
+<p><code>group list</code> - list all available groups</p>
 </li>
 <li>
-<p><code>GroupManager#getFilteredGroupList()</code>&#8201;&#8212;&#8201;Returns a view only list of groups containing a subset of available Groups.</p>
+<p><code>group find</code> - searches for group by exact name and displays contacts in the group</p>
 </li>
 <li>
-<p><code>GroupManager#updateFilteredGroupList()</code>&#8201;&#8212;&#8201;Specifies which groups will be retrieved by <code>GroupManager#getFilteredGroupList()</code>.</p>
+<p><code>group delete</code> - disbands a group (contacts in group are not deleted)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<div class="paragraph">
+<p>The grouping feature is facilitated by <code>GroupBook</code>, an additional Model component in addition to the current <code>AddressBook</code>.
+It extends the functionality of <code>AddressBook</code> by providing a way to group contacts together into unique <code>Group</code> classes
+identified by their <code>GroupName</code>. This allows users to form more natural associations of
+contacts such as "BTS-members". Identifying which contacts are group members of a <code>Group</code> is done by
+storing a record of their <code>ContactId</code> in the <code>Group</code>.
+Additionally, <code>GroupManager</code> extends Tagline with the following operations to support
+commands dealing with groups:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="{repoURL}/src/main/java/tagline/model/group/GroupManager.java"><code>GroupManager#getGroupBook()</code></a>&#8201;&#8212;&#8201;Retrieves a view only version of the groups for storing data after app quits.</p>
+</li>
+<li>
+<p><a href="{repoURL}/src/main/java/tagline/model/group/GroupManager.java"><code>GroupManager#deleteGroup()</code></a>&#8201;&#8212;&#8201;Deletes a group from the list of groups currently available.</p>
+</li>
+<li>
+<p><a href="{repoURL}/src/main/java/tagline/model/group/GroupManager.java"><code>GroupManager#addGroup()</code></a>&#8201;&#8212;&#8201;Adds a group to the list of groups currently available.</p>
+</li>
+<li>
+<p><a href="{repoURL}/src/main/java/tagline/model/group/GroupManager.java"><code>GroupManager#setGroup()</code></a>&#8201;&#8212;&#8201;Replaces a group in the list of groups with another group.</p>
+</li>
+<li>
+<p><a href="{repoURL}/src/main/java/tagline/model/group/GroupManager.java"><code>GroupManager#getFilteredGroupList()</code></a>&#8201;&#8212;&#8201;Returns a view only list of groups containing a subset of available Groups.</p>
+</li>
+<li>
+<p><a href="{repoURL}/src/main/java/tagline/model/group/GroupManager.java"><code>GroupManager#updateFilteredGroupList()</code></a>&#8201;&#8212;&#8201;Specifies which groups will be retrieved by <code>GroupManager#getFilteredGroupList()</code>.</p>
 </li>
 </ul>
 </div>
@@ -201,13 +271,13 @@ Additionally, <code>GroupManager</code> extends Tagline with the following opera
 <div class="ulist">
 <ul>
 <li>
-<p><code>GroupCommand#findOneGroup()</code>&#8201;&#8212;&#8201;Retrieves one Group with name matching the exact provided String.</p>
+<p><a href="{repoURL}/src/main/java/tagline/logic/commands/group/GroupCommand.java"><code>GroupCommand#findOneGroup()</code></a>&#8201;&#8212;&#8201;Retrieves one Group with name matching the exact provided String.</p>
 </li>
 <li>
-<p><code>GroupCommand#verifyMemberIdWithModel()</code>&#8201;&#8212;&#8201;Compares members currently in a group with contacts in <code>AddressBook</code> and returns only those found in <code>AddressBook</code>.</p>
+<p><a href="{repoURL}/src/main/java/tagline/logic/commands/group/GroupCommand.java"><code>GroupCommand#verifyMemberIdWithModel()</code></a>&#8201;&#8212;&#8201;Compares members currently in a group with contacts in <code>AddressBook</code> and returns only those found in <code>AddressBook</code>.</p>
 </li>
 <li>
-<p><code>GroupCommand#setDifference()</code>&#8201;&#8212;&#8201;Used to get contactids specified which do not exist in <code>AddressBook</code>.</p>
+<p><a href="{repoURL}/src/main/java/tagline/logic/commands/group/GroupCommand.java"><code>GroupCommand#setDifference()</code></a>&#8201;&#8212;&#8201;Used to get contactids specified which do not exist in <code>AddressBook</code>.</p>
 </li>
 </ul>
 </div>
@@ -269,7 +339,7 @@ Any command regarding <code>Group</code> would prompt the <code>UI</code> to dis
 <div class="paragraph">
 <p>Step 4. The user realizes she has made a mistake adding a wrong contact and in a fit of rage
  chooses to delete the contact instead of merely removing the contact from the Group.
- Executing <code>contact delete --i 00013</code>
+ Executing <code>contact delete 00013</code>
  which then deletes the <code>Contact</code> with contactId of 00013.
  However, this does not remove the contact&#8217;s id from
  the memberId attribute in the <code>Group</code> the contact was in. This step does not involve <code>GroupModel</code> in any way.<br></p>
@@ -278,12 +348,15 @@ Any command regarding <code>Group</code> would prompt the <code>UI</code> to dis
 <div class="content">
 <img src="../images/GroupContactsState3.png" alt="GroupContactsState3">
 </div>
-<div class="title">Figure 6. State after contact with contactId = 00013 is deleted</div>
+<div class="title">Figure 6. State after contact with contactId = 00013 is deleted, UI for groups is not active at this point</div>
 </div>
 <div class="paragraph">
 <p>Deleting a <code>Contact</code> would cause it to be removed from <code>AddressBook</code> model state and the <code>Contact</code>
- no longer exists. While the <code>UI</code> display no longer shows contact of 00013, it is still recorded as a member in
- <code>GroupBook</code> model state. The updating of <code>GroupBook</code> model state is deferred.</p>
+ no longer exists. Due to the <code>contact</code> command, the active UI shifts to displaying a list
+of contacts (not illustrated here for simplicity) and the groups as shown in the image
+are actually not visible to the user. However behind the scenes, while
+the <code>UI</code> no longer has contact of 00013, it is still recorded as a member
+in <code>GroupBook</code> model state. The updating of <code>GroupBook</code> model state is deferred.</p>
 </div>
 <div class="paragraph">
 <p>Step 5. The user then executes <code>group add BTS --i 00003</code> to add the correct contact as a member on the <code>Group</code>
@@ -295,11 +368,12 @@ Any command regarding <code>Group</code> would prompt the <code>UI</code> to dis
 <div class="content">
 <img src="../images/GroupContactsState4.png" alt="GroupContactsState4">
 </div>
-<div class="title">Figure 7. State after user views contacts of Group "BTS"</div>
+<div class="title">Figure 7. State after user views contacts of Group "BTS", UI displaying the group of contacts is now visible</div>
 </div>
 <div class="paragraph">
 <p>Here, the <code>GroupBook</code> model state is updated and memberId of 00013 from the previous step is removed while <code>Contact</code>
- with contactId of 00003 is added into the <code>Group</code>. This change is also reflected in the <code>UI</code>.
+ with contactId of 00003 is added into the <code>Group</code>. This change is also reflected in the <code>UI</code>
+which changes back to group display now that a group command is issued.
 Now all is as it should be in <code>Group</code> "BTS".<br></p>
 </div>
 <div class="paragraph">
@@ -357,4 +431,4 @@ the members in <code>Group</code>.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 04:25:32 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 05:08:22 UTC</div></div></div></body></html>

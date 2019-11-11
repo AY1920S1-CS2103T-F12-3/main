@@ -572,7 +572,7 @@ group descriptions and editing groups will be supported in v2.0, disregard any g
 <div class="ulist">
 <ul>
 <li>
-<p>We wish to organize our contacts better by grouping '<em>ao3</em>' readers together.
+<p>Lets imagine we wish to organize our contacts better by starting a mailing list of '<em>ao3</em>' fanfic readers.
 We can start by creating an '<em>ao3</em>' group with a few initial members using the command
  <code>group create ao3 --i 212 --i 215</code></p>
 </li>
@@ -628,8 +628,9 @@ group descriptions and editing groups will be supported in v2.0
 <div class="ulist">
 <ul>
 <li>
-<p>To remove an '<em>ao3</em>' members we can do so with the command
-<code>group remove ao3 --i 215</code></p>
+<p>Social circles change over time. One of our former '<em>ao3</em>' members have left us to join rival
+fanfic site '<em>wattpad</em>'. To remove an '<em>ao3</em>' members we can do so with the command
+ <code>group remove ao3 --i 215</code></p>
 </li>
 </ul>
 </div>
@@ -653,6 +654,22 @@ The display will show the group and the contact left in the group.</p>
 </div>
 <div class="title">Figure 5. Command executed group member removed</div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The UI prompt would indicate 'Attempting to remove contact(s) from group' this
+prompt is a confirmation and signals that the command has been executed and no other
+prompt will be given. The prompts purpose is to warn that contact ids given which
+do not appear in the Group would not be detected and the user should check it manually.
+Auto detection of contacts to be deleted that are not found in the Group is left to v2.0
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect3">
 <h4 id="add-member-to-a-group-code-add-code"><a class="link" href="#add-member-to-a-group-code-add-code">4.3.3. Add member to a group: <code>add</code></a></h4>
@@ -671,8 +688,9 @@ The display will show the group and the contact left in the group.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>To add a member to our '<em>ao3</em>' group we can use the command
-<code>group create ao3 --i 90040</code></p>
+<p>Over time our '<em>ao3</em>' group has grown with new members joining. We need to update our
+group to record the recent addition. To add a member to our '<em>ao3</em>' group we can use the command
+ <code>group create ao3 --i 90040</code></p>
 </li>
 </ul>
 </div>
@@ -696,6 +714,22 @@ The display will show the group and the contact that has been added.</p>
 </div>
 <div class="title">Figure 7. Command executed Group created</div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The UI prompt would indicate 'Attempting to add contact(s) from group' this
+prompt is a confirmation and signals that the command has been executed and no other
+prompt will be given. The prompts purpose is to warn that contact ids given which
+do not appear in the Addressbook would not be detected and the user should check it manually.
+Auto detection of contacts to be added that are not found in the Addressbook is left to v2.0
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect3">
 <h4 id="list-all-groups-code-list-code"><a class="link" href="#list-all-groups-code-list-code">4.3.4. List all groups: <code>list</code></a></h4>
@@ -714,8 +748,9 @@ The display will show the group and the contact that has been added.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>To show all the groups stored we can use the command
-<code>group list</code></p>
+<p>Sometimes we may wish to take a step back and view all the groups we are managing.
+To show all the groups stored we can use the command
+ <code>group list</code></p>
 </li>
 </ul>
 </div>
@@ -738,6 +773,18 @@ The display will show the group and the contact that has been added.</p>
 </div>
 <div class="title">Figure 9. Command executed, Groups displayed</div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+group descriptions will be supported in v2.0
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect3">
 <h4 id="find-a-group-code-find-code"><a class="link" href="#find-a-group-code-find-code">4.3.5. Find a group: <code>find</code></a></h4>
@@ -756,8 +803,9 @@ The display will show the group and the contact that has been added.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>To find a '<em>ao3</em>' group from the list of groups we have, we can use command
-<code>group find ao3</code> with the exact group name we are looking for</p>
+<p>Often we may forget who is in a group and wish to know the contacts currently in
+a group. To find the '<em>ao3</em>' group from the list of groups, we can use command
+ <code>group find ao3</code> with the exact group name we are looking for</p>
 </li>
 </ul>
 </div>
@@ -780,6 +828,18 @@ The display will show the group and the group members</p>
 <img src="images/ug_groupfind2.png" alt="ug groupfind2" width="600">
 </div>
 <div class="title">Figure 11. Command executed, Group found and displaying Contacts</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+group descriptions will be supported in v2.0
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -807,7 +867,7 @@ The display will show the group and the group members</p>
 <div class="sect3">
 <h4 id="delete-a-group-code-delete-code"><a class="link" href="#delete-a-group-code-delete-code">4.3.7. Delete a group: <code>delete</code></a></h4>
 <div class="paragraph">
-<p>Deletes a group.</p>
+<p>Deletes a group. Note the contacts in the deleted group still exists, only the group has been disbanded.</p>
 </div>
 <div class="paragraph">
 <p>Format:</p>
@@ -821,8 +881,10 @@ The display will show the group and the group members</p>
 <div class="ulist">
 <ul>
 <li>
-<p>To delete the group '<em>ao3</em>', we can use command
-<code>group delete ao3</code></p>
+<p>Suffering from success, our little mailing list of '<em>ao3</em>' members have grown
+too large and split into several regional chapters to facilitate organization.
+Its time to disband the original '<em>ao3</em>' group and make new groups for each chapter.
+To delete the group '<em>ao3</em>', we can use command <code>group delete ao3</code></p>
 </li>
 </ul>
 </div>
@@ -845,6 +907,18 @@ The display will display all remaining groups in a list.</p>
 <img src="images/ug_groupdelete2.png" alt="ug groupdelete2" width="600">
 </div>
 <div class="title">Figure 13. Command executed Group deleted</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+group descriptions will be supported in v2.0
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -1136,8 +1210,8 @@ Partial editing will be supported in v2.0
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>note list %GROUPNAME</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>note list %cs2103t</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Lists all notes tagged with the group '<em>cs2103 team</em>'.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>note list %cs2103-team</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lists all notes tagged with the group '<em>cs2103-team</em>'.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1302,4 +1376,4 @@ note, it will still appear in this. The tag list serves as a history to remind y
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 04:25:32 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 05:08:22 UTC</div></div></div></body></html>
