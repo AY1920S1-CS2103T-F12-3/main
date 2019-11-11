@@ -76,4 +76,8 @@ include::../DeveloperGuide.adoc[tag=designui]
 
 ---
 
-include::../DeveloperGuide.adoc[tag=userprompting]
+include::../DeveloperGuide.adoc[tag=userprompting1]
+
+For the full sequence diagram, see the developer guide.
+
+include::../DeveloperGuide.adoc[tag=userprompting2]
