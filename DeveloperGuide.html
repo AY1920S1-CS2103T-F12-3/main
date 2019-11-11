@@ -78,20 +78,20 @@
 <li><a href="#use-cases">Appendix C: Use Cases</a></li>
 <li><a href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></li>
 <li><a href="#glossary">Appendix E: Glossary</a></li>
-<li><a href="#product-survey">Appendix F: Product Survey</a></li>
-<li><a href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a>
+<li><a href="#instructions-for-manual-testing">Appendix F: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
-<li><a href="#launch-and-shutdown">G.1. Launch and Shutdown</a></li>
-<li><a href="#deleting-a-person">G.2. Deleting a person</a></li>
-<li><a href="#saving-data">G.3. Saving data</a></li>
-<li><a href="#autocomplete">G.4. Autocomplete</a></li>
-<li><a href="#prompting">G.5. Prompting</a></li>
-<li><a href="#creating-a-group">G.6. Creating a group</a></li>
-<li><a href="#adding-members-to-a-group">G.7. Adding members to a group</a></li>
-<li><a href="#removing-members-from-a-group">G.8. Removing members from a group</a></li>
-<li><a href="#list-all-available-groups">G.9. List all available groups</a></li>
-<li><a href="#find-a-specific-group">G.10. Find a specific group</a></li>
-<li><a href="#deleting-a-group">G.11. Deleting a group</a></li>
+<li><a href="#autocomplete">F.1. Autocomplete</a></li>
+<li><a href="#prompting">F.2. Prompting</a></li>
+<li><a href="#creating-a-note">F.3. Creating a note</a></li>
+<li><a href="#deleting-a-note">F.4. Deleting a note</a></li>
+<li><a href="#editing-a-note">F.5. Editing a note</a></li>
+<li><a href="#listing-and-filtering-notes">F.6. Listing and filtering notes</a></li>
+<li><a href="#creating-a-group">F.7. Creating a group</a></li>
+<li><a href="#adding-members-to-a-group">F.8. Adding members to a group</a></li>
+<li><a href="#removing-members-from-a-group">F.9. Removing members from a group</a></li>
+<li><a href="#list-all-available-groups">F.10. List all available groups</a></li>
+<li><a href="#find-a-specific-group">F.11. Find a specific group</a></li>
+<li><a href="#deleting-a-group">F.12. Deleting a group</a></li>
 </ul>
 </li>
 </ul>
@@ -1990,44 +1990,7 @@ It contains the filter value and the enum <code>FilterType</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="product-survey"><a class="link" href="#product-survey">Appendix F: Product Survey</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><strong>Product Name</strong></p>
-</div>
-<div class="paragraph">
-<p>Author: &#8230;&#8203;</p>
-</div>
-<div class="paragraph">
-<p>Pros:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>&#8230;&#8203;</p>
-</li>
-<li>
-<p>&#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Cons:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>&#8230;&#8203;</p>
-</li>
-<li>
-<p>&#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a></h2>
+<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix F: Instructions for Manual Testing</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Given below are instructions to test the app manually.</p>
@@ -2045,97 +2008,7 @@ These instructions only provide a starting point for testers to work on; testers
 </table>
 </div>
 <div class="sect2">
-<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">G.1. Launch and Shutdown</a></h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Initial launch</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Download the jar file and copy into an empty folder</p>
-</li>
-<li>
-<p>Double-click the jar file<br>
-Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Saving window preferences</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Resize the window to an optimum size. Move the window to a different location. Close the window.</p>
-</li>
-<li>
-<p>Re-launch the app by double-clicking the jar file.<br>
-Expected: The most recent window size and location is retained.</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="deleting-a-person"><a class="link" href="#deleting-a-person">G.2. Deleting a person</a></h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Deleting a person while all persons are listed</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Prerequisites: List all persons using the <code>list</code> command. Multiple persons in the list.</p>
-</li>
-<li>
-<p>Test case: <code>delete 1</code><br>
-Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.</p>
-</li>
-<li>
-<p>Test case: <code>delete 0</code><br>
-Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.</p>
-</li>
-<li>
-<p>Other incorrect delete commands to try: <code>delete</code>, <code>delete x</code> (where x is larger than the list size) <em>{give more}</em><br>
-Expected: Similar to previous.</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">G.3. Saving data</a></h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Dealing with missing/corrupted data files</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p><em>{explain how to simulate a missing/corrupted file and the expected behavior}</em></p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="autocomplete"><a class="link" href="#autocomplete">G.4. Autocomplete</a></h3>
+<h3 id="autocomplete"><a class="link" href="#autocomplete">F.1. Autocomplete</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2171,7 +2044,7 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="prompting"><a class="link" href="#prompting">G.5. Prompting</a></h3>
+<h3 id="prompting"><a class="link" href="#prompting">F.2. Prompting</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2211,7 +2084,207 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="creating-a-group"><a class="link" href="#creating-a-group">G.6. Creating a group</a></h3>
+<h3 id="creating-a-note"><a class="link" href="#creating-a-note">F.3. Creating a note</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Creating a new note</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Test case:</strong> <code>note create --T TagLine Testing</code><br>
+<strong>Expected:</strong> Message on successful creation of note displayed with details of the note. The note created appears in the list of notes in the list pane on the right.</p>
+</li>
+<li>
+<p><strong>Test case:</strong> <code>note create --c This is a creation of a note</code><br>
+Expected: Similar to previous.</p>
+</li>
+<li>
+<p><strong>Test case:</strong> <code>note create --T TagLine Testing --c This is a creation of a note</code><br>
+<strong>Expected:</strong> Similar to previous.</p>
+</li>
+<li>
+<p><strong>Test case:</strong> <code>note create --T TagLine Testing --c This is a creation of a note --t #testing</code><br>
+<strong>Expected:</strong> Similar to previous. The note created shown in the note list reflects the tag "#testing".</p>
+</li>
+<li>
+<p><strong>Test case:</strong> <code>note create</code><br>
+<strong>Expected:</strong> No note is created. A message asking for the note content is displayed.<br></p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Subsequent action:</strong> Enter <code>This is a creation of a note</code>.
+<strong>Expected:</strong> Message on successful creation of note displayed with details of the note. The note created appears in the list of notes in the list pane on the right.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Test case:</strong> <code>note create</code><br>
+<strong>Expected:</strong> No note is created. A message asking for the note content is displayed.<br></p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><strong>Subsequent action:</strong> Press enter without any text.
+Expected: No note is created. An error message is returned with the error details. Command is highlighted red in the command box.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Test case:</strong> <code>note create --T This is a title of too many characters, more than 50</code><br>
+<strong>Expected:</strong> No note is created. An error message is returned with the error details. Command is highlighted red in the command box.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-a-note"><a class="link" href="#deleting-a-note">F.4. Deleting a note</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Deleting a note</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Test case:</strong> <code>note delete 1</code><br>
+<strong>Expected:</strong> Note with the id of "1" is deleted from the note list. A message indicating successful note deletion is displayed with the details of deleted note.<br>
+<strong>*<em>An assigned note id is static, deleted note id are not reassigned.</em></strong></p>
+</li>
+<li>
+<p><strong>Test case:</strong> <code>note delete 1</code> (Ensure note with ID '1' is has been removed)<br>
+<strong>Expected:</strong> No note is deleted. An error message is displayed with the error details. Command is highlighted red in the command box.</p>
+</li>
+<li>
+<p><strong>Test case:</strong> <code>note delete a</code><br>
+<strong>Expected:</strong> Similar to previous.</p>
+</li>
+<li>
+<p><strong>Test case:</strong> <code>note delete X</code> (Where X is an is a number not used as a note id i.e -1)<br>
+<strong>Expected:</strong> Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="editing-a-note"><a class="link" href="#editing-a-note">F.5. Editing a note</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Editing the sample note with id 2 upon launch</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Prerequisite:</strong> Ensure the sample notes appear in the application and note #2 is an untitled note.</p>
+</li>
+<li>
+<p><strong>Test case:</strong> <code>note edit</code><br>
+<strong>Expected:</strong> No note is edited. An error message is displayed with the error details. Command is highlighted red in the command box.</p>
+</li>
+<li>
+<p><strong>Test case:</strong> <code>note edit 2</code><br>
+<strong>Expected:</strong> Similar to previous.</p>
+</li>
+<li>
+<p><strong>Test case:</strong> <code>note edit 2 --c <code></code></code> (With a space after '--c' as the prefix is '--c ')<br>
+<strong>Expected:</strong> Similar to previous.</p>
+</li>
+<li>
+<p><strong>Test case:</strong> <code>note edit 2 --c Team Meeting - Wed 4pm</code><br>
+<strong>Expected:</strong> Message on successful edit of note displayed with details of the note. The note edited is reflected in the list of notes in the list pane on the right.</p>
+</li>
+<li>
+<p><strong>Test case:</strong> <code>note edit 2 --T CS2103T Meeting</code><br>
+<strong>Expected:</strong> Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-and-filtering-notes"><a class="link" href="#listing-and-filtering-notes">F.6. Listing and filtering notes</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Listing all notes</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisite: Change list pane to list other information. E.g. <code>contact list</code></p>
+</li>
+<li>
+<p>Test case: <code>note list</code><br>
+Expected: Message on successful listing is displayed. All notes are listed in the list pane on the right pane.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Filtering notes by keywords in content</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: <code>note list cs</code><br>
+Expected: Message on successful listing is displayed. Notes containing keyword are listed in the list pane on the right pane.</p>
+</li>
+<li>
+<p>Test case: <code>note list team bug</code><br>
+Expected:  Message on successful listing is displayed. Notes containing any of the keywords are listed in the list pane on the right pane.</p>
+</li>
+<li>
+<p>Test case: <code>note list notfound</code><br>
+Expected: No notes are listed. Message is displayed stating that no notes matching keyword is found.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Filtering notes by tag</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisite: Ensure the sample tags are in the application with <code>tag list</code></p>
+</li>
+<li>
+<p>Test case: <code>note list #songs</code><br>
+Expected: Message on successful listing is displayed. Notes tagged by specified tag are listed in the list pane on the right pane.</p>
+</li>
+<li>
+<p>Test case: <code>note list @1</code><br>
+Expected: Similar to previous.</p>
+</li>
+<li>
+<p>Test case: <code>note list %cs2103t</code><br>
+Expected: Similar to previous.</p>
+</li>
+<li>
+<p>Test case: <code>note list @1 %cs2103t</code><br>
+Expected: Similar to previous. Notes tagged by any of the tags specified are listed in the list pane on the right pane.</p>
+</li>
+<li>
+<p>Test case: <code>note list #notfound</code><br>
+Expected: No notes are listed. Message is displayed stating that tag cannot be found.</p>
+</li>
+<li>
+<p>Test case: <code>note list #songs #notfound</code><br>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-a-group"><a class="link" href="#creating-a-group">F.7. Creating a group</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2248,7 +2321,7 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-members-to-a-group"><a class="link" href="#adding-members-to-a-group">G.7. Adding members to a group</a></h3>
+<h3 id="adding-members-to-a-group"><a class="link" href="#adding-members-to-a-group">F.8. Adding members to a group</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2286,7 +2359,7 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="removing-members-from-a-group"><a class="link" href="#removing-members-from-a-group">G.8. Removing members from a group</a></h3>
+<h3 id="removing-members-from-a-group"><a class="link" href="#removing-members-from-a-group">F.9. Removing members from a group</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2319,7 +2392,7 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="list-all-available-groups"><a class="link" href="#list-all-available-groups">G.9. List all available groups</a></h3>
+<h3 id="list-all-available-groups"><a class="link" href="#list-all-available-groups">F.10. List all available groups</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2340,7 +2413,7 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-a-specific-group"><a class="link" href="#find-a-specific-group">G.10. Find a specific group</a></h3>
+<h3 id="find-a-specific-group"><a class="link" href="#find-a-specific-group">F.11. Find a specific group</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2369,7 +2442,7 @@ Expected: UI is unchanged. Status message indicates "The group name provided cou
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-group"><a class="link" href="#deleting-a-group">G.11. Deleting a group</a></h3>
+<h3 id="deleting-a-group"><a class="link" href="#deleting-a-group">F.12. Deleting a group</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2394,4 +2467,4 @@ Expected: UI is unchanged. Status message indicates "The group name provided cou
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 10:29:26 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 12:52:30 UTC</div></div></div></body></html>
