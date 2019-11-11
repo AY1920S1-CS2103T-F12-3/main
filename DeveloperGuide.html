@@ -54,16 +54,16 @@
 <li><a href="#design-considerations-2">3.2.3. Design Considerations</a></li>
 </ul>
 </li>
-<li><a href="#proposed-tagging-feature">3.3. [Proposed] Tagging feature</a>
+<li><a href="#tagging-feature">3.3. Tagging feature</a>
 <ul class="sectlevel3">
 <li><a href="#description-3">3.3.1. Description</a></li>
-<li><a href="#proposed-implementation">3.3.2. Proposed Implementation</a></li>
+<li><a href="#implementation-4">3.3.2. Implementation</a></li>
 </ul>
 </li>
 <li><a href="#note-filtering-feature">3.4. Note filtering feature</a>
 <ul class="sectlevel3">
 <li><a href="#description-4">3.4.1. Description</a></li>
-<li><a href="#implementation-4">3.4.2. Implementation</a></li>
+<li><a href="#implementation-5">3.4.2. Implementation</a></li>
 </ul>
 </li>
 <li><a href="#logging">3.5. Logging</a></li>
@@ -92,6 +92,8 @@
 <li><a href="#list-all-available-groups">F.10. List all available groups</a></li>
 <li><a href="#find-a-specific-group">F.11. Find a specific group</a></li>
 <li><a href="#deleting-a-group">F.12. Deleting a group</a></li>
+<li><a href="#tagging-a-note">F.13. Tagging a note</a></li>
+<li><a href="#untagging-a-note">F.14. Untagging a note</a></li>
 </ul>
 </li>
 </ul>
@@ -1176,7 +1178,7 @@ the members in <code>Group</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-tagging-feature"><a class="link" href="#proposed-tagging-feature">3.3. [Proposed] Tagging feature</a></h3>
+<h3 id="tagging-feature"><a class="link" href="#tagging-feature">3.3. Tagging feature</a></h3>
 <div class="sect3">
 <h4 id="description-3"><a class="link" href="#description-3">3.3.1. Description</a></h4>
 <div class="paragraph">
@@ -1184,7 +1186,7 @@ the members in <code>Group</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.3.2. Proposed Implementation</a></h4>
+<h4 id="implementation-4"><a class="link" href="#implementation-4">3.3.2. Implementation</a></h4>
 <div class="paragraph">
 <p>In order to add tagging feature we will need to take a look at two processes, which are the tag command creation and the
  execution of the command.</p>
@@ -1202,14 +1204,15 @@ the members in <code>Group</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/CreatingTagNoteCommand.png" alt="CreatingTagNoteCommand">
+<img src="images/CreatingTagNoteCommand.png" alt="CreatingTagNoteCommand" width="600">
 </div>
 </div>
 <div class="paragraph">
 <p><strong>Step 2:</strong> <code>NoteParserUtil</code> will be used to create a <code>noteId</code> object.</p>
 </div>
 <div class="paragraph">
-<p><strong>Step 3:</strong> Finally, <code>TagParserUtil</code> will be used to create <code>tag</code> objects. All of them will be aggregated inside a <code>tagList</code>.</p>
+<p><strong>Step 3:</strong> Finally, <code>TagParserUtil</code> will be used to create <code>tag</code> objects. All of them will be aggregated inside a
+<code>tagList</code> before being passed to the <code>TagNoteCommand</code> Constructor.</p>
 </div>
 <div class="paragraph">
 <p>This whole process has created a <code>TagNoteCommand</code> object from user input.</p>
@@ -1224,22 +1227,23 @@ the members in <code>Group</code>.</p>
 <p>Given below is an example scenario when the tagging command gets executed.</p>
 </div>
 <div class="paragraph">
-<p><strong>Step 1:</strong> The <code>TagNoteCommand</code> will first exchange each tag with a tagId through model. Internally, model will have to
-interact with TagManager which will find the tag or create it if it does not exist.</p>
+<p><strong>Step 1:</strong> The <code>TagNoteCommand</code> interact with <code>NoteManager</code> through <code>model</code> to find the note to be tagged.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/ExecutingTagNoteCommand.png" alt="ExecutingTagNoteCommand">
+<img src="images/ExecutingTagNoteCommand.png" alt="ExecutingTagNoteCommand" width="600">
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Step 2:</strong> The <code>TagNoteCommand</code> then interact with <code>NoteManager</code> in order to find the corresponding note.</p>
+<p><strong>Step 2:</strong> The <code>TagNoteCommand</code> then exchange each tag with another tag which is registered inside the model.
+Internally, model will have to interact with <code>TagManager</code> which will find the registered tag or register one if it does
+not exist inside model.</p>
 </div>
 <div class="paragraph">
-<p><strong>Step 3:</strong> Finally, each <code>tagId</code> will be added to note through <code>NoteManager</code>.</p>
+<p><strong>Step 3:</strong> Finally, the note will be tagged with the registered tag using model.</p>
 </div>
 <div class="paragraph">
-<p>This whole process has executed the <code>TagNoteCommand</code>.</p>
+<p>This whole process has successfully executed the <code>TagNoteCommand</code>.</p>
 </div>
 </div>
 </div>
@@ -1272,7 +1276,7 @@ interact with TagManager which will find the tag or create it if it does not exi
 </div>
 </div>
 <div class="sect3">
-<h4 id="implementation-4"><a class="link" href="#implementation-4">3.4.2. Implementation</a></h4>
+<h4 id="implementation-5"><a class="link" href="#implementation-5">3.4.2. Implementation</a></h4>
 <div class="paragraph">
 <p>The note filter mechanism is facilitated by the <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/logic/commands/note/NoteFilter.java"><code>NoteFilter</code></a> class.
 It contains the filter value and the enum <code>FilterType</code>.</p>
@@ -2466,5 +2470,145 @@ Expected: UI is unchanged. Status message indicates "The group name provided cou
 </ol>
 </div>
 </div>
+<div class="sect2">
+<h3 id="tagging-a-note"><a class="link" href="#tagging-a-note">F.13. Tagging a note</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Prerequisites</strong>: Enter <code>note list</code> command to view all notes. Ensure that note with id <code>1</code> exists. Otherwise,
+take any other note or create one and replace all id <code>1</code> with the chosen note&#8217;s id in each of the following test cases.</p>
+</li>
+<li>
+<p>Tagging a note with hash tag.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Prerequisites</strong>: Note with id <code>1</code> is not tagged with <code>#any topic</code>, <code>#topic1</code>, <code>#topic2</code>, and <code>#topic3</code>.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>note tag 1 --t #any topic</code><br>
+   <strong>Expected</strong>: Note successfully tagged with <code>#any topic</code> which should be reflected in the response message and in
+the note view.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: Enter <code>note tag 1 --t #any topic</code> twice<br>
+   <strong>Expected</strong>: The first time we enter the command, it should succeed normally as described in the previous test case
+whereas the second time we enter the same command, we would get an error message saying that the tag has been tagged
+to the note.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>note tag 1 --t #topic1 --t #topic2 --t #topic3</code><br>
+   <strong>Expected</strong>: Note successfully tagged with the three hash tag which should be reflected in the response message and in
+the note view.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: Enter <code>note tag 1 --t #topic1 --t #topic2</code> then enter <code>note tag 1 --t #topic1 --t #topic3</code><br>
+   <strong>Expected</strong>: The first time we enter the command, it should succeed normally as described in the previous test case
+whereas the second time we enter the next command, we would get an error message saying that there are tags which have
+been tagged to the note. In this case, it is <code>#topic1</code></p>
+</li>
+<li>
+<p><strong>Test case</strong>: Enter <code>note tag 1 --t #0123456789012345678901234567890</code><br>
+<strong>Expected</strong>: We will get an error message saying that the maximum character for hash tag is 30.</p>
+</li>
+</ol>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 12:52:30 UTC</div></div></div></body></html>
+</li>
+<li>
+<p>Tagging a note with contact tag</p>
+</li>
+<li>
+<p>Tagging a note with group tag</p>
+</li>
+<li>
+<p>Tagging a note with all types of tag</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Prerequisites</strong>: There is a contact with id <code>1</code>, otherwise you may choose any other existing contact id. There is a
+group with name <code>BTS</code>, otherwise you may create one. Note
+with id <code>1</code> is not tagged with <code>#topic</code>, <code>@00001</code> and <code>%BTS</code>.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>note tag 1 --t #topic --t @00001 --t %BTS</code><br>
+   <strong>Expected</strong>: Note successfully tagged with the three hash tag which should be reflected in the response message and in
+the note view.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="untagging-a-note"><a class="link" href="#untagging-a-note">F.14. Untagging a note</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Prerequisites</strong>: Enter <code>note list</code> command to view all notes. Ensure that note with id <code>1</code> exists. Otherwise,
+take any other note or create one and replace all id <code>1</code> with the chosen note&#8217;s id in each of the following test cases.</p>
+</li>
+<li>
+<p>Untagging a note with hash tag.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Prerequisites</strong>: Note with id <code>1</code> is tagged with <code>#any topic</code>, <code>#topic1</code>, <code>#topic2</code>, and <code>#topic3</code>.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>note untag 1 --t #any topic</code><br>
+   <strong>Expected</strong>: Note successfully untagged with <code>#any topic</code> which should be reflected in the response message and in
+the note view.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: Enter <code>note untag 1 --t #any topic</code> twice<br>
+   <strong>Expected</strong>: The first time we enter the command, it should succeed normally as described in the previous test case
+whereas the second time we enter the same command, we would get an error message saying that the tag is not tagged
+to the note.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>note untag 1 --t #topic1 --t #topic2 --t #topic3</code><br>
+   <strong>Expected</strong>: Note successfully untagged with the three hash tag which should be reflected in the response message
+and in the note view.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: Enter <code>note untag 1 --t #topic1 --t #topic2</code> then enter <code>note tag 1 --t #topic1 --t #topic3</code><br>
+   <strong>Expected</strong>: The first time we enter the command, it should succeed normally as described in the previous test case
+whereas the second time we enter the next command, we would get an error message saying that there are tags which are
+not tagged to the note. In this case, it is <code>#topic1</code></p>
+</li>
+<li>
+<p><strong>Test case</strong>: Enter <code>note untag 1 --t #0123456789012345678901234567890</code><br>
+<strong>Expected</strong>: We will get an error message saying that the maximum character for hash tag is 30.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Untagging a note with contact tag</p>
+</li>
+<li>
+<p>Untagging a note with group tag</p>
+</li>
+<li>
+<p>Untagging a note with all types of tag</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Prerequisites</strong>: There is a contact with id <code>1</code>, otherwise you may choose any other existing contact id. There is a
+group with name <code>BTS</code>, otherwise you may create one. Note
+with id <code>1</code> is tagged with <code>#topic</code>, <code>@00001</code> and <code>%BTS</code>.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>note untag 1 --t #topic --t @00001 --t %BTS</code><br>
+   <strong>Expected</strong>: Note successfully untagged with the three hash tag which should be reflected in the response message
+and in the note view.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 13:57:49 UTC</div></div></div></body></html>
