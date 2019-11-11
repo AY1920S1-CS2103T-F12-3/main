@@ -34,14 +34,19 @@ public class TagNoteParser implements Parser<TagNoteCommand> {
      */
     public TagNoteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
-        checkCompulsoryFields(argMultimap);
 
-        NoteId noteId;
-        try {
-            noteId = NoteParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagNoteCommand.MESSAGE_USAGE), pe);
+        //A rather hacky solution
+        NoteId noteId = null;
+        if (!argMultimap.getPreamble().isEmpty()) {
+            try {
+                noteId = NoteParserUtil.parseIndex(argMultimap.getPreamble());
+            } catch (ParseException pe) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagNoteCommand.MESSAGE_USAGE), pe);
+            }
         }
+
+        checkCompulsoryFields(argMultimap);
+        assert noteId != null;
 
         List<String> tags = argMultimap.getAllValues(PREFIX_TAG);
         if (tags.isEmpty()) {
@@ -63,7 +68,7 @@ public class TagNoteParser implements Parser<TagNoteCommand> {
      * Checks the compulsory fields of the command (i.e. note ID, tag name).
      * @throws PromptRequestException if a compulsory field is missing
      */
-    private static void checkCompulsoryFields(ArgumentMultimap argMultimap) throws PromptRequestException {
+    private static void checkCompulsoryFields(ArgumentMultimap argMultimap) throws ParseException {
         List<Prompt> promptList = new ArrayList<>();
         if (argMultimap.getPreamble().isEmpty()) {
             promptList.add(new Prompt("", TAG_NOTE_MISSING_ID_PROMPT_STRING));
