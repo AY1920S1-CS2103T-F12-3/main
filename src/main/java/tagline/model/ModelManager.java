@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static tagline.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -409,11 +410,14 @@ public class ModelManager implements Model {
      * Synchronizes the tags in the tag manager with the other models.
      */
     private void refreshTags() {
-        tagManager.getFilteredTagListWithPredicate(tag -> !tag.isValidInModel(this))
-            .forEach(tag -> {
-                tagManager.deleteTag(tag);
-                noteManager.removeTag(tag);
-            });
+        //Create a copy of the filtered tag list that does not update as tags are deleted
+        List<Tag> outdatedTags = new ArrayList<>(
+                tagManager.getFilteredTagListWithPredicate(tag -> !tag.isValidInModel(this)));
+
+        for (Tag tag : outdatedTags) {
+            noteManager.removeTag(tag);
+            tagManager.deleteTag(tag);
+        }
 
         refreshFilteredNoteList();
     }
