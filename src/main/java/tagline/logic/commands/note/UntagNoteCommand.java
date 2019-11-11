@@ -76,7 +76,7 @@ public class UntagNoteCommand extends NoteCommand {
 
         model.refreshFilteredNoteList();
         model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
-        
+
         Note targetNote = noteFound.get();
         return new CommandResult(String.format(MESSAGE_UNTAG_NOTE_SUCCESS, targetNote), CommandResult.ViewType.NOTE);
     }
