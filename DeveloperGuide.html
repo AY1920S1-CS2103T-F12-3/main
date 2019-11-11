@@ -86,6 +86,12 @@
 <li><a href="#saving-data">G.3. Saving data</a></li>
 <li><a href="#autocomplete">G.4. Autocomplete</a></li>
 <li><a href="#prompting">G.5. Prompting</a></li>
+<li><a href="#creating-a-group">G.6. Creating a group</a></li>
+<li><a href="#adding-members-to-a-group">G.7. Adding members to a group</a></li>
+<li><a href="#removing-members-from-a-group">G.8. Removing members from a group</a></li>
+<li><a href="#list-all-available-groups">G.9. List all available groups</a></li>
+<li><a href="#find-a-specific-group">G.10. Find a specific group</a></li>
+<li><a href="#deleting-a-group">G.11. Deleting a group</a></li>
 </ul>
 </li>
 </ul>
@@ -2204,5 +2210,188 @@ Expected: Similar to previous.</p>
 </ol>
 </div>
 </div>
+<div class="sect2">
+<h3 id="creating-a-group"><a class="link" href="#creating-a-group">G.6. Creating a group</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Creating a group with no members with all groups listed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Prerequisites</strong>: List all groups using the <code>group list</code> command. Multiple groups in the list. Must have Contact of ID 1 in Addressbook (the display showing all available contacts, use <code>contact list</code>), cannot have Contact of ID 0 in Addressbook. Be sure to delete group <em>ao3</em> before the start of every test case with <code>group delete ao3</code>.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group create ao3</code><br>
+<strong>Expected</strong>: Group <em>ao3</em> is created with no members. Status message indicates "New group successfully added".</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group create ao3 --i 1</code><br>
+<strong>Expected</strong>: Group <em>ao3</em> is created with with ContactID of 1 listed in the group. Status message indicates "New group successfully added.".</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group create ao3 --i 0 --i 1</code><br>
+<strong>Expected</strong>: Group <em>ao3</em> is created with with ContactID of 1 listed in the group. Status message indicates "New group successfully added. The following members were not found [00000]".</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group create ao3 --i holland</code><br>
+<strong>Expected</strong>: Group <em>ao3</em> is not created. Status message indicates "MemberIds should be numeric and only up to 5 characters long".</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group create archive of our own</code><br>
+<strong>Expected</strong>: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".</p>
+</li>
+</ol>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 09:32:58 UTC</div></div></div></body></html>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-members-to-a-group"><a class="link" href="#adding-members-to-a-group">G.7. Adding members to a group</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Adding members to a group with the group currently being displayed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Prerequisites</strong>: Display contacts in group <em>BTS</em> with <code>group find BTS</code>, if not found create with the group. Must have Contact of ID 1 in Addressbook (the display showing all available contacts, use <code>contact list</code>), cannot have Contact of ID 0 in Addressbook. Group <em>BTS</em> should not contain members with Contact of ID 1 or 0.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group add BTS --i 1</code><br>
+<strong>Expected</strong>: Group <em>BTS</em> is displayed with members including Contact with ContactID of 1. Status message indicates "Attempting to add contact(s) to group".</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group add BTS --i 1</code><br>
+<strong>Note</strong>: The purpose of this test is cummulative with the previous to add a contact to a group that already exists in the group<br>
+<strong>Expected</strong>: Group <em>BTS</em> is displayed with members including Contact with ContactID of 1. Status message indicates "Attempting to add contact(s) to group".</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group add BTS --i 0</code><br>
+<strong>Expected</strong>: Group <em>BTS</em> is unchanged. Status message indicates "Attempting to add contact(s) to group. The following members were not found [00000]".</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group add BTS --i holland</code><br>
+<strong>Expected</strong>: Group <em>BTS</em> is unchanged. Status message indicates "MemberIds should be numeric and only up to 5 characters long".</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group add archive of our own --i 1</code><br>
+<strong>Expected</strong>: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="removing-members-from-a-group"><a class="link" href="#removing-members-from-a-group">G.8. Removing members from a group</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Removing members from a group with the group currently being displayed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Prerequisites</strong>: Display contacts in group <em>BTS</em> with <code>group find BTS</code>, if not found create with the group. Must have Contact of ID 1 in the group (if not there add it in using <code>group add BTS --i 1</code>), cannot have Contact of ID 0 in the group.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group remove BTS --i 1</code><br>
+*Expected: Group <em>BTS</em> is displayed with members excluding Contact with ContactID of 1. Status message indicates "Attempting to remove contact(s) from group.".</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group remove BTS --i 0</code><br>
+*Expected: Group <em>BTS</em> is unchanged. Status message indicates "Attempting to remove contact(s) from group. The following members were not found [00000]".</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group remove BTS --i holland</code><br>
+<strong>Expected</strong>: Group <em>BTS</em> is unchanged. Status message indicates "MemberIds should be numeric and only up to 5 characters long".</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group remove bangtan sonyeondan --i 1</code><br>
+<strong>Expected</strong>: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="list-all-available-groups"><a class="link" href="#list-all-available-groups">G.9. List all available groups</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>List all groups.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Prerequisites</strong>: Must contain at least one Group</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group list</code><br>
+<strong>Expected</strong>: All groups are listed. Status message indicates "Success! Listing groups found."</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find-a-specific-group"><a class="link" href="#find-a-specific-group">G.10. Find a specific group</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Display all members in a group with group currently not being dislayed.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Prerequisites</strong>: Group <em>BTS</em> must exist in the list of group, check with <code>group list</code>, if not found create with the group. Group <em>fanficdotnet</em> does not exist in list of groups. Ensure that group is currently not being displayed using <code>contact list</code> before every test case.</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group find BTS</code><br>
+*Expected: Group <em>BTS</em> is displayed with members. Status message indicates "Success! Di*splaying the group".</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group find fanficdotnet</code><br>
+Expected: UI is unchanged. Status message indicates "The group name provided could not be found.".</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group find archive of our own</code><br>
+<strong>Expected</strong>: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-a-group"><a class="link" href="#deleting-a-group">G.11. Deleting a group</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Deleting a group while viewing members in the group</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Prerequisites</strong>: View group <em>ao3</em> (which must already exist otherwise create it) with <code>group find ao3</code>, group <em>ao3</em> must have Contact of ContactID 1 in it and exist in Addressbook (check with <code>contact list</code>).</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group delete ao3</code><br>
+<strong>Expected</strong>: Group <em>ao3</em> is deleted and all groups remaining groups (if any) are being displayed, contact of contactID 1 still exists in Addressbook. Status message indicates "Success! now showing all groups.".</p>
+</li>
+<li>
+<p><strong>Test case</strong>: <code>group delete archive of our own</code><br>
+<strong>Expected</strong>: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 10:20:20 UTC</div></div></div></body></html>
