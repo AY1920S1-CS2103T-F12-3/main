@@ -33,6 +33,7 @@
 <li><a href="#Design-ContactStorage">2.5.1. Contact Storage component</a></li>
 <li><a href="#Design-NoteStorage">2.5.2. Note Storage component</a></li>
 <li><a href="#Design-GroupStorage">2.5.3. Group Storage component</a></li>
+<li><a href="#Design-TagStorage">2.5.4. Tag Storage component</a></li>
 </ul>
 </li>
 <li><a href="#Design-Commons">2.6. Common classes</a></li>
@@ -66,8 +67,14 @@
 <li><a href="#implementation-5">3.4.2. Implementation</a></li>
 </ul>
 </li>
-<li><a href="#logging">3.5. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
+<li><a href="#contact-profile-feature">3.5. Contact Profile feature</a>
+<ul class="sectlevel3">
+<li><a href="#description-5">3.5.1. Description</a></li>
+<li><a href="#implementation-6">3.5.2. Implementation</a></li>
+</ul>
+</li>
+<li><a href="#logging">3.6. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -651,6 +658,31 @@ As an additional feature to be implemented in the future, we can store a <code>T
 </ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Design-TagStorage"><a class="link" href="#Design-TagStorage">2.5.4. Tag Storage component</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="images/TagStorageClassDiagram.png" alt="TagStorageClassDiagram">
+</div>
+<div class="title">Figure 21. Class diagram of the Tag Storage Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/storage/tag/TagBookStorage.java"><code>TagBookStorage.java</code></a></p>
+</div>
+<div class="paragraph">
+<p>The <code>TagStorage</code> component,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>can save <code>Tag</code> objects in json format and read it back.</p>
+</li>
+<li>
+<p>can save the Tag Book data in json format and read it back.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Design-Commons"><a class="link" href="#Design-Commons">2.6. Common classes</a></h3>
@@ -831,7 +863,7 @@ As an additional feature to be implemented in the future, we can store a <code>T
 <div class="content">
 <img src="images/UserPromptActivityDiagram.png" alt="UserPromptActivityDiagram">
 </div>
-<div class="title">Figure 21. Overall activity diagram for handling user input</div>
+<div class="title">Figure 22. Overall activity diagram for handling user input</div>
 </div>
 </div>
 </div>
@@ -1043,7 +1075,7 @@ would interact with <code>GroupCommand</code> and <code>GroupModel</code> state.
 <div class="content">
 <img src="images/GroupContactsState0.png" alt="GroupContactsState0">
 </div>
-<div class="title">Figure 22. Simplified state of relevant Model components initially</div>
+<div class="title">Figure 23. Simplified state of relevant Model components initially</div>
 </div>
 <div class="paragraph">
 <p>The <code>AddressBook</code> model state contains all the <code>Contact</code> class that exists in the App.
@@ -1058,7 +1090,7 @@ would interact with <code>GroupCommand</code> and <code>GroupModel</code> state.
 <div class="content">
 <img src="images/GroupContactsState1.png" alt="GroupContactsState1">
 </div>
-<div class="title">Figure 23. State after Group "BTS" is created</div>
+<div class="title">Figure 24. State after Group "BTS" is created</div>
 </div>
 <div class="paragraph">
 <p>The <code>GroupBook</code> model state now contains a <code>Group</code> instance for "BTS" with no members
@@ -1077,7 +1109,7 @@ Any command regarding <code>Group</code> would prompt the <code>UI</code> to dis
 <div class="content">
 <img src="images/GroupContactsState2.png" alt="GroupContactsState2">
 </div>
-<div class="title">Figure 24. State after four contacts are added into Group "BTS"</div>
+<div class="title">Figure 25. State after four contacts are added into Group "BTS"</div>
 </div>
 <div class="paragraph">
 <p><code>Group</code> "BTS" now has members in it and the <code>UI</code> would display all the contacts found in the
@@ -1095,7 +1127,7 @@ Any command regarding <code>Group</code> would prompt the <code>UI</code> to dis
 <div class="content">
 <img src="images/GroupContactsState3.png" alt="GroupContactsState3">
 </div>
-<div class="title">Figure 25. State after contact with contactId = 00013 is deleted, UI for groups is not active at this point</div>
+<div class="title">Figure 26. State after contact with contactId = 00013 is deleted, UI for groups is not active at this point</div>
 </div>
 <div class="paragraph">
 <p>Deleting a <code>Contact</code> would cause it to be removed from <code>AddressBook</code> model state and the <code>Contact</code>
@@ -1115,7 +1147,7 @@ in <code>GroupBook</code> model state. The updating of <code>GroupBook</code> mo
 <div class="content">
 <img src="images/GroupContactsState4.png" alt="GroupContactsState4">
 </div>
-<div class="title">Figure 26. State after user views contacts of Group "BTS", UI displaying the group of contacts is now visible</div>
+<div class="title">Figure 27. State after user views contacts of Group "BTS", UI displaying the group of contacts is now visible</div>
 </div>
 <div class="paragraph">
 <p>Here, the <code>GroupBook</code> model state is updated and memberId of 00013 from the previous step is removed while <code>Contact</code>
@@ -1131,7 +1163,7 @@ Now all is as it should be in <code>Group</code> "BTS".<br></p>
 <div class="content">
 <img src="images/GroupSequenceDiagram.png" alt="GroupSequenceDiagram">
 </div>
-<div class="title">Figure 27. Sequence diagram of executing <code>FindGroupCommand</code> to view contacts in a <code>Group</code></div>
+<div class="title">Figure 28. Sequence diagram of executing <code>FindGroupCommand</code> to view contacts in a <code>Group</code></div>
 </div>
 </div>
 <div class="sect3">
@@ -1315,7 +1347,7 @@ It contains the filter value and the enum <code>FilterType</code>.</p>
 <div class="content">
 <img src="images/FilterKeywordSequenceDiagram1.png" alt="FilterKeywordSequenceDiagram1">
 </div>
-<div class="title">Figure 28. Sequence diagram of parsing <code>note list</code> user command to obtain a <code>ListNoteCommand</code></div>
+<div class="title">Figure 29. Sequence diagram of parsing <code>note list</code> user command to obtain a <code>ListNoteCommand</code></div>
 </div>
 <div class="paragraph">
 <p><strong>Step 2:</strong> The <code>ListNoteCommand</code> returned will be executed by the <code>LogicManager</code>. If a <code>NoteFilter</code> exists and is of <code>FilterType.KEYWORD</code>, <code>ListNoteCommand#filterAndListByKeyword()</code> will be called.</p>
@@ -1324,7 +1356,7 @@ It contains the filter value and the enum <code>FilterType</code>.</p>
 <div class="content">
 <img src="images/FilterKeywordSequenceDiagram2.png" alt="FilterKeywordSequenceDiagram2" width="700">
 </div>
-<div class="title">Figure 29. Sequence diagram of executing <code>ListNoteCommand</code> to update filtered note list by keyword in <code>Model</code></div>
+<div class="title">Figure 30. Sequence diagram of executing <code>ListNoteCommand</code> to update filtered note list by keyword in <code>Model</code></div>
 </div>
 <div class="paragraph">
 <p>The method will create a <code>NoteContainsKeywordsPredicate</code> and update the list of notes to be displayed via <code>Model#updateFilteredNoteList()</code>.</p>
@@ -1366,7 +1398,7 @@ It contains the filter value and the enum <code>FilterType</code>.</p>
 <div class="content">
 <img src="images/FilterTagSequenceDiagram1.png" alt="FilterTagSequenceDiagram1" width="700">
 </div>
-<div class="title">Figure 30. Sequence diagram of parsing user input tag strings to obtain a <code>ListNoteCommand</code></div>
+<div class="title">Figure 31. Sequence diagram of parsing user input tag strings to obtain a <code>ListNoteCommand</code></div>
 </div>
 <div class="paragraph">
 <p><strong>Step 2:</strong> The <code>ListNoteCommand</code> returned will be executed by the <code>LogicManager</code>. If a <code>NoteFilter</code> exists and is of <code>FilterType.TAG</code>, <code>ListNoteCommand#filterAndListByTag()</code> will be called.</p>
@@ -1375,7 +1407,7 @@ It contains the filter value and the enum <code>FilterType</code>.</p>
 <div class="content">
 <img src="images/FilterTagSequenceDiagram2.png" alt="FilterTagSequenceDiagram2" width="700">
 </div>
-<div class="title">Figure 31. Sequence diagram of executing <code>ListNoteCommand</code> to update filtered note list by <code>Tag</code> in <code>Model</code></div>
+<div class="title">Figure 32. Sequence diagram of executing <code>ListNoteCommand</code> to update filtered note list by <code>Tag</code> in <code>Model</code></div>
 </div>
 <div class="paragraph">
 <p>The method will check if the tags in the <code>NoteFilter</code> exists via <code>Model#findTag()</code>. If a <code>Tag</code> does not exist, an error message will be displayed.</p>
@@ -1392,14 +1424,193 @@ It contains the filter value and the enum <code>FilterType</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.5. Logging</a></h3>
+<h3 id="contact-profile-feature"><a class="link" href="#contact-profile-feature">3.5. Contact Profile feature</a></h3>
+<div class="sect3">
+<h4 id="description-5"><a class="link" href="#description-5">3.5.1. Description</a></h4>
+<div class="paragraph">
+<p>The user can view all notes that are associated with a certain contact with <a href="UserGuide.html#contact-profile">contact profile</a> feature.
+A note is considered to be associated with a contact X if it satisfies one of the following criteria:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The note is tagged with a contact tag that represents X.</p>
+</li>
+<li>
+<p>The note is tagged with a group tag where the represented group has X as one of its members.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This feature takes advantage of the existing <code>note tag</code> command by having these two types of tags:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Contact tag:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Use <code>@</code> symbol as the tag prefix.</p>
+</li>
+<li>
+<p>Represents a contact using its id.</p>
+</li>
+<li>
+<p>Usage example: <code>@12345</code>. This represents a contact with id <code>12345</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Group tag:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Use <code>%</code> symbol as the tag prefix.</p>
+</li>
+<li>
+<p>Represents a group using its name.</p>
+</li>
+<li>
+<p>Usage example: <code>%cs2103t</code>. This represents a group with name <code>cs2103t</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The user can use <code>contact show</code> command to display the profile of a contact.
+A contact profile contains all the stored information (e.g. email and address) and notes that are associated with that contact.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-6"><a class="link" href="#implementation-6">3.5.2. Implementation</a></h4>
+<div class="paragraph">
+<p>The tags that represent contact and group are facilitated by the
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/tag/ContactTag.java"><code>ContactTag</code></a> and
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/tag/GroupTag.java"><code>GroupTag</code></a> classes.</p>
+</div>
+<div class="paragraph">
+<p>Whenever a user uses <code>note tag</code> command to tag a note with any type of tag, part of the input that
+represents the value of tag (i.e. follows <code>--t TAG</code> format) will be passed into
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/logic/parser/tag/TagParserUtil.java"><code>TagParserUtil</code></a>. The parser will
+handle the translation based on the first non-whitespace character into a
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/tag/Tag.java"><code>Tag</code></a> object, which is possible to be either
+<code>ContactTag</code> or <code>GroupTag</code>.</p>
+</div>
+<div class="paragraph">
+<p>Meanwhile, the mechanism to display a contact profile is facilitated by the
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/logic/commands/contact/ShowContactCommand.java"><code>ShowContactCommand</code></a> class.
+This command takes a contact id as parameter and stores it inside the object. Upon execution,
+the command will ask <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/Model.java"><code>Model</code></a> for all groups that
+contain the given contact as one of their members. Afterward, it will filter notes based on contact id and
+all the group names that are converted into <code>Tag</code> objects.</p>
+</div>
+<div class="sect4">
+<h5 id="parsing-for-contact-and-group-tags"><a class="link" href="#parsing-for-contact-and-group-tags">Parsing for contact and group tags</a></h5>
+<div class="paragraph">
+<p>Parsing for contact and group tags are handled by
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/logic/parser/tag/TagParserUtil.java"><code>TagParserUtil</code></a> as described
+in the tagging feature section. Differences between input format with other type of tag (i.e. hash tag) is only the
+first character where contact tag uses <code>@</code> symbol and group tag uses <code>%</code> symbol.</p>
+</div>
+<div class="paragraph">
+<p>However, the main difference is in the implementation of
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/tag/Tag.java"><code>Tag#isValidInModel</code></a>, which is an abstract method that needs
+to be implemented by every concrete subclass of <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/tag/Tag.java"><code>Tag</code></a>.
+The following are how this method is implemented in contact and note tags:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Contact tag determines its validity in the model by calling
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/Model.java"><code>Model#findContact</code></a>, which takes a
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/contact/ContactId.java"><code>ContactId</code></a> as parameter and
+returns an optional object of <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/contact/Contact.java"><code>Contact</code></a>
+that has the specified contact id. If such contact object exists, a contact tag is considered valid.</p>
+</li>
+<li>
+<p>Group tag determines its validity in the model by calling
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/Model.java"><code>Model#hasGroupName</code></a>, which takes a
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/group/GroupName.java"><code>GroupName</code></a> as parameter and
+returns a boolean whether such group name exists in the data stored by Tagline or not.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="creating-the-command"><a class="link" href="#creating-the-command">Creating the command</a></h5>
+<div class="paragraph">
+<p>Given below is an example scenario where the user enters a command to show a contact profile.</p>
+</div>
+<div class="paragraph">
+<p><strong>Step 1:</strong> Similar to other contact commands, the user command is first passed to <code>TaglineParser</code> to identify its type
+until it finally arrives at <code>ShowContactParser</code> which will create the command object. The <code>ShowContactParser</code> also checks
+the input arguments to make sure it follows the basic format.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ContactShowParserDiagram.png" alt="ContactShowParserDiagram" width="700">
+</div>
+<div class="title">Figure 33. Sequence diagram of parsing user input string to obtain a <code>ShowContactCommand</code></div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="executing-the-command"><a class="link" href="#executing-the-command">Executing the command</a></h5>
+<div class="paragraph">
+<p>When executing of <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/logic/commands/contact/ShowContactCommand.java"><code>ShowContactCommand</code></a>,
+there will be an initial check whether the provided contact id is valid or not by calling
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/Model.java"><code>Model#findContact</code></a> similar with checking validity for contact tag.
+If the provided contact id is invalid (e.g. non existing contact), the execution will stop and directly return a
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/logic/commands/CommandResult.java"><code>CommandResult</code></a> which informs about the error.</p>
+</div>
+<div class="paragraph">
+<p>Suppose now we only consider the <code>contact show</code> command that is provided with valid contact id. During execution, it will
+translate the contact id into
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/contact/ContactIdEqualsSearchIdPredicate.java"><code>ContactIdEqualsSearchIdPredicate</code></a> and
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/note/NoteContainsTagsPredicate.java"><code>NoteContainsTagsPredicate</code></a> objects.
+Afterwards, those predicate will be used to update the observable contact and note list, by calling
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/Model.java"><code>Model#updateFilteredContactList</code></a> and
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/Model.java"><code>Model#updateFilteredNoteList</code></a>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ContactShowExecutionDiagram.png" alt="ContactShowExecutionDiagram" width="700">
+</div>
+<div class="title">Figure 34. Sequence diagram of executing <code>contact show</code> command.</div>
+</div>
+<div class="paragraph">
+<p>During translation from contact id to multiple tags, the command objects will call
+<a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/model/Model.java"><code>Model#findGroupsWithMember</code></a> to get all groups that contain
+the specified contact id as one of its members. Afterwards, it creates a single array of tags that represent all tags
+that are associated with the contact id.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/RetrieveAssociatedTagsDiagram.png" alt="RetrieveAssociatedTagsDiagram" width="700">
+</div>
+<div class="title">Figure 35. Sequence diagram of translation from contact id into associated tags.</div>
+</div>
+<div class="paragraph">
+<p>A successful execution of <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/logic/commands/contact/ShowContactCommand.java"><code>ShowContactCommand</code></a>
+will return a <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/logic/commands/CommandResult.java"><code>CommandResult</code></a> that indicates
+a view change into <a href="https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master/src/main/java/tagline/ui/contact/ContactProfileResultView.java"><code>ContactProfileResultView</code></a>.
+The result view for contact profile observes the changes on observable contact and note lists to update accordingly.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logging"><a class="link" href="#logging">3.6. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.6, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.7, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1430,7 +1641,7 @@ It contains the filter value and the enum <code>FilterType</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.6. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.7. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -2619,4 +2830,4 @@ and in the note view.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 15:50:39 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 15:52:59 UTC</div></div></div></body></html>
