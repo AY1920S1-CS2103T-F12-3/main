@@ -10,7 +10,6 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-
 import tagline.commons.core.GuiSettings;
 import tagline.commons.core.LogsCenter;
 import tagline.model.contact.AddressBook;
@@ -166,6 +165,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteContact(Contact target) {
         contactManager.deleteContact(target);
+        refreshTags();
     }
 
     @Override
@@ -235,6 +235,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteNote(Note target) {
         noteManager.deleteNote(target);
+        refreshTags();
     }
 
     @Override
@@ -266,6 +267,11 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredNoteList(Predicate<Note> predicate) {
         noteManager.updateFilteredNoteList(predicate);
+    }
+
+    @Override
+    public void refreshFilteredNoteList() {
+        noteManager.refreshFilteredNoteList();
     }
 
     //=========== GroupBook ================================================================================
@@ -311,6 +317,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteGroup(Group target) {
         groupManager.deleteGroup(target);
+        refreshTags();
     }
 
     //=========== Filtered Group List Accessors =============================================================
@@ -397,6 +404,20 @@ public class ModelManager implements Model {
     public Optional<Tag> findTag(Tag tag) {
         return tagManager.findTag(tag);
     }
+
+    /**
+     * Synchronizes the tags in the tag manager with the other models.
+     */
+    private void refreshTags() {
+        tagManager.getFilteredTagListWithPredicate(tag -> !tag.isValidInModel(this))
+            .forEach(tag -> {
+                tagManager.deleteTag(tag);
+                noteManager.removeTag(tag);
+            });
+
+        refreshFilteredNoteList();
+    }
+
     //========================================================================================================
 
     @Override
